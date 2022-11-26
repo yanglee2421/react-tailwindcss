@@ -1,0 +1,16 @@
+.clearfix {
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+$-arrows: left right;
+
+@each $arrow in $-arrows {
+  .float-#{$arrow} {
+    float: $arrow;
+  }
+}

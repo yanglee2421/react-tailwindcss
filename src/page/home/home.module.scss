@@ -1,0 +1,6 @@
+.home {
+  @extend.p-1;
+  li + li {
+    padding-top: 10px;
+  }
+}

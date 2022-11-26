@@ -1,0 +1,35 @@
+$-dirs: "x", "y";
+
+@each $dir in $-dirs {
+  .overflow-#{$dir}-auto {
+    overflow-#{$dir}: auto;
+  }
+
+  .overflow-#{$dir}-hidden {
+    overflow-#{$dir}: hidden;
+  }
+
+  .overflow-#{$dir}-scroll {
+    overflow-#{$dir}: scroll;
+  }
+
+  .overflow-#{$dir}-overlay {
+    overflow-#{$dir}: overlay !important;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-overlay {
+  overflow: overlay !important;
+}
