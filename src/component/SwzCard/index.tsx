@@ -1,14 +1,11 @@
-import { forwardRef, ReactNode, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle } from "react";
+import type { HTMLAttributes } from "react";
 import style from "./index.module.scss";
 import useClass from "@/hook/useClass";
 const cN = useClass(style);
 // 类型
 export namespace Type {
-  export type Props = Partial<{
-    children: ReactNode | ReactNode[];
-    className: string;
-    style: Record<string, string | number>;
-  }>;
+  export interface Props extends HTMLAttributes<HTMLDivElement> {}
   export interface Ref {
     name: string;
   }
@@ -26,6 +23,7 @@ export default forwardRef<Type.Ref, Type.Props>((props, ref) => {
       {...attrs}
       className={cN("m-1 p-1 b shadow") + className}
     >
+      <h1></h1>
       {children}
     </div>
   );
