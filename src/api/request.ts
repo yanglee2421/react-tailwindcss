@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import { message as Message } from "antd";
 /**
  * 配置
  * 请求域名
@@ -26,11 +27,13 @@ request.interceptors.response.use(
       return data;
     }
     console.warn(statusText);
+    Message.warning(statusText);
     return new Promise(() => {});
   },
   (err: AxiosError) => {
     const { message } = err;
     console.error(message);
+    Message.error(message);
     return new Promise(() => {});
   }
 );
