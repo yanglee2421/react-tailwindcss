@@ -24,12 +24,6 @@ export default forwardRef<Type.Ref, Type.Props>((props, ref) => {
   const match = useMatch("/show/:id");
   console.log("match", match);
   const navigate = useNavigate();
-  console.log("navigate", navigate);
-  setTimeout(() => {
-    navigate("/", {
-      replace: true,
-    });
-  }, 5000);
   return (
     <div>
       <h1>Show</h1>

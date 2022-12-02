@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Skeleton } from "antd";
+
 export default (importComp: () => Promise<any>) => {
   const [Comp, setComp] = useState<any>(null);
   useEffect(() => {
@@ -11,5 +13,5 @@ export default (importComp: () => Promise<any>) => {
       }
     })();
   }, []);
-  return Comp || <div>加载中...</div>;
+  return Comp || <Skeleton />;
 };

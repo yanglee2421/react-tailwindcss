@@ -7,9 +7,8 @@ import ReactIf from "@/test/react-if";
 import ReactSlot from "@/test/react-slot";
 import style from "./home.module.scss";
 const cN = useClass(style);
-function Home() {
+export default () => {
   const [chk, setChk] = useState(false);
-
   return (
     <div className={cN("home")}>
       <h1 className={cN("")}>首页</h1>
@@ -84,5 +83,4 @@ function Home() {
       </ReactSlot>
     </div>
   );
-}
-export default Home;
+};
