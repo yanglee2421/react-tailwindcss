@@ -1,6 +1,6 @@
 import style from "./App.module.scss";
 import useClass from "./hook/useClass";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import RouterGuard from "@/route";
 const cN = useClass(style);
 function App() {

@@ -8,6 +8,7 @@ import {
   useNavigate,
   Outlet,
 } from "react-router-dom";
+import { Divider } from "antd";
 const cN = useClass(style);
 export namespace Type {
   export interface Props extends HTMLAttributes<HTMLDivElement> {}
@@ -25,9 +26,12 @@ export default forwardRef<Type.Ref, Type.Props>((props, ref) => {
   console.log("match", match);
   const navigate = useNavigate();
   return (
-    <div>
-      <h1>Show</h1>
-      <Outlet></Outlet>
+    <div className={cN("p-1")}>
+      <h1>Show页面</h1>
+      <Divider>子路由</Divider>
+      <div className={cN("flex center-center")}>
+        <Outlet></Outlet>
+      </div>
     </div>
   );
 });

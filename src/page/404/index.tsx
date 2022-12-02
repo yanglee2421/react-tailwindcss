@@ -1,21 +1,12 @@
 import useClass from "@/hook/useClass";
 import style from "./404.module.scss";
-import { SwzCard } from "@/component";
-import type { SwzCardType } from "@/component";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Card, Button, Input } from "antd";
+import { Card, Button, Input, Divider, Empty } from "antd";
 import type { InputRef } from "antd";
 const cN = useClass(style);
 export default forwardRef<HTMLDivElement>((props, ref) => {
   const [count, setCount] = useState(0);
   console.log(count, "组件函数本体");
-  useEffect(() => {
-    console.log(CardRef.current.name, "effect（仅挂载）");
-    // inputRef.current?.focus();
-    return () => {
-      console.log(CardRef, "return effect（仅挂载）");
-    };
-  }, []);
   useEffect(() => {
     console.log(count, "effect02");
     inputRef.current?.focus();
@@ -23,34 +14,39 @@ export default forwardRef<HTMLDivElement>((props, ref) => {
       console.log(count, "return effect02");
     };
   }, [count]);
-  const CardRef = useRef<SwzCardType.Ref>({ name: "" });
   const inputRef = useRef<InputRef>(null);
-  // console.log(SwzCard);
 
   return (
-    <div ref={ref}>
-      <h1>404，</h1>
-      <p>很遗憾，这里什么也没有</p>
-      <SwzCard
-        ref={CardRef}
-        className="swz-card-01"
-        style={{ width: 500 }}
-      >
-        一些内容
-      </SwzCard>
-      <Card
-        title="计数器"
-        className={cN("swz-card m-1")}
-      >
-        <div>计数：{count}</div>
-        {count % 2 === 1 && <Input ref={inputRef}></Input>}
-        <Button
-          onClick={(e) => setCount(() => count + 1)}
-          danger
+    <div
+      ref={ref}
+      className={cN("p-1")}
+    >
+      <h1 className={cN("text-danger")}>404</h1>
+      <p className={cN("text-info")}>很遗憾，这里什么也没有...</p>
+      <Divider>华丽的分隔线</Divider>
+      <div className={cN("flex center-center")}>
+        <Card
+          title="计数器"
+          className={cN("swz-card m-1 w-50")}
         >
-          +1
-        </Button>
-      </Card>
+          <div>计数：{count}</div>
+          {count % 2 === 1 && (
+            <Input
+              ref={inputRef}
+              className={cN("mt-1")}
+            ></Input>
+          )}
+          <Button
+            onClick={(e) => setCount(() => count + 1)}
+            danger
+            className={cN("mt-1")}
+          >
+            +1
+          </Button>
+        </Card>
+      </div>
+      <Divider>华丽的分隔线</Divider>
+      <Empty></Empty>
     </div>
   );
 });

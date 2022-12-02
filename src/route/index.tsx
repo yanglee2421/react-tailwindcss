@@ -1,25 +1,21 @@
-import { useRoutes } from "react-router-dom";
-import { Card } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Home, Show, NotFound } from "@/page";
+import { useRoutes, useLocation, useNavigate } from "react-router-dom";
+import { message } from "antd";
+import { useEffect } from "react";
+import routes from "./routes";
 export default () => {
+  const currentElement = useRoutes(routes);
   const location = useLocation();
   const navigate = useNavigate();
-  const routes = useRoutes([
-    { path: "/", element: <Home /> },
-    {
-      path: "show",
-      element: <Show />,
-      children: [{ path: "123", element: <Card title="嵌套路由"></Card> }],
-    },
-    { path: "*", element: <NotFound /> },
-  ]);
   useEffect(() => {
     console.log(location);
     if (location.pathname === "/show") {
-      navigate("/404", { replace: true, state: {} });
+      message.warning("去不了");
+      navigate("/404", { replace: true, state: { title: "404" } });
     }
-  }, [location, routes]);
-  return routes || null;
+    document.title = location.state?.title || "加载中...";
+    return () => {
+      // message.destroy();
+    };
+  }, [currentElement, location]);
+  return currentElement || null;
 };
