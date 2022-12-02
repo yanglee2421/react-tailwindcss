@@ -1,13 +1,15 @@
-import Home from "@/page/home/home";
-import Page404 from "@/page/404/404";
 import style from "./App.module.scss";
 import useClass from "./hook/useClass";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import BaseRouter from "@/route";
 const cN = useClass(style);
 function App() {
   return (
     <div className={cN("App")}>
-      {/* <Home></Home> */}
-      <Page404></Page404>
+      <BrowserRouter>
+        <BaseRouter />
+      </BrowserRouter>
     </div>
   );
 }

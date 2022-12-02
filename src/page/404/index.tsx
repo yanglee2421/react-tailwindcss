@@ -29,7 +29,8 @@ export default forwardRef<HTMLDivElement>((props, ref) => {
 
   return (
     <div ref={ref}>
-      <h1>404，发生了一些问题</h1>
+      <h1>404，</h1>
+      <p>很遗憾，这里什么也没有</p>
       <SwzCard
         ref={CardRef}
         className="swz-card-01"
@@ -37,7 +38,10 @@ export default forwardRef<HTMLDivElement>((props, ref) => {
       >
         一些内容
       </SwzCard>
-      <Card className={cN("swz-card m-1")}>
+      <Card
+        title="计数器"
+        className={cN("swz-card m-1")}
+      >
         <div>计数：{count}</div>
         {count % 2 === 1 && <Input ref={inputRef}></Input>}
         <Button
