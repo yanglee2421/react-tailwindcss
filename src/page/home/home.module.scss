@@ -4,3 +4,9 @@
     padding-top: 10px;
   }
 }
+.grid-box {
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  gap: 20px;
+  grid-auto-flow: column;
+}

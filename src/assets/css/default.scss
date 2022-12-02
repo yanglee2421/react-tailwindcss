@@ -51,3 +51,14 @@ img {
 [v-cloak] {
   display: none !important;
 }
+#root {
+  height: 100vh;
+  overflow: auto;
+  overflow: overlay;
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

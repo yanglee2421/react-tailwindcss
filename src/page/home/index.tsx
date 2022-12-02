@@ -13,7 +13,10 @@ export default () => {
     <div className={cN("home")}>
       <h1 className={cN("")}>首页</h1>
       <Divider>列表渲染</Divider>
-      <ReactFor></ReactFor>
+      <div className={cN("grid-box")}>
+        <ReactFor className={cN("shadow p-1")}></ReactFor>
+        <ReactFor className={cN("shadow p-1")}></ReactFor>
+      </div>
       <Divider>条件渲染\计数器更新案例</Divider>
       <Switch onChange={(e) => setChk(() => !chk)}></Switch>
       {!!chk && <ReactIf></ReactIf>}

@@ -3,6 +3,7 @@ import style from "./404.module.scss";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { Card, Button, Input, Divider, Empty } from "antd";
 import type { InputRef } from "antd";
+import { Models } from "@/component";
 const cN = useClass(style);
 export default forwardRef<HTMLDivElement>((props, ref) => {
   const [count, setCount] = useState(0);
@@ -15,7 +16,7 @@ export default forwardRef<HTMLDivElement>((props, ref) => {
     };
   }, [count]);
   const inputRef = useRef<InputRef>(null);
-
+  const [isShow, setIsShow] = useState(false);
   return (
     <div
       ref={ref}
@@ -45,6 +46,23 @@ export default forwardRef<HTMLDivElement>((props, ref) => {
           </Button>
         </Card>
       </div>
+      <Divider>华丽的分隔线</Divider>
+      <Button
+        onClick={() => {
+          setIsShow(() => true);
+        }}
+        type="link"
+      >
+        打开
+      </Button>
+      {isShow && (
+        <Models
+          onClose={() => {
+            setIsShow(() => false);
+          }}
+          className="123"
+        ></Models>
+      )}
       <Divider>华丽的分隔线</Divider>
       <Empty></Empty>
     </div>

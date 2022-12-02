@@ -1,5 +1,10 @@
 import useClass from "@/hook/useClass";
-import { forwardRef, HTMLAttributes, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  HTMLAttributes,
+  Suspense,
+  useImperativeHandle,
+} from "react";
 import style from "./show.module.scss";
 import {
   useParams,

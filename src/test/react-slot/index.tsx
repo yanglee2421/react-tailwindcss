@@ -1,4 +1,4 @@
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 import { Card, Row, Col } from "antd";
 function ReactSlot(props: any, context: any) {
   useEffect(() => {
@@ -19,7 +19,7 @@ function ReactSlot(props: any, context: any) {
     </Card>
   );
 }
-ReactSlot.Item = function Item() {
+ReactSlot.Item = () => {
   return <div>1122</div>;
 };
 export default ReactSlot;

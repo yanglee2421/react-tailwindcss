@@ -1,9 +1,15 @@
+@use "./var/shadow.scss" as *;
+
 .b {
   border: 1px dashed rgb(random(255), random(255), random(255));
 }
 
 .border {
   border: 1px solid #eee;
+}
+
+.shadow {
+  box-shadow: $box-shadow;
 }
 
 $-wh: 25, 50, 75, 100;
