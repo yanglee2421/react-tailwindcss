@@ -1,5 +1,4 @@
-import axios from "axios";
-import type { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { message as Message } from "antd";
 /**
  * 配置
@@ -12,9 +11,7 @@ const request = axios.create({
 });
 // 请求
 request.interceptors.request.use((config: AxiosRequestConfig) => {
-  if (!config.headers) {
-    return config;
-  }
+  if (!config.headers) return config;
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
   config.headers["Content-Type"] = "application/json;charset=utf-8";
   return config;
@@ -23,9 +20,7 @@ request.interceptors.request.use((config: AxiosRequestConfig) => {
 request.interceptors.response.use(
   (res: AxiosResponse) => {
     const { status, statusText, data } = res;
-    if (status === 200) {
-      return data;
-    }
+    if (status === 200) return data;
     console.warn(statusText);
     Message.warning(statusText);
     return new Promise(() => {});
@@ -40,21 +35,6 @@ request.interceptors.response.use(
 /**
  * 导出实例
  */
-export default async <T = unknown>({
-  method,
-  url,
-  data = {},
-  params = {},
-}: {
-  method?: string;
-  url: string;
-  data?: unknown;
-  params?: unknown;
-}) => {
-  return (await request({
-    method,
-    url,
-    data,
-    params,
-  })) as unknown as T;
+export default async <T = unknown>(params: AxiosRequestConfig) => {
+  return (await request(params)) as unknown as T;
 };
