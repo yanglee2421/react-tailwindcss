@@ -7,7 +7,6 @@ export default () => {
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(location);
     if (location.pathname === "/show") {
       message.warning("去不了");
       navigate("/404", { replace: true, state: { title: "404" } });

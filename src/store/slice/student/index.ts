@@ -9,9 +9,12 @@ const stuSlice = createSlice({
   },
   reducers: {
     setName(state, action) {
-      state.age = 19;
+      state.name = action.payload;
+    },
+    setAge(state, action) {
+      state.age = action.payload;
     },
   },
 });
-const { setName } = stuSlice.actions;
-const nameAction = setName("李四");
+export const { setName, setAge } = stuSlice.actions;
+export default stuSlice.reducer;

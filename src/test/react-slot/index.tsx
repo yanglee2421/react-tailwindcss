@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import { Card, Row, Col } from "antd";
 function ReactSlot(props: any, context: any) {
-  useEffect(() => {
-    console.log(props, context);
-  });
   return (
     <Card title="ReactSolt">
       <Row>
