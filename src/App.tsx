@@ -1,4 +1,4 @@
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/locale/zh_CN";
 import RouterGuard from "@/route";
@@ -16,9 +16,9 @@ function App() {
         algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <HashRouter>
+      <BrowserRouter>
         <RouterGuard />
-      </HashRouter>
+      </BrowserRouter>
     </ConfigProvider>
   );
 }

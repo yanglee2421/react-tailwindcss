@@ -22,9 +22,9 @@ export default defineConfig(({ command, mode }) => {
     // 代理服务器
     server: {
       proxy: {
-        "/api": {
-          target: "https://cn.bing.com",
-          rewrite: (path) => path.replace(/^\/api/, ""),
+        "/dev": {
+          target: "http://192.168.3.3",
+          rewrite: (path) => path.replace(/^\/dev/, ""),
           changeOrigin: true,
           ws: true,
         },
