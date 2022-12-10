@@ -1,14 +1,24 @@
 import { useClass } from "@/hook";
 import style from "./test.module.scss";
-import { Card, Button, message } from "antd";
-import { createContext, useState } from "react";
+// ant-design
+import { Card, Button, message, Switch } from "antd";
+// react
+import { createContext, useMemo, useState } from "react";
+// component
 import Child from "./child";
+// api
 import request from "@/api/request";
-import useDark from "@/hook/useDark";
+// reduex
+import { useSelector, useDispatch } from "react-redux";
+import { setIsDark } from "@/redux/slice/theme";
 const cN = useClass(style);
 const MyContext = createContext({});
 export default () => {
-  const isDark = useDark();
+  const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
+  const dispatch = useDispatch();
+  const fun = (checked: boolean) => {
+    dispatch(setIsDark(checked));
+  };
   const login = () => {
     request<{ isPass: boolean; res: string }>({
       url: "/api/login",
@@ -39,10 +49,11 @@ export default () => {
     });
   };
   const [count, setCount] = useState(0);
+  const provide = useMemo(() => ({ count }), [count, setCount]);
   return (
     <Card
       title={count || "0"}
-      className={cN(["m-1", isDark ? "dark-mode" : ""])}
+      className={cN("m-1")}
     >
       <Button
         onClick={(e) => setCount((prev) => prev + 1)}
@@ -71,7 +82,11 @@ export default () => {
       >
         下载
       </Button>
-      <MyContext.Provider value={{ count, setCount }}>
+      <Switch
+        defaultChecked={isDark}
+        onChange={fun}
+      />
+      <MyContext.Provider value={provide}>
         <Child></Child>
       </MyContext.Provider>
     </Card>
