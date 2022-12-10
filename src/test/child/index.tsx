@@ -2,7 +2,7 @@ import style from "./child.module.scss";
 import { useClass } from "@/hook";
 import { useSelector, useDispatch } from "react-redux";
 import { setAge, setName } from "@/redux/slice/student";
-
+import WebWorker from "../webWorker";
 const cN = useClass(style);
 export default () => {
   const student = useSelector<{ student: { name: string } }, { name: string }>(
@@ -14,6 +14,7 @@ export default () => {
   return (
     <div className="mt-1">
       <p>这是子组件</p>
+      <WebWorker></WebWorker>
     </div>
   );
 };
