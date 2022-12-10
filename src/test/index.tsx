@@ -4,9 +4,11 @@ import { Card, Button, message } from "antd";
 import { createContext, useState } from "react";
 import Child from "./child";
 import request from "@/api/request";
+import useDark from "@/hook/useDark";
 const cN = useClass(style);
 const MyContext = createContext({});
 export default () => {
+  const isDark = useDark();
   const login = () => {
     request<{ isPass: boolean; res: string }>({
       url: "/api/login",
@@ -40,7 +42,7 @@ export default () => {
   return (
     <Card
       title={count || "0"}
-      className={cN("m-1")}
+      className={cN(["m-1", isDark ? "dark-mode" : ""])}
     >
       <Button
         onClick={(e) => setCount((prev) => prev + 1)}

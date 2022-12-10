@@ -1,0 +1,8 @@
+.dark-mode {
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1) !important;
+    img {
+      filter: invert(1) !important;
+    }
+  }
+}

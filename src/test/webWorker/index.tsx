@@ -1,8 +1,8 @@
 import { Button } from "antd";
-import workerJs from "./worker?url";
+import workerJs from "./worker?worker";
 export default () => {
   const fun = () => {
-    const worker = new Worker(workerJs);
+    const worker = new workerJs();
     worker.addEventListener("message", (event) => {
       console.log("eventListener", event);
     });
@@ -18,7 +18,9 @@ export default () => {
       <Button
         onClick={fun}
         className="mt-1"
-      ></Button>
+      >
+        执行worker
+      </Button>
     </div>
   );
 };
