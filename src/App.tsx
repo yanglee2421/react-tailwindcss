@@ -8,9 +8,7 @@ import { setIsDark } from "@/redux/slice/theme";
 function App() {
   const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
   const dispatch = useDispatch();
-  useDark((mediaQuery) => {
-    dispatch(setIsDark(mediaQuery.matches));
-  });
+  useDark((mediaQuery) => dispatch(setIsDark(mediaQuery.matches)));
   return (
     <ConfigProvider
       locale={zhCN}
