@@ -19,8 +19,9 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    // 代理服务器
+    // 开发服务器
     server: {
+      port: 5173,
       proxy: {
         "/dev": {
           target: "http://192.168.3.3",
@@ -29,7 +30,10 @@ export default defineConfig(({ command, mode }) => {
           ws: true,
         },
       },
-      port: 5173,
+    },
+    base: "/react/",
+    build: {
+      outDir: "react-app",
     },
   };
 });

@@ -1,4 +1,4 @@
-import type { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 import { Home, Show, NotFound } from "@/page";
 import { Card, Button } from "antd";
 import Test from "@/test";
@@ -13,6 +13,7 @@ const routes: RouteObject[] = [
     ],
   },
   { path: "test", element: <Test></Test> },
-  { path: "*", element: <NotFound /> },
+  { path: "404", element: <NotFound /> },
+  { path: "*", element: <Navigate to="404" /> },
 ];
 export default routes;

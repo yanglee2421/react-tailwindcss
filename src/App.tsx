@@ -16,7 +16,7 @@ function App() {
         algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <BrowserRouter basename="/react/">
+      <BrowserRouter basename="react">
         <RouterGuard />
       </BrowserRouter>
     </ConfigProvider>
