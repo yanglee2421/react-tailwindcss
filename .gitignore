@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+react-app
 *.local
 
 # Editor directories and files

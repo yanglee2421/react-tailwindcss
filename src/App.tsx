@@ -1,11 +1,14 @@
-import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/locale/zh_CN";
-import RouterGuard from "@/route";
-import { useDark } from "@/hook";
+// router
+import { BrowserRouter } from "react-router-dom";
+import Router from "@/route";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setIsDark } from "@/redux/slice/theme";
-function App() {
+// hook
+import { useDark } from "@/hook";
+export default () => {
   const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
   const dispatch = useDispatch();
   useDark((mediaQuery) => dispatch(setIsDark(mediaQuery.matches)));
@@ -17,9 +20,8 @@ function App() {
       }}
     >
       <BrowserRouter basename="react">
-        <RouterGuard />
+        <Router></Router>
       </BrowserRouter>
     </ConfigProvider>
   );
-}
-export default App;
+};
