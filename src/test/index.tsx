@@ -46,27 +46,49 @@ export default () => {
   };
 
   return (
-    <Card>
-      <Counter>
-        <Button
-          onClick={login}
-          danger
-          className={cN("ml-1")}
-        >
-          登录
-        </Button>
-        <Button
-          onClick={download}
-          danger
-          className={cN("ml-1")}
-        >
-          下载
-        </Button>
-        <Switch
-          defaultChecked={isDark}
-          onChange={fun}
-        />
-      </Counter>
-    </Card>
+    <div className={cN("root")}>
+      <Card className={cN("m-1")}>
+        <Counter>
+          <Button
+            onClick={login}
+            danger
+            className={cN("ml-1")}
+          >
+            登录
+          </Button>
+          <Button
+            onClick={download}
+            danger
+            className={cN("ml-1")}
+          >
+            下载
+          </Button>
+          <Switch
+            defaultChecked={isDark}
+            onChange={fun}
+          />
+        </Counter>
+      </Card>
+      {/* prettier-ignore */}
+      <div
+        className={cN("b m-2 ")}
+        style={{ height: 300 }}
+      >
+        <div className={cN("test")}>今天</div>
+      </div>
+      <div
+        className={cN("b m-2")}
+        style={{ height: 300 }}
+      >
+        <div className={cN("test")}>昨天</div>
+      </div>
+      <div
+        className={cN("b m-2")}
+        style={{ height: 300 }}
+      >
+        <div className={cN("test")}>上周</div>
+      </div>
+      <div style={{ height: 2000 }}></div>
+    </div>
   );
 };

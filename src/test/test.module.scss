@@ -6,3 +6,12 @@
     }
   }
 }
+.root {
+  height: 100vh;
+  overflow: auto;
+}
+.test {
+  position: sticky;
+  top: 0;
+  bottom: 0;
+}
