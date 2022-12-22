@@ -8,11 +8,19 @@ const cN = useClass(style);
 export default () => {
   const student = useSelector<any, any>((state) => state.student);
   const dispatch = useDispatch();
-  const { data } = useGetStuQuery();
+  const { name } = useGetStuQuery(undefined, {
+    pollingInterval: 0,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+    skip: true,
+    selectFromResult: (res) => ({
+      name: res.data?.[0],
+    }),
+  });
   setTimeout(() => {
     dispatch(setAge(88));
     dispatch(setName("李四"));
-    console.log(data);
   }, 0);
   return (
     <div className="mt-1">

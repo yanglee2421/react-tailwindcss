@@ -5,6 +5,7 @@ const studentApi = createApi({
     baseUrl: "http://192.168.1.4",
     timeout: 60000,
   }),
+  tagTypes: ["bing"],
   endpoints(build) {
     return {
       getStu: build.query<string[], void>({
@@ -15,6 +16,17 @@ const studentApi = createApi({
           return baseQueryReturnValue.data;
         },
         keepUnusedDataFor: 60,
+        providesTags: (res, err, arg) => [{ type: "bing", id: "all" }],
+      }),
+      addStu: build.mutation({
+        query() {
+          return {
+            url: "/bing",
+            method: "post",
+            body: {},
+          };
+        },
+        invalidatesTags: (res, err, arg) => ["bing"],
       }),
     };
   },
