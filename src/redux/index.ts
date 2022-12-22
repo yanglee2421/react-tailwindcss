@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import * as reducer from "./slice";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import rtkq from "@/api/rtkq";
-export default configureStore({
+import * as reducer from "./slice";
+const store = configureStore({
   reducer: {
     ...reducer,
     [rtkq.reducerPath]: rtkq.reducer,
   },
   middleware: (getMiddleWare) => getMiddleWare().concat(rtkq.middleware),
 });
+// 设置以后支持refetchOnReconnect、refetchOnFocus
+setupListeners(store.dispatch);
+export default store;
