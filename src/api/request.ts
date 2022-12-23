@@ -7,7 +7,7 @@ import { message as Message } from "antd";
  */
 const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 6000,
+  timeout: 20000,
 });
 /**
  * 请求拦截器

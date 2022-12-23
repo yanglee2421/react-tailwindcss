@@ -1,20 +1,16 @@
-import { useRoutes, useLocation, useNavigate } from "react-router-dom";
-import { message } from "antd";
-import { useEffect } from "react";
+import { useRoutes, useLocation, Navigate } from "react-router-dom";
+import { useMemo } from "react";
 import routes from "./routes";
+const whiteList: string[] = ["/", "/login", "/404", "/test"];
 export default () => {
-  const currentElement = useRoutes(routes);
+  const routerElement = useRoutes(routes);
   const location = useLocation();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (location.pathname === "/show") {
-      message.warning("去不了");
-      navigate("/404", { replace: true, state: { title: "404" } });
+  const resElement = useMemo(() => {
+    if (whiteList.includes(location.pathname)) {
+      return routerElement;
     }
-    document.title = location.state?.title || "加载中...";
-    return () => {
-      // message.destroy();
-    };
-  }, [currentElement, location]);
-  return currentElement || null;
+    // prettier-ignore
+    return <Navigate to="login" replace />;
+  }, [location, routerElement]);
+  return resElement;
 };

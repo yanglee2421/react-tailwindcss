@@ -14,6 +14,7 @@ const routes: RouteObject[] = [
   },
   { path: "test", element: <Test></Test> },
   { path: "404", element: <NotFound /> },
-  { path: "*", element: <Navigate to="404" /> },
+  // prettier-ignore
+  { path: "*", element: <Navigate to="404" replace /> },
 ];
 export default routes;
