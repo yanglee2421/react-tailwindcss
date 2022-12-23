@@ -17,7 +17,7 @@ export default () => {
   };
   const login = () => {
     request<{ isPass: boolean; res: string }>({
-      url: "/api/login",
+      url: "/auth/login",
       method: "post",
       data: { user: "admin", pwd: "admin" },
     }).then((res) => {

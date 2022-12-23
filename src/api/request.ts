@@ -15,7 +15,6 @@ const request = axios.create({
 request.interceptors.request.use((config: AxiosRequestConfig) => {
   if (!config.headers) return config;
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-  config.headers["Content-Type"] = "application/json;charset=utf-8";
   return config;
 });
 /**
@@ -42,3 +41,8 @@ request.interceptors.response.use(
 export default async <T = unknown>(params: AxiosRequestConfig) => {
   return (await request(params)) as unknown as T;
 };
+fetch("/bing", {
+  headers: {
+    responseType: "blob",
+  },
+});

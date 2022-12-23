@@ -24,7 +24,7 @@ export default defineConfig(({ command, mode }) => {
       port: 5173,
       proxy: {
         "/dev": {
-          target: "http://192.168.3.3",
+          target: "http://192.168.1.4",
           rewrite: (path) => path.replace(/^\/dev/, ""),
           changeOrigin: true,
           ws: true,
