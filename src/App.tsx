@@ -1,4 +1,4 @@
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider, theme, App } from "antd";
 import zhCN from "antd/locale/zh_CN";
 // router
 import { BrowserRouter } from "react-router-dom";
@@ -19,9 +19,11 @@ export default () => {
         algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
+      {/* <App key={1}> */}
       <BrowserRouter basename="react">
         <Router></Router>
       </BrowserRouter>
+      {/* </App> */}
     </ConfigProvider>
   );
 };

@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-let timer: NodeJS.Timeout;
+namespace Type {
+  export interface state {
+    isLogined: boolean;
+    username: string;
+    maxtime: number;
+  }
+}
 const authSlice = createSlice({
   name: "auth",
   // 状态
@@ -9,9 +15,12 @@ const authSlice = createSlice({
       username: "",
       maxtime: 0,
     };
-    const prevState = localStorage.getItem("authState");
-    if (prevState) {
-      return JSON.parse(prevState);
+    try {
+      const prevStaStr = localStorage.getItem("authState") || "{}";
+      const prevState = JSON.parse(prevStaStr) as Type.state;
+      if (prevState.maxtime > Date.now()) return prevState;
+    } catch {
+      localStorage.removeItem("authState");
     }
     return defaultState;
   },
@@ -20,12 +29,13 @@ const authSlice = createSlice({
     loginFn(state, action) {
       state.isLogined = true;
       state.username = action.payload.username;
-      timer = setTimeout(() => {}, state.maxtime - Date.now());
+      state.maxtime = action.payload.maxtime;
+      localStorage.setItem("authState", JSON.stringify(state));
     },
     loginoutFn(state) {
       state.isLogined = false;
       state.username = "";
-      clearTimeout(timer);
+      state.maxtime = 0;
     },
   },
 });
