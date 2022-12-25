@@ -1,7 +1,7 @@
-import { useRoutes, useLocation, Navigate } from "react-router-dom";
 import { useMemo } from "react";
-import routes from "./routes";
 import { useSelector } from "react-redux";
+import { useRoutes, useLocation, Navigate } from "react-router-dom";
+import routes from "./routes";
 const whiteList: string[] = ["/", "/login", "/404", "/test"];
 export default () => {
   const location = useLocation();
@@ -14,6 +14,6 @@ export default () => {
     if (isLogined) return routerElement;
     // prettier-ignore
     return <Navigate to="login" replace />;
-  }, [location, routerElement]);
+  }, [location, routerElement, isLogined]);
   return resElement;
 };

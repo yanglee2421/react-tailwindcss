@@ -11,8 +11,11 @@ const store = configureStore({
 });
 // 设置以后支持refetchOnReconnect、refetchOnFocus
 setupListeners(store.dispatch);
+// 订阅功能
 const un = store.subscribe(() => {
-  console.log(store.getState());
+  const {
+    auth: {},
+  } = store.getState();
   un();
 });
 export default store;
