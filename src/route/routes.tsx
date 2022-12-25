@@ -6,13 +6,13 @@ const routes: RouteObject[] = [
   { path: "/", element: <Home /> },
   {
     path: "show",
-    element: <Show></Show>,
+    element: <Show />,
     children: [
       { path: "card", element: <Card title="嵌套路由"></Card> },
       { path: "button", element: <Button danger>嵌套路由</Button> },
     ],
   },
-  { path: "test", element: <Test></Test> },
+  { path: "test", element: <Test /> },
   { path: "404", element: <NotFound /> },
   // prettier-ignore
   { path: "*", element: <Navigate to="404" replace /> },
