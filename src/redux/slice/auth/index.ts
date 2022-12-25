@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let timer: NodeJS.Timeout;
 const authSlice = createSlice({
   name: "auth",
+  // 状态
   initialState: () => {
     const defaultState = {
       isLogined: false,
@@ -14,6 +15,7 @@ const authSlice = createSlice({
     }
     return defaultState;
   },
+  // 处理
   reducers: {
     loginFn(state, action) {
       state.isLogined = true;
