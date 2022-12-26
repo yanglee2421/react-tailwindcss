@@ -4,9 +4,9 @@ import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useLoginMutation } from "@/api/rtkq/authApi";
 import { useGetBingQuery } from "@/api/rtkq/bingApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginFn } from "@/redux/slice/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 const cn = useClass(style);
 namespace type {
@@ -17,6 +17,9 @@ namespace type {
   }
 }
 export default () => {
+  const isLogined = useSelector<any, boolean>((state) => state.auth.isLogined);
+  // prettier-ignore
+  if (isLogined) return <Navigate to="/web3d" replace />;
   const divRef = useRef<HTMLDivElement>(null);
   const bingRes = useGetBingQuery();
   useEffect(() => {
@@ -33,33 +36,15 @@ export default () => {
     login(value).then((res: any) => {
       if (!res.data) return;
       const { isPass, token, username, invalidTime, mes } = res.data;
-      const auth = { username, invalidTime };
+      const auth = { username, invalidTime, token, remember: value.remember };
       if (isPass) {
         dispatch(loginFn(auth));
-        localStorage.setItem("token", token);
-        value.remember && localStorage.setItem("auth", JSON.stringify(auth));
         navigate("/web3d", { replace: true });
         return;
       }
       message.warning(mes);
     });
   };
-  // 自动登录
-  useEffect(() => {
-    try {
-      const authStr = localStorage.getItem("auth");
-      const token = localStorage.getItem("token");
-      if (!(authStr && token)) return;
-      const auth = JSON.parse(authStr);
-      if (auth.invalidTime > Date.now() + 1000 * 60) {
-        dispatch(loginFn(auth));
-        navigate("/web3d", { replace: true });
-      }
-    } catch {
-      localStorage.removeItem("auth");
-      localStorage.removeItem("token");
-    }
-  }, []);
   return (
     <div
       ref={divRef}

@@ -21,10 +21,10 @@ setupListeners(store.dispatch);
 let timer: NodeJS.Timeout | undefined;
 store.subscribe(() => {
   const {
-    auth: { isLogined, maxtime },
+    auth: { isLogined, invalidTime },
   } = store.getState();
-  const validTime = maxtime - Date.now();
-  if (isLogined && validTime > 1000 * 10) {
+  const validTime = invalidTime - Date.now() - 1000 * 60;
+  if (isLogined && validTime > 0) {
     timer ||= setTimeout(() => {
       store.dispatch(loginoutFn());
     }, validTime);
