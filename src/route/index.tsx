@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useRoutes, useLocation, Navigate } from "react-router-dom";
 import routes from "./routes";
-const whiteList: string[] = ["/", "/login", "/404", "/test", "/web3d"];
+const whiteList: string[] = ["/", "/login", "/test", "/web3d"];
 export default () => {
   const location = useLocation();
   const routerElement = useRoutes(routes);

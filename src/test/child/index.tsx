@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useGetStuQuery } from "@/api/rtkq";
+import { useGetStuQuery } from "@/api/rtkq/bingApi";
 import { useClass } from "@/hook";
 import { setAge, setName } from "@/redux/slice/student";
 import style from "./child.module.scss";
