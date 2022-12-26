@@ -6,26 +6,24 @@ const authSlice = createSlice({
   initialState: () => ({
     isLogined: false,
     username: "",
-    maxtime: 0,
+    invalidTime: 0,
   }),
   // 处理
   reducers: {
     loginFn(state, action) {
       const {
-        payload: { username, maxtime, token },
+        payload: { username, invalidTime },
       } = action;
       state.username = username;
-      state.maxtime = maxtime;
+      state.invalidTime = invalidTime;
       state.isLogined = true;
-      localStorage.setItem("authState", JSON.stringify(state));
-      localStorage.setItem("token", token);
-      message.success("已登录");
+      message.success("登录成功");
     },
     loginoutFn(state) {
       state.username = "";
-      state.maxtime = 0;
+      state.invalidTime = 0;
       state.isLogined = false;
-      localStorage.removeItem("authState");
+      localStorage.removeItem("auth");
       localStorage.removeItem("token");
       message.success("登录已注销");
     },

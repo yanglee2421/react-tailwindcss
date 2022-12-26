@@ -6,27 +6,19 @@ import { Button } from "antd";
 import { useEffect } from "react";
 import { useClass } from "@/hook";
 import style from "./web3d.module.scss";
-import { loginFn } from "@/redux/slice/auth";
+import { loginoutFn } from "@/redux/slice/auth";
 import { setAge } from "@/redux/slice/student";
 const cn = useClass(style);
 export default () => {
   const navigate = useNavigate();
   const age = useSelector<any, number>((state) => state.student.age);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      loginFn({
-        username: "admin",
-        maxtime: Date.now() + 1000 * 60 * 2,
-        token: "",
-      })
-    );
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       <h1>web3d:{age}</h1>
       <Button
-        onClick={() => navigate("/show")}
+        onClick={() => dispatch(loginoutFn())}
         danger
       >
         注销登录

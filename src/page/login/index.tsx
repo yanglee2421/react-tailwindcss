@@ -1,8 +1,11 @@
 import style from "./login.module.scss";
-import { Button, Card, Checkbox, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useClass } from "@/hook";
+import { Button, Card, Checkbox, Form, Input, message } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { useLoginMutation } from "@/api/rtkq/authApi";
 import { useDispatch } from "react-redux";
+import { loginFn } from "@/redux/slice/auth";
+import { useNavigate } from "react-router-dom";
 const cn = useClass(style);
 namespace type {
   export interface formValue {
@@ -14,20 +17,33 @@ namespace type {
 export default () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const [login, loginRes] = useLoginMutation();
+  const navigate = useNavigate();
+  // 表单提交
   const onFinish = (value: type.formValue) => {
-    if (value.remember) {
-      localStorage.setItem("auth", JSON.stringify(value));
-    }
-    console.log(value);
+    login(value).then((res: any) => {
+      if (!res.data) return;
+      const { isPass, token, username, invalidTime, mes } = res.data;
+      const auth = { username, invalidTime };
+      if (isPass) {
+        dispatch(loginFn(auth));
+        localStorage.setItem("token", token);
+        value.remember && localStorage.setItem("auth", JSON.stringify(auth));
+        navigate("/web3d", { replace: true });
+        return;
+      }
+      message.warning(mes);
+    });
   };
   return (
     <div className="h-100 flex center-center">
       <Card className={cn("card-login")}>
         <Form
+          form={form}
           name="normal_login"
-          className="login-form"
           initialValues={{ remember: true }}
           onFinish={onFinish}
+          className="login-form"
         >
           <Form.Item
             name="username"
