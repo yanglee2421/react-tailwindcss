@@ -19,7 +19,7 @@ namespace type {
 export default () => {
   const isLogined = useSelector<any, boolean>((state) => state.auth.isLogined);
   // prettier-ignore
-  if (isLogined) return <Navigate to="/web3d" replace />;
+  if (isLogined) return <Navigate to="/" replace />;
   const divRef = useRef<HTMLDivElement>(null);
   const bingRes = useGetBingQuery();
   useEffect(() => {
@@ -93,7 +93,6 @@ export default () => {
               Forgot password
             </a>
           </Form.Item>
-
           <Form.Item>
             <Button
               type="primary"
