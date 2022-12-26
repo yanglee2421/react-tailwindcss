@@ -3,9 +3,11 @@ import { useClass } from "@/hook";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useLoginMutation } from "@/api/rtkq/authApi";
+import { useGetBingQuery } from "@/api/rtkq/bingApi";
 import { useDispatch } from "react-redux";
 import { loginFn } from "@/redux/slice/auth";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 const cn = useClass(style);
 namespace type {
   export interface formValue {
@@ -15,9 +17,16 @@ namespace type {
   }
 }
 export default () => {
+  const divRef = useRef<HTMLDivElement>(null);
+  const bingRes = useGetBingQuery();
+  useEffect(() => {
+    if (!divRef.current) return;
+    if (!bingRes.isSuccess) return;
+    divRef.current.style.backgroundImage = `url(${bingRes.data})`;
+  }, [bingRes]);
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
   const [login, loginRes] = useLoginMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // 表单提交
   const onFinish = (value: type.formValue) => {
@@ -35,8 +44,27 @@ export default () => {
       message.warning(mes);
     });
   };
+  // 自动登录
+  useEffect(() => {
+    try {
+      const authStr = localStorage.getItem("auth");
+      const token = localStorage.getItem("token");
+      if (!(authStr && token)) return;
+      const auth = JSON.parse(authStr);
+      if (auth.invalidTime > Date.now() + 1000 * 60) {
+        dispatch(loginFn(auth));
+        navigate("/web3d", { replace: true });
+      }
+    } catch {
+      localStorage.removeItem("auth");
+      localStorage.removeItem("token");
+    }
+  }, []);
   return (
-    <div className="h-100 flex center-center">
+    <div
+      ref={divRef}
+      className={cn("login-root")}
+    >
       <Card className={cn("card-login")}>
         <Form
           form={form}

@@ -1,34 +1,38 @@
-import { Scene } from "three";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {
+  Scene,
+  PerspectiveCamera,
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  WebGLRenderer,
+} from "three";
 // antd
-import { Button } from "antd";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useClass } from "@/hook";
 import style from "./web3d.module.scss";
-import { loginoutFn } from "@/redux/slice/auth";
-import { setAge } from "@/redux/slice/student";
 const cn = useClass(style);
 export default () => {
-  const navigate = useNavigate();
-  const age = useSelector<any, number>((state) => state.student.age);
-  const dispatch = useDispatch();
+  const uid = useId();
+  useEffect(() => {
+    const root = document.getElementById(uid)!;
+    const scence = new Scene();
+    const camera = new PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 0, 10);
+    scence.add(camera);
+    const cubeG = new BoxGeometry(1, 1, 1);
+    const mater = new MeshBasicMaterial({ color: 0xffff00 });
+    const cube = new Mesh(cubeG, mater);
+    scence.add(cube);
+    const render = new WebGLRenderer();
+    render.setSize(window.innerWidth, window.innerHeight);
+    root.hasChildNodes() || root.appendChild(render.domElement);
+    render.render(scence, camera);
+  }, []);
   useEffect(() => {}, []);
-  return (
-    <div>
-      <h1>web3d:{age}</h1>
-      <Button
-        onClick={() => dispatch(loginoutFn())}
-        danger
-      >
-        注销登录
-      </Button>
-      <Button
-        onClick={() => dispatch(setAge(age + 1))}
-        danger
-      >
-        age++
-      </Button>
-    </div>
-  );
+  return <div id={uid}></div>;
 };

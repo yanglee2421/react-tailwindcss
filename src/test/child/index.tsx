@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useGetStuQuery } from "@/api/rtkq/bingApi";
+import { useGetBingQuery } from "@/api/rtkq/bingApi";
 import { useClass } from "@/hook";
 import { setAge, setName } from "@/redux/slice/student";
 import style from "./child.module.scss";
@@ -9,7 +9,7 @@ const cN = useClass(style);
 export default () => {
   const student = useSelector<any, any>((state) => state.student);
   const dispatch = useDispatch();
-  const { name } = useGetStuQuery(undefined, {
+  const { name } = useGetBingQuery(undefined, {
     pollingInterval: 0,
     refetchOnMountOrArgChange: true,
     skip: true,

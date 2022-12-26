@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-const studentApi = createApi({
+const bingApi = createApi({
   reducerPath: "bingApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
@@ -12,12 +12,12 @@ const studentApi = createApi({
   tagTypes: ["bing"],
   endpoints(build) {
     return {
-      getStu: build.query<string[], void>({
+      getBing: build.query<string[], void>({
         query() {
-          return "bing";
+          return "/bing";
         },
         transformResponse(baseQueryReturnValue: any) {
-          return baseQueryReturnValue.data;
+          return baseQueryReturnValue?.[0];
         },
         keepUnusedDataFor: 60,
         providesTags: (res, err, arg) => [{ type: "bing", id: "all" }],
@@ -35,5 +35,5 @@ const studentApi = createApi({
     };
   },
 });
-export const { useGetStuQuery } = studentApi;
-export default studentApi;
+export const { useGetBingQuery } = bingApi;
+export default bingApi;
