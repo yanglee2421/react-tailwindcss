@@ -1,23 +1,20 @@
 import { Navigate, RouteObject } from "react-router-dom";
-import { Home, Login, Show, NotFound, Web3d } from "@/page";
 import { Card, Button } from "antd";
-import Test from "@/test";
 import { useImp } from "@/hook";
 const routes: RouteObject[] = [
-  { path: "/", element: <Home /> },
+  { path: "/", element: useImp(() => import("@/page/home")) },
   {
     path: "show",
-    element: <Show />,
+    element: useImp(() => import("@/page/show")),
     children: [
       { path: "card", element: <Card title="嵌套路由"></Card> },
       { path: "button", element: <Button danger>嵌套路由</Button> },
     ],
   },
-  { path: "login", element: <Login /> },
-  { path: "register", element: useImp(() => import("@/page/register")) },
-  { path: "test", element: <Test /> },
-  { path: "web3d", element: <Web3d /> },
-  { path: "404", element: <NotFound /> },
+  { path: "login", element: useImp(() => import("@/page/login")) },
+  { path: "test", element: useImp(() => import("@/test")) },
+  { path: "web3d", element: useImp(() => import("@/page/web3d")) },
+  { path: "404", element: useImp(() => import("@/page/404")) },
   // prettier-ignore
   { path: "*", element: <Navigate to="404" replace /> },
 ];

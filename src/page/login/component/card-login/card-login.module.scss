@@ -1,0 +1,15 @@
+.card-login {
+  @include card-glass;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.login-form-button {
+  width: 100%;
+}
+.site-form-item-icon {
+  color: #999;
+}
+.login-form-forgot {
+  float: right;
+}
