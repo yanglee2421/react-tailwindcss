@@ -1,6 +1,6 @@
 import { useClass } from "@/hook";
 import style from "./table.module.scss";
-import { Button, Form, Input, Pagination, Table } from "antd";
+import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useQueryAuthQuery, useDelMutation } from "@/api/rtkq/authApi";
 import { useEffect, useRef, useState } from "react";
@@ -54,7 +54,7 @@ export default () => {
     };
   }, []);
   return (
-    <div className={cn("h-100 flex-column p-1")}>
+    <Layout className={cn("h-100 flex-column p-1")}>
       <Form layout="inline">
         <Form.Item>
           <Input />
@@ -91,6 +91,6 @@ export default () => {
         showSizeChanger
         showQuickJumper
       ></Pagination>
-    </div>
+    </Layout>
   );
 };
