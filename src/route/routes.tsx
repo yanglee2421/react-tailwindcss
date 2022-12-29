@@ -2,6 +2,7 @@ import { Navigate, RouteObject } from "react-router-dom";
 import { Home, Login, Show, NotFound, Web3d } from "@/page";
 import { Card, Button } from "antd";
 import Test from "@/test";
+import { useImp } from "@/hook";
 const routes: RouteObject[] = [
   { path: "/", element: <Home /> },
   {
@@ -13,6 +14,7 @@ const routes: RouteObject[] = [
     ],
   },
   { path: "login", element: <Login /> },
+  { path: "register", element: useImp(() => import("@/page/register")) },
   { path: "test", element: <Test /> },
   { path: "web3d", element: <Web3d /> },
   { path: "404", element: <NotFound /> },

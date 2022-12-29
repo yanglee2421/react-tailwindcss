@@ -6,7 +6,7 @@ import { useLoginMutation } from "@/api/rtkq/authApi";
 import { useGetBingQuery } from "@/api/rtkq/bingApi";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFn } from "@/redux/slice/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 const cn = useClass(style);
 namespace type {
@@ -101,7 +101,7 @@ export default () => {
             >
               Log in
             </Button>
-            Or <a href="#">register now!</a>
+            Or <NavLink to="/register">register now!</NavLink>
           </Form.Item>
         </Form>
       </Card>
