@@ -12,6 +12,7 @@ const routes: RouteObject[] = [
     ],
   },
   { path: "login", element: useImp(() => import("@/page/login")) },
+  { path: "table", element: useImp(() => import("@/page/table")) },
   { path: "test", element: useImp(() => import("@/test")) },
   { path: "web3d", element: useImp(() => import("@/page/web3d")) },
   { path: "404", element: useImp(() => import("@/page/404")) },
