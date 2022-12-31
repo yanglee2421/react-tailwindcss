@@ -60,16 +60,16 @@ export default () => {
             >
               下载
             </Button>
-            <NavLink to="threejs">
+            <NavLink to="/threejs">
               <Button type="primary">threejs</Button>
             </NavLink>
             <NavLink to="/">
               <Button type="ghost">首页</Button>
             </NavLink>
-            <NavLink to="404">
+            <NavLink to="/404">
               <Button type="link">404</Button>
             </NavLink>
-            <NavLink to="table">
+            <NavLink to="/table">
               <Button type="text">table</Button>
             </NavLink>
           </Space>
