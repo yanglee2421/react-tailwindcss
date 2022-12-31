@@ -32,9 +32,9 @@ export default (props: type.props) => {
     loginFn(value)
       .unwrap()
       .then((data) => {
-        const { isPass, token, username, invalidTime, mes } = data;
+        const { isOk, token, username, invalidTime, mes } = data;
         const auth = { username, invalidTime, token, remember: value.remember };
-        if (isPass) {
+        if (isOk) {
           dispatch(loginAct(auth));
           navigate("/", { replace: true });
           return;

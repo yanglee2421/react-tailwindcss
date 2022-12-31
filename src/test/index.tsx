@@ -11,13 +11,13 @@ import { NavLink } from "react-router-dom";
 const cN = useClass(style);
 export default () => {
   const login = useCallback(() => {
-    request<{ isPass: boolean; res: string }>({
+    request<{ isOk: boolean; res: string }>({
       url: "/auth/login",
       method: "post",
       data: { user: "admin", pwd: "admin" },
     }).then((res) => {
-      const { isPass, res: string } = res;
-      if (isPass) {
+      const { isOk, res: string } = res;
+      if (isOk) {
         localStorage.setItem("token", string);
         message.success("登录成功");
         return;

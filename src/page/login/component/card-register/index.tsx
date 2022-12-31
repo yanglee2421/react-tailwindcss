@@ -39,12 +39,15 @@ export default (props: type.props) => {
     registerFn(formData)
       .unwrap()
       .then((res) => {
-        if (res?.isPassed) {
-          message.success(res?.mes);
+        if (res.isOk) {
+          message.success(res.mes);
           onLoginClick();
           return;
         }
-        message.warning(res?.mes);
+        message.warning(res.mes);
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
   const onValuesChange = (
@@ -54,11 +57,11 @@ export default (props: type.props) => {
     if (!chgValue.password2) return;
     const { password } = allValue;
     setValidate((prev) => {
-      const isPassed = chgValue.password2 !== password;
+      const isOk = chgValue.password2 !== password;
       return {
         ...prev,
-        validateStatus: isPassed ? undefined : "error",
-        help: isPassed ? undefined : "两次输入的密码不一致！",
+        validateStatus: isOk ? undefined : "error",
+        help: isOk ? undefined : "两次输入的密码不一致！",
       };
     });
   };
