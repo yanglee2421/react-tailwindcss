@@ -1,20 +1,74 @@
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "./card-register.module.scss";
 import { useClass } from "@/hook";
-import React from "react";
+import React, { useState } from "react";
+import { useRegisterMutation } from "@/api/rtkq/authApi";
 const cn = useClass(style);
 namespace type {
+  type validateStatus =
+    | ""
+    | "error"
+    | "validating"
+    | "success"
+    | "warning"
+    | undefined;
   export interface props {
     isRegister: boolean;
-    onLoginClick(e: React.MouseEvent): void;
+    onLoginClick(e?: React.MouseEvent): void;
+  }
+  export interface formData {
+    username: string;
+    password: string;
+    password2: string;
+  }
+  export interface validate {
+    validateStatus: validateStatus;
+    help?: string;
   }
 }
 export default (props: type.props) => {
   const { isRegister, onLoginClick } = props;
+  const [registerFn, registerRes] = useRegisterMutation();
+  const [form] = Form.useForm();
+  const [validate, setValidate] = useState<type.validate>({
+    validateStatus: undefined,
+    help: undefined,
+  });
+  const onFinish = (formData: type.formData) => {
+    registerFn(formData)
+      .unwrap()
+      .then((res) => {
+        if (res?.isPassed) {
+          message.success(res?.mes);
+          onLoginClick();
+          return;
+        }
+        message.warning(res?.mes);
+      });
+  };
+  const onValuesChange = (
+    chgValue: Partial<type.formData>,
+    allValue: type.formData
+  ) => {
+    if (!chgValue.password2) return;
+    const { password } = allValue;
+    setValidate((prev) => {
+      const isPassed = chgValue.password2 !== password;
+      return {
+        ...prev,
+        validateStatus: isPassed ? undefined : "error",
+        help: isPassed ? undefined : "两次输入的密码不一致！",
+      };
+    });
+  };
   return (
     <Card className={cn(["card-register", isRegister ? "rotate-y-0" : ""])}>
-      <Form>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        onValuesChange={onValuesChange}
+      >
         <Form.Item
           name="username"
           rules={[{ required: true }]}
@@ -37,6 +91,8 @@ export default (props: type.props) => {
         <Form.Item
           name="password2"
           rules={[{ required: true }]}
+          validateStatus={validate.validateStatus}
+          help={validate.help}
         >
           <Input
             prefix={<LockOutlined className={cn("site-form-item-icon")} />}

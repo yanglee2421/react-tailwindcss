@@ -2,7 +2,7 @@ import { useClass } from "@/hook";
 import style from "./card-login.module.scss";
 import { Button, Card, Form, Input, Checkbox, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { loginFn } from "@/redux/slice/auth";
+import { loginAct } from "@/redux/slice/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/api/rtkq/authApi";
@@ -25,16 +25,16 @@ export default (props: type.props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [login, loginRes] = useLoginMutation();
+  const [loginFn, loginRes] = useLoginMutation();
 
   // 表单提交
   const onFinish = (value: type.formValue) => {
-    login(value).then((res: any) => {
+    loginFn(value).then((res: any) => {
       if (!res.data) return;
       const { isPass, token, username, invalidTime, mes } = res.data;
       const auth = { username, invalidTime, token, remember: value.remember };
       if (isPass) {
-        dispatch(loginFn(auth));
+        dispatch(loginAct(auth));
         navigate("/web3d", { replace: true });
         return;
       }

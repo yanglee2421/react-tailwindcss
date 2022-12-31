@@ -2,24 +2,38 @@ import { useClass } from "@/hook";
 import style from "./table.module.scss";
 import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useQueryAuthQuery, useDelMutation } from "@/api/rtkq/authApi";
+import { usePwdQuery, usePwdDelMutation } from "@/api/rtkq/authApi";
 import { useEffect, useRef, useState } from "react";
+import { Dialog } from "./component";
 const cn = useClass(style);
 export default () => {
-  const { data } = useQueryAuthQuery(false);
-  const [del, delRes] = useDelMutation();
+  const [req, setReq] = useState({
+    pwd_site: "",
+    pwd_username: "",
+    page_index: 1,
+    page_size: 20,
+  });
+  const [form] = Form.useForm();
+  const resetBtn = () => {
+    form.resetFields();
+    console.log(form);
+  };
+  const { data } = usePwdQuery(req);
+  const [delPwd] = usePwdDelMutation();
   const columns: ColumnsType<any> = [
-    { title: "Id", dataIndex: "user_id", align: "center", width: 100 },
-    { title: "用户名", dataIndex: "user_name", align: "center", width: 100 },
-    { title: "密码", dataIndex: "user_pwd", align: "center", width: 100 },
+    { title: "Id", dataIndex: "pwd_id", align: "center" },
+    { title: "站点", dataIndex: "pwd_site", align: "center" },
+    { title: "用户名", dataIndex: "pwd_username", align: "center" },
+    { title: "密码", dataIndex: "pwd_pwd", align: "center" },
     {
       title: "操作",
       align: "center",
       render: (row: any) => (
         <Button
           onClick={() => {
-            del(row.user_id);
+            delPwd(row.pwd_id);
           }}
+          type="link"
           danger
         >
           delete
@@ -27,11 +41,7 @@ export default () => {
       ),
     },
   ];
-  const arr = [];
-  for (let i = 0; i < 1000; i++) {
-    arr.push({ user_id: i });
-  }
-  const [scr, setScr] = useState(700);
+  const [scr, setScr] = useState(0);
   const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const observer = new ResizeObserver(
@@ -55,19 +65,47 @@ export default () => {
   }, []);
   return (
     <Layout className={cn("h-100 flex-column p-1")}>
-      <Form layout="inline">
+      <Form
+        form={form}
+        onFinish={(formData) => {
+          console.log(formData);
+        }}
+        layout="inline"
+        className="between-center"
+      >
+        <div className="flex">
+          <Form.Item
+            label="站点"
+            name="pwd_site"
+          >
+            <Input
+              value={req.pwd_site}
+              onChange={(e) =>
+                setReq((prev) => ({
+                  ...prev,
+                  pwd_site: e.target.value.trim(),
+                }))
+              }
+            />
+          </Form.Item>
+          <Form.Item label="用户名">
+            <Input
+              value={req.pwd_username}
+              onChange={(e) =>
+                setReq((prev) => ({
+                  ...prev,
+                  pwd_username: e.target.value.trim(),
+                }))
+              }
+            />
+          </Form.Item>
+        </div>
         <Form.Item>
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Input />
+          <Button onClick={resetBtn}>重置</Button>
         </Form.Item>
       </Form>
       <div className="my-1">
-        <Button>按钮</Button>
+        <Button type="primary">添加</Button>
       </div>
       <div
         ref={divRef}
@@ -77,20 +115,26 @@ export default () => {
           className="h-100"
           columns={columns}
           rowKey={(row) => row.user_id}
-          dataSource={arr}
+          dataSource={data?.rows}
           pagination={{ position: [], pageSize: 100 }}
           size="small"
           scroll={{ y: scr }}
           bordered
-        ></Table>
+        />
       </div>
       <Pagination
-        className="pt-1"
         total={100}
         showTotal={(num) => `共${num}条`}
         showSizeChanger
+        pageSizeOptions={["20", "50", "100"]}
+        defaultPageSize={20}
         showQuickJumper
-      ></Pagination>
+        onChange={(page, pageSize) =>
+          setReq((prev) => ({ ...prev, page_index: page, page_size: pageSize }))
+        }
+        className="mt-1"
+      />
+      <Dialog></Dialog>
     </Layout>
   );
 };

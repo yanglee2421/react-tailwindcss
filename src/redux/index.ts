@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi, bingApi } from "@/api/rtkq";
 import * as reducer from "./slice";
-import { loginoutFn } from "./slice/auth";
+import { loginoutAct } from "./slice/auth";
 const store = configureStore({
   reducer: {
     ...reducer,
@@ -26,7 +26,7 @@ store.subscribe(() => {
   const validTime = invalidTime - Date.now() - 1000 * 60;
   if (isLogined && validTime > 0) {
     timer ||= setTimeout(() => {
-      store.dispatch(loginoutFn());
+      store.dispatch(loginoutAct());
     }, validTime);
     return;
   }

@@ -22,7 +22,7 @@ const authSlice = createSlice({
   },
   // 处理
   reducers: {
-    loginFn(state, action) {
+    loginAct(state, action) {
       const {
         payload: { username, invalidTime, token, remember },
       } = action;
@@ -35,7 +35,7 @@ const authSlice = createSlice({
       }
       message.success("登录成功");
     },
-    loginoutFn(state) {
+    loginoutAct(state) {
       state.username = "";
       state.invalidTime = 0;
       state.isLogined = false;
@@ -45,5 +45,5 @@ const authSlice = createSlice({
     },
   },
 });
-export const { loginFn, loginoutFn } = authSlice.actions;
+export const { loginAct, loginoutAct } = authSlice.actions;
 export default authSlice.reducer;

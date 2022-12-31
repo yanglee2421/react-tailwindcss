@@ -3,7 +3,7 @@ import React, { HTMLAttributes, useImperativeHandle } from "react";
 import style from "./show.module.scss";
 import { useParams, useLocation, useMatch, Outlet } from "react-router-dom";
 import { Button, Divider } from "antd";
-import { loginoutFn } from "@/redux/slice/auth";
+import { loginoutAct } from "@/redux/slice/auth";
 import { useDispatch } from "react-redux";
 const cN = useClass(style);
 export namespace Type {
@@ -25,7 +25,7 @@ export default React.forwardRef<Type.Ref, Type.Props>((props, ref) => {
     <div className={cN("p-1")}>
       <h1>Show页面</h1>
       <Button
-        onClick={() => dispatch(loginoutFn())}
+        onClick={() => dispatch(loginoutAct())}
         danger
       >
         loginout
