@@ -5,10 +5,10 @@ const themeSlice = createSlice({
     isDark: false,
   },
   reducers: {
-    setIsDark(state, { payload }) {
+    setIsDarkAct(state, { payload }) {
       state.isDark = payload;
     },
   },
 });
-export const { setIsDark } = themeSlice.actions;
+export const { setIsDarkAct } = themeSlice.actions;
 export default themeSlice.reducer;

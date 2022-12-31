@@ -1,8 +1,8 @@
 import { useClass } from "@/hook";
 import style from "./card-login.module.scss";
-import { Button, Card, Form, Input, Checkbox, message } from "antd";
+import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { loginAct } from "@/redux/slice/auth";
+import { loginAct } from "@/redux/slice/slice-auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/api/rtkq/authApi";
@@ -22,24 +22,28 @@ namespace type {
 }
 export default (props: type.props) => {
   const { isRegister, onRegisterClick } = props;
-  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loginFn, loginRes] = useLoginMutation();
+  const [loginFn] = useLoginMutation();
 
   // 表单提交
+  const [form] = Form.useForm();
   const onFinish = (value: type.formValue) => {
-    loginFn(value).then((res: any) => {
-      if (!res.data) return;
-      const { isPass, token, username, invalidTime, mes } = res.data;
-      const auth = { username, invalidTime, token, remember: value.remember };
-      if (isPass) {
-        dispatch(loginAct(auth));
-        navigate("/web3d", { replace: true });
-        return;
-      }
-      message.warning(mes);
-    });
+    loginFn(value)
+      .unwrap()
+      .then((data) => {
+        const { isPass, token, username, invalidTime, mes } = data;
+        const auth = { username, invalidTime, token, remember: value.remember };
+        if (isPass) {
+          dispatch(loginAct(auth));
+          navigate("/", { replace: true });
+          return;
+        }
+        message.warning(mes);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>

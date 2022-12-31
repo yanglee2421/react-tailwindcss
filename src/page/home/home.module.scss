@@ -1,12 +1,27 @@
 .home {
-  @extend.p-1;
-  li + li {
-    padding-top: 10px;
-  }
-}
-.grid-box {
+  @extend .p-1;
   display: grid;
-  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
-  gap: 20px;
-  grid-auto-flow: column;
+  grid-template: repeat(3, 300px) / repeat(6, 1fr);
+  gap: 10px;
+  & > *:first-child {
+    grid-column: span 2;
+  }
+  & > *:nth-child(2) {
+    grid-column: span 2;
+  }
+  & > *:nth-child(3) {
+    grid-column: span 2;
+  }
+  & > *:nth-child(4) {
+    grid-column: span 2;
+  }
+  & > *:nth-child(5) {
+    grid-column: span 4;
+  }
+  & > *:nth-child(6) {
+    grid-column: span 3;
+  }
+  & > *:nth-child(7) {
+    grid-column: span 3;
+  }
 }

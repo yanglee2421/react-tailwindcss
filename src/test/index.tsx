@@ -1,21 +1,16 @@
 import { useClass } from "@/hook";
 import style from "./test.module.scss";
 // component
-import { Card, Button, message, Switch } from "antd";
-import { Counter } from "@/component";
+import { Button, Card, Divider, Layout, message, Space } from "antd";
+import { Counter, DarkSwitch } from "@/component";
 // api
 import request from "@/api/request";
-// reduex
-import { useSelector, useDispatch } from "react-redux";
-import { setIsDark } from "@/redux/slice/theme";
+// react
+import { useCallback } from "react";
+import { NavLink } from "react-router-dom";
 const cN = useClass(style);
 export default () => {
-  const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
-  const dispatch = useDispatch();
-  const fun = (checked: boolean) => {
-    dispatch(setIsDark(checked));
-  };
-  const login = () => {
+  const login = useCallback(() => {
     request<{ isPass: boolean; res: string }>({
       url: "/auth/login",
       method: "post",
@@ -29,8 +24,8 @@ export default () => {
       }
       message.warning("登录失败");
     });
-  };
-  const download = () => {
+  }, []);
+  const download = useCallback(() => {
     request<Blob>({
       url: "/file/pic-blob",
       responseType: "blob",
@@ -43,52 +38,65 @@ export default () => {
       a.click();
       URL.revokeObjectURL(url);
     });
-  };
+  }, []);
 
   return (
-    <div className={cN("root")}>
-      <Card className={cN("m-1")}>
+    <Layout className={cN("root p-1")}>
+      <Card>
         <Counter>
-          <Button
-            onClick={login}
-            danger
-            className={cN("ml-1")}
-          >
-            登录
-          </Button>
-          <Button
-            onClick={download}
-            danger
-            className={cN("ml-1")}
-          >
-            下载
-          </Button>
-          <Switch
-            defaultChecked={isDark}
-            onChange={fun}
-          />
+          <hr className="my-1" />
+          <Space>
+            <DarkSwitch />
+            <Button
+              onClick={login}
+              type="dashed"
+              danger
+            >
+              登录
+            </Button>
+            <Button
+              onClick={download}
+              type="default"
+            >
+              下载
+            </Button>
+            <NavLink to="threejs">
+              <Button type="primary">threejs</Button>
+            </NavLink>
+            <NavLink to="/">
+              <Button type="ghost">首页</Button>
+            </NavLink>
+            <NavLink to="404">
+              <Button type="link">404</Button>
+            </NavLink>
+            <NavLink to="table">
+              <Button type="text">table</Button>
+            </NavLink>
+          </Space>
         </Counter>
       </Card>
-      {/* prettier-ignore */}
-      <div
-        className={cN("b m-2 ")}
-        style={{ height: 300 }}
-      >
-        <div className={cN("test")}>今天</div>
-      </div>
-      <div
-        className={cN("b m-2")}
-        style={{ height: 300 }}
-      >
-        <div className={cN("test")}>昨天</div>
-      </div>
-      <div
-        className={cN("b m-2")}
-        style={{ height: 300 }}
-      >
-        <div className={cN("test")}>上周</div>
-      </div>
-      <div style={{ height: 2000 }}></div>
-    </div>
+      <Divider>华丽的分隔线</Divider>
+      <Card>
+        <div
+          className={cN("b m-2 ")}
+          style={{ height: 300 }}
+        >
+          <div className={cN("test")}>今天</div>
+        </div>
+        <div
+          className={cN("b m-2")}
+          style={{ height: 300 }}
+        >
+          <div className={cN("test")}>昨天</div>
+        </div>
+        <div
+          className={cN("b m-2")}
+          style={{ height: 300 }}
+        >
+          <div className={cN("test")}>上周</div>
+        </div>
+        <div style={{ height: 50 }}></div>
+      </Card>
+    </Layout>
   );
 };

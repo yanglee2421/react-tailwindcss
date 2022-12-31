@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi, bingApi } from "@/api/rtkq";
 import * as reducer from "./slice";
-import { loginoutAct } from "./slice/auth";
+import { loginoutAct } from "./slice/slice-auth";
 const store = configureStore({
   reducer: {
     ...reducer,

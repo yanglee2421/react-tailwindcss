@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useGetBingQuery } from "@/api/rtkq/bingApi";
 import { useClass } from "@/hook";
-import { setAge, setName } from "@/redux/slice/student";
+import { setAge, setName } from "@/redux/slice/slice-student";
 import style from "./child.module.scss";
 import WebWorker from "../webWorker";
 import { useTransition } from "react";
