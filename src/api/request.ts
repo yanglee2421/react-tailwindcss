@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { message as Message } from "antd";
 /**
  * 创建Axios实例
@@ -8,27 +8,26 @@ import { message as Message } from "antd";
 const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 20000,
+  headers: {
+    common: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  },
 });
 /**
  * 请求拦截器
  */
-request.interceptors.request.use((config: AxiosRequestConfig) => {
-  if (!config.headers) return config;
-  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-  return config;
-});
+request.interceptors.request.use((config) => config);
 /**
  * 响应拦截器
  */
 request.interceptors.response.use(
-  (res: AxiosResponse) => {
+  (res) => {
     const { status, statusText, data } = res;
     if (status === 200) return data;
     console.warn(statusText);
     Message.warning(statusText);
     return new Promise(() => {});
   },
-  (err: AxiosError) => {
+  (err) => {
     const { message } = err;
     console.error(message);
     Message.error(message);

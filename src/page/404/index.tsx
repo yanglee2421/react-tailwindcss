@@ -9,9 +9,9 @@ import {
   Empty,
   Form,
   Layout,
-  List,
   Row,
   Switch,
+  Space,
 } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Counter, Models } from "@/component";
@@ -48,22 +48,21 @@ export default () => {
         </Col>
         <Col span={12}>
           <Card title="路由">
-            <List bordered>
-              <List.Item>
-                <Button
-                  onClick={retBtn}
-                  type="link"
-                >
-                  返回
-                </Button>
-              </List.Item>
-              <List.Item>
-                <NavLink to="/table">table</NavLink>
-              </List.Item>
-              <List.Item>
-                <NavLink to="/">首页</NavLink>
-              </List.Item>
-            </List>
+            <Space>
+              <NavLink to="/">
+                <Button>首页</Button>
+              </NavLink>
+              <Button onClick={retBtn}>返回</Button>
+              <NavLink to="/test">
+                <Button>测试</Button>
+              </NavLink>
+              <NavLink to="/table">
+                <Button>table</Button>
+              </NavLink>
+              <NavLink to="/threejs">
+                <Button>threejs</Button>
+              </NavLink>
+            </Space>
           </Card>
         </Col>
       </Row>

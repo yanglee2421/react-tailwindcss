@@ -7,7 +7,7 @@ export default (
 ) => {
   const LazyComp = React.lazy(callback);
   return (
-    <React.Suspense fallback={<Skeleton />}>
+    <React.Suspense fallback={<Skeleton active />}>
       <LazyComp />
     </React.Suspense>
   );
