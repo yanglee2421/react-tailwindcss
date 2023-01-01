@@ -13,10 +13,11 @@ const routes: RouteObject[] = [
   },
   { path: "login", element: useImp(() => import("@/page/login")) },
   { path: "table", element: useImp(() => import("@/page/table")) },
+  { path: "threejs", element: useImp(() => import("@/page/threejs")) },
+  { path: "particle", element: useImp(() => import("@/page/particle")) },
   { path: "test", element: useImp(() => import("@/test")) },
-  { path: "threejs", element: useImp(() => import("@/page/web3d")) },
-  { path: "404", element: useImp(() => import("@/page/404")) },
   // prettier-ignore
   { path: "*", element: <Navigate to="404" replace /> },
+  { path: "404", element: useImp(() => import("@/page/404")) },
 ];
 export default routes;

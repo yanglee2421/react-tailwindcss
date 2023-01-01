@@ -1,0 +1,23 @@
+.particle {
+  @extend .h-100;
+  position: relative;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background-image: linear-gradient(
+    #1b2947,
+    #2b3152,
+    #3b385d,
+    #4c4067,
+    #5d4771
+  );
+}
+.particle-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  overflow: overlay;
+}

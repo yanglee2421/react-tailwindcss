@@ -1,0 +1,10 @@
+.partcle {
+  @extend .h-100;
+  background-image: linear-gradient(
+    #1b2947,
+    #2b3152,
+    #3b385d,
+    #4c4067,
+    #5d4771
+  );
+}

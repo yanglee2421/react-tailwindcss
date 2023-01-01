@@ -15,8 +15,11 @@ const authSlice = createSlice({
       if (prevAuth.invalidTime - Date.now() > 1000 * 60) {
         return Object.assign(auth, prevAuth);
       }
-    } catch {
+      throw new Error("原登录信息已失效");
+    } catch (err: any) {
+      message.warning(err.message);
       localStorage.removeItem("auth");
+      localStorage.removeItem("token");
     }
     return auth;
   },
