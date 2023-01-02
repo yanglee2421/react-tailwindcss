@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "antd";
-export default (
+const useImp = (
   callback: () => Promise<{
     default: React.ComponentType<any>;
   }>
@@ -12,3 +12,4 @@ export default (
     </React.Suspense>
   );
 };
+export default useImp;

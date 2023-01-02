@@ -1,6 +1,7 @@
 import { useClass } from "@/hook";
 import React, { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
+import { useResize } from "@/hook";
 const cn = useClass(style);
 class Particle {
   constructor() {}
@@ -8,29 +9,13 @@ class Particle {
   update() {}
 }
 export default (props: React.PropsWithChildren) => {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [box, setBox] = useState({ width: 0, height: 0 });
-  useEffect(() => {
-    const boxDom = boxRef.current!;
-    const observer = new ResizeObserver(
-      ([
-        {
-          contentRect: { width, height },
-        },
-      ]) => {
-        setBox((prev) => ({ ...prev, width, height }));
-      }
-    );
-    observer.observe(boxDom);
-    const { width, height } = boxDom.getBoundingClientRect();
+  const [boxRef] = useResize<HTMLDivElement>((width, height) => {
     setBox((prev) => ({ ...prev, width, height }));
-    return () => {
-      observer.unobserve(boxDom);
-    };
-  }, []);
+  });
 
   // 粒子数组
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -40,6 +25,7 @@ export default (props: React.PropsWithChildren) => {
   }, [box]);
   return (
     <div
+      {...props}
       ref={boxRef}
       className={cn("particle")}
     >
