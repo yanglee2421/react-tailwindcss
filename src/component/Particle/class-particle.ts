@@ -16,6 +16,7 @@ class Particle {
     }
   }
   static clear() {
+    this.canvas = document.createElement("canvas");
     this.#arr = [];
   }
   /**

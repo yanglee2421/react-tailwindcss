@@ -5,12 +5,15 @@ import { useResize } from "@/hook";
 import Particle from "./class-particle";
 const cn = useClass(style);
 namespace type {
-  export interface props extends React.PropsWithChildren {
+  export interface props
+    extends React.PropsWithChildren,
+      React.HTMLAttributes<HTMLDivElement> {
     particleNum?: number;
   }
 }
 const BgParticle = (props: type.props) => {
-  const { particleNum = 50, ...restProps } = props;
+  const { particleNum = 50, className = "", ...restProps } = props;
+  console.log(restProps);
   const [box, setBox] = useState({ width: 0, height: 0 });
   const [boxRef] = useResize<HTMLDivElement>(({ width, height }) => {
     setBox((prev) => ({ ...prev, width, height }));
@@ -21,7 +24,7 @@ const BgParticle = (props: type.props) => {
     canvas.width = box.width;
     canvas.height = box.height;
     Particle.canvas = canvas;
-    Particle.generate();
+    Particle.generate(particleNum);
     Particle.animate();
     Particle.bindEvent();
     return () => {
@@ -34,13 +37,18 @@ const BgParticle = (props: type.props) => {
     <div
       {...restProps}
       ref={boxRef}
-      className={cn("particle")}
+      className={cn("particle") + className}
     >
       <canvas
         ref={canvasRef}
         className={cn("particle-canvas")}
       ></canvas>
-      <div className={cn("particle-content")}>{props.children}</div>
+      <div
+        {...restProps}
+        className={cn("particle-content") + className}
+      >
+        {props.children}
+      </div>
     </div>
   );
 };

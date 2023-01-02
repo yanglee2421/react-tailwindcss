@@ -12,28 +12,24 @@ const bingApi = createApi({
   tagTypes: ["bing"],
   endpoints(build) {
     return {
-      getBing: build.query<string[], void>({
-        query() {
-          return "/bing";
-        },
-        transformResponse(baseQueryReturnValue: any) {
-          return baseQueryReturnValue?.[0];
-        },
-        keepUnusedDataFor: 60,
-        providesTags: (res, err, arg) => [{ type: "bing", id: "all" }],
-      }),
-      addStu: build.mutation({
+      Bing: build.query<string[], void>({
         query() {
           return {
             url: "/bing",
-            method: "post",
-            body: {},
+            params: {
+              idx: 0,
+              n: 8,
+            },
           };
         },
-        invalidatesTags: (res, err, arg) => ["bing"],
+        transformResponse(baseQueryReturnValue: any) {
+          return baseQueryReturnValue;
+        },
+        keepUnusedDataFor: 60 * 60,
+        providesTags: (res, err, arg) => [{ type: "bing", id: "all" }],
       }),
     };
   },
 });
-export const { useGetBingQuery } = bingApi;
+export const { useBingQuery } = bingApi;
 export default bingApi;
