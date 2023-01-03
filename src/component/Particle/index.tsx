@@ -15,7 +15,7 @@ const BgParticle = (props: type.props) => {
   const { particleNum = 50, className = "", ...restProps } = props;
   console.log(restProps);
   const [box, setBox] = useState({ width: 0, height: 0 });
-  const [boxRef] = useResize<HTMLDivElement>(({ width, height }) => {
+  const boxRef = useResize<HTMLDivElement>(({ width, height }) => {
     setBox((prev) => ({ ...prev, width, height }));
   });
   const canvasRef = useRef<HTMLCanvasElement>(null);

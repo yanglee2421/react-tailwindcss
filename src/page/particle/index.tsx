@@ -5,7 +5,7 @@ import PClass from "@/util/class-particle";
 const cn = useClass(style);
 export default () => {
   const [box, setBox] = useState({ width: 0, height: 0 });
-  const [ref] = useResize<HTMLDivElement>(({ width, height }) =>
+  const ref = useResize<HTMLDivElement>(({ width, height }) =>
     setBox((prev) => ({ ...prev, width, height }))
   );
   const canRef = useRef<HTMLCanvasElement>(null);

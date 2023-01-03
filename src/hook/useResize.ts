@@ -22,6 +22,6 @@ const useResize = <T extends HTMLElement>(
       obverser.unobserve(dom);
     };
   }, []);
-  return [ref];
+  return ref;
 };
 export default useResize;
