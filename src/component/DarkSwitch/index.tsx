@@ -1,7 +1,7 @@
 import { Switch, SwitchProps } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
-import { setIsDarkAct } from "@/redux/slice/slice-theme";
+import { setIsDarkAct } from "@/redux/slice-theme";
 export default (props: SwitchProps) => {
   const dispatch = useDispatch();
   const isDark = useSelector<any, boolean>((state) => state.theme.isDark);

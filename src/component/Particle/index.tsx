@@ -2,7 +2,7 @@ import { useClass } from "@/hook";
 import React, { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
 import { useResize } from "@/hook";
-import Particle from "./class-particle";
+import Particles from "./class-particle";
 const cn = useClass(style);
 namespace type {
   export interface props
@@ -23,14 +23,12 @@ const BgParticle = (props: type.props) => {
     const canvas = canvasRef.current!;
     canvas.width = box.width;
     canvas.height = box.height;
-    Particle.canvas = canvas;
-    Particle.generate(particleNum);
-    Particle.animate();
-    Particle.bindEvent();
+    const particles = new Particles(canvas);
+    particles.animate();
+    particles.bindEvent();
     return () => {
-      Particle.clear();
-      Particle.stopAnimate();
-      Particle.abortEvent();
+      particles.abortAnimate();
+      particles.abortEvent();
     };
   }, [box]);
   return (

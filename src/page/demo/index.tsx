@@ -8,10 +8,7 @@ const Test = () => {
   return (
     <Layout>
       <Particle>
-        <div
-          style={{ height: "100vh" }}
-          className="b"
-        >
+        <div style={{ height: "100vh" }}>
           <Card className="m-3"></Card>
           <Switch
             onChange={(e) => {

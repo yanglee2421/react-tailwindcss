@@ -15,7 +15,7 @@ import {
 } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Counter, Models } from "@/component";
-import { setIsDarkAct } from "@/redux/slice/slice-theme";
+import { setIsDarkAct } from "@/redux/slice-theme";
 import { useDispatch, useSelector } from "react-redux";
 const cN = useClass(style);
 export default () => {

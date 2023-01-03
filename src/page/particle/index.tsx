@@ -1,7 +1,7 @@
 import { useClass, useResize } from "@/hook";
 import { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
-import pClass from "@/component/Particle/class-particle";
+import PClass from "@/component/Particle/class-particle";
 const cn = useClass(style);
 export default () => {
   const [box, setBox] = useState({ width: 0, height: 0 });
@@ -13,13 +13,15 @@ export default () => {
     const canvas = canRef.current!;
     canvas.width = box.width;
     canvas.height = box.height;
-    pClass.canvas = canvas;
-    pClass.generate(150);
+    const pClass = new PClass(canvas, {
+      number: 150,
+      lineMax: 120,
+      color: "199, 199, 199",
+    });
     pClass.animate();
     pClass.bindEvent();
     return () => {
-      pClass.clear();
-      pClass.stopAnimate();
+      pClass.abortAnimate();
       pClass.abortEvent();
     };
   }, [box]);

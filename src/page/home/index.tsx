@@ -1,10 +1,9 @@
-import svgSrc from "@/assets/react.svg";
 import style from "./home.module.scss";
 import useClass from "@/hook/useClass";
 import { Card, Form, Layout, List, Switch } from "antd";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsDarkAct } from "@/redux/slice/slice-theme";
+import { setIsDarkAct } from "@/redux/slice-theme";
 import { NavLink } from "react-router-dom";
 const cN = useClass(style);
 export default () => {
