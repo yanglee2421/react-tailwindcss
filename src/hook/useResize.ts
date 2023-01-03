@@ -20,6 +20,7 @@ const useResize = <T extends HTMLElement>(
     obverser.observe(dom);
     return () => {
       obverser.unobserve(dom);
+      obverser.disconnect();
     };
   }, []);
   return ref;
