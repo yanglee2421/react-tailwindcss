@@ -605,10 +605,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmmirror.com/antd/-/antd-5.1.1.tgz#e5971bd907e4edca0e298bdc4a6aed4d4c5bdd41"
-  integrity sha512-nybYEAoFHwAn4WrUQS2I/p+oii/g1nAd60W3n+4CponfrniH/i01idHjT1pR3e7WyFQo6vngrcJUxUxuo3lK5g==
+antd@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.npmmirror.com/antd/-/antd-5.1.2.tgz#6c57c375e193ff77be1a8f6a132f5aacaf21d037"
+  integrity sha512-B6R6Bm0jIOb6v3JhS4DLKghJWqX0OufCOy99+R6F7QtGjbV/0wG/0rqH3DiQ4BHNIHsL+SDUYti9o3cT28lPww==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/cssinjs" "^1.3.0"
@@ -634,7 +634,7 @@ antd@5.1.1:
     rc-mentions "~1.13.1"
     rc-menu "~9.8.0"
     rc-motion "^2.6.1"
-    rc-notification "~5.0.0-alpha.9"
+    rc-notification "~5.0.0"
     rc-pagination "~3.2.0"
     rc-picker "~3.1.1"
     rc-progress "~3.4.1"
@@ -643,7 +643,7 @@ antd@5.1.1:
     rc-segmented "~2.1.0"
     rc-select "~14.2.0"
     rc-slider "~10.0.0"
-    rc-steps "~6.0.0-alpha.2"
+    rc-steps "~6.0.0"
     rc-switch "~4.0.0"
     rc-table "~7.28.3"
     rc-tabs "~12.5.1"
@@ -653,9 +653,8 @@ antd@5.1.1:
     rc-tree-select "~5.6.0"
     rc-trigger "^5.2.10"
     rc-upload "~4.3.0"
-    rc-util "^5.25.2"
+    rc-util "^5.27.0"
     scroll-into-view-if-needed "^3.0.3"
-    shallowequal "^1.1.0"
     throttle-debounce "^5.0.0"
 
 anymatch@~3.1.2:
@@ -1210,7 +1209,7 @@ rc-motion@^2.0.0, rc-motion@^2.0.1, rc-motion@^2.3.0, rc-motion@^2.3.4, rc-motio
     classnames "^2.2.1"
     rc-util "^5.21.0"
 
-rc-notification@~5.0.0-alpha.9:
+rc-notification@~5.0.0:
   version "5.0.0"
   resolved "https://registry.npmmirror.com/rc-notification/-/rc-notification-5.0.0.tgz#afdaa86fdf9c96e767690f2e891747beb3100d19"
   integrity sha512-mTqMD5Uip1tJhX74opHrmC/CG1wtkxuCcaiCaPDFWPJ/o50OgYYi3nPV10Pwgb8mK8dqg9DDQKISWAcKmcVlXQ==
@@ -1310,7 +1309,7 @@ rc-slider@~10.0.0:
     rc-util "^5.18.1"
     shallowequal "^1.1.0"
 
-rc-steps@~6.0.0-alpha.2:
+rc-steps@~6.0.0:
   version "6.0.0"
   resolved "https://registry.npmmirror.com/rc-steps/-/rc-steps-6.0.0.tgz#f7148f8097d5d135f19b96c1b4f4b50ad6093753"
   integrity sha512-+KfMZIty40mYCQSDvYbZ1jwnuObLauTiIskT1hL4FFOBHP6ZOr8LK0m143yD3kEN5XKHSEX1DIwCj3AYZpoeNQ==
@@ -1414,7 +1413,7 @@ rc-upload@~4.3.0:
     classnames "^2.2.5"
     rc-util "^5.2.0"
 
-rc-util@^5.0.1, rc-util@^5.0.6, rc-util@^5.12.0, rc-util@^5.15.0, rc-util@^5.16.0, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.19.2, rc-util@^5.2.0, rc-util@^5.2.1, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.21.2, rc-util@^5.22.5, rc-util@^5.23.0, rc-util@^5.24.4, rc-util@^5.25.2, rc-util@^5.26.0, rc-util@^5.27.0, rc-util@^5.4.0, rc-util@^5.6.1, rc-util@^5.8.0:
+rc-util@^5.0.1, rc-util@^5.0.6, rc-util@^5.12.0, rc-util@^5.15.0, rc-util@^5.16.0, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.19.2, rc-util@^5.2.0, rc-util@^5.2.1, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.21.2, rc-util@^5.22.5, rc-util@^5.23.0, rc-util@^5.24.4, rc-util@^5.26.0, rc-util@^5.27.0, rc-util@^5.4.0, rc-util@^5.6.1, rc-util@^5.8.0:
   version "5.27.1"
   resolved "https://registry.npmmirror.com/rc-util/-/rc-util-5.27.1.tgz#d12f02b9577b04299c0f1a235c8acbcf56e2824b"
   integrity sha512-PsjHA+f+KBCz+YTZxrl3ukJU5RoNKoe3KSNMh0xGiISbR67NaM9E9BiMjCwxa3AcCUOg/rZ+V0ZKLSimAA+e3w==
@@ -1653,10 +1652,10 @@ use-sync-external-store@^1.0.0:
   resolved "https://registry.npmmirror.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
-vite@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.npmmirror.com/vite/-/vite-4.0.3.tgz#de27ad3f263a03ae9419cdc8bc07721eadcba8b9"
-  integrity sha512-HvuNv1RdE7deIfQb8mPk51UKjqptO/4RXZ5yXSAvurd5xOckwS/gg8h9Tky3uSbnjYTgUm0hVCet1cyhKd73ZA==
+vite@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.npmmirror.com/vite/-/vite-4.0.4.tgz#4612ce0b47bbb233a887a54a4ae0c6e240a0da31"
+  integrity sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==
   dependencies:
     esbuild "^0.16.3"
     postcss "^8.4.20"
