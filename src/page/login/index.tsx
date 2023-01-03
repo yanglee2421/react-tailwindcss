@@ -3,7 +3,7 @@ import { useClass } from "@/hook";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import { Particle } from "@/component";
+import { BgParticle } from "@/component";
 import CardLogin from "./component/card-login";
 import CardRegister from "./component/card-register";
 const cn = useClass(style);
@@ -14,7 +14,7 @@ export default () => {
   if (isLogined) return <Navigate to="/" replace />;
   const [isRegister, setIsRegister] = useState(false);
   return (
-    <Particle className={cn("login-root")}>
+    <BgParticle className={cn("login-root")}>
       <div className={cn("card-box")}>
         <CardLogin
           {...{ isRegister }}
@@ -25,6 +25,6 @@ export default () => {
           onLoginClick={() => setIsRegister((prev) => !prev)}
         />
       </div>
-    </Particle>
+    </BgParticle>
   );
 };

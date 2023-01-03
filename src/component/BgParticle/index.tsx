@@ -1,6 +1,6 @@
 import { useClass } from "@/hook";
 import React, { useEffect, useRef, useState } from "react";
-import style from "./particle.module.scss";
+import style from "./BgParticle.module.scss";
 import { useResize } from "@/hook";
 import Particles from "@/util/class-particle";
 const cn = useClass(style);
@@ -13,7 +13,6 @@ namespace type {
 }
 const BgParticle = (props: type.props) => {
   const { particleNum = 50, className = "", ...restProps } = props;
-  console.log(restProps);
   const [box, setBox] = useState({ width: 0, height: 0 });
   const boxRef = useResize<HTMLDivElement>(({ width, height }) => {
     setBox((prev) => ({ ...prev, width, height }));

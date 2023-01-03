@@ -4,4 +4,4 @@ export { default as Models } from "./Model";
 export type { Type as ModelType } from "./Model";
 export { default as Counter } from "./Counter";
 export { default as DarkSwitch } from "./DarkSwitch";
-export { default as Particle } from "./Particle";
+export { default as BgParticle } from "./BgParticle";
