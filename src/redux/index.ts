@@ -1,11 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Reducer } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi, bingApi } from "@/api/rtkq";
-import * as reducer from "./slice";
-import { loginoutAct } from "./slice/slice-auth";
+import { loginoutAct } from "./slice-auth";
+const slice = import.meta.glob<true, string, Reducer>("./slice-*.ts", {
+  eager: true,
+  import: "default",
+});
+const sliceReducer: Record<string, Reducer<any, any>> = {};
+Object.entries<Reducer>(slice).forEach(([key, value]) => {
+  const newKey = key.replace(/(^\.\/slice-)|(\.ts$)/g, "");
+  sliceReducer[newKey] = value;
+});
 const store = configureStore({
   reducer: {
-    ...reducer,
+    ...sliceReducer,
     [authApi.reducerPath]: authApi.reducer,
     [bingApi.reducerPath]: bingApi.reducer,
   },
@@ -20,9 +28,10 @@ setupListeners(store.dispatch);
  */
 let timer: NodeJS.Timeout | undefined;
 store.subscribe(() => {
+  const state = store.getState();
   const {
     auth: { isLogined, invalidTime },
-  } = store.getState();
+  } = state as any;
   const validTime = invalidTime - Date.now() - 1000 * 60;
   if (isLogined && validTime > 0) {
     timer ||= setTimeout(() => {

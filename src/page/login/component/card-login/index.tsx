@@ -2,7 +2,7 @@ import { useClass } from "@/hook";
 import style from "./card-login.module.scss";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { loginAct } from "@/redux/slice/slice-auth";
+import { loginAct } from "@/redux/slice-auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/api/rtkq/authApi";

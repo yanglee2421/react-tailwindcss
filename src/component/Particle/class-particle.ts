@@ -26,9 +26,10 @@ class Particle {
    */
   static maxLine = 100;
   static drawLine() {
-    this.#arr.forEach((p1) => {
-      this.#arr.forEach((p2) => {
-        if (p1 === p2) return;
+    const arr = this.#arr.slice();
+    arr.forEach((p1) => {
+      arr.splice(arr.indexOf(p1), 1);
+      arr.forEach((p2) => {
         const x = Math.abs(p1.x - p2.x);
         if (x > this.maxLine) return;
         const y = Math.abs(p1.y - p2.y);
@@ -52,11 +53,11 @@ class Particle {
    */
   static #animateId = 0;
   static animate() {
+    this.#animateId = requestAnimationFrame(this.animate.bind(Particle));
     const ctx = this.canvas.getContext("2d")!;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.#arr.forEach((particle) => particle.update());
     this.drawLine();
-    this.#animateId = requestAnimationFrame(this.animate.bind(Particle));
   }
   static stopAnimate() {
     cancelAnimationFrame(this.#animateId);
@@ -102,7 +103,7 @@ class Particle {
       () => {
         if (!this.#one) return;
         if (this.#arr.includes(this.#one)) {
-          this.#arr.splice(this.#arr.indexOf(this.#one));
+          this.#arr.splice(this.#arr.indexOf(this.#one), 1);
           this.#one = null;
         }
       },

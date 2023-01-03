@@ -3,7 +3,7 @@ import React, { HTMLAttributes, useImperativeHandle } from "react";
 import style from "./show.module.scss";
 import { useParams, useLocation, useMatch, Outlet } from "react-router-dom";
 import { Button, Divider } from "antd";
-import { loginoutAct } from "@/redux/slice/slice-auth";
+import { loginoutAct } from "@/redux/slice-auth";
 import { useDispatch } from "react-redux";
 const cN = useClass(style);
 export namespace Type {

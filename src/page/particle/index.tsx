@@ -28,7 +28,10 @@ export default () => {
       ref={ref}
       className={cn("partcle")}
     >
-      <canvas ref={canRef}></canvas>
+      <canvas
+        ref={canRef}
+        className={cn("particle-canvas")}
+      ></canvas>
     </div>
   );
 };
