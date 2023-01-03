@@ -2,7 +2,7 @@ import { useClass } from "@/hook";
 import React, { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
 import { useResize } from "@/hook";
-import Particles from "./class-particle";
+import Particles from "@/util/class-particle";
 const cn = useClass(style);
 namespace type {
   export interface props

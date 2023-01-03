@@ -2,7 +2,6 @@ import { useClass } from "@/hook";
 import { Card, Layout, Switch } from "antd";
 import style from "./demo.module.scss";
 import { Particle } from "@/component";
-import Pclass from "@/component/Particle/class-particle";
 const cn = useClass(style);
 const Test = () => {
   return (
@@ -10,12 +9,7 @@ const Test = () => {
       <Particle>
         <div style={{ height: "100vh" }}>
           <Card className="m-3"></Card>
-          <Switch
-            onChange={(e) => {
-              e ? Pclass.animate() : Pclass.stopAnimate();
-            }}
-            defaultChecked
-          ></Switch>
+          <Switch defaultChecked></Switch>
         </div>
       </Particle>
     </Layout>

@@ -1,7 +1,7 @@
 import { useClass, useResize } from "@/hook";
 import { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
-import PClass from "@/component/Particle/class-particle";
+import PClass from "@/util/class-particle";
 const cn = useClass(style);
 export default () => {
   const [box, setBox] = useState({ width: 0, height: 0 });
