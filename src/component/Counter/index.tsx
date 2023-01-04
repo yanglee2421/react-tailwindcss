@@ -4,9 +4,12 @@ import { useState, useMemo, createContext, useEffect } from "react";
 // components
 import { Card, Button } from "antd";
 import Child from "@/test/child";
+export default Counter;
 const cN = useClass(style);
+// 向下传递上下文
 const MyContext = createContext({});
-export default (props: any) => {
+// 组件函数
+function Counter(props: any) {
   const [count, setCount] = useState(0);
   const [elesCount, setElseCount] = useState(0);
   const provide = useMemo(() => ({ count, setCount }), [count, setCount]);
@@ -45,4 +48,4 @@ export default (props: any) => {
       </MyContext.Provider>
     </Card>
   );
-};
+}

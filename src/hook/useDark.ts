@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-const useDark = (callback: (mediaQuery: MediaQueryList) => void) => {
+
+export default useDark;
+
+function useDark(callback: (mediaQuery: MediaQueryList) => void) {
   useEffect(() => {
     const queryDark = matchMedia("(prefers-color-scheme: dark)");
     callback(queryDark);
@@ -16,5 +19,4 @@ const useDark = (callback: (mediaQuery: MediaQueryList) => void) => {
       controller.abort();
     };
   }, []);
-};
-export default useDark;
+}

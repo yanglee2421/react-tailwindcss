@@ -1,4 +1,6 @@
-const useClass = (style: CSSModuleClasses) => {
+export default useClass;
+
+function useClass(style: CSSModuleClasses) {
   return (className: string | string[] | Record<string, boolean>) => {
     const arrStr = (arr: string[]) =>
       arr.map((item) => style[item] || item).join(" ") + " ";
@@ -15,5 +17,4 @@ const useClass = (style: CSSModuleClasses) => {
     const target = Object.keys(className).filter((key) => className[key]);
     return arrStr(target);
   };
-};
-export default useClass;
+}

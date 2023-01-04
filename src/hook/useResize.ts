@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
-const useResize = <T extends HTMLElement>(
+
+export default useResize;
+
+function useResize<T extends HTMLElement>(
   callback: (params: { width: number; height: number }) => void
-) => {
+) {
   const ref = useRef<T>(null);
   useEffect(() => {
     const dom = ref.current;
@@ -24,5 +27,4 @@ const useResize = <T extends HTMLElement>(
     };
   }, []);
   return ref;
-};
-export default useResize;
+}
