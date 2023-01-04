@@ -2,7 +2,9 @@
 .text-center {
   text-align: center;
 }
-
+.text-end {
+  text-align: end;
+}
 .text-primary {
   color: $primary;
 }
@@ -21,4 +23,10 @@
 
 .text-info {
   color: $info;
+}
+.text-black {
+  color: $black;
+}
+.text-white {
+  color: $white;
 }
