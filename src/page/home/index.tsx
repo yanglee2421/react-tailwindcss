@@ -1,17 +1,11 @@
 import style from "./home.module.scss";
 import { useClass } from "@/hook";
-import { Card, Form, Layout, List, Switch } from "antd";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsDarkAct } from "@/redux/slice-theme";
+import { Card, Form, Layout, List } from "antd";
+import { DarkSwitch } from "@/component";
 import { NavLink } from "react-router-dom";
 const cN = useClass(style);
-export default () => {
-  const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
-  const dispatch = useDispatch();
-  const swhChg = useCallback((swhVal: boolean) => {
-    dispatch(setIsDarkAct(swhVal));
-  }, []);
+
+function Home() {
   return (
     <Layout className={cN("home")}>
       <Card title="路由列表">
@@ -34,10 +28,7 @@ export default () => {
       <Card title="主题设置">
         <Form>
           <Form.Item label="夜间模式">
-            <Switch
-              defaultChecked={isDark}
-              onChange={swhChg}
-            />
+            <DarkSwitch />
           </Form.Item>
         </Form>
       </Card>
@@ -47,4 +38,6 @@ export default () => {
       <Card></Card>
     </Layout>
   );
-};
+}
+
+export default Home;

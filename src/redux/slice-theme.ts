@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 namespace theme {
   export const {
-    actions: { setIsDarkAct },
+    actions: { isDarkAct },
     name,
     reducer,
   } = createSlice({
     name: "theme",
     initialState,
     reducers: {
-      setIsDarkAct(state, { payload }: PayloadAction<boolean>) {
+      isDarkAct(state, { payload }: PayloadAction<boolean>) {
         state.isDark = payload;
       },
     },
@@ -23,4 +23,4 @@ function initialState() {
 }
 
 export default theme;
-export const { name, reducer, setIsDarkAct } = theme;
+export const { name, reducer, isDarkAct } = theme;

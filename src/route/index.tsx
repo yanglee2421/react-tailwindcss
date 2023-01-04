@@ -1,12 +1,15 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { useRoutes, useLocation, Navigate } from "react-router-dom";
 import routes from "./routes";
 import whiteList from "./whiteList";
-export default () => {
+import { useAppSelector } from "@/redux";
+
+export default Router;
+
+function Router() {
   const location = useLocation();
   const routerElement = useRoutes(routes);
-  const isLogined = useSelector<any, boolean>((state) => state.auth.isLogined);
+  const isLogined = useAppSelector((state) => state.auth.isLogined);
   const resElement = useMemo(() => {
     if (whiteList.includes(location.pathname)) {
       return routerElement;
@@ -16,4 +19,4 @@ export default () => {
     return <Navigate to="login" replace />;
   }, [location, routerElement, isLogined]);
   return resElement;
-};
+}

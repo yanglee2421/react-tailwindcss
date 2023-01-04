@@ -2,9 +2,9 @@ import { useClass } from "@/hook";
 import style from "./card-login.module.scss";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { loginAct } from "@/redux/slice-auth";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux";
+import { loginAct } from "@/redux/slice-auth";
 import { useLoginMutation } from "@/api/rtkq/authApi";
 import React from "react";
 
@@ -22,7 +22,7 @@ namespace type {
 }
 export default (props: type.props) => {
   const { isRegister, onRegisterClick } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFn] = useLoginMutation();
 
@@ -33,7 +33,13 @@ export default (props: type.props) => {
       .unwrap()
       .then((data) => {
         const { isOk, token, username, invalidTime, mes } = data;
-        const auth = { username, invalidTime, token, remember: value.remember };
+        const auth = {
+          username,
+          invalidTime,
+          token,
+          remember: value.remember,
+          isLogined: true,
+        };
         if (isOk) {
           dispatch(loginAct(auth));
           navigate("/", { replace: true });

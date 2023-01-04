@@ -5,13 +5,13 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "@/route";
 // redux
 import { useAppDispatch, useAppSelector } from "@/redux";
-import { setIsDarkAct } from "@/redux/slice-theme";
+import { isDarkAct } from "@/redux/slice-theme";
 // hook
 import { useDark } from "@/hook";
 export default () => {
   const isDark = useAppSelector((state) => state.theme.isDark);
   const dispatch = useAppDispatch();
-  useDark((mediaQuery) => dispatch(setIsDarkAct(mediaQuery.matches)));
+  useDark((mediaQuery) => dispatch(isDarkAct(mediaQuery.matches)));
   return (
     <ConfigProvider
       locale={zhCN}

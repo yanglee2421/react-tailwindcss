@@ -1,12 +1,12 @@
 import { useClass } from "@/hook";
 import style from "./counter.module.scss";
-import { useState, useMemo, createContext, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 // components
 import { Card, Button } from "antd";
 export default Counter;
 const cN = useClass(style);
 // 向下传递上下文
-const MyContext = createContext({});
+const MyContext = React.createContext({});
 // 组件函数
 function Counter(props: any) {
   const [count, setCount] = useState(0);

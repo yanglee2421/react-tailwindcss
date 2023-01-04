@@ -10,21 +10,14 @@ import {
   Form,
   Layout,
   Row,
-  Switch,
   Space,
 } from "antd";
+import { DarkSwitch } from "@/component";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Counter } from "@/component";
-import { setIsDarkAct } from "@/redux/slice-theme";
-import { useDispatch, useSelector } from "react-redux";
+
 const cN = useClass(style);
 export default () => {
-  const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
-  const dispatch = useDispatch();
-  const swhChg = useCallback(
-    (params: boolean) => dispatch(setIsDarkAct(params)),
-    []
-  );
   const navigate = useNavigate();
   const retBtn = useCallback(() => navigate(-1), []);
   const [isShow, setIsShow] = useState(false);
@@ -38,10 +31,7 @@ export default () => {
           <Card title="主题">
             <Form>
               <Form.Item label="夜间模式">
-                <Switch
-                  defaultChecked={isDark}
-                  onChange={swhChg}
-                />
+                <DarkSwitch />
               </Form.Item>
             </Form>
           </Card>

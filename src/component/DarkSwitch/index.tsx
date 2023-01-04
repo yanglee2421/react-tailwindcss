@@ -1,12 +1,15 @@
 import { Switch, SwitchProps } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
-import { setIsDarkAct } from "@/redux/slice-theme";
-export default (props: SwitchProps) => {
-  const dispatch = useDispatch();
-  const isDark = useSelector<any, boolean>((state) => state.theme.isDark);
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { isDarkAct } from "@/redux/slice-theme";
+
+export default DarkSwitch;
+
+function DarkSwitch(props: SwitchProps) {
+  const dispatch = useAppDispatch();
+  const isDark = useAppSelector((state) => state.theme.isDark);
   const swhChg = useCallback(
-    (params: boolean) => dispatch(setIsDarkAct(params)),
+    (params: boolean) => dispatch(isDarkAct(params)),
     []
   );
   return (
@@ -16,4 +19,4 @@ export default (props: SwitchProps) => {
       onChange={swhChg}
     />
   );
-};
+}
