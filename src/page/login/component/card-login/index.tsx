@@ -5,7 +5,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/redux";
 import { loginAct } from "@/redux/slice-auth";
-import { useLoginMutation } from "@/api/rtkq/authApi";
+import { useLoginMutation } from "@/api/rtkq/api-auth";
 import React from "react";
 
 const cn = useClass(style);

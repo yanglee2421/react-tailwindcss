@@ -2,7 +2,7 @@ import { useClass } from "@/hook";
 import style from "./table.module.scss";
 import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { usePwdQuery, usePwdDelMutation } from "@/api/rtkq/authApi";
+import { usePwdQuery, usePwdDelMutation } from "@/api/rtkq/api-auth";
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "./component";
 const cn = useClass(style);

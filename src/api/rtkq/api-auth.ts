@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+
 namespace type {
   export interface auth {
     username: string;
@@ -22,8 +23,9 @@ namespace type {
     page_size?: number;
   }
 }
+
 const authApi = createApi({
-  reducerPath: "authApi",
+  reducerPath: "apiAuth",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     timeout: 20000,
@@ -99,6 +101,7 @@ const authApi = createApi({
     };
   },
 });
+
 export const {
   useRegisterMutation,
   useLoginMutation,
@@ -107,4 +110,5 @@ export const {
   usePwdDelMutation,
   usePwdSaveMutation,
 } = authApi;
+
 export default authApi;

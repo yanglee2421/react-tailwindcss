@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { authApi, bingApi } from "@/api/rtkq";
+import apiAuth from "@/api/rtkq/api-auth";
+import apiBing from "@/api/rtkq/api-bing";
 import auth, { loginoutAct } from "./slice-auth";
 import gallery from "./slice-gallery";
 import theme from "./slice-theme";
@@ -10,11 +11,11 @@ const store = configureStore({
     [auth.name]: auth.reducer,
     [gallery.name]: gallery.reducer,
     [theme.name]: theme.reducer,
-    [authApi.reducerPath]: authApi.reducer,
-    [bingApi.reducerPath]: bingApi.reducer,
+    [apiAuth.reducerPath]: apiAuth.reducer,
+    [apiBing.reducerPath]: apiBing.reducer,
   },
   middleware: (getMiddleWare) =>
-    getMiddleWare().concat(authApi.middleware, bingApi.middleware),
+    getMiddleWare().concat(apiAuth.middleware, apiBing.middleware),
 });
 
 export default store;

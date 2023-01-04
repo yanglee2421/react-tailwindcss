@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 const bingApi = createApi({
-  reducerPath: "bingApi",
+  reducerPath: "apiBing",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     timeout: 20000,
