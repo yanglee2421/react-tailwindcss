@@ -2,18 +2,15 @@ const getRandom = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 // 粒子类
 class Particle {
+  xSpeed = getRandom(-1, 1);
+  ySpeed = getRandom(-1, 1);
+  radius = getRandom(2, 4);
   x: number;
   y: number;
-  xSpeed: number;
-  ySpeed: number;
-  radius: number;
   color: string;
   constructor(public canvas: HTMLCanvasElement, color: string) {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.xSpeed = getRandom(-1, 1);
-    this.ySpeed = getRandom(-1, 1);
-    this.radius = getRandom(2, 4);
     this.color = `rgba(${color}, ${1 - 1 / this.radius})`;
   }
   /**

@@ -1,5 +1,5 @@
 import style from "./home.module.scss";
-import useClass from "@/hook/useClass";
+import { useClass } from "@/hook";
 import { Card, Form, Layout, List, Switch } from "antd";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
 
-export default auth;
-export const { name, reducer, loginAct, loginoutAct } = auth;
-
 namespace auth {
   export const {
     actions: { loginAct, loginoutAct },
@@ -37,6 +34,7 @@ namespace auth {
     },
   });
 }
+
 // 初始状态
 function initialState() {
   const auth = {
@@ -71,3 +69,6 @@ namespace Type {
     remember: boolean;
   }
 }
+
+export default auth;
+export const { name, reducer, loginAct, loginoutAct } = auth;

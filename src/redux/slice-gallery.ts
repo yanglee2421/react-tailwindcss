@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export default gallery;
-export const { name, reducer, setIsShow, setImgArr } = gallery;
-
 namespace gallery {
   export const {
     actions: { setIsShow, setImgArr },
@@ -22,6 +19,13 @@ namespace gallery {
   });
 }
 
+namespace type {
+  export interface state {
+    isShow: boolean;
+    imgArr: string[];
+  }
+}
+
 function initialState(): type.state {
   return {
     isShow: false,
@@ -29,9 +33,5 @@ function initialState(): type.state {
   };
 }
 
-namespace type {
-  export interface state {
-    isShow: boolean;
-    imgArr: string[];
-  }
-}
+export default gallery;
+export const { name, reducer, setIsShow, setImgArr } = gallery;
