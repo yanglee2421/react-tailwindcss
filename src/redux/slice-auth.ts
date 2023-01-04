@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
 
 export default auth;
@@ -13,7 +13,7 @@ namespace auth {
     name: "auth",
     initialState,
     reducers: {
-      loginAct(state, action) {
+      loginAct(state, action: PayloadAction<Type.auth>) {
         const {
           payload: { username, invalidTime, token, remember },
         } = action;
@@ -60,4 +60,14 @@ function initialState() {
     localStorage.removeItem("token");
   }
   return auth;
+}
+
+namespace Type {
+  export interface auth {
+    isLogined: boolean;
+    username: string;
+    invalidTime: number;
+    token: string;
+    remember: boolean;
+  }
 }
