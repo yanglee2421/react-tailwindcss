@@ -1,8 +1,8 @@
 import { useClass } from "@/hook";
-import { Card, Layout, Switch } from "antd";
+import { Layout } from "antd";
 import style from "./demo.module.scss";
 const cn = useClass(style);
-const Test = () => {
+function Demo() {
   return <Layout></Layout>;
-};
-export default Test;
+}
+export default Demo;

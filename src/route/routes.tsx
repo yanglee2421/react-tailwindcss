@@ -15,6 +15,7 @@ const routes: RouteObject[] = [
   { path: "table", element: useImp(() => import("@/page/table")) },
   { path: "threejs", element: useImp(() => import("@/page/threejs")) },
   { path: "particle", element: useImp(() => import("@/page/particle")) },
+  { path: "firework", element: useImp(() => import("@/page/firework")) },
   { path: "demo", element: useImp(() => import("@/page/demo")) },
   // prettier-ignore
   { path: "*", element: <Navigate to="404" replace /> },

@@ -23,7 +23,7 @@ export default () => {
             <NavLink to="/threejs">threejs</NavLink>
           </List.Item>
           <List.Item>
-            <NavLink to="/test">测试页</NavLink>
+            <NavLink to="/particle">粒子</NavLink>
           </List.Item>
           <List.Item>
             <NavLink to="/table">表格</NavLink>

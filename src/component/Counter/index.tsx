@@ -3,7 +3,6 @@ import style from "./counter.module.scss";
 import { useState, useMemo, createContext, useEffect } from "react";
 // components
 import { Card, Button } from "antd";
-import Child from "@/test/child";
 export default Counter;
 const cN = useClass(style);
 // 向下传递上下文
@@ -42,10 +41,7 @@ function Counter(props: any) {
       >
         =1
       </Button>
-      <MyContext.Provider value={provide}>
-        {props.children}
-        <Child></Child>
-      </MyContext.Provider>
+      <MyContext.Provider value={provide}>{props.children}</MyContext.Provider>
     </Card>
   );
 }

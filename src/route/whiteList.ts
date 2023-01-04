@@ -1,1 +1,1 @@
-export default ["/login", "/test"];
+export default ["/login", "/demo"];

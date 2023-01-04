@@ -14,7 +14,7 @@ import {
   Space,
 } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Counter, Models } from "@/component";
+import { Counter } from "@/component";
 import { setIsDarkAct } from "@/redux/slice-theme";
 import { useDispatch, useSelector } from "react-redux";
 const cN = useClass(style);
@@ -53,8 +53,8 @@ export default () => {
                 <Button>首页</Button>
               </NavLink>
               <Button onClick={retBtn}>返回</Button>
-              <NavLink to="/test">
-                <Button>测试</Button>
+              <NavLink to="/firework">
+                <Button>烟花</Button>
               </NavLink>
               <NavLink to="/table">
                 <Button>table</Button>
@@ -87,14 +87,6 @@ export default () => {
       <Card>
         <Empty />
       </Card>
-      {isShow && (
-        <Models
-          onClose={() => {
-            setIsShow(() => false);
-          }}
-          className="123"
-        ></Models>
-      )}
     </Layout>
   );
 };
