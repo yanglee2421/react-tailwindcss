@@ -31,7 +31,9 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
+    // 路由
     base: "/react/",
+    // 构建
     build: {
       outDir: "react-app",
     },

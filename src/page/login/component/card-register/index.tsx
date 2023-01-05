@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "./card-register.module.scss";
 import { useClass } from "@/hook";
 import React, { useState } from "react";
-import { useRegisterMutation } from "@/api/rtkq/api-auth";
+import { useRegisterMutation } from "@/api/api-rtkq";
 const cn = useClass(style);
 namespace type {
   type validateStatus =
