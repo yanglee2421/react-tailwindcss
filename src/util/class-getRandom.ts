@@ -1,4 +1,4 @@
-class GetRandom {
+export class GetRandom {
   #min: number;
   #max: number;
   constructor(min: number, max: number) {
@@ -9,4 +9,3 @@ class GetRandom {
     return Math.random() * (this.#max - this.#min) + this.#min;
   }
 }
-export default GetRandom;

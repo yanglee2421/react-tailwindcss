@@ -1,10 +1,11 @@
-const getRandom = (min: number, max: number) =>
-  Math.random() * (max - min) + min;
+import { GetRandom } from "./class-getRandom";
+const getSpeed = new GetRandom(-1, 1);
+const getRadius = new GetRandom(2, 4);
 // 粒子类
 class Particle {
-  xSpeed = getRandom(-1, 1);
-  ySpeed = getRandom(-1, 1);
-  radius = getRandom(2, 4);
+  xSpeed = getSpeed.get();
+  ySpeed = getSpeed.get();
+  radius = getRadius.get();
   x: number;
   y: number;
   color: string;
@@ -39,7 +40,7 @@ class Particle {
   }
 }
 // 粒子集合类
-class Particles {
+export class Particles {
   #canvas: HTMLCanvasElement;
   #arr: Particle[] = [];
   #lineMax: number;
@@ -147,4 +148,3 @@ class Particles {
     this.#controller.abort();
   }
 }
-export default Particles;

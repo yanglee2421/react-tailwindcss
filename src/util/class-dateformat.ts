@@ -1,5 +1,7 @@
-const format = (num: number) => (num > 10 ? `${num}` : `0${num}`);
-class DateFormat {
+function format(num: number) {
+  return num > 10 ? `${num}` : `0${num}`;
+}
+export class DateFormat {
   simple: string;
   whole: string;
   constructor(params: Date | number | string = Date.now()) {
@@ -14,4 +16,3 @@ class DateFormat {
     this.whole = `${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss}`;
   }
 }
-export default DateFormat;

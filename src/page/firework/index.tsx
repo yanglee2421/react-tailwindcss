@@ -1,7 +1,7 @@
 import { useClass, useResize } from "@/hook";
 import style from "./firework.module.scss";
 import { useEffect, useRef, useState } from "react";
-import Fireworks from "@/util/class-firework";
+import { Fireworks } from "@/util";
 
 const cn = useClass(style);
 function Firework() {

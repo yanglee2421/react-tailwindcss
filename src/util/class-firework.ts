@@ -1,4 +1,4 @@
-import GetRandom from "@/util/class-getRandom";
+import { GetRandom } from "./class-getRandom";
 const getRGB = new GetRandom(0, 255);
 const getSize = new GetRandom(1, 4.5);
 const getSpeed = new GetRandom(-5, 5);
@@ -40,7 +40,7 @@ class Firework {
     return true;
   }
 }
-class Fireworks {
+export class Fireworks {
   #arr: Firework[] = [];
   #canvas: HTMLCanvasElement;
   constructor(canvas: HTMLCanvasElement) {
@@ -88,4 +88,3 @@ class Fireworks {
     cancelAnimationFrame(this.#animateId);
   }
 }
-export default Fireworks;
