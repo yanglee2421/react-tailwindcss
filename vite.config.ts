@@ -34,6 +34,6 @@ export default defineConfig(({ command, mode }) => ({
   base: mode === "gitee" ? "./" : "/react/",
   // 构建
   build: {
-    outDir: mode === "gitee" ? "./" : "react-app",
+    outDir: mode === "gitee" ? "dist" : "react-app",
   },
 }));
