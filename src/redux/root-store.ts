@@ -35,9 +35,7 @@ store.subscribe(() => {
   } = store.getState();
   const validTime = invalidTime - Date.now() - 1000 * 60;
   if (isLogined && validTime > 0) {
-    timer ||= setTimeout(() => {
-      store.dispatch(loginoutAct());
-    }, validTime);
+    timer ||= setTimeout(() => store.dispatch(loginoutAct()), validTime);
     return;
   }
   if (timer) {
