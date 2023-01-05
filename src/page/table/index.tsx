@@ -3,10 +3,10 @@ import style from "./table.module.scss";
 import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dialog } from "./component";
 const cn = useClass(style);
-export default () => {
+export function PageTable() {
   const [req, setReq] = useState({
     pwd_site: "",
     pwd_username: "",
@@ -137,4 +137,6 @@ export default () => {
       <Dialog></Dialog>
     </Layout>
   );
-};
+}
+
+export default React.memo(PageTable);

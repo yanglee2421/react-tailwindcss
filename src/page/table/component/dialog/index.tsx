@@ -3,11 +3,11 @@ import style from "./dialog.module.scss";
 import { Modal } from "antd";
 import React, { useImperativeHandle, useState } from "react";
 const cn = useClass(style);
-namespace type {
+export namespace Type {
   export interface props {}
   export interface ref {}
 }
-export default React.forwardRef<type.ref, type.props>((props, ref) => {
+export const Dialog = React.forwardRef<Type.ref, Type.props>((props, ref) => {
   const [isShow, setIsShow] = useState(true);
   useImperativeHandle(ref, () => {
     return {

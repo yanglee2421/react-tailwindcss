@@ -1,9 +1,12 @@
 import { useClass, useResize } from "@/hook";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
 import { Particles } from "@/util";
 const cn = useClass(style);
-export default () => {
+/**
+ * 组件函数
+ */
+export function PageParticle() {
   const [box, setBox] = useState({ width: 0, height: 0 });
   const ref = useResize<HTMLDivElement>(({ width, height }) =>
     setBox((prev) => ({ ...prev, width, height }))
@@ -24,7 +27,7 @@ export default () => {
       p.abortAnimate();
       p.abortEvent();
     };
-  }, [box]);
+  }, [box, canRef]);
   return (
     <div
       ref={ref}
@@ -36,4 +39,5 @@ export default () => {
       ></canvas>
     </div>
   );
-};
+}
+export default React.memo(PageParticle);
