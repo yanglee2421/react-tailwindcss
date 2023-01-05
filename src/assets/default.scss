@@ -1,4 +1,4 @@
-// =======================================清除浏览器用户代理样式表
+// ========清除浏览器用户代理样式表
 ::-webkit-scrollbar {
   // PC端
   @media (any-hover: hover) {
@@ -51,13 +51,8 @@ img {
   display: none !important;
 }
 #root {
+  @extend .clearfix;
   height: 100vh;
   overflow: auto;
   overflow: overlay;
-  &::before,
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
 }
