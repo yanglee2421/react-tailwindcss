@@ -1,41 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
-
-namespace auth {
-  export const {
-    actions: { loginAct, loginoutAct },
-    name,
-    reducer,
-  } = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-      loginAct(state, action: PayloadAction<Type.auth>) {
-        const {
-          payload: { username, invalidTime, token, remember },
-        } = action;
-        state.username = username;
-        state.invalidTime = invalidTime;
-        state.isLogined = true;
-        if (remember) {
-          localStorage.setItem("auth", JSON.stringify(state));
-          localStorage.setItem("token", token);
-        }
-        message.success("登录成功");
-      },
-      loginoutAct(state) {
-        state.username = "";
-        state.invalidTime = 0;
-        state.isLogined = false;
-        localStorage.removeItem("auth");
-        localStorage.removeItem("token");
-        message.success("登录已注销");
-      },
-    },
-  });
+/**
+ * 类型
+ */
+namespace Type {
+  export interface auth {
+    isLogined: boolean;
+    username: string;
+    invalidTime: number;
+    token: string;
+    remember: boolean;
+  }
 }
-
-// 初始状态
+/**
+ * 初始状态
+ */
 function initialState() {
   const auth = {
     isLogined: false,
@@ -59,16 +38,40 @@ function initialState() {
   }
   return auth;
 }
-
-namespace Type {
-  export interface auth {
-    isLogined: boolean;
-    username: string;
-    invalidTime: number;
-    token: string;
-    remember: boolean;
-  }
+/**
+ * 切片
+ */
+namespace auth {
+  export const {
+    actions: { actLogin, actSignOut },
+    name,
+    reducer,
+  } = createSlice({
+    name: "auth",
+    initialState,
+    reducers: {
+      actLogin(state, { payload }: PayloadAction<Type.auth>) {
+        const { username, invalidTime, token, remember } = payload;
+        state.username = username;
+        state.invalidTime = invalidTime;
+        state.isLogined = true;
+        if (remember) {
+          localStorage.setItem("auth", JSON.stringify(state));
+          localStorage.setItem("token", token);
+        }
+        message.success("登录成功");
+      },
+      actSignOut(state) {
+        state.username = "";
+        state.invalidTime = 0;
+        state.isLogined = false;
+        localStorage.removeItem("auth");
+        localStorage.removeItem("token");
+        message.success("登录已注销");
+      },
+    },
+  });
 }
 
 export default auth;
-export const { name, reducer, loginAct, loginoutAct } = auth;
+export const { name, reducer, actLogin, actSignOut } = auth;

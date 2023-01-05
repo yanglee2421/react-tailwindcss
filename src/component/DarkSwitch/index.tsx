@@ -1,15 +1,12 @@
 import { Switch, SwitchProps } from "antd";
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux";
-import { isDarkAct } from "@/redux/slice-theme";
+import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
 
-export default DarkSwitch;
-
-function DarkSwitch(props: SwitchProps) {
+export function DarkSwitch(props: SwitchProps) {
   const dispatch = useAppDispatch();
   const isDark = useAppSelector((state) => state.theme.isDark);
   const swhChg = useCallback(
-    (params: boolean) => dispatch(isDarkAct(params)),
+    (params: boolean) => dispatch(actIsDark(params)),
     []
   );
   return (

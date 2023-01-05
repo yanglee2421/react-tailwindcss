@@ -1,18 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+/**
+ * 初始状态
+ */
+function initialState() {
+  return {
+    isDark: false,
+    docTitle: "加载中。。。",
+  };
+}
+/**
+ * 切片
+ */
 namespace theme {
   export const {
-    actions: { docTitleAct, isDarkAct },
+    actions: { actDocTitle, actIsDark },
     name,
     reducer,
   } = createSlice({
     name: "theme",
     initialState,
     reducers: {
-      isDarkAct(state, { payload }: PayloadAction<boolean>) {
+      actIsDark(state, { payload }: PayloadAction<boolean>) {
         state.isDark = Boolean(payload);
       },
-      docTitleAct(state, { payload }: PayloadAction<string>) {
+      actDocTitle(state, { payload }: PayloadAction<string>) {
         if (typeof payload !== "string") return;
         state.docTitle = payload;
       },
@@ -20,12 +31,5 @@ namespace theme {
   });
 }
 
-function initialState() {
-  return {
-    isDark: false,
-    docTitle: "加载中。。。",
-  };
-}
-
 export default theme;
-export const { name, reducer, docTitleAct, isDarkAct } = theme;
+export const { name, reducer, actDocTitle, actIsDark } = theme;

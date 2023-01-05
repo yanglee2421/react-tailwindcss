@@ -1,1 +1,1 @@
-export default ["/login", "/demo"];
+export const whiteList = ["/login", "/demo"];

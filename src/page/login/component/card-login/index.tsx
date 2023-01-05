@@ -3,8 +3,7 @@ import style from "./card-login.module.scss";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/redux";
-import { loginAct } from "@/redux/slice-auth";
+import { useAppDispatch, actLogin } from "@/redux";
 import { useLoginMutation } from "@/api/api-rtkq";
 import React from "react";
 
@@ -41,7 +40,7 @@ export default (props: type.props) => {
           isLogined: true,
         };
         if (isOk) {
-          dispatch(loginAct(auth));
+          dispatch(actLogin(auth));
           navigate("/", { replace: true });
           return;
         }

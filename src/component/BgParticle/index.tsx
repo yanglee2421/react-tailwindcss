@@ -3,12 +3,17 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "./BgParticle.module.scss";
 import { useResize } from "@/hook";
 import Particles from "@/util/class-particle";
-
-export default React.memo(BgParticle);
-
 const cn = useClass(style);
 
-function BgParticle(props: type.props) {
+namespace type {
+  export interface props
+    extends React.PropsWithChildren,
+      React.HTMLAttributes<HTMLDivElement> {
+    particleNum?: number;
+  }
+}
+
+export function BgParticle(props: type.props) {
   const { particleNum = 50, className = "", ...restProps } = props;
   const [box, setBox] = useState({ width: 0, height: 0 });
   const boxRef = useResize<HTMLDivElement>(({ width, height }) => {
@@ -47,10 +52,4 @@ function BgParticle(props: type.props) {
   );
 }
 
-namespace type {
-  export interface props
-    extends React.PropsWithChildren,
-      React.HTMLAttributes<HTMLDivElement> {
-    particleNum?: number;
-  }
-}
+export default React.memo(BgParticle);

@@ -7,10 +7,9 @@ import {
   BrowserRouterProps,
   HashRouterProps,
 } from "react-router-dom";
-import Router from "@/route";
+import { RouteElement } from "@/route";
 // redux
-import { useAppDispatch, useAppSelector } from "@/redux";
-import { isDarkAct } from "@/redux/slice-theme";
+import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
 // hook
 import { useDark } from "@/hook";
 import { useMemo } from "react";
@@ -30,9 +29,9 @@ const routerProps: type.routerProps = {
 };
 // 根组件函数
 function App() {
-  // 根据 Browser 主题派发 isDarkAct
+  // 根据 Browser 主题派发 actIsDark
   const dispatch = useAppDispatch();
-  useDark((mediaQuery) => dispatch(isDarkAct(mediaQuery.matches)));
+  useDark((mediaQuery) => dispatch(actIsDark(mediaQuery.matches)));
   // 根据 store 中的 isDark 返回主题样式
   const isDark = useAppSelector((state) => state.theme.isDark);
   const algorithm = useMemo(
@@ -45,7 +44,7 @@ function App() {
       theme={{ algorithm }}
     >
       <RouterMode {...routerProps}>
-        <Router />
+        <RouteElement />
       </RouterMode>
     </ConfigProvider>
   );

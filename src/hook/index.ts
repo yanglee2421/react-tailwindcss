@@ -1,4 +1,4 @@
-export { default as useClass } from "./useClass";
-export { default as useDark } from "./useDark";
-export { default as useImp } from "./useImp";
-export { default as useResize } from "./useResize";
+export { useClass } from "./useClass";
+export { useDark } from "./useDark";
+export { useImp } from "./useImp";
+export { useResize } from "./useResize";

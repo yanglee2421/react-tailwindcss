@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import apiRTKQ from "@/api/api-rtkq";
-import auth, { loginoutAct } from "./slice-auth";
+import auth, { actSignOut } from "./slice-auth";
 import gallery from "./slice-gallery";
 import theme from "./slice-theme";
 /**
  * 全局store
  */
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [apiRTKQ.reducerPath]: apiRTKQ.reducer,
     [auth.name]: auth.reducer,
@@ -18,7 +18,6 @@ const store = configureStore({
     return getMiddleWare().concat(apiRTKQ.middleware);
   },
 });
-export default store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 /**
@@ -37,7 +36,7 @@ store.subscribe(() => {
   } = store.getState();
   const validTime = invalidTime - Date.now() - 1000 * 60;
   if (isLogined && validTime > 0) {
-    timer ||= setTimeout(() => store.dispatch(loginoutAct()), validTime);
+    timer ||= setTimeout(() => store.dispatch(actSignOut()), validTime);
     return;
   }
   if (timer) {

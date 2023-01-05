@@ -3,12 +3,11 @@ import style from "./counter.module.scss";
 import React, { useState, useMemo, useEffect } from "react";
 // components
 import { Card, Button } from "antd";
-export default Counter;
 const cN = useClass(style);
 // 向下传递上下文
 const MyContext = React.createContext({});
 // 组件函数
-function Counter(props: any) {
+export function Counter(props: any) {
   const [count, setCount] = useState(0);
   const [elesCount, setElseCount] = useState(0);
   const provide = useMemo(() => ({ count, setCount }), [count, setCount]);

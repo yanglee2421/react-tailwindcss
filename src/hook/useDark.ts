@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 
-export default useDark;
-
-function useDark(callback: (mediaQuery: MediaQueryList) => void) {
+export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
   useEffect(() => {
     const queryDark = matchMedia("(prefers-color-scheme: dark)");
     callback(queryDark);
