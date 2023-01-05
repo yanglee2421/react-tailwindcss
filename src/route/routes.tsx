@@ -2,7 +2,11 @@ import { Navigate, RouteObject } from "react-router-dom";
 import { Card, Button } from "antd";
 import { useImp } from "@/hook";
 const routes: RouteObject[] = [
-  { path: "/", element: useImp(() => import("@/page/home")) },
+  {
+    path: "/",
+    element: useImp(() => import("@/page/home")),
+    handle: { title: "首页" },
+  },
   {
     path: "show",
     element: useImp(() => import("@/page/show")),

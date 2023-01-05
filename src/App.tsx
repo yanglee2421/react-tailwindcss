@@ -1,7 +1,12 @@
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 // router
-import { BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  BrowserRouterProps,
+  HashRouterProps,
+} from "react-router-dom";
 import Router from "@/route";
 // redux
 import { useAppDispatch, useAppSelector } from "@/redux";
@@ -10,8 +15,19 @@ import { isDarkAct } from "@/redux/slice-theme";
 import { useDark } from "@/hook";
 import { useMemo } from "react";
 
+export namespace type {
+  export type routerProps = BrowserRouterProps | HashRouterProps;
+}
+// 提取主题配置
 const { darkAlgorithm, defaultAlgorithm } = theme;
-
+/**
+ * 根据打包配置选择路由
+ */
+const isGitee = import.meta.env.MODE === "gitee";
+const RouterMode = isGitee ? HashRouter : BrowserRouter;
+const routerProps: type.routerProps = {
+  basename: isGitee ? undefined : "react",
+};
 // 根组件函数
 function App() {
   // 根据 Browser 主题派发 isDarkAct
@@ -28,9 +44,9 @@ function App() {
       locale={zhCN}
       theme={{ algorithm }}
     >
-      <BrowserRouter basename="react">
+      <RouterMode {...routerProps}>
         <Router />
-      </BrowserRouter>
+      </RouterMode>
     </ConfigProvider>
   );
 }

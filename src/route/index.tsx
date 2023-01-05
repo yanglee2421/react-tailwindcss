@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useRoutes, useLocation, Navigate } from "react-router-dom";
+import { Navigate, useRoutes, useLocation } from "react-router-dom";
+import { useAppSelector } from "@/redux";
 import routes from "./routes";
 import whiteList from "./whiteList";
-import { useAppSelector } from "@/redux";
 
 export default Router;
 

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 namespace theme {
   export const {
-    actions: { isDarkAct },
+    actions: { docTitleAct, isDarkAct },
     name,
     reducer,
   } = createSlice({
@@ -10,7 +10,11 @@ namespace theme {
     initialState,
     reducers: {
       isDarkAct(state, { payload }: PayloadAction<boolean>) {
-        state.isDark = payload;
+        state.isDark = Boolean(payload);
+      },
+      docTitleAct(state, { payload }: PayloadAction<string>) {
+        if (typeof payload !== "string") return;
+        state.docTitle = payload;
       },
     },
   });
@@ -19,8 +23,9 @@ namespace theme {
 function initialState() {
   return {
     isDark: false,
+    docTitle: "加载中。。。",
   };
 }
 
 export default theme;
-export const { name, reducer, isDarkAct } = theme;
+export const { name, reducer, docTitleAct, isDarkAct } = theme;
