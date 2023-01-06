@@ -1,7 +1,7 @@
 import style from "./login.module.scss";
 import { useClass } from "@/hook";
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { BgParticle as Particle } from "@/component";
 import { useAppSelector } from "@/redux";
 import { CardLogin, CardRegister } from "./component";
@@ -17,17 +17,12 @@ export function PageLogin() {
   // prettier-ignore
   if (isLogined) return <Navigate to="/" replace />;
   const [isRegister, setIsRegister] = useState(false);
+  const switchHandler = useCallback(() => setIsRegister((prev) => !prev), []);
   return (
     <BgParticle className={cn("login-root")}>
       <div className={cn("card-box")}>
-        <CardLogin
-          {...{ isRegister }}
-          onRegisterClick={() => setIsRegister((prev) => !prev)}
-        />
-        <CardRegister
-          {...{ isRegister }}
-          onLoginClick={() => setIsRegister((prev) => !prev)}
-        />
+        <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />
+        <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />
       </div>
     </BgParticle>
   );

@@ -13,11 +13,5 @@ export function DarkSwitch(props: SwitchProps) {
     (params: boolean) => dispatch(actIsDark(params)),
     []
   );
-  return (
-    <Switch
-      {...props}
-      defaultChecked={isDark}
-      onChange={swhChg}
-    />
-  );
+  return <Switch {...props} onChange={swhChg} defaultChecked={isDark} />;
 }

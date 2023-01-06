@@ -1,8 +1,8 @@
 import style from "./home.module.scss";
 import { NavLink } from "react-router-dom";
 import { Card, Form, Layout, List } from "antd";
-import { DarkSwitch, SignOut } from "@/component";
-import { useClass } from "@/hook";
+import { DarkSwitch, RouteCard, SignOut } from "@/component";
+import { useClass, useDocTitle } from "@/hook";
 import React from "react";
 const cN = useClass(style);
 /**
@@ -10,6 +10,7 @@ const cN = useClass(style);
  * @returns JSX
  */
 export function PageHome() {
+  useDocTitle("首页");
   return (
     <Layout className={cN("home")}>
       <Card title="路由列表01">
@@ -28,6 +29,17 @@ export function PageHome() {
           </List.Item>
         </List>
       </Card>
+      <RouteCard />
+      <Card title="主题卡片">
+        <Form>
+          <Form.Item label="夜间模式">
+            <DarkSwitch />
+          </Form.Item>
+          <Form.Item label="登出按钮">
+            <SignOut danger />
+          </Form.Item>
+        </Form>
+      </Card>
       <Card title="路由列表02">
         <List bordered>
           <List.Item>
@@ -41,17 +53,6 @@ export function PageHome() {
           </List.Item>
         </List>
       </Card>
-      <Card title="主题设置">
-        <Form>
-          <Form.Item label="夜间模式">
-            <DarkSwitch />
-          </Form.Item>
-          <Form.Item label="登出按钮">
-            <SignOut />
-          </Form.Item>
-        </Form>
-      </Card>
-      <Card></Card>
       <Card></Card>
       <Card></Card>
       <Card></Card>

@@ -85,14 +85,9 @@ export function CardLogin(props: Type.props) {
           />
         </Form.Item>
         <Form.Item>
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            noStyle
-          >
+          <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-
           <a
             className={cn("login-form-forgot")}
             href="xxx"
@@ -110,10 +105,7 @@ export function CardLogin(props: Type.props) {
             Log in
           </Button>
           Or{" "}
-          <a
-            onClick={clickHandler}
-            href="xxx"
-          >
+          <a onClick={clickHandler} href="xxx">
             register now!
           </a>
         </Form.Item>

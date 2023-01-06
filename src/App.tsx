@@ -40,10 +40,7 @@ export function App() {
     [isDark]
   );
   return (
-    <ConfigProvider
-      locale={zhCN}
-      theme={{ algorithm }}
-    >
+    <ConfigProvider locale={zhCN} theme={{ algorithm }}>
       <RouterMode {...routerProps}>
         <RouteElement />
       </RouterMode>

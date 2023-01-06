@@ -28,14 +28,8 @@ export function PageFirework() {
     };
   }, [box]);
   return (
-    <div
-      ref={boxRef}
-      className={cn("firework-box")}
-    >
-      <canvas
-        ref={canRef}
-        className={cn("firework-canvas")}
-      ></canvas>
+    <div ref={boxRef} className={cn("firework-box")}>
+      <canvas ref={canRef} className={cn("firework-canvas")}></canvas>
     </div>
   );
 }

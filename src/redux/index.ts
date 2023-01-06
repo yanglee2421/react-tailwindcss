@@ -5,4 +5,4 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export { store } from "./root-store";
 export { actLogin, actSignOut } from "./slice-auth";
 export { actImgArr, actIsShow } from "./slice-gallery";
-export { actDocTitle, actIsDark } from "./slice-theme";
+export { actIsDark } from "./slice-theme";

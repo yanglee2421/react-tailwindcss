@@ -3,7 +3,9 @@ import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
 import React, { useEffect, useRef, useState } from "react";
 const cn = useClass(style);
-
+/**
+ * @function BgParticle 使用的类型
+ */
 namespace Type {
   export interface props
     extends React.PropsWithChildren,
@@ -11,7 +13,11 @@ namespace Type {
     particleNum?: number;
   }
 }
-
+/**
+ * 粒子背景组件
+ * @param props particleNum 粒子数，其余继承自 div
+ * @returns JSX
+ */
 export function BgParticle(props: Type.props) {
   const { particleNum = 50, className = "", ...restProps } = props;
   const [box, setBox] = useState({ width: 0, height: 0 });
@@ -32,19 +38,9 @@ export function BgParticle(props: Type.props) {
     };
   }, [box, canvasRef]);
   return (
-    <div
-      {...restProps}
-      ref={boxRef}
-      className={cn("particle") + className}
-    >
-      <canvas
-        ref={canvasRef}
-        className={cn("particle-canvas")}
-      ></canvas>
-      <div
-        {...restProps}
-        className={cn("particle-content") + className}
-      >
+    <div {...restProps} ref={boxRef} className={cn("particle") + className}>
+      <canvas ref={canvasRef} className={cn("particle-canvas")}></canvas>
+      <div {...restProps} className={cn("particle-content") + className}>
         {props.children}
       </div>
     </div>
