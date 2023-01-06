@@ -1,15 +1,20 @@
+import { Button, ButtonProps } from "antd";
 import { useAppDispatch, actSignOut } from "@/redux";
-import { Button } from "antd";
 import { useCallback } from "react";
-export function SignOut() {
+/**
+ * SignOut 组件，点击时登出
+ * @returns JSX
+ */
+export function SignOut(props: ButtonProps) {
+  const { children, ...restProps } = props;
   const dispatch = useAppDispatch();
   const signOut = useCallback(() => dispatch(actSignOut()), []);
   return (
     <Button
+      {...restProps}
       onClick={signOut}
-      danger
     >
-      Sign Out
+      {children || "Sign Out"}
     </Button>
   );
 }

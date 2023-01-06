@@ -1,3 +1,4 @@
+import style from "./threejs.module.scss";
 import {
   Scene,
   PerspectiveCamera,
@@ -7,11 +8,13 @@ import {
   WebGLRenderer,
 } from "three";
 // antd
-import React, { useEffect, useId } from "react";
 import { useClass } from "@/hook";
-import style from "./threejs.module.scss";
+import React, { useEffect, useId } from "react";
 const cn = useClass(style);
-// 组件函数
+/**
+ * threejs 页面
+ * @returns JSX
+ */
 export function PageThreejs() {
   const uid = useId();
   useEffect(() => {

@@ -1,11 +1,15 @@
-import { useClass } from "@/hook";
 import style from "./table.module.scss";
 import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
-import React, { useEffect, useRef, useState } from "react";
+import { useClass } from "@/hook";
 import { Dialog } from "./component";
+import React, { useEffect, useRef, useState } from "react";
 const cn = useClass(style);
+/**
+ * 表格页面
+ * @returns JSX
+ */
 export function PageTable() {
   const [req, setReq] = useState({
     pwd_site: "",

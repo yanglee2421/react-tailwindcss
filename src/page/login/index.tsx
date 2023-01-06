@@ -8,7 +8,10 @@ import { CardLogin, CardRegister } from "./component";
 import React from "react";
 const cn = useClass(style);
 const BgParticle = React.memo(Particle);
-// 组件函数
+/**
+ * 登录页面
+ * @returns JSX
+ */
 export function PageLogin() {
   const isLogined = useAppSelector((state) => state.auth.isLogined);
   // prettier-ignore

@@ -1,34 +1,35 @@
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
-// router
 import {
   BrowserRouter,
   HashRouter,
   BrowserRouterProps,
   HashRouterProps,
 } from "react-router-dom";
-import { RouteElement } from "@/route";
-// redux
-import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
-// hook
 import { useDark } from "@/hook";
-import { useMemo } from "react";
-
-export namespace type {
+import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
+import { RouteElement } from "@/route";
+import React, { useMemo } from "react";
+/**
+ * @function App 使用的类型
+ */
+export namespace Type {
   export type routerProps = BrowserRouterProps | HashRouterProps;
 }
-// 提取主题配置
 const { darkAlgorithm, defaultAlgorithm } = theme;
 /**
- * 根据打包配置选择路由
+ * 根据打包配置决定路由模式
  */
 const isGitee = import.meta.env.MODE === "gitee";
 const RouterMode = isGitee ? HashRouter : BrowserRouter;
-const routerProps: type.routerProps = {
+const routerProps: Type.routerProps = {
   basename: isGitee ? undefined : "react",
 };
-// 根组件函数
-function App() {
+/**
+ * React App 的根组件
+ * @returns AppJSX
+ */
+export function App() {
   // 根据 Browser 主题派发 actIsDark
   const dispatch = useAppDispatch();
   useDark((mediaQuery) => dispatch(actIsDark(mediaQuery.matches)));
@@ -49,5 +50,3 @@ function App() {
     </ConfigProvider>
   );
 }
-
-export default App;

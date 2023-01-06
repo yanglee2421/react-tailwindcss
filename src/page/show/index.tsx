@@ -1,14 +1,20 @@
-import { useClass } from "@/hook";
-import React, { useImperativeHandle } from "react";
 import style from "./show.module.scss";
 import { Outlet } from "react-router-dom";
 import { Divider, Layout, Space } from "antd";
 import { DarkSwitch, SignOut } from "@/component";
+import { useClass } from "@/hook";
+import React, { useImperativeHandle } from "react";
 const cn = useClass(style);
+/**
+ * @function PageShow 使用的类型
+ */
 export namespace Type {
   export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
   export interface Ref {}
 }
+/**
+ * Show 页面
+ */
 export default React.forwardRef<Type.Ref, Type.Props>((props, ref) => {
   useImperativeHandle(ref, () => {
     return {};

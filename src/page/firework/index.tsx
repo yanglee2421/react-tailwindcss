@@ -1,10 +1,13 @@
-import { useClass, useResize } from "@/hook";
 import style from "./firework.module.scss";
 import { useEffect, useRef, useState } from "react";
+import { useClass, useResize } from "@/hook";
 import { Fireworks } from "@/util";
-
 const cn = useClass(style);
-function Firework() {
+/**
+ * 烟花页面
+ * @returns JSX
+ */
+export function PageFirework() {
   const [box, setBox] = useState({
     width: 0,
     height: 0,
@@ -23,16 +26,6 @@ function Firework() {
     return () => {
       fire.abortEvent();
     };
-    /* setTimeout(() => {
-      const event = new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-        clientX: 500,
-        clientY: 500,
-        buttons: 1,
-      });
-      canvas.dispatchEvent(event);
-    }, 3000); */
   }, [box]);
   return (
     <div
@@ -47,4 +40,4 @@ function Firework() {
   );
 }
 
-export default Firework;
+export default PageFirework;

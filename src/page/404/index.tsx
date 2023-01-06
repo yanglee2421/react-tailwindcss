@@ -1,6 +1,5 @@
-import { useClass } from "@/hook";
 import style from "./404.module.scss";
-import { useCallback, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -12,12 +11,15 @@ import {
   Row,
   Space,
 } from "antd";
-import { DarkSwitch } from "@/component";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Counter } from "@/component";
-
+import { Counter, DarkSwitch } from "@/component";
+import { useClass } from "@/hook";
+import React, { useCallback, useState } from "react";
 const cN = useClass(style);
-export default () => {
+/**
+ * 404 页面
+ * @returns JSX
+ */
+export function Page404() {
   const navigate = useNavigate();
   const retBtn = useCallback(() => navigate(-1), []);
   const [isShow, setIsShow] = useState(false);
@@ -79,17 +81,6 @@ export default () => {
       </Card>
     </Layout>
   );
-};
-/**
- * - 挂载流程（effect未指定依赖时）
- * 1.组件函数
- * 2.effect
- * 3.return effect（卸载时才执行）
- *
- *
- *
- * - 更新流程
- * 1.组件函数
- * 2.return effect（处理上一个effect返回的return）
- * 3.effect
- */
+}
+
+export default React.memo(Page404);

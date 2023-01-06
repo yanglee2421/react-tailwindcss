@@ -1,17 +1,18 @@
 import style from "./particle.module.scss";
-import React, { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Button, Layout, Space } from "antd";
+import { DarkSwitch, SignOut } from "@/component";
 import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
-import { DarkSwitch, SignOut } from "@/component";
-import { Button, Layout, Space } from "antd";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 const cn = useClass(style);
 /**
- * 组件函数
+ * 粒子页面
+ * @returns JSX
  */
 export function PageParticle() {
   const [box, setBox] = useState({ width: 0, height: 0 });
-  const ref = useResize<HTMLDivElement>(({ width, height }) =>
+  const resizeRef = useResize<HTMLDivElement>(({ width, height }) =>
     setBox((prev) => ({ ...prev, width, height }))
   );
   const canRef = useRef<HTMLCanvasElement>(null);
@@ -29,7 +30,7 @@ export function PageParticle() {
   }, [box, canRef]);
   return (
     <Layout
-      ref={ref}
+      ref={resizeRef}
       className={cn("partcle")}
     >
       <canvas

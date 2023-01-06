@@ -1,8 +1,14 @@
-import { useClass } from "@/hook";
-import { Layout } from "antd";
 import style from "./demo.module.scss";
+import { Layout } from "antd";
+import { useClass } from "@/hook";
+import React from "react";
 const cn = useClass(style);
-function Demo() {
+/**
+ * Demo 页面
+ * @returns JSX
+ */
+export function PageDemo() {
   return <Layout></Layout>;
 }
-export default Demo;
+
+export default React.memo(PageDemo);

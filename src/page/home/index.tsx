@@ -1,12 +1,15 @@
 import style from "./home.module.scss";
-import { Card, Form, Layout, List } from "antd";
 import { NavLink } from "react-router-dom";
+import { Card, Form, Layout, List } from "antd";
 import { DarkSwitch, SignOut } from "@/component";
 import { useClass } from "@/hook";
 import React from "react";
 const cN = useClass(style);
-// 组件函数
-export function Home() {
+/**
+ * 首页
+ * @returns JSX
+ */
+export function PageHome() {
   return (
     <Layout className={cN("home")}>
       <Card title="路由列表01">
@@ -56,4 +59,4 @@ export function Home() {
   );
 }
 
-export default React.memo(Home);
+export default React.memo(PageHome);
