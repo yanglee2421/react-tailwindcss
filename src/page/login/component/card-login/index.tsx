@@ -1,13 +1,15 @@
-import { useClass } from "@/hook";
 import style from "./card-login.module.scss";
+import { useClass } from "@/hook";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, actLogin } from "@/redux";
 import { useLoginMutation } from "@/api/api-rtkq";
 import React from "react";
-
 const cn = useClass(style);
+/**
+ * 类型
+ */
 namespace type {
   export interface formValue {
     password: string;
@@ -19,12 +21,12 @@ namespace type {
     onRegisterClick(e: React.MouseEvent): void;
   }
 }
-export default (props: type.props) => {
+// 组件函数
+export function CardLogin(props: type.props) {
   const { isRegister, onRegisterClick } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFn] = useLoginMutation();
-
   // 表单提交
   const [form] = Form.useForm();
   const onFinish = (value: type.formValue) => {
@@ -113,4 +115,4 @@ export default (props: type.props) => {
       </Form>
     </Card>
   );
-};
+}

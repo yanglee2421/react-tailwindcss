@@ -2,13 +2,14 @@ import style from "./login.module.scss";
 import { useClass } from "@/hook";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import { BgParticle } from "@/component";
+import { BgParticle as Particle } from "@/component";
 import { useAppSelector } from "@/redux";
-import CardLogin from "./component/card-login";
-import CardRegister from "./component/card-register";
+import { CardLogin, CardRegister } from "./component";
+import React from "react";
 const cn = useClass(style);
-
-export default () => {
+const BgParticle = React.memo(Particle);
+// 组件函数
+export function PageLogin() {
   const isLogined = useAppSelector((state) => state.auth.isLogined);
   // prettier-ignore
   if (isLogined) return <Navigate to="/" replace />;
@@ -27,4 +28,6 @@ export default () => {
       </div>
     </BgParticle>
   );
-};
+}
+
+export default React.memo(PageLogin);

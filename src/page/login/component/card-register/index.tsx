@@ -2,10 +2,13 @@ import { Button, Card, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "./card-register.module.scss";
 import { useClass } from "@/hook";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRegisterMutation } from "@/api/api-rtkq";
 const cn = useClass(style);
-namespace type {
+/**
+ * 类型
+ */
+namespace Type {
   type validateStatus =
     | ""
     | "error"
@@ -27,15 +30,23 @@ namespace type {
     help?: string;
   }
 }
-export default (props: type.props) => {
+console.log(style);
+
+// 组件函数
+export function CardRegister(props: Type.props) {
   const { isRegister, onLoginClick } = props;
-  const [registerFn, registerRes] = useRegisterMutation();
+  // 根据 props 确定类名
+  const registerClass = useMemo(
+    () => ["card-register", isRegister ? "rotate-y-0" : ""],
+    [isRegister]
+  );
+  const [registerFn] = useRegisterMutation();
   const [form] = Form.useForm();
-  const [validate, setValidate] = useState<type.validate>({
+  const [validate, setValidate] = useState<Type.validate>({
     validateStatus: undefined,
     help: undefined,
   });
-  const onFinish = (formData: type.formData) => {
+  const onFinish = (formData: Type.formData) => {
     registerFn(formData)
       .unwrap()
       .then((res) => {
@@ -51,8 +62,8 @@ export default (props: type.props) => {
       });
   };
   const onValuesChange = (
-    chgValue: Partial<type.formData>,
-    allValue: type.formData
+    chgValue: Partial<Type.formData>,
+    allValue: Type.formData
   ) => {
     if (!chgValue.password2) return;
     const { password } = allValue;
@@ -66,7 +77,7 @@ export default (props: type.props) => {
     });
   };
   return (
-    <Card className={cn(["card-register", isRegister ? "rotate-y-0" : ""])}>
+    <Card className={cn(registerClass)}>
       <Form
         form={form}
         onFinish={onFinish}
@@ -122,4 +133,4 @@ export default (props: type.props) => {
       </Form>
     </Card>
   );
-};
+}

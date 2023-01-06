@@ -1,11 +1,12 @@
 import style from "./home.module.scss";
-import { useClass } from "@/hook";
 import { Card, Form, Layout, List } from "antd";
-import { DarkSwitch, SignOut } from "@/component";
 import { NavLink } from "react-router-dom";
+import { DarkSwitch, SignOut } from "@/component";
+import { useClass } from "@/hook";
+import React from "react";
 const cN = useClass(style);
-
-function Home() {
+// 组件函数
+export function Home() {
   return (
     <Layout className={cN("home")}>
       <Card title="路由列表01">
@@ -55,4 +56,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default React.memo(Home);

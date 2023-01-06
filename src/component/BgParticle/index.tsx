@@ -4,7 +4,7 @@ import { Particles } from "@/util";
 import React, { useEffect, useRef, useState } from "react";
 const cn = useClass(style);
 
-namespace type {
+namespace Type {
   export interface props
     extends React.PropsWithChildren,
       React.HTMLAttributes<HTMLDivElement> {
@@ -12,7 +12,7 @@ namespace type {
   }
 }
 
-export function BgParticle(props: type.props) {
+export function BgParticle(props: Type.props) {
   const { particleNum = 50, className = "", ...restProps } = props;
   const [box, setBox] = useState({ width: 0, height: 0 });
   const boxRef = useResize<HTMLDivElement>(({ width, height }) =>
@@ -50,5 +50,3 @@ export function BgParticle(props: type.props) {
     </div>
   );
 }
-
-export default React.memo(BgParticle);
