@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 /**
- * 1. 挂载时：callback
- * 2. 主题切换时：callback
+ * 监听浏览器主题变化的钩子
+ * @param callback 挂载、主题切换时执行
  */
 export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
   useEffect(() => {

@@ -8,10 +8,9 @@ export namespace Type {
   }
 }
 /**
- * 0. resizeRef 指定 DOM
- * 1. 挂载时：callback
- * 2. DOM 尺寸更改时：callback
- * 3. 卸载时解除监听
+ * 监听 dom resize 的钩子
+ * @param callback 挂载、resize时执行
+ * @returns 用于指定 dom 的 ref
  */
 export function useResize<T extends HTMLElement>(callback: Type.callback) {
   const resizeRef = useRef<T>(null);

@@ -7,9 +7,9 @@ export namespace Type {
   export type cb<T> = (event: T) => void;
 }
 /**
- * 返回一个函数
- * 该函数会阻止事件的默认行为
- * 并执行 callback
+ * 阻止默认行为的柯里化函数
+ * @param callback 阻止默认行为后执行
+ * @returns 调用了 preventDefault 的 EventHandler
  */
 export function preventDefault<T extends Type.Event>(callback?: Type.cb<T>) {
   return (event: T) => {

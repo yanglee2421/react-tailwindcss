@@ -2,6 +2,10 @@ import { useMemo } from "react";
 import { Navigate, useRoutes, useLocation } from "react-router-dom";
 import { useAppSelector } from "@/redux";
 import { routes, whiteList } from "./routes";
+/**
+ * 实现路由鉴权
+ * @returns JSX
+ */
 export function RouteElement() {
   const location = useLocation();
   const routerElement = useRoutes(routes);

@@ -1,7 +1,7 @@
 /**
- * 0. 用于返回 className
- * 1. 支持 string、string[] 写法
- * 2. 支持 Record 写法
+ * 支持 string、string[]、Record 写法
+ * @param style 引入的 CssModule
+ * @returns 返回 className 的函数
  */
 export function useClass(style: CSSModuleClasses) {
   return (className: string | string[] | Record<string, boolean>) => {
