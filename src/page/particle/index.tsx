@@ -1,7 +1,10 @@
-import { useClass, useResize } from "@/hook";
-import React, { useEffect, useRef, useState } from "react";
 import style from "./particle.module.scss";
+import React, { useEffect, useRef, useState } from "react";
+import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
+import { DarkSwitch, SignOut } from "@/component";
+import { Button, Layout, Space } from "antd";
+import { NavLink } from "react-router-dom";
 const cn = useClass(style);
 /**
  * 组件函数
@@ -16,11 +19,7 @@ export function PageParticle() {
     const canvas = canRef.current!;
     canvas.width = box.width;
     canvas.height = box.height;
-    const p = new Particles(canvas, {
-      number: 150,
-      lineMax: 120,
-      color: "199, 199, 199",
-    });
+    const p = new Particles(canvas, 100, 120, "199, 199, 199");
     p.animate();
     p.bindEvent();
     return () => {
@@ -29,7 +28,7 @@ export function PageParticle() {
     };
   }, [box, canRef]);
   return (
-    <div
+    <Layout
       ref={ref}
       className={cn("partcle")}
     >
@@ -37,7 +36,17 @@ export function PageParticle() {
         ref={canRef}
         className={cn("particle-canvas")}
       ></canvas>
-    </div>
+      <div className={cn("particle-content p-1")}>
+        <Space>
+          <Button>
+            <NavLink to="/">Home</NavLink>
+          </Button>
+          <SignOut></SignOut>
+          <DarkSwitch></DarkSwitch>
+        </Space>
+      </div>
+    </Layout>
   );
 }
+
 export default React.memo(PageParticle);

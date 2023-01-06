@@ -1,3 +1,8 @@
+/**
+ * 0. 用于返回 className
+ * 1. 支持 string、string[] 写法
+ * 2. 支持 Record 写法
+ */
 export function useClass(style: CSSModuleClasses) {
   return (className: string | string[] | Record<string, boolean>) => {
     const arrStr = (arr: string[]) =>

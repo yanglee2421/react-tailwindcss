@@ -2,11 +2,12 @@ import { Button, Card, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "./card-register.module.scss";
 import { useClass } from "@/hook";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useRegisterMutation } from "@/api/api-rtkq";
+import { preventDefault } from "@/util";
 const cn = useClass(style);
 /**
- * 类型
+ * CardRegistry 的类型空间
  */
 namespace Type {
   type validateStatus =
@@ -18,7 +19,7 @@ namespace Type {
     | undefined;
   export interface props {
     isRegister: boolean;
-    onLoginClick(e?: React.MouseEvent): void;
+    onLoginClick(): void;
   }
   export interface formData {
     username: string;
@@ -30,23 +31,25 @@ namespace Type {
     help?: string;
   }
 }
-console.log(style);
-
-// 组件函数
+/**
+ * PageLogin 的 CardRegister 组件
+ */
 export function CardRegister(props: Type.props) {
   const { isRegister, onLoginClick } = props;
+  const clickHandler = useCallback(preventDefault(onLoginClick), []);
   // 根据 props 确定类名
   const registerClass = useMemo(
     () => ["card-register", isRegister ? "rotate-y-0" : ""],
     [isRegister]
   );
+  // 处理注册
   const [registerFn] = useRegisterMutation();
   const [form] = Form.useForm();
   const [validate, setValidate] = useState<Type.validate>({
     validateStatus: undefined,
     help: undefined,
   });
-  const onFinish = (formData: Type.formData) => {
+  const onFinish = useCallback((formData: Type.formData) => {
     registerFn(formData)
       .unwrap()
       .then((res) => {
@@ -60,22 +63,23 @@ export function CardRegister(props: Type.props) {
       .catch((err) => {
         console.error(err);
       });
-  };
-  const onValuesChange = (
-    chgValue: Partial<Type.formData>,
-    allValue: Type.formData
-  ) => {
-    if (!chgValue.password2) return;
-    const { password } = allValue;
-    setValidate((prev) => {
-      const isOk = chgValue.password2 !== password;
-      return {
-        ...prev,
-        validateStatus: isOk ? undefined : "error",
-        help: isOk ? undefined : "两次输入的密码不一致！",
-      };
-    });
-  };
+  }, []);
+  // 表单校验
+  const onValuesChange = useCallback(
+    (chgValue: Partial<Type.formData>, allValue: Type.formData) => {
+      if (!chgValue.password2) return;
+      const { password } = allValue;
+      setValidate((prev) => {
+        const isOk = chgValue.password2 !== password;
+        return {
+          ...prev,
+          validateStatus: isOk ? undefined : "error",
+          help: isOk ? undefined : "两次输入的密码不一致！",
+        };
+      });
+    },
+    []
+  );
   return (
     <Card className={cn(registerClass)}>
       <Form
@@ -124,8 +128,8 @@ export function CardRegister(props: Type.props) {
           </Button>
           Or{" "}
           <a
-            onClick={(e) => onLoginClick(e)}
-            href="#"
+            onClick={clickHandler}
+            href="xxx"
           >
             login now!
           </a>

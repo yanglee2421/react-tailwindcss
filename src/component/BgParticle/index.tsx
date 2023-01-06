@@ -23,7 +23,7 @@ export function BgParticle(props: Type.props) {
     const canvas = canvasRef.current!;
     canvas.width = box.width;
     canvas.height = box.height;
-    const particles = new Particles(canvas);
+    const particles = new Particles(canvas, particleNum);
     particles.animate();
     particles.bindEvent();
     return () => {

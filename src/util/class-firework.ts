@@ -42,10 +42,7 @@ class Firework {
 }
 export class Fireworks {
   #arr: Firework[] = [];
-  #canvas: HTMLCanvasElement;
-  constructor(canvas: HTMLCanvasElement) {
-    this.#canvas = canvas;
-  }
+  constructor(private canvas: HTMLCanvasElement) {}
   /**
    * 事件
    */
@@ -53,13 +50,13 @@ export class Fireworks {
   bindEvent() {
     this.#controller = new AbortController();
     const { signal } = this.#controller;
-    this.#canvas.addEventListener(
+    this.canvas.addEventListener(
       "click",
       (event) => {
         this.abortAnimate();
         const { clientX, clientY } = event;
         for (let i = 0; i < getFire.get(); i++) {
-          this.#arr.push(new Firework(this.#canvas, clientX, clientY));
+          this.#arr.push(new Firework(this.canvas, clientX, clientY));
         }
         this.animate();
       },
@@ -75,8 +72,8 @@ export class Fireworks {
     if (this.#arr.length) {
       this.#animateId = requestAnimationFrame(this.animate.bind(this));
     }
-    const ctx = this.#canvas.getContext("2d")!;
-    const { width, height } = this.#canvas;
+    const ctx = this.canvas.getContext("2d")!;
+    const { width, height } = this.canvas;
     ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
     ctx.fillRect(0, 0, width, height);
     this.#arr = this.#arr.filter((f) => {

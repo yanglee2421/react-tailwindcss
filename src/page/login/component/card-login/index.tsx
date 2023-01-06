@@ -1,16 +1,17 @@
 import style from "./card-login.module.scss";
-import { useClass } from "@/hook";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, actLogin } from "@/redux";
 import { useLoginMutation } from "@/api/api-rtkq";
-import React from "react";
+import { useClass } from "@/hook";
+import { useAppDispatch, actLogin } from "@/redux";
+import { preventDefault } from "@/util";
+import React, { useCallback } from "react";
 const cn = useClass(style);
 /**
- * 类型
+ * CardLogin 的类型空间
  */
-namespace type {
+namespace Type {
   export interface formValue {
     password: string;
     username: string;
@@ -18,18 +19,21 @@ namespace type {
   }
   export interface props {
     isRegister: boolean;
-    onRegisterClick(e: React.MouseEvent): void;
+    onRegisterClick(): void;
   }
 }
-// 组件函数
-export function CardLogin(props: type.props) {
+/**
+ * PageLogin 的 CardLoin 组件
+ */
+export function CardLogin(props: Type.props) {
   const { isRegister, onRegisterClick } = props;
+  const clickHandler = useCallback(preventDefault(onRegisterClick), []);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFn] = useLoginMutation();
   // 表单提交
   const [form] = Form.useForm();
-  const onFinish = (value: type.formValue) => {
+  const onFinish = useCallback((value: Type.formValue) => {
     loginFn(value)
       .unwrap()
       .then((data) => {
@@ -51,7 +55,7 @@ export function CardLogin(props: type.props) {
       .catch((err) => {
         console.error(err);
       });
-  };
+  }, []);
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
       <Form
@@ -91,7 +95,8 @@ export function CardLogin(props: type.props) {
 
           <a
             className={cn("login-form-forgot")}
-            href="#"
+            href="xxx"
+            onClick={preventDefault()}
           >
             Forgot password
           </a>
@@ -106,8 +111,8 @@ export function CardLogin(props: type.props) {
           </Button>
           Or{" "}
           <a
-            onClick={(e) => onRegisterClick(e)}
-            href="#"
+            onClick={clickHandler}
+            href="xxx"
           >
             register now!
           </a>
