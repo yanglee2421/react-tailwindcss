@@ -1,5 +1,5 @@
 /**
- * 判断是否为 Firefox
+ * 判断浏览器是否为 Firefox
  * @returns Firefox 为 true，反之 false
  */
 export function isFirefox() {

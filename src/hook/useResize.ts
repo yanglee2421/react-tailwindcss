@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 /**
- * 类型
+ * @function useResize 使用的类型
  */
 export namespace Type {
   export interface callback {

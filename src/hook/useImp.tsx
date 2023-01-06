@@ -1,7 +1,7 @@
 import React from "react";
 import { Skeleton } from "antd";
 /**
- * useResize 的类型空间
+ * @function useResize 使用的类型
  */
 export namespace Type {
   export type defRC = {

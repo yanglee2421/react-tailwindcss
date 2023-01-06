@@ -51,11 +51,7 @@ export class Particles {
       this.#arr.push(new Particle(this.canvas, this.color));
     }
   }
-  /**
-   * 处理线条
-   * 最大线长
-   * 绘线
-   */
+  // 绘线
   drawLine() {
     this.#arr.forEach((p1, index) => {
       this.#arr.slice(index + 1).forEach((p2) => {
@@ -76,9 +72,10 @@ export class Particles {
     });
   }
   /**
-   * 动画
-   * 开启动画
-   * 停止动画
+   * 动画功能
+   * 1.控制动画
+   * 2.开启动画
+   * 3.停止动画
    */
   #animateId = 0;
   animate() {
@@ -93,10 +90,10 @@ export class Particles {
   }
   /**
    * 处理鼠标事件
-   * 事件粒子
-   * 控制器
-   * 绑定事件
-   * 解绑事件
+   * 1.事件粒子
+   * 2.控制器
+   * 3.绑定事件
+   * 4.解绑事件
    */
   #one: null | Particle = null;
   #controller = new AbortController();
