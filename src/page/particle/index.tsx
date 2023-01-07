@@ -29,21 +29,15 @@ export function PageParticle() {
     };
   }, [box, canRef]);
   return (
-    <Layout
-      ref={resizeRef}
-      className={cn("partcle")}
-    >
-      <canvas
-        ref={canRef}
-        className={cn("particle-canvas")}
-      ></canvas>
+    <Layout ref={resizeRef} className={cn("partcle")}>
+      <canvas ref={canRef} className={cn("particle-canvas")}></canvas>
       <div className={cn("particle-content p-1")}>
         <Space>
-          <Button>
-            <NavLink to="/">Home</NavLink>
-          </Button>
-          <SignOut></SignOut>
-          <DarkSwitch></DarkSwitch>
+          <NavLink to="/">
+            <Button>Home</Button>
+          </NavLink>
+          <SignOut />
+          <DarkSwitch />
         </Space>
       </div>
     </Layout>

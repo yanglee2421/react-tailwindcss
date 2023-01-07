@@ -29,7 +29,7 @@ export function PageHome() {
           </List.Item>
         </List>
       </Card>
-      <RouteCard />
+      <RouteCard title="RouteCard" />
       <Card title="主题卡片">
         <Form>
           <Form.Item label="夜间模式">
