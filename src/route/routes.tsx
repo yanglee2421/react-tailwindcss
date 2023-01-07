@@ -1,57 +1,81 @@
-import { Navigate, RouteObject } from "react-router-dom";
-import { Card, Button } from "antd";
-import { useImp } from "@/hook";
+import { Navigate, RouteObject, useMatches, useOutlet } from "react-router-dom";
+import { useLazy } from "@/hook";
+import { whiteList } from "./whiteList";
+import { useEffect, useMemo } from "react";
+import { useAppSelector } from "@/redux";
 export { whiteList } from "./whiteList";
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: useImp(() => import("@/page/home")),
-    handle: { title: "首页" },
-  },
-  {
-    path: "show",
-    element: useImp(() => import("@/page/show")),
+    element: <AuthRoute />,
     children: [
-      { path: "card", element: <Card title="嵌套路由"></Card> },
-      { path: "button", element: <Button danger>嵌套路由</Button> },
+      {
+        path: "",
+        element: useLazy(() => import("@/page/home")),
+        handle: { title: "首页" },
+      },
+      {
+        path: "show",
+        element: useLazy(() => import("@/page/show")),
+        handle: { title: "展示页" },
+      },
+      {
+        path: "login",
+        element: useLazy(() => import("@/page/login")),
+        handle: { title: "登录" },
+      },
+      {
+        path: "table",
+        element: useLazy(() => import("@/page/table")),
+        handle: { title: "表格" },
+      },
+      {
+        path: "threejs",
+        element: useLazy(() => import("@/page/threejs")),
+        handle: { title: "threejs" },
+      },
+      {
+        path: "particle",
+        element: useLazy(() => import("@/page/particle")),
+        handle: { title: "粒子" },
+      },
+      {
+        path: "demo",
+        element: useLazy(() => import("@/page/demo")),
+        handle: { title: "demo" },
+      },
+      { path: "*", element: <Navigate to="/404" replace /> },
+      {
+        path: "404",
+        element: useLazy(() => import("@/page/404")),
+        handle: { title: "404，找不到了" },
+      },
     ],
-    handle: { title: "展示" },
-  },
-  {
-    path: "login",
-    element: useImp(() => import("@/page/login")),
-    handle: { title: "登录" },
-  },
-  {
-    path: "table",
-    element: useImp(() => import("@/page/table")),
-    handle: { title: "表格" },
-  },
-  {
-    path: "threejs",
-    element: useImp(() => import("@/page/threejs")),
-    handle: { title: "threejs" },
-  },
-  {
-    path: "particle",
-    element: useImp(() => import("@/page/particle")),
-    handle: { title: "粒子" },
-  },
-  {
-    path: "firework",
-    element: useImp(() => import("@/page/firework")),
-    handle: { title: "烟花" },
-  },
-  {
-    path: "demo",
-    element: useImp(() => import("@/page/demo")),
-    handle: { title: "demo" },
-  },
-  // prettier-ignore
-  { path: "*", element: <Navigate to="404" replace /> },
-  {
-    path: "404",
-    element: useImp(() => import("@/page/404")),
-    handle: { title: "404" },
   },
 ];
+/**
+ * 实现路由鉴权
+ * @returns 通过时为 page，反之 PageLogin
+ */
+function AuthRoute() {
+  const matches = useMatches();
+  const outlet = useOutlet();
+  const isLogined = useAppSelector((state) => state.auth.isLogined);
+  // 根据白名单的登录状态进行鉴权
+  const page = useMemo(() => {
+    const { pathname } = matches[1];
+    const isInWL = whiteList.includes(pathname);
+    if (isInWL) return outlet;
+    if (isLogined) return outlet;
+    return <Navigate to="login" replace />;
+  }, [isLogined, matches, outlet]);
+  // 仿路由后置钩子更改网页标题
+  useEffect(() => {
+    const title = (matches[1].handle as any)?.title;
+    const isHasTitle = typeof title === "string";
+    if (isHasTitle) {
+      document.title = title;
+    }
+  }, [matches]);
+  return page;
+}

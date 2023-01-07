@@ -32,17 +32,12 @@ export function RouteCard(props: Type.RouteCard) {
  */
 export function RouteBtn(props: Type.Space) {
   const { children, ...restProps } = props;
-  // 有 "/" 直接返回，没有则加上
-  const toPath = useCallback((path: string) => {
-    return path.includes("/") ? path : `/${path}`;
-  }, []);
   // 遍历 routes 生成 JSX[]
-  const btns = routes.map((route, index) => {
+  const btns = (routes[0].children || []).map((route, index) => {
     const isHasTitle = typeof route.handle?.title === "string";
     if (!isHasTitle) return null;
-    if (!route.path) return null;
     return (
-      <NavLink key={index} to={toPath(route.path)}>
+      <NavLink key={index} to={"/" + route.path}>
         <Button type="primary">{route.handle.title}</Button>
       </NavLink>
     );

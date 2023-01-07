@@ -1,5 +1,4 @@
 export { useClass } from "./useClass";
 export { useDark } from "./useDark";
-export { useImp } from "./useImp";
+export { useLazy } from "./useLazy";
 export { useResize } from "./useResize";
-export { useDocTitle } from "./useDocTitle";
