@@ -1,8 +1,8 @@
 import { Navigate, RouteObject, useMatches, useOutlet } from "react-router-dom";
 import { useLazy } from "@/hook";
+import { useAppSelector } from "@/redux";
 import { whiteList } from "./whiteList";
 import { useEffect, useMemo } from "react";
-import { useAppSelector } from "@/redux";
 export { whiteList } from "./whiteList";
 export const routes: RouteObject[] = [
   {

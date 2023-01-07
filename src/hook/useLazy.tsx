@@ -14,10 +14,10 @@ export namespace Type {
  * @returns JSX
  */
 export function useLazy(callback: () => Promise<Type.defRC>) {
-  const LazyComp = React.lazy(callback);
+  const LazyRC = React.lazy(callback);
   return (
     <React.Suspense fallback={<Skeleton active />}>
-      <LazyComp />
+      <LazyRC />
     </React.Suspense>
   );
 }
