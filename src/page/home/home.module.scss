@@ -1,13 +1,12 @@
 .home {
-  @extend .p-1;
-  background-color: transparent;
-  & > * {
-    @include card-glass;
-  }
   display: grid;
-  grid-template: repeat(3, 300px) / repeat(6, 1fr);
   gap: 10px;
-  @media only screen and (min-width: 992px) {
+  background-color: transparent;
+  // xxl:1400以上
+  // xl:1200-1399
+  // lg:992-1199
+  @media screen and (min-width: 992px) {
+    grid-template: repeat(3, 320px) / repeat(6, 1fr);
     & > *:first-child,
     & > *:nth-child(2),
     & > *:nth-child(3),
@@ -22,14 +21,16 @@
       grid-column: span 3;
     }
   }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    & > * {
-      grid-column: span 3;
-    }
+  // md:768-991
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    grid-template: auto/repeat(2, 1fr);
   }
-  @media only screen and (max-width: 767px) {
-    & > * {
-      grid-column: span 6;
-    }
+  // sm:576-767
+  @media screen and (min-width: 576px) and (max-width: 767px) {
+    grid-template: auto/1fr;
+  }
+  // none:0-575
+  & > * {
+    @include card-glass;
   }
 }

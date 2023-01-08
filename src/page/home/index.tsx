@@ -19,7 +19,7 @@ const BG = React.memo(BgParticle);
 export function PageHome() {
   return (
     <BG className="h-100">
-      <Layout className={cN("home")}>
+      <Layout className={cN("home p-1")}>
         <Card title="路由列表01">
           <List bordered>
             <List.Item>
