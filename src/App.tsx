@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { ConfigProvider, Image, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
+import { withPortal } from "@/component";
 import { useDark } from "@/hook";
 import {
   useAppDispatch,
@@ -9,7 +10,9 @@ import {
   actGalleryIsShow,
 } from "@/redux";
 import { router } from "@/route";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+const { darkAlgorithm, defaultAlgorithm } = theme;
+const GalleryWithPortal = withPortal(Gallery);
 /**
  * @function App 使用的类型
  */
@@ -18,7 +21,6 @@ export namespace Type {
     (vis: boolean): void;
   }
 }
-const { darkAlgorithm, defaultAlgorithm } = theme;
 /**
  * React App 的根组件
  * @returns AppJSX
@@ -36,7 +38,7 @@ export function App() {
   return (
     <ConfigProvider locale={zhCN} theme={{ algorithm }}>
       <RouterProvider router={router} />
-      {galleryIsShow && <Gallery />}
+      {galleryIsShow && <GalleryWithPortal />}
     </ConfigProvider>
   );
 }
@@ -45,13 +47,18 @@ export function App() {
  * @returns JSX
  */
 function Gallery() {
-  // 从 store 中取出状态
+  const [visible, setVisible] = useState(false);
+  // state 跟随 store
   const { galleryIsShow, galleryList } = useAppSelector((state) => state.theme);
+  useEffect(() => setVisible(galleryIsShow), [galleryIsShow]);
+  // 关闭事件，打开立即触发，关闭则需要延迟 300ms 等过渡结束
   const dispatch = useAppDispatch();
-  const onVisibleChange = useCallback<Type.onVisibleChange>(
-    (vis) => dispatch(actGalleryIsShow(vis)),
-    []
-  );
+  const onVisibleChange = useCallback<Type.onVisibleChange>((vis) => {
+    setVisible(vis);
+    vis
+      ? dispatch(actGalleryIsShow(true))
+      : setTimeout(() => dispatch(actGalleryIsShow(false)), 300);
+  }, []);
   // 生所 Image 数组
   const imgList = useMemo(
     () => galleryList.map((src, index) => <Image key={index} src={src} />),
@@ -59,7 +66,7 @@ function Gallery() {
   );
   return (
     <div className="none">
-      <Image.PreviewGroup preview={{ visible: galleryIsShow, onVisibleChange }}>
+      <Image.PreviewGroup preview={{ visible, onVisibleChange }}>
         {imgList}
       </Image.PreviewGroup>
     </div>

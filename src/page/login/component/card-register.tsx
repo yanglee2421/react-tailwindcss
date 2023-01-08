@@ -1,10 +1,10 @@
+import style from "../login.module.scss";
 import { Button, Card, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import style from "./card-register.module.scss";
 import { useClass } from "@/hook";
-import React, { useCallback, useMemo, useState } from "react";
 import { useRegisterMutation } from "@/api/api-rtkq";
 import { preventDefault } from "@/util";
+import React, { useCallback, useState } from "react";
 const cn = useClass(style);
 /**
  * CardRegistry 的类型空间
@@ -37,11 +37,6 @@ namespace Type {
 export function CardRegister(props: Type.props) {
   const { isRegister, onLoginClick } = props;
   const clickHandler = useCallback(preventDefault(onLoginClick), []);
-  // 根据 props 确定类名
-  const registerClass = useMemo(
-    () => ["card-register", isRegister ? "rotate-y-0" : ""],
-    [isRegister]
-  );
   // 处理注册
   const [registerFn] = useRegisterMutation();
   const [form] = Form.useForm();
@@ -70,7 +65,7 @@ export function CardRegister(props: Type.props) {
       if (!chgValue.password2) return;
       const { password } = allValue;
       setValidate((prev) => {
-        const isOk = chgValue.password2 !== password;
+        const isOk = chgValue.password2 === password;
         return {
           ...prev,
           validateStatus: isOk ? undefined : "error",
@@ -81,25 +76,15 @@ export function CardRegister(props: Type.props) {
     []
   );
   return (
-    <Card className={cn(registerClass)}>
-      <Form
-        form={form}
-        onFinish={onFinish}
-        onValuesChange={onValuesChange}
-      >
-        <Form.Item
-          name="username"
-          rules={[{ required: true }]}
-        >
+    <Card className={cn(["card-register", isRegister ? "rotate-y-0" : ""])}>
+      <Form form={form} onFinish={onFinish} onValuesChange={onValuesChange}>
+        <Form.Item name="username" rules={[{ required: true }]}>
           <Input
             prefix={<UserOutlined className={cn("site-form-item-icon")} />}
             placeholder="手机号"
           />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="password" rules={[{ required: true }]}>
           <Input
             prefix={<LockOutlined className={cn("site-form-item-icon")} />}
             type="password"
@@ -127,10 +112,7 @@ export function CardRegister(props: Type.props) {
             Register
           </Button>
           Or{" "}
-          <a
-            onClick={clickHandler}
-            href="xxx"
-          >
+          <a onClick={clickHandler} href="xxx">
             login now!
           </a>
         </Form.Item>

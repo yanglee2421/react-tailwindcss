@@ -1,4 +1,4 @@
-import style from "./card-login.module.scss";
+import style from "../login.module.scss";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";

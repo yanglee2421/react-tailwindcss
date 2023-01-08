@@ -3,23 +3,39 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: top center;
-  background-image: url("@/assets/image/login-bg.jpg");
 }
 .card-box {
   position: relative;
   width: 320px;
   height: 288px;
+  transform: translateY(-32px);
   transform-style: preserve-3d;
   perspective: 1200px;
   & > * {
     position: absolute;
     @include position(0);
+    @include card-glass;
     width: 100%;
     height: 100%;
     transition: 0.7s transform;
     backface-visibility: hidden;
   }
+  & > *:nth-child(2) {
+    transform: rotateY(-180deg);
+  }
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.rotate-y-0 {
+  transform: rotateY(0deg) !important;
+}
+.login-form-button {
+  width: 100%;
+}
+.site-form-item-icon {
+  color: #999;
+}
+.login-form-forgot {
+  float: right;
 }

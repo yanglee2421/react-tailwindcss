@@ -19,10 +19,12 @@ export function PageLogin() {
   const [isRegister, setIsRegister] = useState(false);
   const switchHandler = useCallback(() => setIsRegister((prev) => !prev), []);
   return (
-    <BgParticle className={cn("login-root")}>
-      <div className={cn("card-box")}>
-        <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />
-        <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />
+    <BgParticle className={cn("h-100")}>
+      <div className={cn("login-root")}>
+        <div className={cn("card-box")}>
+          <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />
+          <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />
+        </div>
       </div>
     </BgParticle>
   );
