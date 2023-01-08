@@ -5,11 +5,8 @@
   margin: 0;
   overflow: hidden;
   background-image: linear-gradient(
-    #1b2947,
-    #2b3152,
-    #3b385d,
-    #4c4067,
-    #5d4771
+    rgba(193, 35, 35, 0.71),
+    rgba(32, 39, 216, 0.71)
   );
 }
 .particle-canvas {
@@ -18,14 +15,12 @@
   left: 0;
 }
 .particle-content {
+  @extend .clearfix;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
   overflow: overlay;
-  &::before,
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
 }

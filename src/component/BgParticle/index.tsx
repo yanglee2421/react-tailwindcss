@@ -19,7 +19,7 @@ namespace Type {
  * @returns JSX
  */
 export function BgParticle(props: Type.props) {
-  const { particleNum = 50, className = "", ...restProps } = props;
+  const { particleNum = 50, className, ...restProps } = props;
   const [box, setBox] = useState({ width: 0, height: 0 });
   const boxRef = useResize<HTMLDivElement>(({ width, height }) =>
     setBox((prev) => ({ ...prev, width, height }))
@@ -40,9 +40,7 @@ export function BgParticle(props: Type.props) {
   return (
     <div {...restProps} ref={boxRef} className={cn("particle") + className}>
       <canvas ref={canvasRef} className={cn("particle-canvas")}></canvas>
-      <div {...restProps} className={cn("particle-content") + className}>
-        {props.children}
-      </div>
+      <div className={cn("particle-content")}>{props.children}</div>
     </div>
   );
 }
