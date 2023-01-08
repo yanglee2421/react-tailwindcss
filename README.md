@@ -40,7 +40,7 @@ export function App() {
 ## 鉴权 & 网页标题
 
 1. 所有路由变化都会触发 AuthRoute 的更新
-2. AuthRoute 返回的 JSX 就是路由的结果
+2. 通过 AuthRoute 返回值控制路由的结果
 
 ```tsx
 // route/index.ts

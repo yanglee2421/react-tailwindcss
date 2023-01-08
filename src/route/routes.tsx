@@ -3,7 +3,6 @@ import { useLazy } from "@/hook";
 import { useAppSelector } from "@/redux";
 import { whiteList } from "./whiteList";
 import { useEffect, useMemo } from "react";
-export { whiteList } from "./whiteList";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -15,15 +14,22 @@ export const routes: RouteObject[] = [
         handle: { title: "首页" },
       },
       {
-        path: "show",
-        element: useLazy(() => import("@/page/show")),
-        handle: { title: "展示页" },
-      },
-      {
         path: "login",
         element: useLazy(() => import("@/page/login")),
         handle: { title: "登录" },
       },
+      { path: "*", element: <Navigate to="/404" replace /> },
+      {
+        path: "404",
+        element: useLazy(() => import("@/page/404")),
+        handle: { title: "404，找不到了" },
+      },
+      {
+        path: "show",
+        element: useLazy(() => import("@/page/show")),
+        handle: { title: "展示页" },
+      },
+
       {
         path: "table",
         element: useLazy(() => import("@/page/table")),
@@ -43,12 +49,6 @@ export const routes: RouteObject[] = [
         path: "demo",
         element: useLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
-      },
-      { path: "*", element: <Navigate to="/404" replace /> },
-      {
-        path: "404",
-        element: useLazy(() => import("@/page/404")),
-        handle: { title: "404，找不到了" },
       },
     ],
   },

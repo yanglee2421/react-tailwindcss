@@ -1,7 +1,7 @@
 import style from "./home.module.scss";
 import { NavLink } from "react-router-dom";
 import { Card, Form, Layout, List } from "antd";
-import { DarkSwitch, RouteCard, SignOut } from "@/component";
+import { BingBtn, DarkSwitch, RouteCard, SignOut } from "@/component";
 import { useClass } from "@/hook";
 import React from "react";
 const cN = useClass(style);
@@ -36,6 +36,9 @@ export function PageHome() {
           </Form.Item>
           <Form.Item label="登出按钮">
             <SignOut danger />
+          </Form.Item>
+          <Form.Item label="必应壁纸">
+            <BingBtn type="primary" />
           </Form.Item>
         </Form>
       </Card>
