@@ -38,7 +38,7 @@ export function RouteBtn(props: Type.Space) {
     if (!isHasTitle) return null;
     return (
       <NavLink key={index} to={"/" + route.path}>
-        <Button type="primary">{route.handle.title}</Button>
+        <Button>{route.handle.title}</Button>
       </NavLink>
     );
   });
@@ -61,7 +61,7 @@ export function BackBtn(props: Type.BackBtn) {
   const navigate = useNavigate();
   const retBtn = useCallback(() => navigate(-1), []);
   return (
-    <Button type="primary" danger {...restProps} onClick={retBtn}>
+    <Button danger {...restProps} onClick={retBtn}>
       {children || "返回"}
     </Button>
   );

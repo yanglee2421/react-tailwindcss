@@ -4,6 +4,7 @@ import { Card, Form, Layout, List } from "antd";
 import {
   BgParticle,
   BingBtn,
+  Counter,
   DarkSwitch,
   RouteCard,
   SignOut,
@@ -18,56 +19,39 @@ const BG = React.memo(BgParticle);
  */
 export function PageHome() {
   return (
-    <BG className="h-100">
-      <Layout className={cN("home p-1")}>
-        <Card title="路由列表01">
-          <List bordered>
-            <List.Item>
-              <NavLink to="/404">404</NavLink>
-            </List.Item>
-            <List.Item>
-              <NavLink to="/demo">demo</NavLink>
-            </List.Item>
-            <List.Item>
-              <NavLink to="/show">show</NavLink>
-            </List.Item>
-            <List.Item>
-              <NavLink to="/threejs">threejs</NavLink>
-            </List.Item>
-          </List>
-        </Card>
-        <RouteCard title="RouteCard" />
-        <Card title="主题卡片">
-          <Form>
-            <Form.Item label="夜间模式">
-              <DarkSwitch />
-            </Form.Item>
-            <Form.Item label="登出按钮">
-              <SignOut danger />
-            </Form.Item>
-            <Form.Item label="必应壁纸">
-              <BingBtn type="primary" />
-            </Form.Item>
-          </Form>
-        </Card>
-        <Card title="路由列表02">
-          <List bordered>
-            <List.Item>
-              <NavLink to="/particle">粒子</NavLink>
-            </List.Item>
-            <List.Item>
-              <NavLink to="/firework">烟花</NavLink>
-            </List.Item>
-            <List.Item>
-              <NavLink to="/table">表格</NavLink>
-            </List.Item>
-          </List>
-        </Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-      </Layout>
-    </BG>
+    <Layout className={cN("home p-1")}>
+      <Counter />
+      <RouteCard title="RouteCard" />
+      <Card title="主题卡片">
+        <Form>
+          <Form.Item label="夜间模式">
+            <DarkSwitch />
+          </Form.Item>
+          <Form.Item label="登出按钮">
+            <SignOut type="primary" danger />
+          </Form.Item>
+          <Form.Item label="必应壁纸">
+            <BingBtn />
+          </Form.Item>
+        </Form>
+      </Card>
+      <Card title="路由列表02">
+        <List bordered>
+          <List.Item>
+            <NavLink to="/particle">粒子</NavLink>
+          </List.Item>
+          <List.Item>
+            <NavLink to="/firework">烟花</NavLink>
+          </List.Item>
+          <List.Item>
+            <NavLink to="/table">表格</NavLink>
+          </List.Item>
+        </List>
+      </Card>
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+    </Layout>
   );
 }
 export default React.memo(PageHome);

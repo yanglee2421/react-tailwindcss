@@ -1,8 +1,5 @@
-import style from "./counter.module.scss";
 import { Card, Button, Divider, Space } from "antd";
-import { useClass } from "@/hook";
 import React, { useState, useMemo, useCallback } from "react";
-const cx = useClass(style);
 const MyContext = React.createContext({});
 /**
  * @function Counter 使用的类型
@@ -15,24 +12,24 @@ export namespace Type {
  * @returns JSX
  */
 export function Counter(props: Type.props) {
+  const { children, ...restProps } = props;
   const [count, setCount] = useState(0);
-  const provide = useMemo(() => ({ count, setCount }), [count, setCount]);
+  const provide = useMemo(() => ({ count, setCount }), [count]);
+  console.log("Counter 组件更新");
   const countAdd = useCallback(() => setCount((prev) => prev + 1), []);
   const resetCount = useCallback(() => setCount((prev) => 1), []);
   return (
-    <Card title="计算器">
+    <Card title="CounterCard" {...restProps}>
       <h2>当前计数：{count || 0}</h2>
-      <Divider>华丽的分隔线</Divider>
+      <Divider />
       <Space>
-        <Button onClick={countAdd} type="primary">
-          +1
-        </Button>
-        <Button onClick={resetCount} type="primary" danger>
+        <Button onClick={countAdd}>+1</Button>
+        <Button onClick={resetCount} danger>
           =1
         </Button>
       </Space>
-      <Divider>华丽的分隔线</Divider>
-      <MyContext.Provider value={provide}>{props.children}</MyContext.Provider>
+      <Divider />
+      <MyContext.Provider value={provide}>{children}</MyContext.Provider>
     </Card>
   );
 }

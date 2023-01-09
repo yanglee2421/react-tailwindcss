@@ -1,12 +1,12 @@
 .home {
   display: grid;
   gap: 10px;
-  background-color: transparent;
   // xxl:1400以上
   // xl:1200-1399
   // lg:992-1199
   @media screen and (min-width: 992px) {
-    grid-template: repeat(3, 320px) / repeat(6, 1fr);
+    grid-template: 320px / repeat(6, 1fr);
+    grid-auto-rows: 320px;
     & > *:first-child,
     & > *:nth-child(2),
     & > *:nth-child(3),
@@ -23,14 +23,11 @@
   }
   // md:768-991
   @media screen and (min-width: 768px) and (max-width: 991px) {
-    grid-template: auto/repeat(2, 1fr);
+    grid-template: auto / repeat(2, 1fr);
   }
   // sm:576-767
   @media screen and (min-width: 576px) and (max-width: 767px) {
-    grid-template: auto/1fr;
+    grid-template: auto / 1fr;
   }
   // none:0-575
-  & > * {
-    @include card-glass;
-  }
 }

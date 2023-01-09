@@ -102,7 +102,7 @@ export function CardLogin(props: Type.props) {
             htmlType="submit"
             className={cn("login-form-button")}
           >
-            Log in
+            Login
           </Button>
           Or{" "}
           <a onClick={clickHandler} href="xxx">
