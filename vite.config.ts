@@ -6,9 +6,7 @@ export default defineConfig(({ command, mode }) => ({
   plugins: [react()],
   // 路径别名
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+    alias: { "@": path.resolve(__dirname, "./src") },
   },
   // css预处理器
   css: {
@@ -36,4 +34,6 @@ export default defineConfig(({ command, mode }) => ({
   build: {
     outDir: mode === "gitee" ? "dist" : "react-app",
   },
+  // 环境变量
+  envDir: path.resolve(__dirname, "./config"),
 }));

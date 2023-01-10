@@ -1,6 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { message } from "antd";
 
-namespace type {
+namespace Type {
+  interface rej {
+    isOk: false;
+    mes: unknown;
+  }
+  interface res {
+    isOk: true;
+  }
+  type api<T> = T | rej;
+  // Bing 接口
+  interface bingRes extends res {
+    rows: string[];
+  }
+  export type Bing = api<bingRes>;
   export interface auth {
     username: string;
     password: string;
@@ -38,15 +52,19 @@ const authApi = createApi({
   tagTypes: ["pwd"],
   endpoints: (build) => ({
     // 必应壁纸
-    Bing: build.query<string[], void>({
+    Bing: build.query<Type.Bing, void>({
       keepUnusedDataFor: 60 * 60,
       query: () => ({
         url: "/bing",
         params: { idx: 0, n: 8 },
       }),
+      transformResponse(res: Type.Bing) {
+        if (!res.isOk) message.warning(String(res.mes));
+        return res;
+      },
     }),
     // 注册
-    register: build.mutation<any, type.auth>({
+    register: build.mutation<any, Type.auth>({
       query: (body) => ({
         url: "/auth/register",
         method: "post",
@@ -54,7 +72,7 @@ const authApi = createApi({
       }),
     }),
     // 登录
-    login: build.mutation<any, type.auth>({
+    login: build.mutation<any, Type.auth>({
       query: (body) => ({
         url: "/auth/login",
         method: "post",
@@ -62,7 +80,7 @@ const authApi = createApi({
       }),
     }),
     // pwd 查所有
-    pwd: build.query<type.pwdQuery, type.pwdReq>({
+    pwd: build.query<Type.pwdQuery, Type.pwdReq>({
       query: (params) => ({
         url: "/pwd/query",
         params,

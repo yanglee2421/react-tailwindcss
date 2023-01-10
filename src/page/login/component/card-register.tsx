@@ -49,15 +49,13 @@ export function CardRegister(props: Type.props) {
       .unwrap()
       .then((res) => {
         if (res.isOk) {
-          message.success(res.mes);
+          message.success(res.message);
           onLoginClick();
           return;
         }
-        message.warning(res.mes);
+        message.warning(res.message);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch((err) => console.error(err));
   }, []);
   // 表单校验
   const onValuesChange = useCallback(

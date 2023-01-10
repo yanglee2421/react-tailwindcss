@@ -12,7 +12,7 @@ export function BingBtn(props: ButtonProps) {
   const { data } = useBingQuery();
   const dispatch = useAppDispatch();
   const btnClick = useCallback(() => {
-    dispatch(actGalleryList(data || []));
+    dispatch(actGalleryList((data?.isOk && data.rows) || []));
     dispatch(actGalleryIsShow(true));
   }, [data]);
   return (
