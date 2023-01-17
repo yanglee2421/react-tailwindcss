@@ -1,26 +1,30 @@
 import style from "./home.module.scss";
-import { NavLink } from "react-router-dom";
-import { Card, Form, Layout, List } from "antd";
+import { Card, Form, Layout } from "antd";
 import {
-  BgParticle,
-  BingBtn,
-  Counter,
-  DarkSwitch,
-  RouteCard,
-  SignOut,
+  BingBtn as bingBtn,
+  Counter as CounterCard,
+  DarkSwitch as DS,
+  JokeCard as Joke,
+  RouteCard as RouterC,
+  SignOut as sobtn,
 } from "@/component";
 import { useClass } from "@/hook";
 import React from "react";
-const cN = useClass(style);
-const BG = React.memo(BgParticle);
+const cx = useClass(style);
+const Counter = React.memo(CounterCard);
+const JokeCard = React.memo(Joke);
+const BingBtn = React.memo(bingBtn);
+const DarkSwitch = React.memo(DS);
+const RouteCard = React.memo(RouterC);
+const SignOut = React.memo(sobtn);
 /**
  * 首页
  * @returns JSX
  */
 export function PageHome() {
   return (
-    <Layout className={cN("home p-1")}>
-      <Counter />
+    <Layout className={cx("home p-1")}>
+      <JokeCard />
       <RouteCard title="RouteCard" />
       <Card title="主题卡片">
         <Form>
@@ -35,19 +39,7 @@ export function PageHome() {
           </Form.Item>
         </Form>
       </Card>
-      <Card title="路由列表02">
-        <List bordered>
-          <List.Item>
-            <NavLink to="/particle">粒子</NavLink>
-          </List.Item>
-          <List.Item>
-            <NavLink to="/firework">烟花</NavLink>
-          </List.Item>
-          <List.Item>
-            <NavLink to="/table">表格</NavLink>
-          </List.Item>
-        </List>
-      </Card>
+      <Counter />
       <Card></Card>
       <Card></Card>
       <Card></Card>

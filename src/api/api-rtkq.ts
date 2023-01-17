@@ -49,11 +49,15 @@ const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["pwd"],
+  tagTypes: ["pwd", "joke"],
   endpoints: (build) => ({
+    Joke: build.query<any, void>({
+      query: () => ({ url: "/joke" }),
+      providesTags: () => [{ type: "joke", id: "all" }],
+      keepUnusedDataFor: 60 * 60,
+    }),
     // 必应壁纸
     Bing: build.query<Type.Bing, void>({
-      keepUnusedDataFor: 60 * 60,
       query: () => ({
         url: "/bing",
         params: { idx: 0, n: 8 },
@@ -62,6 +66,7 @@ const authApi = createApi({
         if (!res.isOk) message.warning(String(res.mes));
         return res;
       },
+      keepUnusedDataFor: 60 * 60,
     }),
     // 注册
     register: build.mutation<any, Type.auth>({
@@ -120,6 +125,7 @@ const authApi = createApi({
 
 export default authApi;
 export const {
+  useJokeQuery,
   useBingQuery,
   useRegisterMutation,
   useLoginMutation,
