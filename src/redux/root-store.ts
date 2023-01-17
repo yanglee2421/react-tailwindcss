@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import apiRTKQ from "@/api/api-rtkq";
+import { authApi } from "@/api/api-rtkq";
 import auth, { actSignOut } from "./slice-auth";
 import gallery from "./slice-gallery";
 import theme from "./slice-theme";
@@ -9,13 +9,13 @@ import theme from "./slice-theme";
  */
 export const store = configureStore({
   reducer: {
-    [apiRTKQ.reducerPath]: apiRTKQ.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     [auth.name]: auth.reducer,
     [gallery.name]: gallery.reducer,
     [theme.name]: theme.reducer,
   },
   middleware(getMiddleWare) {
-    return getMiddleWare().concat(apiRTKQ.middleware);
+    return getMiddleWare().concat(authApi.middleware);
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

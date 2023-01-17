@@ -38,7 +38,7 @@ namespace Type {
   }
 }
 
-const authApi = createApi({
+export const authApi = createApi({
   reducerPath: "apiRTKQ",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
@@ -51,6 +51,7 @@ const authApi = createApi({
   }),
   tagTypes: ["pwd", "joke"],
   endpoints: (build) => ({
+    // 笑话
     Joke: build.query<any, void>({
       query: () => ({ url: "/joke" }),
       providesTags: () => [{ type: "joke", id: "all" }],
@@ -122,8 +123,6 @@ const authApi = createApi({
     }),
   }),
 });
-
-export default authApi;
 export const {
   useJokeQuery,
   useBingQuery,

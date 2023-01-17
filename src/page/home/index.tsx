@@ -26,7 +26,7 @@ export function PageHome() {
     <Layout className={cx("home p-1")}>
       <JokeCard />
       <RouteCard title="RouteCard" />
-      <Card title="主题卡片">
+      <Card title="ThemeCard">
         <Form>
           <Form.Item label="夜间模式">
             <DarkSwitch />

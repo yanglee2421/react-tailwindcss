@@ -69,7 +69,7 @@ function AuthRoute() {
     if (isLogined) return outlet;
     return <Navigate to="login" replace />;
   }, [isLogined, matches, outlet]);
-  // 仿路由后置钩子更改网页标题
+  // 路由后置钩子更改网页标题
   useEffect(() => {
     const title = (matches[1].handle as any)?.title;
     const isHasTitle = typeof title === "string";

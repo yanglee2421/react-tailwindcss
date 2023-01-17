@@ -1,8 +1,8 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useMatches, useNavigate } from "react-router-dom";
 import { Button, Card, Space } from "antd";
 import type { ButtonProps, CardProps, SpaceProps } from "antd";
 import { routes } from "@/route/routes";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 /**
  * @function RouteCard 组件中使用的类型
  */
@@ -32,16 +32,25 @@ export function RouteCard(props: Type.RouteCard) {
  */
 export function RouteBtn(props: Type.Space) {
   const { children, ...restProps } = props;
+  const matches = useMatches();
+
   // 遍历 routes 生成 JSX[]
-  const btns = (routes[0].children || []).map((route, index) => {
-    const isHasTitle = typeof route.handle?.title === "string";
-    if (!isHasTitle) return null;
-    return (
-      <NavLink key={index} to={"/" + route.path}>
-        <Button>{route.handle.title}</Button>
-      </NavLink>
-    );
-  });
+  const btns = useMemo(
+    () =>
+      (routes.at(0)?.children || [])
+        .filter((route) => matches.at(1)?.pathname !== "/" + route.path)
+        .map((route, index) => {
+          const isHasTitle = typeof route.handle?.title === "string";
+          if (!isHasTitle) return null;
+          return (
+            <NavLink key={index} to={"/" + route.path}>
+              <Button>{route.handle.title}</Button>
+            </NavLink>
+          );
+        }),
+    [matches]
+  );
+
   return (
     <Space wrap {...restProps}>
       {btns}

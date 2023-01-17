@@ -9,6 +9,8 @@ export function JokeCard() {
     <Card title="JokeCard">
       <Spin
         spinning={isFetching}
+        tip="笑话加载中。。。"
+        size="large"
         indicator={<LoadingOutlined style={{ fontSize: 36 }} spin />}
       >
         <p className="text-end">
