@@ -5,6 +5,7 @@ import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
 import { useClass } from "@/hook";
 import { Dialog } from "./component";
 import React, { useEffect, useRef, useState } from "react";
+import request from "@/api/api-axios";
 const cn = useClass(style);
 /**
  * 表格页面
@@ -48,6 +49,11 @@ export function PageTable() {
   const [scr, setScr] = useState(0);
   const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    request({
+      url: "http://localhost:3000/pwd",
+    }).then((res) => {
+      console.log(res);
+    });
     const observer = new ResizeObserver(
       ([
         {
@@ -78,10 +84,7 @@ export function PageTable() {
         className="between-center"
       >
         <div className="flex">
-          <Form.Item
-            label="站点"
-            name="pwd_site"
-          >
+          <Form.Item label="站点" name="pwd_site">
             <Input
               value={req.pwd_site}
               onChange={(e) =>
@@ -111,10 +114,7 @@ export function PageTable() {
       <div className="my-1">
         <Button type="primary">添加</Button>
       </div>
-      <div
-        ref={divRef}
-        className={cn("flex-1-hidden")}
-      >
+      <div ref={divRef} className={cn("flex-1-hidden")}>
         <Table
           className="h-100"
           columns={columns}
