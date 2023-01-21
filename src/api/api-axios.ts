@@ -23,4 +23,4 @@ request.interceptors.response.use(
   }
 );
 export default async <T = unknown>(params: AxiosRequestConfig) =>
-  (await request(params)) as unknown as T;
+  request(params) as unknown as T;
