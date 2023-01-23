@@ -27,13 +27,13 @@ class SnowFlake {
 
   draw() {
     const ctx = this.canvas.getContext("2d")!;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.fillStyle = this.color;
     ctx.shadowColor = "#fff";
     ctx.shadowBlur = 10;
-    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.closePath();
+    ctx.fill();
   }
   get #isShow() {
     const isX = this.x > 0 && this.x < this.canvas.width;
