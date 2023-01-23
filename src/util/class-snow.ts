@@ -3,15 +3,26 @@ const getRadius = new GetRandom(1, 4);
 const getSpeed = new GetRandom(-1, 1);
 const getColor = new GetRandom(0.5, 1);
 class SnowFlake {
-  r = getRadius.get();
-  color = `rgba(255,255,255,${getColor.get()})`;
-  x: number;
-  y: number;
+  x = 0;
+  y = 0;
+  r = 0;
+  color = "";
   constructor(private readonly canvas: HTMLCanvasElement) {
-    const getX = new GetRandom(0, canvas.width);
-    const getY = new GetRandom(0, canvas.height);
-    this.x = getX.get();
+    this.reset();
+    const getY = new GetRandom(0, this.canvas.height);
     this.y = getY.get();
+  }
+  get #isShow() {
+    const isX = this.x > 0 && this.x < this.canvas.width;
+    const isY = this.y > 0 && this.y < this.canvas.height;
+    return isX && isY;
+  }
+  reset() {
+    const getX = new GetRandom(0, this.canvas.width);
+    this.x = getX.get();
+    this.y = 0;
+    this.r = getRadius.get();
+    this.color = `rgba(255,255,255,${getColor.get()})`;
   }
   draw() {
     const ctx = this.canvas.getContext("2d")!;
@@ -24,15 +35,8 @@ class SnowFlake {
     ctx.closePath();
   }
   update() {
-    if (this.x > this.canvas.width) {
-      this.x = 0;
-      this.r = getRadius.get();
-    }
-    if (this.y > this.canvas.height) {
-      this.y = 0;
-      this.r = getRadius.get();
-    }
-    this.x += 0;
+    this.#isShow || this.reset();
+    this.x += 0.3;
     this.y += 1;
     this.draw();
   }
