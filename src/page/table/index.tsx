@@ -2,7 +2,7 @@ import style from "./table.module.scss";
 import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
-import { useClass } from "@/hook";
+import { useClass, useResize } from "@/hook";
 import { Dialog } from "./component";
 import React, { useEffect, useRef, useState } from "react";
 import request from "@/api/api-axios";
@@ -47,31 +47,15 @@ export function PageTable() {
     },
   ];
   const [scr, setScr] = useState(0);
-  const divRef = useRef<HTMLDivElement>(null);
+  const divRef = useResize<HTMLDivElement>(({ height }) =>
+    setScr((prev) => height - 40)
+  );
   useEffect(() => {
     request({
       url: "http://localhost:3000/pwd",
     }).then((res) => {
       console.log(res);
     });
-    const observer = new ResizeObserver(
-      ([
-        {
-          contentRect: { height },
-        },
-      ]) => {
-        setScr((prev) => height - 40);
-      }
-    );
-    if (divRef.current) {
-      observer.observe(divRef.current);
-    }
-    return () => {
-      if (divRef.current) {
-        observer.unobserve(divRef.current);
-      }
-      observer.disconnect();
-    };
   }, []);
   return (
     <Layout className={cn("h-100 flex-column p-1")}>
@@ -138,7 +122,6 @@ export function PageTable() {
         }
         className="mt-1"
       />
-      <Dialog></Dialog>
     </Layout>
   );
 }

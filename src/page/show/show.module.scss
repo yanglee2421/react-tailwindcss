@@ -1,0 +1,11 @@
+.ctx {
+  position: absolute;
+  @include position(0);
+}
+.box {
+  position: relative;
+  background-image: url("@/assets/image/snow-bg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+}
