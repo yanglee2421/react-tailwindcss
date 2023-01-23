@@ -22,15 +22,16 @@ export function PageShow() {
     if (!canvas) return;
     canvas.width = box.width;
     canvas.height = box.height;
-    const snow = new Snow(canvas);
+
+    const number = box.width < 500 ? 24 : 100;
+    const snow = new Snow(canvas, number);
     snow.animation();
-    return () => {
-      snow.abortAnimation();
-    };
+    return () => snow.abortAnimation();
   }, [box]);
   return (
     <Layout ref={resizeRef} className={cx("h-100 box")}>
       <canvas ref={ctxRef} className={cx("ctx")}></canvas>
+      <div>{}</div>
     </Layout>
   );
 }

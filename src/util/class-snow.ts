@@ -51,7 +51,7 @@ class SnowFlake {
 export class Snow {
   #snowflake: SnowFlake[] = [];
   constructor(private readonly canvas: HTMLCanvasElement, number = 100) {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < number; i++) {
       this.#snowflake.push(new SnowFlake(canvas));
     }
   }
