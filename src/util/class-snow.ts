@@ -1,10 +1,13 @@
 import { GetRandom } from "./class-getRandom";
 const getRadius = new GetRandom(1, 4);
-const getSpeed = new GetRandom(-1, 1);
+const getXspeed = new GetRandom(-0.5, 0.5);
+const getYspeed = new GetRandom(1, 2);
 const getColor = new GetRandom(0.5, 1);
 class SnowFlake {
   x = 0;
   y = 0;
+  xS = 0;
+  yS = 2;
   r = 0;
   color = "";
   constructor(private readonly canvas: HTMLCanvasElement) {
@@ -12,18 +15,16 @@ class SnowFlake {
     const getY = new GetRandom(0, this.canvas.height);
     this.y = getY.get();
   }
-  get #isShow() {
-    const isX = this.x > 0 && this.x < this.canvas.width;
-    const isY = this.y > 0 && this.y < this.canvas.height;
-    return isX && isY;
-  }
   reset() {
     const getX = new GetRandom(0, this.canvas.width);
     this.x = getX.get();
     this.y = 0;
+    this.xS = getXspeed.get();
+    this.yS = getYspeed.get();
     this.r = getRadius.get();
     this.color = `rgba(255,255,255,${getColor.get()})`;
   }
+
   draw() {
     const ctx = this.canvas.getContext("2d")!;
     ctx.beginPath();
@@ -34,13 +35,19 @@ class SnowFlake {
     ctx.fill();
     ctx.closePath();
   }
+  get #isShow() {
+    const isX = this.x > 0 && this.x < this.canvas.width;
+    const isY = this.y > 0 && this.y < this.canvas.height;
+    return isX && isY;
+  }
   update() {
     this.#isShow || this.reset();
-    this.x += 0.3;
-    this.y += 1;
+    this.x += this.xS;
+    this.y += this.yS;
     this.draw();
   }
 }
+
 export class Snow {
   #snowflake: SnowFlake[] = [];
   constructor(private readonly canvas: HTMLCanvasElement, number = 100) {
@@ -48,11 +55,12 @@ export class Snow {
       this.#snowflake.push(new SnowFlake(canvas));
     }
   }
+
   #animationId = 0;
   animation() {
+    this.#animationId = requestAnimationFrame(this.animation.bind(this));
     const ctx = this.canvas.getContext("2d")!;
     const { width, height } = this.canvas;
-    this.#animationId = requestAnimationFrame(this.animation.bind(this));
     ctx.clearRect(0, 0, width, height);
     this.#snowflake.forEach((item) => {
       item.update();
