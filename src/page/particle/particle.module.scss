@@ -1,15 +1,12 @@
 .partcle {
-  @extend .h-100;
   position: relative;
+  height: 100%;
   padding: 0;
-  bottom: 0;
+  border: 0;
   margin: 0;
   background-image: linear-gradient(
-    #1b2947,
-    #2b3152,
-    #3b385d,
-    #4c4067,
-    #5d4771
+    rgba(193, 35, 35, 0.71),
+    rgba(32, 39, 216, 0.71)
   );
 }
 .particle-canvas {

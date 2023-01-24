@@ -22,13 +22,12 @@ export function PageShow() {
   useEffect(() => {
     const canvas = ctxRef.current;
     if (!canvas) return;
-    canvas.width = box.width;
-    canvas.height = box.height;
-    const number = (box.width / 540) * 50;
+    Object.assign(canvas, box);
+    const number = (box.width / 1920) * 200;
     const snow = new Snow(canvas, number);
     snow.animation();
     return () => snow.abortAnimation();
-  }, [box]);
+  }, [box, ctxRef]);
   const [bg, setBg] = useState(false);
   return (
     <Layout
