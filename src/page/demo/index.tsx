@@ -1,5 +1,5 @@
 import style from "./demo.module.scss";
-import { Button, Card, Input, Layout, Space, Spin } from "antd";
+import { Button, Card, Input, Layout, Space } from "antd";
 import { useClass } from "@/hook";
 import React, { useCallback, useState, useTransition } from "react";
 const cx = useClass(style);
@@ -29,14 +29,13 @@ export function PageDemo() {
     [count]
   );
   return (
-    <Layout className={cx("h-100 p-1")}>
-      <Card title="useTransition">
+    <Layout className={cx("h-100 box")}>
+      <Card title="useTransition" className={cx("card")}>
         <Space>
           <Button danger>{count}</Button>
           <Input value={value} onChange={handler} />
         </Space>
       </Card>
-      {isPending && <Spin tip="count 更新中。。。" />}
     </Layout>
   );
 }

@@ -1,0 +1,16 @@
+.box {
+  position: relative;
+  height: 100%;
+  padding: 10px;
+  background-image: url("@/assets/image/snow-bg.jpg");
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
+}
+.card {
+  @include card-glass;
+}
+.cvs {
+  position: absolute;
+  @include position(0);
+}
