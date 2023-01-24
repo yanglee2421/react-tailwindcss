@@ -1,8 +1,10 @@
 import style from "./show.module.scss";
-import { Layout } from "antd";
+import { Layout, Switch } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import snowbg from "@/assets/image/snow-bg.jpg";
+import villageBg from "@/assets/image/village.jpg";
 const cx = useClass(style);
 /**
  * @function PageShow 使用的类型
@@ -27,10 +29,17 @@ export function PageShow() {
     snow.animation();
     return () => snow.abortAnimation();
   }, [box]);
+  const [bg, setBg] = useState(false);
   return (
-    <Layout ref={resizeRef} className={cx("h-100 box")}>
+    <Layout
+      ref={resizeRef}
+      className={cx("h-100 box")}
+      style={{ backgroundImage: `url(${bg ? snowbg : villageBg})` }}
+    >
       <canvas ref={ctxRef} className={cx("ctx")}></canvas>
-      <div>{}</div>
+      <div>
+        <Switch onChange={(e) => setBg((prev) => !prev)} checked={bg} />
+      </div>
     </Layout>
   );
 }
