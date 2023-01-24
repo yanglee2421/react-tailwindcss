@@ -24,7 +24,7 @@ export function PageShow() {
     if (!canvas) return;
     canvas.width = box.width;
     canvas.height = box.height;
-    const number = box.width < 500 ? 24 : 100;
+    const number = (box.width / 540) * 50;
     const snow = new Snow(canvas, number);
     snow.animation();
     return () => snow.abortAnimation();
