@@ -4,7 +4,6 @@ import { useJokeQuery } from "@/api/api-rtkq";
 
 export function JokeCard() {
   const { data, isFetching, refetch } = useJokeQuery();
-
   return (
     <Card title="JokeCard">
       <Spin
@@ -14,11 +13,9 @@ export function JokeCard() {
         indicator={<LoadingOutlined style={{ fontSize: 36 }} spin />}
       >
         <p>{data?.rows}</p>
-        <p className="text-center pt-2">
-          <Button onClick={() => refetch()} type="primary" className="w-100">
-            下一条
-          </Button>
-        </p>
+        <Button onClick={() => refetch()} type="primary" block>
+          下一条
+        </Button>
       </Spin>
     </Card>
   );
