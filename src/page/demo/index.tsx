@@ -1,7 +1,14 @@
 import style from "./demo.module.scss";
 import { Button, Card, Input, Layout, Space } from "antd";
-import { useClass } from "@/hook";
-import React, { useCallback, useState, useTransition } from "react";
+import { useClass, useResize } from "@/hook";
+import { Snow } from "@/util";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 const cx = useClass(style);
 /**
  * Demo 页面
@@ -28,14 +35,29 @@ export function PageDemo() {
     },
     [count]
   );
+  const cvsRef = useRef<HTMLCanvasElement>(null);
+  const resizeRef = useResize(
+    (box) => {
+      const cvs = cvsRef.current;
+      if (!cvs) return;
+      Object.assign(cvs, box);
+      const snow = new Snow(cvs, (box.width / 1920) * 200);
+      snow.animation();
+      return () => {
+        snow.abortAnimation();
+      };
+    },
+    [cvsRef]
+  );
   return (
-    <Layout className={cx("h-100 box")}>
-      <Card title="useTransition" className={cx("card")}>
+    <Layout ref={resizeRef} className={cx("h-100 box")}>
+      <Card title="useTransition" className={cx("card m-1")}>
         <Space>
           <Button danger>{count}</Button>
           <Input value={value} onChange={handler} />
         </Space>
       </Card>
+      <canvas ref={cvsRef} className={cx("cvs")}></canvas>
     </Layout>
   );
 }

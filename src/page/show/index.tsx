@@ -14,20 +14,19 @@ export namespace Type {}
  * Show 页面
  */
 export function PageShow() {
-  const [box, setBox] = useState({ width: 0, height: 0 });
-  const resizeRef = useResize(({ width, height }) =>
-    setBox((prev) => ({ ...prev, width, height }))
+  const cvsRef = useRef<HTMLCanvasElement>(null);
+  const resizeRef = useResize(
+    (box) => {
+      const canvas = cvsRef.current;
+      if (!canvas) return;
+      Object.assign(canvas, box);
+      const number = (box.width / 1920) * 200;
+      const snow = new Snow(canvas, number);
+      snow.animation();
+      return () => snow.abortAnimation();
+    },
+    [cvsRef]
   );
-  const ctxRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = ctxRef.current;
-    if (!canvas) return;
-    Object.assign(canvas, box);
-    const number = (box.width / 1920) * 200;
-    const snow = new Snow(canvas, number);
-    snow.animation();
-    return () => snow.abortAnimation();
-  }, [box, ctxRef]);
   const [bg, setBg] = useState(false);
   return (
     <Layout
@@ -35,9 +34,9 @@ export function PageShow() {
       className={cx("h-100 box")}
       style={{ backgroundImage: `url(${bg ? snowbg : villageBg})` }}
     >
-      <canvas ref={ctxRef} className={cx("ctx")}></canvas>
+      <canvas ref={cvsRef} className={cx("ctx")}></canvas>
       <div>
-        <Switch onChange={(e) => setBg((prev) => !prev)} checked={bg} />
+        <Switch onChange={() => setBg((prev) => !prev)} checked={bg} />
       </div>
     </Layout>
   );
