@@ -3,9 +3,7 @@ import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
 import { useClass, useResize } from "@/hook";
-import { Dialog } from "./component";
-import React, { useEffect, useRef, useState } from "react";
-import request from "@/api/api-axios";
+import React, { useState } from "react";
 const cn = useClass(style);
 /**
  * 表格页面
@@ -19,10 +17,6 @@ export function PageTable() {
     page_size: 20,
   });
   const [form] = Form.useForm();
-  const resetBtn = () => {
-    form.resetFields();
-    console.log(form);
-  };
   const { data } = usePwdQuery(req);
   const [delPwd] = usePwdDelMutation();
   const columns: ColumnsType<any> = [
@@ -34,29 +28,17 @@ export function PageTable() {
       title: "操作",
       align: "center",
       render: (row: any) => (
-        <Button
-          onClick={() => {
-            delPwd(row.pwd_id);
-          }}
-          type="link"
-          danger
-        >
+        <Button onClick={() => delPwd(row.pwd_id)} type="link" danger>
           delete
         </Button>
       ),
     },
   ];
   const [scr, setScr] = useState(0);
-  const divRef = useResize<HTMLDivElement>(({ height }) =>
-    setScr((prev) => height - 40)
+  const resizeRef = useResize<HTMLDivElement>(
+    ({ height }) => setScr((prev) => height - 40),
+    []
   );
-  useEffect(() => {
-    request({
-      url: "http://localhost:3000/pwd",
-    }).then((res) => {
-      console.log(res);
-    });
-  }, []);
   return (
     <Layout className={cn("h-100 flex-column p-1")}>
       <Form
@@ -92,13 +74,13 @@ export function PageTable() {
           </Form.Item>
         </div>
         <Form.Item>
-          <Button onClick={resetBtn}>重置</Button>
+          <Button onClick={() => form.resetFields()}>重置</Button>
         </Form.Item>
       </Form>
       <div className="my-1">
         <Button type="primary">添加</Button>
       </div>
-      <div ref={divRef} className={cn("flex-1-hidden")}>
+      <div ref={resizeRef} className={cn("flex-1-hidden")}>
         <Table
           className="h-100"
           columns={columns}
