@@ -1,7 +1,7 @@
 import style from "./BgParticle.module.scss";
 import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 const cn = useClass(style);
 /**
  * @function BgParticle 使用的类型
@@ -20,26 +20,25 @@ namespace Type {
  */
 export function BgParticle(props: Type.props) {
   const { particleNum = 50, className, ...restProps } = props;
-  const [box, setBox] = useState({ width: 0, height: 0 });
-  const boxRef = useResize<HTMLDivElement>(({ width, height }) =>
-    setBox((prev) => ({ ...prev, width, height }))
+  const cvsRef = useRef<HTMLCanvasElement>(null);
+  const boxRef = useResize<HTMLDivElement>(
+    (box) => {
+      const canvas = cvsRef.current!;
+      canvas.width = box.width;
+      canvas.height = box.height;
+      const particles = new Particles(canvas, particleNum);
+      particles.animate();
+      particles.bindEvent();
+      return () => {
+        particles.abortAnimate();
+        particles.abortEvent();
+      };
+    },
+    [cvsRef]
   );
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current!;
-    canvas.width = box.width;
-    canvas.height = box.height;
-    const particles = new Particles(canvas, particleNum);
-    particles.animate();
-    particles.bindEvent();
-    return () => {
-      particles.abortAnimate();
-      particles.abortEvent();
-    };
-  }, [box, canvasRef]);
   return (
     <div {...restProps} ref={boxRef} className={cn("particle") + className}>
-      <canvas ref={canvasRef} className={cn("particle-canvas")}></canvas>
+      <canvas ref={cvsRef} className={cn("particle-canvas")}></canvas>
       <div className={cn("particle-content")}>{props.children}</div>
     </div>
   );

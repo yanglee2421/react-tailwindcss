@@ -9,7 +9,7 @@ export default defineConfig(({ command, mode }) => {
   let base = "/";
   switch (mode) {
     case "gitee":
-      base = "./";
+      base = "/vite-react/";
       break;
     default:
       base = "/react/";
