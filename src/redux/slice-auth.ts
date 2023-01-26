@@ -13,35 +13,6 @@ namespace Type {
   }
 }
 /**
- * 初始状态
- */
-function initialState() {
-  const auth = {
-    isLogined: false,
-    username: "",
-    invalidTime: 0,
-    token: "",
-  };
-  try {
-    const prevJson = localStorage.getItem("auth");
-    if (!prevJson) return auth;
-    const prevState = JSON.parse(prevJson);
-    const { username, invalidTime, token } = prevState;
-    if (!username || !invalidTime || !token) throw new Error();
-    if (typeof username !== "string") throw new Error();
-    if (typeof invalidTime !== "number") throw new Error();
-    if (invalidTime < Date.now() + 1000 * 60 * 15) throw new Error();
-    if (typeof token !== "string") throw new Error();
-    Object.assign(auth, { username, invalidTime, token, isLogined: true });
-    localStorage.setItem("token", token);
-  } catch {
-    localStorage.removeItem("auth");
-    localStorage.removeItem("token");
-    message.warning("原登录信息已失效");
-  }
-  return auth;
-}
-/**
  * 切片
  */
 namespace auth {
@@ -78,3 +49,33 @@ namespace auth {
 
 export default auth;
 export const { name, reducer, actLogin, actSignOut } = auth;
+/**
+ * 持久化的state有效则还原，反之则返回默认状态
+ * @returns auth状态的初始值
+ */
+function initialState() {
+  const auth = {
+    isLogined: false,
+    username: "",
+    invalidTime: 0,
+    token: "",
+  };
+  try {
+    const prevJson = localStorage.getItem("auth");
+    if (!prevJson) return auth;
+    const prevState = JSON.parse(prevJson);
+    const { username, invalidTime, token } = prevState;
+    if (!username || !invalidTime || !token) throw new Error();
+    if (typeof username !== "string") throw new Error();
+    if (typeof invalidTime !== "number") throw new Error();
+    if (invalidTime < Date.now() + 1000 * 60 * 15) throw new Error();
+    if (typeof token !== "string") throw new Error();
+    Object.assign(auth, { username, invalidTime, token, isLogined: true });
+    localStorage.setItem("token", token);
+  } catch {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("token");
+    message.warning("原登录信息已失效");
+  }
+  return auth;
+}

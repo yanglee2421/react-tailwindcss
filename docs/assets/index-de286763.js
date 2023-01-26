@@ -1,0 +1,1 @@
+import{r as i,j as a}from"./jsx-runtime-d4f0a224.js";import{u as c,p}from"./index-73e15bd9.js";import{B as u}from"./api-rtkq-ff3ef5cb.js";function f(t){const{children:s,...r}=t,o=c(),n=i.useCallback(()=>o(p()),[]);return a(u,{...r,onClick:n,children:s||"Sign Out"})}export{f as S};

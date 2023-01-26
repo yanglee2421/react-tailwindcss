@@ -2,8 +2,8 @@ import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
-import React, { useEffect, useRef, useState } from "react";
-import snowbg from "@/assets/image/snow-bg.jpg";
+import React, { useRef, useState } from "react";
+import snowBg from "@/assets/image/snow-bg.jpg";
 import villageBg from "@/assets/image/village.jpg";
 const cx = useClass(style);
 /**
@@ -32,7 +32,7 @@ export function PageSnow() {
     <Layout
       ref={resizeRef}
       className={cx("h-100 box")}
-      style={{ backgroundImage: `url(${bg ? snowbg : villageBg})` }}
+      style={{ backgroundImage: `url(${bg ? snowBg : villageBg})` }}
     >
       <canvas ref={cvsRef} className={cx("ctx")}></canvas>
       <div>

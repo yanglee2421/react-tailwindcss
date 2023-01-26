@@ -17,8 +17,7 @@ export function PageParticle() {
       const canvas = ctxRef.current;
       if (!canvas) return;
       Object.assign(canvas, box);
-      const number = (box.width / 1920) * 120;
-      const p = new Particles(canvas, number, 100, "199, 199, 199");
+      const p = new Particles(canvas, (box.width / 1920) * 120, 100);
       p.animate();
       p.bindEvent();
       return () => {

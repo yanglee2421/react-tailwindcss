@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build:gitee": "tsc && vite build --mode=gitee",
+    "preview": "vite preview",
+    "preview:gitee": "vite preview --mode=gitee"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
