@@ -8,16 +8,7 @@ export const routes: RouteObject[] = [
     path: "/",
     element: <AuthRoute />,
     children: [
-      {
-        path: "",
-        element: useLazy(() => import("@/page/home")),
-        handle: { title: "首页" },
-      },
-      {
-        path: "login",
-        element: useLazy(() => import("@/page/login")),
-        handle: { title: "登录" },
-      },
+      // #region
       { path: "*", element: <Navigate to="/404" replace /> },
       {
         path: "404",
@@ -25,20 +16,15 @@ export const routes: RouteObject[] = [
         handle: { title: "404，找不到了" },
       },
       {
-        path: "show",
-        element: useLazy(() => import("@/page/show")),
-        handle: { title: "展示页" },
+        path: "login",
+        element: useLazy(() => import("@/page/login")),
+        handle: { title: "登录" },
       },
-
+      // #endregion
       {
-        path: "table",
-        element: useLazy(() => import("@/page/table")),
-        handle: { title: "表格" },
-      },
-      {
-        path: "threejs",
-        element: useLazy(() => import("@/page/threejs")),
-        handle: { title: "threejs" },
+        path: "",
+        element: useLazy(() => import("@/page/home")),
+        handle: { title: "首页" },
       },
       {
         path: "particle",
@@ -46,9 +32,24 @@ export const routes: RouteObject[] = [
         handle: { title: "粒子" },
       },
       {
+        path: "snow",
+        element: useLazy(() => import("@/page/snow")),
+        handle: { title: "雪飘" },
+      },
+      {
+        path: "threejs",
+        element: useLazy(() => import("@/page/threejs")),
+        handle: { title: "threejs" },
+      },
+      {
         path: "demo",
         element: useLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
+      },
+      {
+        path: "table",
+        element: useLazy(() => import("@/page/table")),
+        handle: { title: "表格" },
       },
     ],
   },
@@ -72,10 +73,8 @@ function AuthRoute() {
   // 路由后置钩子更改网页标题
   useEffect(() => {
     const title = (matches[1].handle as any)?.title;
-    const isHasTitle = typeof title === "string";
-    if (isHasTitle) {
-      document.title = title;
-    }
+    if (typeof title !== "string") return;
+    document.title = title;
   }, [matches]);
   return page;
 }

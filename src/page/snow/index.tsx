@@ -1,4 +1,4 @@
-import style from "./show.module.scss";
+import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
@@ -13,7 +13,7 @@ export namespace Type {}
 /**
  * Show 页面
  */
-export function PageShow() {
+export function PageSnow() {
   const cvsRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useResize(
     (box) => {
@@ -41,4 +41,4 @@ export function PageShow() {
     </Layout>
   );
 }
-export default React.memo(PageShow);
+export default React.memo(PageSnow);

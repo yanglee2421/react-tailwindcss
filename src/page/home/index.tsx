@@ -2,7 +2,6 @@ import style from "./home.module.scss";
 import { Card, Form, Layout } from "antd";
 import {
   Counter as CounterCard,
-  DarkSwitch as DS,
   JokeCard as Joke,
   RouteCard as RouterC,
   SignOut as sobtn,
@@ -13,7 +12,6 @@ import React from "react";
 const cx = useClass(style);
 const Counter = React.memo(CounterCard);
 const JokeCard = React.memo(Joke);
-const DarkSwitch = React.memo(DS);
 const RouteCard = React.memo(RouterC);
 const SignOut = React.memo(sobtn);
 const BingCard = React.memo(BCard);
@@ -30,9 +28,6 @@ export function PageHome() {
       <RouteCard title="RouteCard" />
       <Card title="ThemeCard">
         <Form>
-          <Form.Item label="夜间模式">
-            <DarkSwitch />
-          </Form.Item>
           <Form.Item label="登出按钮">
             <SignOut type="primary" danger />
           </Form.Item>

@@ -4,7 +4,7 @@
   // xxl:1400以上
   // xl:1200-1399
   // lg:992-1199
-  @media screen and (min-width: 992px) {
+  @media (min-width: 992px) {
     grid-template: 320px / repeat(6, 1fr);
     grid-auto-rows: 320px;
     & > *:nth-child(5),
@@ -22,15 +22,15 @@
     }
   }
   // md:768-991
-  @media screen and (min-width: 768px) and (max-width: 991px) {
+  @media (min-width: 768px) and (max-width: 991px) {
     grid-template: auto / repeat(2, minmax(0, 1fr));
   }
   // sm:576-767
-  @media screen and (min-width: 576px) and (max-width: 767px) {
+  @media (min-width: 576px) and (max-width: 767px) {
     grid-template: auto / minmax(0, 1fr);
   }
   // none:0-575
-  @media screen and (max-width: 575px) {
+  @media (max-width: 575px) {
     grid-template: auto / minmax(0, 1fr);
   }
 }
