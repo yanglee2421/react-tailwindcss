@@ -16,8 +16,6 @@ export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
       },
       { signal }
     );
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   }, []);
 }

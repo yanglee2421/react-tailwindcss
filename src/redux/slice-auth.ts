@@ -20,21 +20,24 @@ function initialState() {
     isLogined: false,
     username: "",
     invalidTime: 0,
+    token: "",
   };
   try {
-    const prevAuthStr = localStorage.getItem("auth");
-    if (!prevAuthStr) return auth;
-    const prevToken = localStorage.getItem("token");
-    if (!prevToken) return auth;
-    const prevAuth = JSON.parse(prevAuthStr) as typeof auth;
-    if (prevAuth.invalidTime - Date.now() > 1000 * 60) {
-      return Object.assign(auth, prevAuth);
-    }
-    throw new Error("原登录信息已失效");
-  } catch (err: any) {
-    message.warning(err.message);
+    const prevJson = localStorage.getItem("auth");
+    if (!prevJson) return auth;
+    const prevState = JSON.parse(prevJson);
+    const { username, invalidTime, token } = prevState;
+    if (!username || !invalidTime || !token) throw new Error();
+    if (typeof username !== "string") throw new Error();
+    if (typeof invalidTime !== "number") throw new Error();
+    if (invalidTime < Date.now() + 1000 * 60 * 15) throw new Error();
+    if (typeof token !== "string") throw new Error();
+    Object.assign(auth, { username, invalidTime, token, isLogined: true });
+    localStorage.setItem("token", token);
+  } catch {
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
+    message.warning("原登录信息已失效");
   }
   return auth;
 }
@@ -52,19 +55,19 @@ namespace auth {
     reducers: {
       actLogin(state, { payload }: PayloadAction<Type.auth>) {
         const { username, invalidTime, token, remember } = payload;
-        state.username = username;
-        state.invalidTime = invalidTime;
-        state.isLogined = true;
-        if (remember) {
-          localStorage.setItem("auth", JSON.stringify(state));
-          localStorage.setItem("token", token);
-        }
+        Object.assign(state, { username, invalidTime, token, isLogined: true });
         message.success("登录成功");
+        if (!remember) return;
+        localStorage.setItem("auth", JSON.stringify(state));
+        localStorage.setItem("token", token);
       },
       actSignOut(state) {
-        state.username = "";
-        state.invalidTime = 0;
-        state.isLogined = false;
+        Object.assign(state, {
+          isLogined: false,
+          username: "",
+          invalidTime: 0,
+          token: "",
+        });
         localStorage.removeItem("auth");
         localStorage.removeItem("token");
         message.success("登录已注销");

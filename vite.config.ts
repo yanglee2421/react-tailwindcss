@@ -12,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
       base = "/vite-react/";
       break;
     default:
-      base = "/react/";
+      base = "/vite-react/";
   }
   /**
    * 输出目录
