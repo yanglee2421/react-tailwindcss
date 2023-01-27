@@ -54,7 +54,4 @@ img {
 }
 #root {
   @extend .clearfix;
-  height: 100vh;
-  overflow: auto;
-  overflow: overlay;
 }

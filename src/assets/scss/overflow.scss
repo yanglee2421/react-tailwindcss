@@ -3,6 +3,7 @@ $-dirs: "x", "y";
 @each $dir in $-dirs {
   .overflow-#{$dir}-auto {
     overflow-#{$dir}: auto;
+    overflow-#{$dir}: overlay;
   }
 
   .overflow-#{$dir}-hidden {
@@ -12,10 +13,6 @@ $-dirs: "x", "y";
   .overflow-#{$dir}-scroll {
     overflow-#{$dir}: scroll;
   }
-
-  .overflow-#{$dir}-overlay {
-    overflow-#{$dir}: overlay !important;
-  }
 }
 
 .overflow-hidden {
@@ -24,12 +21,9 @@ $-dirs: "x", "y";
 
 .overflow-auto {
   overflow: auto;
+  overflow: overlay;
 }
 
 .overflow-scroll {
   overflow: scroll;
-}
-
-.overflow-overlay {
-  overflow: overlay !important;
 }
