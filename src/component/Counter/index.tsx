@@ -1,6 +1,6 @@
 import { Card, Button, Divider, Space } from "antd";
-import React, { useState, useMemo, useCallback } from "react";
-const MyContext = React.createContext({});
+import React, { useState } from "react";
+const arr: string[] = [];
 /**
  * @function Counter 使用的类型
  */
@@ -14,22 +14,19 @@ export namespace Type {
 export function Counter(props: Type.props) {
   const { children, ...restProps } = props;
   const [count, setCount] = useState(0);
-  const provide = useMemo(() => ({ count, setCount }), [count]);
   console.log("Counter 组件更新");
-  const countAdd = useCallback(() => setCount((prev) => prev + 1), []);
-  const resetCount = useCallback(() => setCount((prev) => 1), []);
   return (
     <Card title="CounterCard" {...restProps}>
       <h2>当前计数：{count || 0}</h2>
       <Divider />
       <Space>
-        <Button onClick={countAdd}>+1</Button>
-        <Button onClick={resetCount} danger>
+        <Button onClick={() => setCount((prev) => prev + 1)}>+1</Button>
+        <Button onClick={() => setCount(1)} danger>
           =1
         </Button>
+        <Button onClick={() => console.log(arr)}>log</Button>
+        <Button onClick={() => arr.push(crypto.randomUUID())}>push</Button>
       </Space>
-      <Divider />
-      <MyContext.Provider value={provide}>{children}</MyContext.Provider>
     </Card>
   );
 }

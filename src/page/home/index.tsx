@@ -25,8 +25,6 @@ export function PageHome() {
     <div ref={boxRef} className={cx("home")}>
       <BingCard />
       <JokeCard />
-      <Counter />
-      <RouteCard title="RouteCard" />
       <Card title="ThemeCard">
         <Form>
           <Form.Item label="登出按钮">
@@ -34,6 +32,9 @@ export function PageHome() {
           </Form.Item>
         </Form>
       </Card>
+      <RouteCard title="RouteCard" />
+      <Counter />
+      <Counter />
       <Card></Card>
       <Card></Card>
     </div>

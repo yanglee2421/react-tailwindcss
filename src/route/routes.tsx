@@ -24,7 +24,6 @@ export const routes: RouteObject[] = [
       {
         path: "",
         element: useLazy(() => import("@/page/layout")),
-        handle: { title: "首页布局" },
         children: [
           {
             path: "",
@@ -63,16 +62,15 @@ export const routes: RouteObject[] = [
 ];
 /**
  * 实现路由鉴权
- * @returns 通过时为 page，反之 PageLogin
+ * @returns routes中对应的element，或PageLogin
  */
 function AuthRoute() {
   const matches = useMatches();
   const outlet = useOutlet();
   const isLogined = useAppSelector((state) => state.auth.isLogined);
-  // 根据白名单的登录状态进行鉴权
-  const page = useMemo(() => {
-    const { pathname } = matches[1];
-    const isInWL = whiteList.includes(pathname);
+  const routeRes = useMemo(() => {
+    // 根据白名单的登录状态进行鉴权
+    const isInWL = whiteList.includes(matches.at(1)?.pathname || "");
     if (isInWL) return outlet;
     if (isLogined) return outlet;
     return <Navigate to="login" replace />;
@@ -80,8 +78,9 @@ function AuthRoute() {
   // 路由后置钩子更改网页标题
   useEffect(() => {
     const title = (matches.at(-1)?.handle as any)?.title;
+    if (!title) return;
     if (typeof title !== "string") return;
     document.title = title;
   }, [matches]);
-  return page;
+  return routeRes;
 }
