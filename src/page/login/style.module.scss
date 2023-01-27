@@ -1,8 +1,17 @@
 .login-root {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-image: url("@/assets/image/login-bg.jpg");
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
+}
+.login-cvs {
+  position: absolute;
+  @include position(0);
 }
 .card-box {
   position: relative;

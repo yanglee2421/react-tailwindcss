@@ -54,14 +54,14 @@ export class Snow {
   }
 
   #animationId = 0;
-  animation() {
-    this.#animationId = requestAnimationFrame(this.animation.bind(this));
+  animate() {
+    this.#animationId = requestAnimationFrame(this.animate.bind(this));
     const ctx = this.canvas.getContext("2d")!;
     const { width, height } = this.canvas;
     ctx.clearRect(0, 0, width, height);
     this.#snowflake.forEach((item) => item.update());
   }
-  abortAnimation() {
+  abortAnimate() {
     cancelAnimationFrame(this.#animationId);
   }
 }

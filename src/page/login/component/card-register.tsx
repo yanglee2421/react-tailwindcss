@@ -1,4 +1,4 @@
-import style from "../login.module.scss";
+import style from "../style.module.scss";
 import { Button, Card, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useClass } from "@/hook";

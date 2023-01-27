@@ -26,7 +26,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  scrollbar-width: thin;
   scrollbar-color: rgba(#000, 0.1) transparent;
   @media (any-pointer: none) {
     scrollbar-width: auto;
@@ -37,6 +36,9 @@
   @media (any-pointer: fine) {
     scrollbar-width: thin;
   }
+}
+:root {
+  scroll-behavior: smooth;
 }
 ul {
   list-style: none;

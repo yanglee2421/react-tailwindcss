@@ -22,8 +22,8 @@ export function PageSnow() {
       Object.assign(canvas, box);
       const number = (box.width / 1920) * 200;
       const snow = new Snow(canvas, number);
-      snow.animation();
-      return () => snow.abortAnimation();
+      snow.animate();
+      return () => snow.abortAnimate();
     },
     [cvsRef]
   );
