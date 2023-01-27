@@ -5,7 +5,7 @@ import { whiteList } from "./whiteList";
 import { useEffect, useMemo } from "react";
 export const routes: RouteObject[] = [
   {
-    path: "/",
+    path: "",
     element: <AuthRoute />,
     children: [
       // #region
@@ -23,8 +23,25 @@ export const routes: RouteObject[] = [
       // #endregion
       {
         path: "",
-        element: useLazy(() => import("@/page/home")),
-        handle: { title: "首页" },
+        element: useLazy(() => import("@/page/layout")),
+        handle: { title: "首页布局" },
+        children: [
+          {
+            path: "",
+            element: useLazy(() => import("@/page/home")),
+            handle: { title: "首页" },
+          },
+          {
+            path: "threejs",
+            element: useLazy(() => import("@/page/threejs")),
+            handle: { title: "threejs" },
+          },
+          {
+            path: "table",
+            element: useLazy(() => import("@/page/table")),
+            handle: { title: "表格" },
+          },
+        ],
       },
       {
         path: "particle",
@@ -37,19 +54,9 @@ export const routes: RouteObject[] = [
         handle: { title: "雪飘" },
       },
       {
-        path: "threejs",
-        element: useLazy(() => import("@/page/threejs")),
-        handle: { title: "threejs" },
-      },
-      {
         path: "demo",
         element: useLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
-      },
-      {
-        path: "table",
-        element: useLazy(() => import("@/page/table")),
-        handle: { title: "表格" },
       },
     ],
   },
@@ -72,7 +79,7 @@ function AuthRoute() {
   }, [isLogined, matches, outlet]);
   // 路由后置钩子更改网页标题
   useEffect(() => {
-    const title = (matches[1].handle as any)?.title;
+    const title = (matches.at(-1)?.handle as any)?.title;
     if (typeof title !== "string") return;
     document.title = title;
   }, [matches]);

@@ -1,5 +1,5 @@
 import style from "./home.module.scss";
-import { Button, Card, Form, Layout } from "antd";
+import { Card, Form } from "antd";
 import {
   Counter as CounterCard,
   JokeCard as Joke,
@@ -20,9 +20,9 @@ const BingCard = React.memo(BCard);
  * @returns JSX
  */
 export function PageHome() {
-  const boxRef = useRef<HTMLElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   return (
-    <Layout ref={boxRef} className={cx("home p-1 h-100 overflow-auto")}>
+    <div ref={boxRef} className={cx("home")}>
       <BingCard />
       <JokeCard />
       <Counter />
@@ -35,14 +35,8 @@ export function PageHome() {
         </Form>
       </Card>
       <Card></Card>
-      <Card>
-        <Button
-          onClick={() => boxRef.current?.scroll({ top: 0, behavior: "smooth" })}
-        >
-          toTop
-        </Button>
-      </Card>
-    </Layout>
+      <Card></Card>
+    </div>
   );
 }
 export default React.memo(PageHome);
