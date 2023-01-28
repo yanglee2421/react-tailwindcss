@@ -18,9 +18,9 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import { useClass, useResize } from "@/hook";
-import avatar from "@/assets/image/avatar.jpg";
-import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import avatar from "@/assets/image/avatar.jpg";
 const cx = useClass(style);
 const items: MenuProps["items"] = [
   {
@@ -37,7 +37,7 @@ export function PageLayout() {
   const asider = useMemo(() => {
     if (vw < 576) return;
     return (
-      <Layout.Sider collapsed={vw < 1200}>
+      <Layout.Sider collapsed={vw < 1400}>
         <Menu items={items} className={cx("h-100")} />
       </Layout.Sider>
     );
@@ -98,7 +98,9 @@ export function PageLayout() {
         onClose={() => setIsDrawer((prev) => !prev)}
         placement={vw < 576 ? "top" : "left"}
         closeIcon={<MenuOutlined />}
-      ></Drawer>
+      >
+        <div className={cx("grid")}></div>
+      </Drawer>
     );
   }, [isDrawer, vw]);
 
@@ -119,6 +121,7 @@ export function PageLayout() {
       </Layout.Content>
     );
   }, [outlet, scHandler]);
+
   return (
     <>
       {drawer}
@@ -145,3 +148,13 @@ export function PageLayout() {
   );
 }
 export default React.memo(PageLayout);
+
+function Item(props: React.PropsWithChildren) {
+  const { children, ...restProps } = props;
+
+  return (
+    <div className={cx("grid-item")}>
+      <div>{children}</div>
+    </div>
+  );
+}

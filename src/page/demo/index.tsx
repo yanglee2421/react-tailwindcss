@@ -1,10 +1,11 @@
 import style from "./demo.module.scss";
-import { Avatar, Button, Card, Layout } from "antd";
+import { Avatar, Button, Card, Image, Layout } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { BingBtn, Counter, DarkSwitch } from "@/component";
 import { useClass, useResize } from "@/hook";
 import React, { useId, useMemo, useState } from "react";
 import avatar from "@/assets/image/avatar.jpg";
+import src from "@/assets/image/night.jpg";
 const cx = useClass(style);
 const CounterMemo = React.memo(Counter);
 /**
@@ -38,6 +39,9 @@ export function PageDemo() {
         <CounterMemo xxx={{ couters }}></CounterMemo>
         <Card title={count}>
           <Button onClick={() => setCount((prev) => prev + 1)}>+1</Button>
+        </Card>
+        <Card>
+          <Image src={src} />
         </Card>
       </Layout.Content>
     </Layout>

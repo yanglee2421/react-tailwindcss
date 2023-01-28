@@ -16,10 +16,8 @@ export function Counter(props: Type.props) {
   const [count, setCount] = useState(0);
   console.log("Counter 组件更新");
   return (
-    <Card title="CounterCard" {...restProps}>
-      <h2>当前计数：{count || 0}</h2>
-      <Divider />
-      <Space>
+    <Card title={"当前计数：" + count} hoverable>
+      <Space wrap>
         <Button onClick={() => setCount((prev) => prev + 1)}>+1</Button>
         <Button onClick={() => setCount(1)} danger>
           =1

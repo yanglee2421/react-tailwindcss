@@ -1,22 +1,25 @@
-import { Button, Card, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Avatar, Button, Card, Skeleton } from "antd";
 import { useJokeQuery } from "@/api/api-rtkq";
-
+import avatar from "@/assets/image/avatar-sakura.jpg";
 export function JokeCard() {
   const { data, isFetching, refetch } = useJokeQuery();
   return (
-    <Card title="JokeCard">
-      <Spin
-        spinning={isFetching}
-        tip="加载中。。。"
-        size="large"
-        indicator={<LoadingOutlined style={{ fontSize: 36 }} spin />}
-      >
-        <p>{data?.rows}</p>
-        <Button onClick={() => refetch()} type="primary" block>
-          下一条
+    <Card
+      title="Let`s fun"
+      hoverable
+      extra={
+        <Button onClick={() => refetch()} type="link">
+          More
         </Button>
-      </Spin>
+      }
+    >
+      <Skeleton loading={isFetching} active avatar>
+        <Card.Meta
+          avatar={<Avatar src={avatar} />}
+          title="Joke"
+          description={data?.rows}
+        />
+      </Skeleton>
     </Card>
   );
 }

@@ -1,46 +1,47 @@
 import style from "./home.module.scss";
-import { Button, Card, Form } from "antd";
-import {
-  Counter,
-  JokeCard as Joke,
-  RouteCard as RouterC,
-  SignOut as sobtn,
-  BingCard as BCard,
-} from "@/component";
+import { Button, Card } from "antd";
+import { Counter, JokeCard, RouteCard, SignOut, BingCard } from "@/component";
 import { useClass } from "@/hook";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
+import justHer from "@/assets/image/justHer.jpg";
+import snowBg from "@/assets/image/snow-bg.jpg";
+import snowVillage from "@/assets/image/snow-village.jpg";
+import snowNight from "@/assets/image/snow-night.jpg";
 const cx = useClass(style);
-const JokeCard = React.memo(Joke);
-const RouteCard = React.memo(RouterC);
-const SignOut = React.memo(sobtn);
-const BingCard = React.memo(BCard);
+
 /**
  * 首页
  * @returns JSX
  */
 export function PageHome() {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const couter = useMemo(() => <Counter />, []);
   const [cout, setCout] = useState(0);
 
   return (
-    <div ref={boxRef} className={cx("home")}>
+    <div className={cx("home")}>
       <BingCard />
-      <JokeCard />
-      <Card title="ThemeCard">
-        <Form>
-          <Form.Item label="登出按钮">
-            <SignOut type="primary" danger />
-          </Form.Item>
-        </Form>
+      <Card hoverable cover={<img src={justHer} />}>
+        <Card.Meta description="This is description" />
       </Card>
-      <RouteCard title="RouteCard" />
-      {couter}
-      {couter}
+      <Card hoverable cover={<img src={snowBg} />}>
+        <Card.Meta description="This is description" />
+      </Card>
+      <Card hoverable cover={<img src={snowVillage} />}>
+        <Card.Meta description="This is description" />
+      </Card>
+      <Card hoverable cover={<img src={snowNight} />}>
+        <Card.Meta description="This is description" />
+      </Card>
+      <JokeCard />
+      <Counter />
       <Card title={cout}>
         <Button onClick={() => setCout((prev) => prev + 1)}>+1</Button>
       </Card>
+      <RouteCard title="RouteCard">
+        <SignOut type="primary" danger />
+      </RouteCard>
+      <Counter />
     </div>
   );
 }
+
 export default React.memo(PageHome);

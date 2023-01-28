@@ -9,8 +9,7 @@
 }
 .m-center {
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
 }
 .shadow {
   box-shadow: $box-shadow;
@@ -52,13 +51,11 @@ $-spas: "p", "b", "m";
     }
 
     .#{$spa}x-#{$i} {
-      #{$var}-left: #{$i}0px;
-      #{$var}-right: #{$i}0px;
+      #{$var}-inline: #{$i}0px;
     }
 
     .#{$spa}y-#{$i} {
-      #{$var}-top: #{$i}0px;
-      #{$var}-bottom: #{$i}0px;
+      #{$var}-block: #{$i}0px;
     }
 
     .#{$spa}t-#{$i} {

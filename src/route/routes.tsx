@@ -11,11 +11,6 @@ export const routes: RouteObject[] = [
       // #region
       { path: "*", element: <Navigate to="/404" replace /> },
       {
-        path: "404",
-        element: useLazy(() => import("@/page/404")),
-        handle: { title: "404，找不到了" },
-      },
-      {
         path: "login",
         element: useLazy(() => import("@/page/login")),
         handle: { title: "登录" },
@@ -29,6 +24,11 @@ export const routes: RouteObject[] = [
             path: "",
             element: useLazy(() => import("@/page/home")),
             handle: { title: "首页" },
+          },
+          {
+            path: "404",
+            element: useLazy(() => import("@/page/404")),
+            handle: { title: "404，NotFound" },
           },
           {
             path: "threejs",

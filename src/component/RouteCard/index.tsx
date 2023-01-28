@@ -2,7 +2,7 @@ import { NavLink, useMatches, useNavigate } from "react-router-dom";
 import { Button, Card, Space } from "antd";
 import type { ButtonProps, CardProps, SpaceProps } from "antd";
 import { routes } from "@/route/routes";
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 /**
  * @function RouteCard 组件中使用的类型
  */
@@ -18,18 +18,6 @@ export namespace Type {
  */
 export function RouteCard(props: Type.RouteCard) {
   const { children, ...restProps } = props;
-
-  // 最后返回按钮
-  const navigate = useNavigate();
-  const bckHandler = useCallback(() => navigate(-1), []);
-  const bckBtn = useMemo(
-    () => (
-      <Button onClick={bckHandler} danger>
-        返回
-      </Button>
-    ),
-    [bckHandler]
-  );
 
   // 路由按钮
   const matches = useMatches();
@@ -51,11 +39,20 @@ export function RouteCard(props: Type.RouteCard) {
   }, [matches]);
 
   // 渲染结果
+  const navigate = useNavigate();
   return (
-    <Card title="路由卡片" {...restProps}>
+    <Card
+      title="路由卡片"
+      extra={
+        <Button onClick={() => navigate(-1)} type="link">
+          Go back
+        </Button>
+      }
+      hoverable
+      {...restProps}
+    >
       <Space wrap>
         {routeBtns}
-        {bckBtn}
         {children}
       </Space>
     </Card>

@@ -1,4 +1,5 @@
 // ========清除浏览器用户代理样式表
+
 ::-webkit-scrollbar {
   // PC端
   @media (any-hover: hover) {
@@ -11,6 +12,7 @@
     height: 0;
   }
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(#000, 0.1);
@@ -22,10 +24,15 @@
     display: none;
   }
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
+  padding-inline: 0;
+  padding-block: 0;
   margin: 0;
+  margin-inline: 0;
+  margin-block: 0;
   scrollbar-color: rgba(#000, 0.1) transparent;
   @media (any-pointer: none) {
     scrollbar-width: auto;
@@ -37,21 +44,27 @@
     scrollbar-width: thin;
   }
 }
+
 :root {
   scroll-behavior: smooth;
 }
+
 ul {
   list-style: none;
 }
+
 a {
   text-decoration: none;
 }
+
 img {
   vertical-align: bottom;
 }
+
 [v-cloak] {
   display: none !important;
 }
+
 #root {
   @extend .clearfix;
 }
