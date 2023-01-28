@@ -1,0 +1,1 @@
+import{r as o,j as e}from"./jsx-runtime-d4f0a224.js";import{u as p,a as i,c as h}from"./index-bb8dadff.js";import{S as n}from"./index-8da948a4.js";function D(a){const t=p(),r=i(s=>s.theme.isDark),c=o.useCallback(s=>t(h(s)),[]);return e(n,{...a,onChange:c,checked:r})}export{D};

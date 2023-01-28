@@ -17,11 +17,12 @@ export function useResize<T extends HTMLElement>(
   deps: React.DependencyList
 ) {
   const resizeRef = useRef<T>(null);
+
   useEffect(() => {
     const dom = resizeRef.current;
-    if (!(dom instanceof HTMLElement)) {
-      throw new Error("resizeRef必须指向一个html元素");
-    }
+    if (!(dom instanceof HTMLElement))
+      throw new Error("resizeRef必须指向一个htmlelement");
+
     let clearFn: Function | void;
     const obverser = new ResizeObserver(
       ([
@@ -34,11 +35,13 @@ export function useResize<T extends HTMLElement>(
       }
     );
     obverser.observe(dom);
+
     return () => {
+      typeof clearFn === "function" && clearFn();
       obverser.unobserve(dom);
       obverser.disconnect();
-      typeof clearFn === "function" && clearFn();
     };
   }, [resizeRef, ...deps]);
+
   return resizeRef;
 }

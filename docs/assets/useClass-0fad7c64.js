@@ -1,0 +1,1 @@
+function u(i){return r=>{const n=t=>t.map(e=>i[e]||e).join(" ")+" ";if(Array.isArray(r))return n(r);if(typeof r=="string"){const t=r.replace(/ +/g,",").split(",");return n(t)}const o=Object.keys(r).filter(t=>r[t]);return n(o)}}export{u};
