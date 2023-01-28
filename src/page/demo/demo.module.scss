@@ -1,15 +1,17 @@
 .box {
   position: relative;
-  height: 100%;
+  height: 100vh;
   background-image: url("@/assets/image/snow-bg.jpg");
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
 }
-.card {
-  @include card-glass;
+.box-hd {
+  @extend .flex, .between-center;
 }
-.cvs {
-  position: absolute;
-  @include position(0);
+.box-cnt {
+  display: grid;
+  grid-template: repeat(2, minmax(0, 1fr)) / repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
 }

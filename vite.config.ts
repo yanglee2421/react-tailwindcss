@@ -1,61 +1,44 @@
-import { defineConfig } from "vite";
+import { ConfigEnv, defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
-  /**
-   * 打包路径
-   */
-  let base = "/";
-  switch (mode) {
-    case "gitee":
-      base = "/vite-react/";
-      break;
-    default:
-      base = "/vite-react/";
-  }
-  /**
-   * 输出目录
-   */
-  let outDir = "dist";
-  switch (mode) {
-    case "gitee":
-      outDir = "docs";
-      break;
-    default:
-      outDir = "react-app";
-  }
+export default defineConfig((ConfigEnv) => ({
+  plugins: [react()],
+  resolve: {
+    alias: { "@": path.resolve(__dirname, "./src") },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/assets/index.scss" as *;`,
+      },
+    },
+  },
+  envDir: path.resolve(__dirname, "./config"),
+  base: base(ConfigEnv),
+  build: build(ConfigEnv),
+  server: server(),
+}));
+
+function base({ mode }: ConfigEnv): UserConfig["base"] {
+  return mode === "gitee" ? "/vite-vue/" : "./";
+}
+
+function build({ mode }: ConfigEnv): UserConfig["build"] {
+  let outDir = mode === "gitee" ? "docs" : "vue-app";
+  return { outDir };
+}
+
+function server(): UserConfig["server"] {
   return {
-    plugins: [react()],
-    // 路径别名
-    resolve: {
-      alias: { "@": path.resolve(__dirname, "./src") },
-    },
-    // css预处理器
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/assets/index.scss" as *;`,
-        },
+    port: 5173,
+    proxy: {
+      "/dev": {
+        target: "http://192.168.1.4",
+        rewrite: (path) => path.replace(/^\/dev/, ""),
+        changeOrigin: true,
+        ws: true,
       },
     },
-    // 开发服务器
-    server: {
-      port: 5173,
-      proxy: {
-        "/dev": {
-          target: "http://192.168.1.4",
-          rewrite: (path) => path.replace(/^\/dev/, ""),
-          changeOrigin: true,
-          ws: true,
-        },
-      },
-    },
-    // 路由
-    base,
-    // 构建
-    build: { outDir },
-    // env 变量
-    envDir: path.resolve(__dirname, "./config"),
   };
-});
+}

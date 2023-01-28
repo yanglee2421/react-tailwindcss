@@ -27,6 +27,8 @@ export function Counter(props: Type.props) {
         <Button onClick={() => console.log(arr)}>log</Button>
         <Button onClick={() => arr.push(crypto.randomUUID())}>push</Button>
       </Space>
+      <Divider />
+      {children}
     </Card>
   );
 }

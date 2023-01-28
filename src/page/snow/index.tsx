@@ -2,14 +2,11 @@ import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/snow-bg.jpg";
 import villageBg from "@/assets/image/village.jpg";
 const cx = useClass(style);
-/**
- * @function PageShow 使用的类型
- */
-export namespace Type {}
+
 /**
  * Show 页面
  */
@@ -20,19 +17,28 @@ export function PageSnow() {
       const canvas = cvsRef.current;
       if (!canvas) return;
       Object.assign(canvas, box);
+
       let snow: null | Snow = null;
       const timer = setTimeout(() => {
         snow = new Snow(canvas, (box.width / 1920) * 200);
         snow.animate();
       }, 500);
+
       return () => {
-        snow?.abortAnimate();
         clearTimeout(timer);
+        snow?.abortAnimate();
       };
     },
     [cvsRef]
   );
+
+  // 开关
   const [bg, setBg] = useState(false);
+  const bgSwitch = useMemo(
+    () => <Switch onChange={() => setBg((prev) => !prev)} checked={bg} />,
+    [bg]
+  );
+
   return (
     <Layout
       ref={resizeRef}
@@ -40,10 +46,9 @@ export function PageSnow() {
       style={{ backgroundImage: `url(${bg ? snowBg : villageBg})` }}
     >
       <canvas ref={cvsRef} className={cx("ctx")}></canvas>
-      <div>
-        <Switch onChange={() => setBg((prev) => !prev)} checked={bg} />
-      </div>
+      {bgSwitch}
     </Layout>
   );
 }
+
 export default React.memo(PageSnow);
