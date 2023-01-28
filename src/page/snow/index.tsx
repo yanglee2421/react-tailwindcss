@@ -20,10 +20,15 @@ export function PageSnow() {
       const canvas = cvsRef.current;
       if (!canvas) return;
       Object.assign(canvas, box);
-      const number = (box.width / 1920) * 200;
-      const snow = new Snow(canvas, number);
-      snow.animate();
-      return () => snow.abortAnimate();
+      let snow: null | Snow = null;
+      const timer = setTimeout(() => {
+        snow = new Snow(canvas, (box.width / 1920) * 200);
+        snow.animate();
+      }, 500);
+      return () => {
+        snow?.abortAnimate();
+        clearTimeout(timer);
+      };
     },
     [cvsRef]
   );

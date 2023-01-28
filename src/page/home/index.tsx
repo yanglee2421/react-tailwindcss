@@ -1,16 +1,15 @@
 import style from "./home.module.scss";
-import { Card, Form } from "antd";
+import { Button, Card, Form } from "antd";
 import {
-  Counter as CounterCard,
+  Counter,
   JokeCard as Joke,
   RouteCard as RouterC,
   SignOut as sobtn,
   BingCard as BCard,
 } from "@/component";
 import { useClass } from "@/hook";
-import React, { useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 const cx = useClass(style);
-const Counter = React.memo(CounterCard);
 const JokeCard = React.memo(Joke);
 const RouteCard = React.memo(RouterC);
 const SignOut = React.memo(sobtn);
@@ -21,6 +20,9 @@ const BingCard = React.memo(BCard);
  */
 export function PageHome() {
   const boxRef = useRef<HTMLDivElement>(null);
+  const couter = useMemo(() => <Counter />, []);
+  const [cout, setCout] = useState(0);
+
   return (
     <div ref={boxRef} className={cx("home")}>
       <BingCard />
@@ -33,10 +35,11 @@ export function PageHome() {
         </Form>
       </Card>
       <RouteCard title="RouteCard" />
-      <Counter />
-      <Counter />
-      <Card></Card>
-      <Card></Card>
+      {couter}
+      {couter}
+      <Card title={cout}>
+        <Button onClick={() => setCout((prev) => prev + 1)}>+1</Button>
+      </Card>
     </div>
   );
 }

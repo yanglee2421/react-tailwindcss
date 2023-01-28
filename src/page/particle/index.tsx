@@ -17,12 +17,18 @@ export function PageParticle() {
       const canvas = ctxRef.current;
       if (!canvas) return;
       Object.assign(canvas, box);
-      const p = new Particles(canvas, (box.width / 1920) * 120, 100);
-      p.animate();
-      p.bindEvent();
+
+      let p: null | Particles = null;
+      const timer = setTimeout(() => {
+        p = new Particles(canvas, (box.width / 1920) * 120, 100);
+        p.animate();
+        p.bindEvent();
+      }, 500);
+
       return () => {
-        p.abortAnimate();
-        p.abortEvent();
+        clearTimeout(timer);
+        p?.abortAnimate();
+        p?.abortEvent();
       };
     },
     [ctxRef]

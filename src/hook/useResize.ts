@@ -29,9 +29,7 @@ export function useResize<T extends HTMLElement>(
           contentBoxSize: [{ inlineSize: width, blockSize: height }],
         },
       ]) => {
-        if (typeof clearFn === "function") {
-          clearFn();
-        }
+        typeof clearFn === "function" && clearFn();
         clearFn = callback({ width, height });
       }
     );
@@ -39,6 +37,7 @@ export function useResize<T extends HTMLElement>(
     return () => {
       obverser.unobserve(dom);
       obverser.disconnect();
+      typeof clearFn === "function" && clearFn();
     };
   }, [resizeRef, ...deps]);
   return resizeRef;

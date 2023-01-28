@@ -4,7 +4,7 @@ import { useClass, useResize } from "@/hook";
 import { useAppSelector } from "@/redux";
 import { Particles } from "@/util";
 import { CardLogin, CardRegister } from "./component";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 const cn = useClass(style);
 /**
  * 登录页面
@@ -13,30 +13,48 @@ const cn = useClass(style);
 export function PageLogin() {
   const isLogined = useAppSelector((state) => state.auth.isLogined);
   if (isLogined) return <Navigate to="/" replace />;
+
+  // 登录&注册卡片
   const [isRegister, setIsRegister] = useState(false);
   const switchHandler = useCallback(() => setIsRegister((prev) => !prev), []);
+  const cardLogin = useMemo(
+    () => <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />,
+    [isRegister, switchHandler]
+  );
+  const cardRegister = useMemo(
+    () => <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />,
+    [isRegister, switchHandler]
+  );
+
   const cvsRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useResize<HTMLDivElement>(
     (box) => {
       const cvs = cvsRef.current;
       if (!cvs) return;
       Object.assign(cvs, box);
-      const particle = new Particles(cvs, (box.width / 1920) * 120);
-      particle.animate();
-      particle.bindEvent();
+
+      let particle: null | Particles = null;
+      const timer = setTimeout(() => {
+        particle = new Particles(cvs, (box.width / 1920) * 120);
+        particle.animate();
+        particle.bindEvent();
+      }, 500);
+
       return () => {
-        particle.abortAnimate();
-        particle.abortEvent();
+        clearTimeout(timer);
+        particle?.abortAnimate();
+        particle?.abortEvent();
       };
     },
     [cvsRef]
   );
+
   return (
     <div ref={resizeRef} className={cn("login-root")}>
       <canvas ref={cvsRef} className={cn("login-cvs")}></canvas>
       <div className={cn("card-box")}>
-        <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />
-        <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />
+        {cardLogin}
+        {cardRegister}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { GetRandom } from "./class-getRandom";
 const getXV = new GetRandom(-0.5, 0.5);
-const getYV = new GetRandom(2, 3);
+const getYV = new GetRandom(1, 3);
 const getRadius = new GetRandom(1, 4);
 class Snowflake {
   x = 0;
@@ -11,7 +11,6 @@ class Snowflake {
   color = "";
   constructor(private readonly canvas: HTMLCanvasElement) {
     this.reset();
-    this.y = Math.random() * this.canvas.height;
   }
   reset() {
     this.x = Math.random() * this.canvas.width;
@@ -47,21 +46,25 @@ class Snowflake {
 
 export class Snow {
   #snowflake: Snowflake[] = [];
-  constructor(private readonly canvas: HTMLCanvasElement, number = 100) {
-    for (let i = 0; i < number; i++) {
-      this.#snowflake.push(new Snowflake(canvas));
-    }
-  }
+  constructor(
+    private readonly canvas: HTMLCanvasElement,
+    public readonly number = 100
+  ) {}
 
   #animationId = 0;
   animate() {
     this.#animationId = requestAnimationFrame(this.animate.bind(this));
+
     const ctx = this.canvas.getContext("2d")!;
     const { width, height } = this.canvas;
     ctx.clearRect(0, 0, width, height);
+
+    this.#snowflake.length < this.number &&
+      this.#snowflake.push(new Snowflake(this.canvas));
     this.#snowflake.forEach((item) => item.update());
   }
   abortAnimate() {
     cancelAnimationFrame(this.#animationId);
+    this.#snowflake = [];
   }
 }

@@ -1,6 +1,7 @@
 import { GetRandom } from "./class-getRandom";
 const getVelocity = new GetRandom(-1, 1);
 const getRadius = new GetRandom(2, 4);
+
 // 粒子类
 class Particle {
   xv = getVelocity.get();
@@ -14,6 +15,7 @@ class Particle {
     this.y = Math.random() * canvas.height;
     this.color = `rgba(254,250,255,${1 - 1 / this.radius})`;
   }
+
   /**
    * 实例方法
    */
@@ -38,6 +40,7 @@ class Particle {
     this.draw();
   }
 }
+
 // 粒子集合类
 export class Particles {
   #arr: Particle[] = [];
@@ -50,6 +53,7 @@ export class Particles {
       this.#arr.push(new Particle(this.canvas));
     }
   }
+
   // 绘线
   drawLine() {
     this.#arr.forEach((p1, index) => {
@@ -71,6 +75,7 @@ export class Particles {
       });
     });
   }
+
   /**
    * 动画功能
    */
@@ -85,6 +90,7 @@ export class Particles {
   abortAnimate() {
     cancelAnimationFrame(this.#animateId);
   }
+
   /**
    * 处理鼠标事件
    */
