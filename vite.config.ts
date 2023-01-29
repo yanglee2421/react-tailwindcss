@@ -21,7 +21,7 @@ export default defineConfig((ConfigEnv) => ({
 }));
 
 function base({ mode }: ConfigEnv): UserConfig["base"] {
-  return mode === "gitee" ? "/vite-vue/" : "./";
+  return "/vite-react/";
 }
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {

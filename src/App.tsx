@@ -11,6 +11,7 @@ import {
 } from "@/redux";
 import { router } from "@/route";
 import React, { useEffect, useMemo, useState } from "react";
+
 const { darkAlgorithm, defaultAlgorithm } = theme;
 const GalleryWithPortal = withPortal(Gallery);
 
@@ -22,20 +23,18 @@ export function App() {
   // 根据 Browser 主题派发 actIsDark
   const dispatch = useAppDispatch();
   useDark(({ matches }) => dispatch(actIsDark(matches)));
-
   // 根据 store 中的 isDark 返回主题样式
   const { isDark, galleryIsShow } = useAppSelector((state) => state.theme);
-  const theme = useMemo(
-    () => ({ algorithm: isDark ? darkAlgorithm : defaultAlgorithm }),
-    [isDark]
-  );
   const gallery = useMemo(() => {
     if (!galleryIsShow) return;
     return <GalleryWithPortal />;
   }, [galleryIsShow]);
 
   return (
-    <ConfigProvider locale={zhCN} theme={theme}>
+    <ConfigProvider
+      locale={zhCN}
+      theme={{ algorithm: isDark ? darkAlgorithm : defaultAlgorithm }}
+    >
       <RouterProvider router={router} />
       {gallery}
     </ConfigProvider>

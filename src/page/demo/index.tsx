@@ -5,7 +5,7 @@ import { BingBtn, Counter, DarkSwitch } from "@/component";
 import { useClass, useResize } from "@/hook";
 import React, { useId, useMemo, useState } from "react";
 import avatar from "@/assets/image/avatar.jpg";
-import src from "@/assets/image/night.jpg";
+import src from "@/assets/image/snow-night.jpg";
 const cx = useClass(style);
 const CounterMemo = React.memo(Counter);
 /**
