@@ -1,12 +1,14 @@
 import axios, { RawAxiosRequestConfig } from "axios";
 import { message as Message } from "antd";
-const request = axios.create({
+
+export const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 20000,
   headers: {
     common: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   },
 });
+
 request.interceptors.request.use((config) => config);
 request.interceptors.response.use(
   (res) => {
@@ -22,5 +24,3 @@ request.interceptors.response.use(
     return new Promise(() => {});
   }
 );
-export default async <T = unknown>(params: RawAxiosRequestConfig) =>
-  request(params) as unknown as T;

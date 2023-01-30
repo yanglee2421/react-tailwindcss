@@ -3,21 +3,23 @@ import { Button, Form, Input, Layout, Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
 import { useClass, useResize } from "@/hook";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { request } from "@/api/api-axios";
 const cn = useClass(style);
 /**
  * 表格页面
  * @returns JSX
  */
 export function PageTable() {
+  const [form] = Form.useForm();
   const [req, setReq] = useState({
     pwd_site: "",
     pwd_username: "",
     page_index: 1,
     page_size: 20,
   });
-  const [form] = Form.useForm();
   const { data } = usePwdQuery(req);
+
   const [delPwd] = usePwdDelMutation();
   const columns: ColumnsType<any> = [
     { title: "Id", dataIndex: "pwd_id", align: "center" },
@@ -34,11 +36,19 @@ export function PageTable() {
       ),
     },
   ];
+
   const [scr, setScr] = useState(0);
   const resizeRef = useResize<HTMLDivElement>(
     ({ height }) => setScr((prev) => height - 40),
     []
   );
+
+  useEffect(() => {
+    request({ url: "https://localhost:3000/qqlykm" }).then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <Layout className={cn("h-100 flex-column p-1")}>
       <Form
