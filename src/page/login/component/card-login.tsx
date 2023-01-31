@@ -4,13 +4,12 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/api/api-rtkq";
 import { useClass } from "@/hook";
-import { useAppDispatch, actLogin } from "@/redux";
+import { CtxAuth } from "@/route";
 import { preventDefault } from "@/util";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
+
 const cn = useClass(style);
-/**
- * CardLogin 的类型空间
- */
+
 namespace Type {
   export interface formValue {
     password: string;
@@ -22,40 +21,30 @@ namespace Type {
     onRegisterClick(): void;
   }
 }
-/**
- * PageLogin 的 CardLoin 组件
- */
+
 export function CardLogin(props: Type.props) {
   const { isRegister, onRegisterClick } = props;
   const clickHandler = useCallback(preventDefault(onRegisterClick), []);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFn] = useLoginMutation();
   // 表单提交
   const [form] = Form.useForm();
-  const onFinish = useCallback((value: Type.formValue) => {
-    loginFn(value)
-      .unwrap()
-      .then((data) => {
-        const { isOk, token, username, invalidTime, mes } = data;
-        const auth = {
-          username,
-          invalidTime,
-          token,
-          remember: value.remember,
-          isLogined: true,
-        };
-        if (isOk) {
-          dispatch(actLogin(auth));
-          navigate("/", { replace: true });
-          return;
-        }
-        message.warning(mes);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const { signIn } = useContext(CtxAuth);
+  const onFinish = useCallback(async (value: Type.formValue) => {
+    try {
+      const res = await loginFn(value).unwrap();
+      const { isOk, token, username, invalidTime, mes } = res;
+      if (isOk) {
+        signIn({ user: username, token, invalidTime }, value.remember);
+        navigate("/", { replace: true });
+        return;
+      }
+      message.warning(mes);
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
+
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
       <Form

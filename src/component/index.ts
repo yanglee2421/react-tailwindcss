@@ -1,6 +1,5 @@
 export { Counter } from "./Counter";
 export { DarkSwitch } from "./DarkSwitch";
-export { SignOut } from "./SignOut";
 export { RouteCard } from "./RouteCard";
 export { BingBtn } from "./BingBtn";
 export { JokeCard } from "./JokeCard";

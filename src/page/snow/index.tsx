@@ -4,7 +4,8 @@ import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
 import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/snow-bg.jpg";
-import villageBg from "@/assets/image/village.jpg";
+import villageBg from "@/assets/image/snow-village.jpg";
+
 const cx = useClass(style);
 
 /**
@@ -46,7 +47,7 @@ export function PageSnow() {
       style={{ backgroundImage: `url(${bg ? snowBg : villageBg})` }}
     >
       <canvas ref={cvsRef} className={cx("ctx")}></canvas>
-      {bgSwitch}
+      <div>{bgSwitch}</div>
     </Layout>
   );
 }

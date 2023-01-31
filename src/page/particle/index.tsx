@@ -1,7 +1,6 @@
 import style from "./particle.module.scss";
 import { NavLink } from "react-router-dom";
 import { Button, Layout, Space } from "antd";
-import { DarkSwitch, SignOut } from "@/component";
 import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
 import React, { useRef } from "react";
@@ -36,15 +35,6 @@ export function PageParticle() {
   return (
     <Layout ref={resizeRef} className={cx("partcle")}>
       <canvas ref={ctxRef} className={cx("particle-canvas")}></canvas>
-      <div className={cx("particle-content p-1")}>
-        <Space>
-          <NavLink to="/">
-            <Button>Home</Button>
-          </NavLink>
-          <SignOut />
-          <DarkSwitch />
-        </Space>
-      </div>
     </Layout>
   );
 }

@@ -1,12 +1,14 @@
 import style from "./home.module.scss";
-import { Button, Card } from "antd";
-import { Counter, JokeCard, RouteCard, SignOut, BingCard } from "@/component";
+import { Button, Card, Space } from "antd";
+import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
 import { useClass } from "@/hook";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CtxAuth } from "@/route";
 import justHer from "@/assets/image/justHer.jpg";
 import snowBg from "@/assets/image/snow-bg.jpg";
 import snowVillage from "@/assets/image/snow-village.jpg";
 import snowNight from "@/assets/image/snow-night.jpg";
+
 const cx = useClass(style);
 
 /**
@@ -15,6 +17,8 @@ const cx = useClass(style);
  */
 export function PageHome() {
   const [cout, setCout] = useState(0);
+
+  const { signIn, signOut } = useContext(CtxAuth);
 
   return (
     <div className={cx("home")}>
@@ -34,11 +38,14 @@ export function PageHome() {
       <JokeCard />
       <Counter />
       <Card title={cout}>
-        <Button onClick={() => setCout((prev) => prev + 1)}>+1</Button>
+        <Space>
+          <Button onClick={() => setCout((prev) => prev + 1)}>+1</Button>
+          <Button onClick={signOut} danger>
+            Sign Out
+          </Button>
+        </Space>
       </Card>
-      <RouteCard title="RouteCard">
-        <SignOut type="primary" danger />
-      </RouteCard>
+      <RouteCard title="RouteCard"></RouteCard>
       <Counter />
     </div>
   );

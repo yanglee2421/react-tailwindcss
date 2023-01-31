@@ -4,15 +4,26 @@ import { useClass, useResize } from "@/hook";
 import { useAppSelector } from "@/redux";
 import { Particles } from "@/util";
 import { CardLogin, CardRegister } from "./component";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { CtxAuth } from "@/route";
+
 const cn = useClass(style);
 /**
  * 登录页面
  * @returns JSX
  */
 export function PageLogin() {
-  const isLogined = useAppSelector((state) => state.auth.isLogined);
-  if (isLogined) return <Navigate to="/" replace />;
+  const {
+    state: { isLogined },
+    prevAuth,
+  } = useContext(CtxAuth);
+  if (isLogined || prevAuth()) return <Navigate to="/" replace />;
 
   // 登录&注册卡片
   const [isRegister, setIsRegister] = useState(false);
