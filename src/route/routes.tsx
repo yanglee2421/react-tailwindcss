@@ -1,10 +1,16 @@
 import { Navigate, RouteObject, useMatches, useOutlet } from "react-router-dom";
 import { useLazy } from "@/hook";
 import { whiteList } from "./whiteList";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { message, Typography } from "antd";
 
-// #region
+// #region routes
 export const routes: RouteObject[] = [
   {
     path: "",
@@ -81,6 +87,7 @@ namespace t {
   }
 }
 
+//#region 鉴权组件
 export const CtxAuth = React.createContext<t.ctx>(initCtx());
 
 // CtxAuth的默认值
@@ -101,7 +108,6 @@ function initCtx() {
   };
 }
 
-// 鉴权组件
 function AuthRoute() {
   // 处理登录信息
   const [state, setAuth] = useState(initCtx().state);
@@ -142,6 +148,7 @@ function AuthRoute() {
   }, [state, matches, outlet]);
 
   // 还原上次的state
+  const [, startTranstion] = useTransition();
   function prevAuth() {
     try {
       const prevJson = localStorage.getItem("auth");
@@ -160,7 +167,7 @@ function AuthRoute() {
       if (invalidTime - Date.now() < 1000 * 60 * 5)
         throw new Error("Login information has expired");
 
-      signIn({ user, token, invalidTime });
+      startTranstion(() => signIn({ user, token, invalidTime }));
       return true;
     } catch (err) {
       console.error(err);
@@ -177,3 +184,4 @@ function AuthRoute() {
     </CtxAuth.Provider>
   );
 }
+// #endregion

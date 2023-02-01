@@ -6,8 +6,10 @@ import { useClass, useResize } from "@/hook";
 import React, { useId, useMemo, useState } from "react";
 import avatar from "@/assets/image/avatar.jpg";
 import src from "@/assets/image/snow-night.jpg";
+
 const cx = useClass(style);
 const CounterMemo = React.memo(Counter);
+
 /**
  * Demo 页面
  * @returns JSX
@@ -15,9 +17,6 @@ const CounterMemo = React.memo(Counter);
 export function PageDemo() {
   const uid = useId();
   const resizeRef = useResize(({ width }) => console.log(width), []);
-  const [count, setCount] = useState(0);
-  // const isDark = useAppSelector((state) => state.theme.isDark);
-  const couters = useMemo(() => <Counter />, []);
 
   return (
     <Layout
@@ -29,21 +28,10 @@ export function PageDemo() {
       }}
       className={cx("box")}
     >
-      <Layout.Header className={cx("box-hd")}>
-        <DarkSwitch />
-        <BingBtn />
-        <Avatar size={36} icon={<UserOutlined />} src={avatar} />
-      </Layout.Header>
-      <Layout.Content className={cx("box-cnt")}>
-        {/* @ts-ignore */}
-        <CounterMemo xxx={{ couters }}></CounterMemo>
-        <Card title={count}>
-          <Button onClick={() => setCount((prev) => prev + 1)}>+1</Button>
-        </Card>
-        <Card>
-          <Image src={src} />
-        </Card>
-      </Layout.Content>
+      <div className={cx("bottle")}>
+        <div className={cx("water")}></div>
+      </div>
+      <div className={cx("bottle-bottom")}></div>
     </Layout>
   );
 }
