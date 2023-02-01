@@ -3,13 +3,13 @@ import { NavLink } from "react-router-dom";
 import { Button, Card, Divider } from "antd";
 import { useClass } from "@/hook";
 import React from "react";
-const cx = useClass(style);
 
 /**
  * 404 页面
  * @returns JSX
  */
 export function Page404() {
+  const cx = useClass(style);
   return (
     <div className={cx("box")}>
       <div>

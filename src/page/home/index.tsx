@@ -3,19 +3,19 @@ import { Button, Card, Space } from "antd";
 import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
 import { useClass } from "@/hook";
 import React, { useContext, useState } from "react";
-import { CtxAuth } from "@/route";
+import { CtxAuth } from "@/stores";
 import justHer from "@/assets/image/justHer.jpg";
 import snowBg from "@/assets/image/snow-bg.jpg";
 import snowVillage from "@/assets/image/snow-village.jpg";
 import snowNight from "@/assets/image/snow-night.jpg";
-
-const cx = useClass(style);
 
 /**
  * 首页
  * @returns JSX
  */
 export function PageHome() {
+  const cx = useClass(style);
+
   const [cout, setCout] = useState(0);
 
   const { signIn, signOut } = useContext(CtxAuth);

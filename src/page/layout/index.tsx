@@ -21,7 +21,6 @@ import { useClass, useResize } from "@/hook";
 import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar.jpg";
-const cx = useClass(style);
 const items: MenuProps["items"] = [
   {
     key: 1,
@@ -31,6 +30,8 @@ const items: MenuProps["items"] = [
 ];
 
 export function PageLayout() {
+  const cx = useClass(style);
+
   //   响应式布局
   const [vw, setVW] = useState(0);
   const resizeRef = useResize(({ width }) => setVW(width), []);
@@ -151,6 +152,7 @@ export default React.memo(PageLayout);
 
 function Item(props: React.PropsWithChildren) {
   const { children, ...restProps } = props;
+  const cx = useClass(style);
 
   return (
     <div className={cx("grid-item")}>

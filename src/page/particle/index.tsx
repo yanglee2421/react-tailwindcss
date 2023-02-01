@@ -4,12 +4,13 @@ import { Button, Layout, Space } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Particles } from "@/util";
 import React, { useRef } from "react";
-const cx = useClass(style);
 /**
  * 粒子页面
  * @returns JSX
  */
 export function PageParticle() {
+  const cx = useClass(style);
+
   const ctxRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useResize<HTMLDivElement>(
     (box) => {

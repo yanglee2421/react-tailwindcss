@@ -27,7 +27,7 @@ function base({ mode }: ConfigEnv): UserConfig["base"] {
 }
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
-  let outDir = mode === "gitee" ? "docs" : "vue-app";
+  let outDir = mode === "gitee" ? "docs" : "react-app";
   return { outDir };
 }
 

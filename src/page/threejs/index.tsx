@@ -10,12 +10,12 @@ import {
 // antd
 import { useClass } from "@/hook";
 import React, { useEffect, useId } from "react";
-const cn = useClass(style);
 /**
  * threejs 页面
  * @returns JSX
  */
 export function PageThreejs() {
+  const cn = useClass(style);
   const uid = useId();
   useEffect(() => {
     // 场景
@@ -44,12 +44,7 @@ export function PageThreejs() {
     root.hasChildNodes() || root.appendChild(render.domElement);
     render.render(scence, camera);
   }, []);
-  return (
-    <div
-      id={uid}
-      className={cn("")}
-    ></div>
-  );
+  return <div id={uid} className={cn("")}></div>;
 }
 
 export default React.memo(PageThreejs);

@@ -1,19 +1,18 @@
 import { useEffect, useRef } from "react";
-/**
- * @function useResize 使用的类型
- */
-export namespace Type {
+
+namespace t {
   export interface callback {
     (params: { width: number; height: number }): void | Function;
   }
 }
+
 /**
  * 监听 dom resize 的钩子
  * @param callback 挂载、resize时执行
  * @returns 用于指定 dom 的 ref
  */
 export function useResize<T extends HTMLElement>(
-  callback: Type.callback,
+  callback: t.callback,
   deps: React.DependencyList
 ) {
   const resizeRef = useRef<T>(null);

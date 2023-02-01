@@ -1,9 +1,7 @@
 import style from "./style.module.scss";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useClass, useResize } from "@/hook";
-import { useAppSelector } from "@/redux";
-import { Particles } from "@/util";
-import { CardLogin, CardRegister } from "./component";
+import { Particles, preventDefault } from "@/util";
 import React, {
   useCallback,
   useContext,
@@ -11,29 +9,59 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { CtxAuth } from "@/route";
+import { Button, Card, Checkbox, Form, Input, message } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { useRegisterMutation, useLoginMutation } from "@/api/api-rtkq";
+import { CtxAuth } from "@/stores";
 
-const cn = useClass(style);
+namespace Type {
+  export interface formValue {
+    password: string;
+    username: string;
+    remember: boolean;
+  }
+  export interface props {
+    isRegister: boolean;
+    onLinkClick(): void;
+  }
+  type validateStatus =
+    | ""
+    | "error"
+    | "validating"
+    | "success"
+    | "warning"
+    | undefined;
+
+  export interface formData {
+    username: string;
+    password: string;
+    password2: string;
+  }
+  export interface validate {
+    validateStatus: validateStatus;
+    help?: string;
+  }
+}
+
 /**
  * 登录页面
  * @returns JSX
  */
 export function PageLogin() {
-  const {
-    state: { isLogined },
-    prevAuth,
-  } = useContext(CtxAuth);
-  if (isLogined || prevAuth()) return <Navigate to="/" replace />;
+  const cn = useClass(style);
+  const { isLogined } = useContext(CtxAuth);
+  if (isLogined()) return <Navigate to="/" replace />;
 
   // 登录&注册卡片
   const [isRegister, setIsRegister] = useState(false);
   const switchHandler = useCallback(() => setIsRegister((prev) => !prev), []);
-  const cardLogin = useMemo(
-    () => <CardLogin {...{ isRegister }} onRegisterClick={switchHandler} />,
-    [isRegister, switchHandler]
-  );
-  const cardRegister = useMemo(
-    () => <CardRegister {...{ isRegister }} onLoginClick={switchHandler} />,
+  const cards = useMemo(
+    () => (
+      <>
+        <CardLogin {...{ isRegister }} onLinkClick={switchHandler} />
+        <CardRegister {...{ isRegister }} onLinkClick={switchHandler} />
+      </>
+    ),
     [isRegister, switchHandler]
   );
 
@@ -63,12 +91,181 @@ export function PageLogin() {
   return (
     <div ref={resizeRef} className={cn("login-root")}>
       <canvas ref={cvsRef} className={cn("login-cvs")}></canvas>
-      <div className={cn("card-box")}>
-        {cardLogin}
-        {cardRegister}
-      </div>
+      <div className={cn("card-box")}>{cards}</div>
     </div>
   );
 }
 
 export default React.memo(PageLogin);
+
+function CardLogin(props: Type.props) {
+  const { isRegister, onLinkClick } = props;
+  const cn = useClass(style);
+
+  const clickHandler = useCallback(preventDefault(onLinkClick), []);
+  const navigate = useNavigate();
+  const [loginFn] = useLoginMutation();
+  // 表单提交
+  const [form] = Form.useForm();
+  const { signIn } = useContext(CtxAuth);
+  const onFinish = useCallback(async (value: Type.formValue) => {
+    try {
+      const res = await loginFn(value).unwrap();
+      const { isOk, token, username, invalidTime, mes } = res;
+      if (isOk) {
+        signIn(
+          { user: username, token, expiration: invalidTime },
+          value.remember
+        );
+        navigate("/", { replace: true });
+        return;
+      }
+      message.warning(mes);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  return (
+    <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
+      <Form
+        form={form}
+        name="normal_login"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        className="login-form"
+      >
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: "Please input your Username!" }]}
+        >
+          <Input
+            prefix={<UserOutlined className={cn("site-form-item-icon")} />}
+            placeholder="手机号"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your Password!" }]}
+        >
+          <Input
+            prefix={<LockOutlined className={cn("site-form-item-icon")} />}
+            type="password"
+            placeholder="密码"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+          <a
+            className={cn("login-form-forgot")}
+            href="xxx"
+            onClick={preventDefault()}
+          >
+            Forgot password
+          </a>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={cn("login-form-button")}
+          >
+            Login
+          </Button>
+          Or{" "}
+          <a onClick={clickHandler} href="xxx">
+            register now!
+          </a>
+        </Form.Item>
+      </Form>
+    </Card>
+  );
+}
+
+function CardRegister(props: Type.props) {
+  const { isRegister, onLinkClick } = props;
+  const cn = useClass(style);
+  const clickHandler = useCallback(preventDefault(onLinkClick), []);
+  // 处理注册
+  const [registerFn] = useRegisterMutation();
+  const [form] = Form.useForm();
+  const [validate, setValidate] = useState<Type.validate>({
+    validateStatus: undefined,
+    help: undefined,
+  });
+  const onFinish = useCallback((formData: Type.formData) => {
+    registerFn(formData)
+      .unwrap()
+      .then((res) => {
+        if (res.isOk) {
+          message.success(res.message);
+          onLinkClick();
+          return;
+        }
+        message.warning(res.message);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+  // 表单校验
+  const onValuesChange = useCallback(
+    (chgValue: Partial<Type.formData>, allValue: Type.formData) => {
+      if (!chgValue.password2) return;
+      const { password } = allValue;
+      setValidate((prev) => {
+        const isOk = chgValue.password2 === password;
+        return {
+          ...prev,
+          validateStatus: isOk ? undefined : "error",
+          help: isOk ? undefined : "两次输入的密码不一致！",
+        };
+      });
+    },
+    []
+  );
+  return (
+    <Card className={cn(["card-register", isRegister ? "rotate-y-0" : ""])}>
+      <Form form={form} onFinish={onFinish} onValuesChange={onValuesChange}>
+        <Form.Item name="username" rules={[{ required: true }]}>
+          <Input
+            prefix={<UserOutlined className={cn("site-form-item-icon")} />}
+            placeholder="手机号"
+          />
+        </Form.Item>
+        <Form.Item name="password" rules={[{ required: true }]}>
+          <Input
+            prefix={<LockOutlined className={cn("site-form-item-icon")} />}
+            type="password"
+            placeholder="密码"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password2"
+          rules={[{ required: true }]}
+          validateStatus={validate.validateStatus}
+          help={validate.help}
+        >
+          <Input
+            prefix={<LockOutlined className={cn("site-form-item-icon")} />}
+            type="password"
+            placeholder="确认密码"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={cn("login-form-button")}
+          >
+            Register
+          </Button>
+          Or{" "}
+          <a onClick={clickHandler} href="xxx">
+            login now!
+          </a>
+        </Form.Item>
+      </Form>
+    </Card>
+  );
+}

@@ -6,12 +6,12 @@ import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/snow-bg.jpg";
 import villageBg from "@/assets/image/snow-village.jpg";
 
-const cx = useClass(style);
-
 /**
  * Show 页面
  */
 export function PageSnow() {
+  const cx = useClass(style);
+
   const cvsRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useResize(
     (box) => {
