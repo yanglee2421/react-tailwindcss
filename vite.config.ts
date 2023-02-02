@@ -2,10 +2,12 @@ import { ConfigEnv, defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
+import gzip from "vite-plugin-compression";
+import image from "vite-plugin-imagemin";
 
 // https://vitejs.dev/config/
 export default defineConfig((ConfigEnv) => ({
-  plugins: [react()],
+  plugins: [react(), gzip({ deleteOriginFile: false }), image()],
   resolve: {
     alias: { "@": resolve(__dirname, "./src") },
   },
@@ -27,25 +29,36 @@ function base({ mode }: ConfigEnv): UserConfig["base"] {
 }
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
-  let outDir = mode === "gitee" ? "docs" : "react-app";
-  return { outDir };
+  const outDir = mode === "gitee" ? "docs" : "react-app";
+
+  const rollupOptions = {
+    output: {
+      manualChunks: {
+        echarts: ["echarts"],
+        three: ["three"],
+      },
+    },
+  };
+
+  return { outDir, rollupOptions };
 }
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
   const isGitee = mode === "gitee";
-  return {
-    port: 5173,
-    https: isGitee && {
-      key: readFileSync(resolve(__dirname, "./config/localhost+1-key.pem")),
-      cert: readFileSync(resolve(__dirname, "./config/localhost+1.pem")),
-    },
-    proxy: {
-      "/dev": {
-        target: "http://192.168.1.4",
-        rewrite: (path) => path.replace(/^\/dev/, ""),
-        changeOrigin: true,
-        ws: true,
-      },
+
+  const proxy = {
+    "/dev": {
+      target: "http://192.168.1.4",
+      rewrite: (path) => path.replace(/^\/dev/, ""),
+      changeOrigin: true,
+      ws: true,
     },
   };
+
+  const https = isGitee && {
+    key: readFileSync(resolve(__dirname, "./config/localhost+1-key.pem")),
+    cert: readFileSync(resolve(__dirname, "./config/localhost+1.pem")),
+  };
+
+  return { proxy, https, port: 5173 };
 }
