@@ -56,6 +56,12 @@ export const routes: RouteObject[] = [
         path: "demo",
         element: useLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
+        children: [
+          {
+            path: "card",
+            element: <></>,
+          },
+        ],
       },
     ],
   },
@@ -123,10 +129,11 @@ function BeforeEach() {
 
   //   标题随动
   useEffect(() => {
-    const title = (matches.at(-1)?.handle as any).title;
+    const title = (matches.at(-1)?.handle as any)?.title;
     if (typeof title !== "string") return;
     document.title = title;
   }, [route]);
+
   return (
     <CtxAuth.Provider value={{ state, signOut, signIn, isLogined }}>
       {route}
