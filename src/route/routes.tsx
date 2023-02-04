@@ -1,4 +1,10 @@
-import { Navigate, useMatches, useOutlet, RouteObject } from "react-router-dom";
+import {
+  Navigate,
+  useMatches,
+  useOutlet,
+  RouteObject,
+  useNavigate,
+} from "react-router-dom";
 import { useLazy } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -67,11 +73,20 @@ export const routes: RouteObject[] = [
   },
 ];
 
+/**
+ * Executed before every route change
+ * @returns router result
+ */
 function BeforeEach() {
+  const navigate = useNavigate();
+  const matches = useMatches();
+
   // 登录鉴权
   const [state, setState] = useState(initAuth().state);
+  let timer: number | NodeJS.Timeout = 0;
   const signOut = () => {
     setState((prev) => ({ ...prev, ...initAuth().state }));
+    clearTimeout(timer);
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
   };
@@ -81,11 +96,14 @@ function BeforeEach() {
   ) => {
     const nextAuth = { user, token, expiration };
     setState((prev) => ({ ...prev, ...nextAuth }));
+    if ((matches.at(-1)?.handle as any)?.title === "login")
+      navigate("/", { replace: true });
+    clearTimeout(timer);
+    timer = setTimeout(signOut, expiration - Date.now());
     if (isRemember) {
       localStorage.setItem("auth", JSON.stringify(nextAuth));
       localStorage.setItem("token", token);
     }
-    setTimeout(signOut, expiration - Date.now());
   };
   const preAuth = () => {
     try {
@@ -119,12 +137,11 @@ function BeforeEach() {
 
   //   路由鉴权
   const outlet = useOutlet();
-  const matches = useMatches();
   const route = useMemo(() => {
     const title = (matches.at(-1)?.handle as any)?.title;
     if (whiteList.includes(title || "")) return outlet;
     if (isLogined()) return outlet;
-    return <Navigate to="login" replace />;
+    return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
 
   //   标题随动

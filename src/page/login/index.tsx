@@ -102,8 +102,6 @@ function CardLogin(props: Type.props) {
   const { isRegister, onLinkClick } = props;
   const cn = useClass(style);
 
-  const clickHandler = useCallback(preventDefault(onLinkClick), []);
-  const navigate = useNavigate();
   const [loginFn] = useLoginMutation();
   // 表单提交
   const [form] = Form.useForm();
@@ -111,13 +109,9 @@ function CardLogin(props: Type.props) {
   const onFinish = useCallback(async (value: Type.formValue) => {
     try {
       const res = await loginFn(value).unwrap();
-      const { isOk, token, username, invalidTime, mes } = res;
+      const { isOk, token, username: user, invalidTime: expiration, mes } = res;
       if (isOk) {
-        signIn(
-          { user: username, token, expiration: invalidTime },
-          value.remember
-        );
-        navigate("/", { replace: true });
+        signIn({ user, token, expiration }, value.remember);
         return;
       }
       message.warning(mes);
@@ -125,6 +119,8 @@ function CardLogin(props: Type.props) {
       console.error(err);
     }
   }, []);
+
+  const clickHandler = useCallback(preventDefault(onLinkClick), []);
 
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
