@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useClass, useResize } from "@/hook";
 import { Particles, preventDefault } from "@/util";
 import React, {
@@ -49,8 +49,6 @@ namespace Type {
  */
 export function PageLogin() {
   const cn = useClass(style);
-  const { isLogined } = useContext(CtxAuth);
-  if (isLogined()) return <Navigate to="/" replace />;
 
   // 登录&注册卡片
   const [isRegister, setIsRegister] = useState(false);
@@ -106,7 +104,7 @@ function CardLogin(props: Type.props) {
   // 表单提交
   const [form] = Form.useForm();
   const { signIn } = useContext(CtxAuth);
-  const onFinish = useCallback(async (value: Type.formValue) => {
+  const onFinish = async (value: Type.formValue) => {
     try {
       const res = await loginFn(value).unwrap();
       const { isOk, token, username: user, invalidTime: expiration, mes } = res;
@@ -118,9 +116,8 @@ function CardLogin(props: Type.props) {
     } catch (err) {
       console.error(err);
     }
-  }, []);
-
-  const clickHandler = useCallback(preventDefault(onLinkClick), []);
+  };
+  const clickHandler = preventDefault(onLinkClick);
 
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
@@ -163,11 +160,7 @@ function CardLogin(props: Type.props) {
           </a>
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={cn("login-form-button")}
-          >
+          <Button type="primary" htmlType="submit" block>
             Login
           </Button>
           Or{" "}
@@ -183,7 +176,7 @@ function CardLogin(props: Type.props) {
 function CardRegister(props: Type.props) {
   const { isRegister, onLinkClick } = props;
   const cn = useClass(style);
-  const clickHandler = useCallback(preventDefault(onLinkClick), []);
+  const clickHandler = preventDefault(onLinkClick);
   // 处理注册
   const [registerFn] = useRegisterMutation();
   const [form] = Form.useForm();
@@ -191,7 +184,8 @@ function CardRegister(props: Type.props) {
     validateStatus: undefined,
     help: undefined,
   });
-  const onFinish = useCallback((formData: Type.formData) => {
+
+  const onFinish = (formData: Type.formData) => {
     registerFn(formData)
       .unwrap()
       .then((res) => {
@@ -203,23 +197,24 @@ function CardRegister(props: Type.props) {
         message.warning(res.message);
       })
       .catch((err) => console.error(err));
-  }, []);
+  };
   // 表单校验
-  const onValuesChange = useCallback(
-    (chgValue: Partial<Type.formData>, allValue: Type.formData) => {
-      if (!chgValue.password2) return;
-      const { password } = allValue;
-      setValidate((prev) => {
-        const isOk = chgValue.password2 === password;
-        return {
-          ...prev,
-          validateStatus: isOk ? undefined : "error",
-          help: isOk ? undefined : "两次输入的密码不一致！",
-        };
-      });
-    },
-    []
-  );
+  const onValuesChange = (
+    chgValue: Partial<Type.formData>,
+    allValue: Type.formData
+  ) => {
+    if (!chgValue.password2) return;
+    const { password } = allValue;
+    setValidate((prev) => {
+      const isOk = chgValue.password2 === password;
+      return {
+        ...prev,
+        validateStatus: isOk ? undefined : "error",
+        help: isOk ? undefined : "两次输入的密码不一致！",
+      };
+    });
+  };
+
   return (
     <Card className={cn(["card-register", isRegister ? "rotate-y-0" : ""])}>
       <Form form={form} onFinish={onFinish} onValuesChange={onValuesChange}>
@@ -249,11 +244,7 @@ function CardRegister(props: Type.props) {
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={cn("login-form-button")}
-          >
+          <Button type="primary" htmlType="submit" block>
             Register
           </Button>
           Or{" "}

@@ -20,7 +20,8 @@ import {
 import { useClass, useResize } from "@/hook";
 import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import avatar from "@/assets/image/avatar.jpg";
+import avatar from "@/assets/image/avatar/vergil.jpg";
+
 const items: MenuProps["items"] = [
   {
     key: 1,
@@ -149,14 +150,3 @@ export function PageLayout() {
   );
 }
 export default React.memo(PageLayout);
-
-function Item(props: React.PropsWithChildren) {
-  const { children, ...restProps } = props;
-  const cx = useClass(style);
-
-  return (
-    <div className={cx("grid-item")}>
-      <div>{children}</div>
-    </div>
-  );
-}

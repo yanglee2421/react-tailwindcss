@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useBingQuery } from "@/api/api-rtkq";
 import { useMemo, useRef, useState } from "react";
-import avatar from "@/assets/image/avatar-ssw.jpg";
+import avatar from "@/assets/image/avatar/ssw.jpg";
 
 export function BingCard(props: CardProps) {
   const { children, ...restProps } = props;

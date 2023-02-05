@@ -2,7 +2,7 @@
   @extend .flex, .center-center;
   height: 100%;
   border-radius: 5px;
-  background-image: url("@/assets/image/justHer.jpg");
+  background-image: url("@/assets/image/bg/justHer.jpg");
   @include bgc-img;
   > div {
     @extend .flex-column, .center-center, .text-center;

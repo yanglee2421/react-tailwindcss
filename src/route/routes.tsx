@@ -101,8 +101,8 @@ function BeforeEach() {
   ) => {
     const nextAuth = { user, token, expiration };
     setState((prev) => ({ ...prev, ...nextAuth }));
-    if ((matches.at(-1)?.handle as any)?.title === "login")
-      navigate("/", { replace: true });
+    if ((matches.at(-1)?.handle as any)?.title === "登录")
+      React.startTransition(() => navigate("/", { replace: true }));
     clearTimeout(timer);
     timer = setTimeout(signOut, expiration - Date.now());
     if (isRemember) {

@@ -4,10 +4,10 @@ import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
 import { useClass } from "@/hook";
 import React, { useContext, useState } from "react";
 import { CtxAuth } from "@/stores";
-import justHer from "@/assets/image/justHer.jpg";
-import snowBg from "@/assets/image/snow-bg.jpg";
-import snowVillage from "@/assets/image/snow-village.jpg";
-import snowNight from "@/assets/image/snow-night.jpg";
+import justHer from "@/assets/image/bg/justHer.jpg";
+import snowBg from "@/assets/image/bg/snow.jpg";
+import snowVillage from "@/assets/image/bg/snow-village.jpg";
+import snowNight from "@/assets/image/bg/snow-night.jpg";
 
 /**
  * 首页
@@ -20,8 +20,6 @@ export function PageHome() {
 
   const { signOut } = useContext(CtxAuth);
 
-  const str =
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque dolores inventore explicabo officiis perspiciatis ad soluta vel debitis est quidem. Magni placeat qui quia voluptas exercitationem quasi illo alias libero.";
   return (
     <div className={cx("home")}>
       <BingCard />
@@ -49,13 +47,7 @@ export function PageHome() {
       </Card>
       <RouteCard title="RouteCard"></RouteCard>
       <Counter />
-      <Card>
-        <form action="#" onSubmit={(e) => e.preventDefault()}>
-          <input type="text" defaultValue={str} />
-          <input type="submit" />
-          <input type="reset" />
-        </form>
-      </Card>
+      <Card></Card>
     </div>
   );
 }

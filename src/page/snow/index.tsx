@@ -3,8 +3,8 @@ import { Layout, Switch } from "antd";
 import { useClass, useResize } from "@/hook";
 import { Snow } from "@/util";
 import React, { useMemo, useRef, useState } from "react";
-import snowBg from "@/assets/image/snow-bg.jpg";
-import villageBg from "@/assets/image/snow-village.jpg";
+import snowBg from "@/assets/image/bg/snow.jpg";
+import villageBg from "@/assets/image/bg/snow-village.jpg";
 
 /**
  * Show 页面

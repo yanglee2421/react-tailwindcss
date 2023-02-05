@@ -1,7 +1,7 @@
 import { useClass } from "@/hook";
 import React from "react";
 import style from "./style.module.scss";
-import img from "@/assets/image/avatar-fh.jpg";
+import img from "@/assets/image/avatar/fh.jpg";
 
 export function PageForm() {
   const cx = useClass(style);

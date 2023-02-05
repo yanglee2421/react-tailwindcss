@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("@/assets/image/bg.jpg");
+  background-image: url("@/assets/image/bg/bg.jpg");
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
@@ -38,9 +38,6 @@
 }
 .rotate-y-0 {
   transform: rotateY(0deg) !important;
-}
-.login-form-button {
-  width: 100%;
 }
 .site-form-item-icon {
   color: #999;
