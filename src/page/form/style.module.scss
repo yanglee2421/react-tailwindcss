@@ -1,0 +1,12 @@
+.form-ul {
+  column-count: 2;
+  li + li {
+    @extend .my-1;
+  }
+  input:where([type="image"]) {
+    width: 5rem;
+  }
+}
+.box {
+  padding: 30px;
+}

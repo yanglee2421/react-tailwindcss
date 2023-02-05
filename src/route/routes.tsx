@@ -37,6 +37,11 @@ export const routes: RouteObject[] = [
             handle: { title: "404，NotFound" },
           },
           {
+            path: "form",
+            element: useLazy(() => import("@/page/form")),
+            handle: { title: "表单" },
+          },
+          {
             path: "threejs",
             element: useLazy(() => import("@/page/threejs")),
             handle: { title: "threejs" },

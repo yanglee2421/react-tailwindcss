@@ -18,8 +18,10 @@ export function PageHome() {
 
   const [cout, setCout] = useState(0);
 
-  const { signIn, signOut } = useContext(CtxAuth);
+  const { signOut } = useContext(CtxAuth);
 
+  const str =
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque dolores inventore explicabo officiis perspiciatis ad soluta vel debitis est quidem. Magni placeat qui quia voluptas exercitationem quasi illo alias libero.";
   return (
     <div className={cx("home")}>
       <BingCard />
@@ -47,6 +49,13 @@ export function PageHome() {
       </Card>
       <RouteCard title="RouteCard"></RouteCard>
       <Counter />
+      <Card>
+        <form action="#" onSubmit={(e) => e.preventDefault()}>
+          <input type="text" defaultValue={str} />
+          <input type="submit" />
+          <input type="reset" />
+        </form>
+      </Card>
     </div>
   );
 }
