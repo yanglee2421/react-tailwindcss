@@ -5,7 +5,9 @@ import {
   Button,
   Drawer,
   FloatButton,
+  Input,
   Layout,
+  List,
   Menu,
   MenuProps,
 } from "antd";
@@ -16,19 +18,20 @@ import {
   MenuOutlined,
   RocketOutlined,
   HomeOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { useClass, useResize } from "@/hook";
 import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/vergil.jpg";
-
-const items: MenuProps["items"] = [
-  {
-    key: 1,
-    label: "首页",
-    icon: <HomeOutlined />,
-  },
-];
+import dz from "@/assets/image/avatar/dz.jpg";
+import kl from "@/assets/image/avatar/kl.jpg";
+import sakura from "@/assets/image/avatar/sakura.jpg";
+import ssw from "@/assets/image/avatar/ssw.jpg";
+import bcy from "@/assets/image/avatar/bcy.jpg";
+import fh from "@/assets/image/avatar/fh.jpg";
+import jz from "@/assets/image/avatar/jz.jpg";
+import mei from "@/assets/image/avatar/mei.jpg";
 
 export function PageLayout() {
   const cx = useClass(style);
@@ -40,7 +43,7 @@ export function PageLayout() {
     if (vw < 576) return;
     return (
       <Layout.Sider collapsed={vw < 1400}>
-        <Menu items={items} className={cx("h-100")} />
+        <AsiderContent />
       </Layout.Sider>
     );
   }, [vw]);
@@ -59,7 +62,7 @@ export function PageLayout() {
     );
   }, [vw]);
 
-  //   toTopBtn的显隐
+  //   toTopFloatBtn
   const cntRef = useRef<HTMLElement>(null);
   const [st, setST] = useState(0);
   const toTopHandler = useCallback(
@@ -71,7 +74,7 @@ export function PageLayout() {
     return <FloatButton onClick={toTopHandler} icon={<RocketOutlined />} />;
   }, [st, toTopHandler]);
 
-  //   悬浮按钮暗夜模式
+  //   darkFloatBtn
   const dispatch = useAppDispatch();
   const isDark = useAppSelector((state) => state.theme.isDark);
   const darkHandler = useCallback<React.MouseEventHandler<HTMLElement>>(
@@ -81,30 +84,32 @@ export function PageLayout() {
     },
     [isDark]
   );
-  const darkBtn = useMemo(() => {
-    return (
+  const darkBtn = useMemo(
+    () => (
       <FloatButton
         onClick={darkHandler}
         icon={isDark ? <BulbOutlined /> : <BulbFilled />}
         type={isDark ? "primary" : "default"}
       ></FloatButton>
-    );
-  }, [isDark, darkHandler]);
+    ),
+    [isDark, darkHandler]
+  );
 
-  //   抽屉
+  //   Drawer
   const [isDrawer, setIsDrawer] = useState(false);
-  const drawer = useMemo(() => {
-    return (
+  const drawer = useMemo(
+    () => (
       <Drawer
         open={isDrawer}
         onClose={() => setIsDrawer((prev) => !prev)}
         placement={vw < 576 ? "top" : "left"}
         closeIcon={<MenuOutlined />}
       >
-        <div className={cx("grid")}></div>
+        <DrawerContent />
       </Drawer>
-    );
-  }, [isDrawer, vw]);
+    ),
+    [isDrawer, vw]
+  );
 
   // 根据outlet生成content
   const outlet = useOutlet();
@@ -128,10 +133,7 @@ export function PageLayout() {
     <>
       {drawer}
       <Layout ref={resizeRef} className={cx("box")}>
-        <Layout.Header className={cx("box-hd")}>
-          <MenuOutlined onClick={() => setIsDrawer(true)} />
-          <Avatar src={avatar} size={36}></Avatar>
-        </Layout.Header>
+        <Header onIconClick={() => setIsDrawer(true)} />
         <Layout>
           {asider}
           {cnt}
@@ -150,3 +152,80 @@ export function PageLayout() {
   );
 }
 export default React.memo(PageLayout);
+
+namespace t {
+  export interface HeaderProps {
+    onIconClick(): void;
+  }
+}
+
+/**
+ * Layout Header
+ * @param props
+ * @returns
+ */
+function Header(props: t.HeaderProps) {
+  const { onIconClick } = props;
+  const cx = useClass(style);
+  return (
+    <Layout.Header className={cx("box-hd")}>
+      <MenuOutlined onClick={onIconClick} />
+      <Input.Search
+        showCount
+        maxLength={20}
+        prefix={<SearchOutlined />}
+        placeholder="do some thing"
+        enterButton="Go"
+      />
+      <Avatar src={avatar} size={36} />
+    </Layout.Header>
+  );
+}
+
+function AsiderContent() {
+  const cx = useClass(style);
+  const items: MenuProps["items"] = [
+    {
+      key: 1,
+      label: "首页",
+      icon: <HomeOutlined />,
+    },
+  ];
+  return <Menu items={items} className={cx("h-100")} />;
+}
+
+/**
+ * Drawer Content
+ * @returns
+ */
+function DrawerContent() {
+  const cx = useClass(style);
+
+  // ListItems
+  const arr = [
+    { src: dz, title: "标题", description: "这是描述", link: "链接" },
+    { src: kl, title: "标题", description: "这是描述", link: "链接" },
+    { src: sakura, title: "标题", description: "这是描述", link: "链接" },
+    { src: ssw, title: "标题", description: "这是描述", link: "链接" },
+    { src: bcy, title: "标题", description: "这是描述", link: "链接" },
+    { src: fh, title: "标题", description: "这是描述", link: "链接" },
+    { src: jz, title: "标题", description: "这是描述", link: "链接" },
+    { src: mei, title: "标题", description: "这是描述", link: "链接" },
+  ];
+  const items = useMemo(
+    () =>
+      arr.map((item) => (
+        <List.Item key={item.src}>
+          <List.Item.Meta
+            avatar={<Avatar src={item.src} size={48} />}
+            title={item.title}
+            description={item.description}
+          />
+          <Button type="link">{item.link}</Button>
+        </List.Item>
+      )),
+    []
+  );
+
+  return <List>{items}</List>;
+}
