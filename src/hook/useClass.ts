@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 namespace t {
   type param = string | string[] | Record<string, boolean>;
@@ -6,9 +6,9 @@ namespace t {
 }
 
 /**
- * 支持 string、string[]、Record 写法
- * @param style 引入的 CssModule
- * @returns 用于生成类名的函数
+ * Hook for generating class names
+ * @param style CssModule
+ * @returns function that returns the class name
  */
 export function useClass(style: CSSModuleClasses) {
   return useCallback<t.cx>((className) => {

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 /**
- * 监听浏览器主题变化的钩子
- * @param callback 挂载、主题切换时执行
+ * Hook for listening to browser theme changes
+ * @param callback Executed when RC is mounted and browser theme is switched
  */
 export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
   useEffect(() => {

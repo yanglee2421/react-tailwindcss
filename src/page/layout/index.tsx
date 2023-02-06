@@ -90,7 +90,7 @@ export function PageLayout() {
         onClick={darkHandler}
         icon={isDark ? <BulbOutlined /> : <BulbFilled />}
         type={isDark ? "primary" : "default"}
-      ></FloatButton>
+      />
     ),
     [isDark, darkHandler]
   );

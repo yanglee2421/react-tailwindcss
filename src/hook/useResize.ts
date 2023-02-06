@@ -1,15 +1,20 @@
 import { useEffect, useRef } from "react";
 
 namespace t {
+  interface param {
+    width: number;
+    height: number;
+  }
   export interface callback {
-    (params: { width: number; height: number }): void | Function;
+    (param: param): void;
+    (param: param): Function;
   }
 }
 
 /**
- * 监听 dom resize 的钩子
- * @param callback 挂载、resize时执行
- * @returns 用于指定 dom 的 ref
+ * Hook for monitoring dom resize
+ * @param callback Executed when dom is mounted and dom size changes
+ * @returns ref used to specify dom
  */
 export function useResize<T extends HTMLElement>(
   callback: t.callback,

@@ -9,9 +9,9 @@ export namespace Type {
   };
 }
 /**
- * 类似 React.lazy，实现组件懒加载
- * @param callback 返回 Promise 的函数
- * @returns JSX
+ * Hooks for lazy loading of RC
+ * @param callback A function that returns an RC Promise
+ * @returns React Suspense
  */
 export function useLazy(callback: () => Promise<Type.defRC>) {
   const LazyRC = React.lazy(callback);
