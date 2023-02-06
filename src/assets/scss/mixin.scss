@@ -8,47 +8,28 @@
 }
 
 @mixin position($list...) {
-  @if (length($list) ==1) {
+  @if (length($list) == 1) {
     top: nth($list, 1);
     right: nth($list, 1);
     bottom: nth($list, 1);
     left: nth($list, 1);
-  } @else if(length($list) ==2) {
+  } @else if(length($list) == 2) {
     top: nth($list, 1);
     right: nth($list, 2);
     bottom: nth($list, 1);
     left: nth($list, 2);
-  } @else if(length($list) ==3) {
+  } @else if(length($list) == 3) {
     top: nth($list, 1);
     right: nth($list, 2);
     bottom: nth($list, 3);
     left: nth($list, 2);
-  } @else if(length($list) ==4) {
+  } @else if(length($list) == 4) {
     top: nth($list, 1);
     right: nth($list, 2);
     bottom: nth($list, 3);
     left: nth($list, 4);
   } @else {
     @warn "至多只能有四个参数！";
-  }
-}
-
-@mixin m-center {
-  width: fit-content;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-@mixin flex-center($xy: null) {
-  display: flex;
-
-  @if ($xy== "x") {
-    justify-content: center;
-  } @else if($xy== "y") {
-    align-items: center;
-  } @else {
-    justify-content: center;
-    align-items: center;
   }
 }
 

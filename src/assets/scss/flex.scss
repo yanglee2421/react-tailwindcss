@@ -1,30 +1,18 @@
 .flex {
   display: flex;
 }
-
 .flex-1 {
   flex: 1;
 }
-
-.flex-direction-column {
-  flex-direction: column;
-}
-
 .flex-1-hidden {
   flex: 1;
   overflow: hidden;
 }
-
 .flex-1-auto {
   flex: 1;
   overflow: auto;
-}
-
-.flex-1-overlay {
-  flex: 1;
   overflow: overlay;
 }
-
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -32,30 +20,25 @@
 }
 
 $-align: start, center, end, stretch, between, around, evenly;
-
 @each $item in $-align {
   // 作为属性值使用
   $item-copy: if(
-    $item ==between or $item ==evenly or $item ==around,
+    $item == between or $item == evenly or $item == around,
     #{"space-" + $item},
     $item
   );
-
   .justify-#{$item} {
     justify-content: #{$item-copy};
   }
-
   .align-#{$item} {
     align-items: #{$item-copy};
   }
-
   @each $i in $-align {
     $i-copy: if(
-      $i ==between or $i ==evenly or $i ==around,
+      $i == between or $i == evenly or $i == around,
       #{"space-" + $i},
       $i
     );
-
     .#{$item}-#{$i} {
       justify-content: #{$item-copy};
       align-items: #{$i-copy};
