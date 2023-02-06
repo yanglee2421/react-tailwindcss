@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useLazy } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { whiteList } from "./whiteList";
 import { message } from "antd";
 
@@ -143,8 +143,8 @@ function BeforeEach() {
   //   路由鉴权
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const title = (matches.at(-1)?.handle as any)?.title;
-    if (whiteList.includes(title || "")) return outlet;
+    const pathname = matches.at(-1)?.pathname || "";
+    if (isInWl(pathname)) return outlet;
     if (isLogined()) return outlet;
     return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
@@ -161,4 +161,13 @@ function BeforeEach() {
       {route}
     </CtxAuth.Provider>
   );
+}
+
+/**
+ * Tests if a pathname is in the whitelist
+ * @param str current route`s pathname
+ * @returns whether the pathname is in the whitelist
+ */
+function isInWl(str: string) {
+  return whiteList.some((item) => str.startsWith(item));
 }

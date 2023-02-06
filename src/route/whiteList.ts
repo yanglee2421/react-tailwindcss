@@ -1,1 +1,1 @@
-export const whiteList = ["登录"];
+export const whiteList = ["/login", "/demo"];
