@@ -44,7 +44,7 @@ export function PageThreejs() {
     root.hasChildNodes() || root.appendChild(render.domElement);
     render.render(scence, camera);
   }, []);
-  return <div id={uid} className={cn("")}></div>;
+  return <div id={uid} className={cn("h-100 overflow-hidden")}></div>;
 }
 
 export default React.memo(PageThreejs);

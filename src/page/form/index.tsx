@@ -1,5 +1,5 @@
 import { useClass } from "@/hook";
-import React from "react";
+import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
 
@@ -44,12 +44,18 @@ export function PageForm() {
           <input type="submit" value="submitBtn" />
           <input type="reset" value="resetBtn" />
         </Label>
-        <select name="select">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <textarea name="textarea" cols={30} rows={5}></textarea>
+        <ol className={cx("ol")}>
+          <li>
+            <select name="select">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </li>
+          <li>
+            <textarea name="textarea" cols={30} rows={5}></textarea>
+          </li>
+        </ol>
       </form>
     </div>
   );
@@ -62,14 +68,14 @@ namespace t {
     label?: string;
   }
 }
+
 function Label(props: t.props) {
   const cx = useClass(style);
-  const arr = React.Children.map(props.children, (e, index) => {
+  const arr = React.Children.map<ReactNode, any>(props.children, (e, index) => {
     if (!e) return;
     return (
       <li key={index}>
         <label>
-          {/* @ts-ignore */}
           {e.props?.type + "：" || ""}
           {e}
         </label>

@@ -37,6 +37,16 @@ export const routes: RouteObject[] = [
             handle: { title: "404，NotFound" },
           },
           {
+            path: "particle",
+            element: useLazy(() => import("@/page/particle")),
+            handle: { title: "粒子" },
+          },
+          {
+            path: "snow",
+            element: useLazy(() => import("@/page/snow")),
+            handle: { title: "雪飘" },
+          },
+          {
             path: "form",
             element: useLazy(() => import("@/page/form")),
             handle: { title: "表单" },
@@ -64,25 +74,10 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: "particle",
-        element: useLazy(() => import("@/page/particle")),
-        handle: { title: "粒子" },
-      },
-      {
-        path: "snow",
-        element: useLazy(() => import("@/page/snow")),
-        handle: { title: "雪飘" },
-      },
-      {
         path: "demo",
         element: useLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
-        children: [
-          {
-            path: "card",
-            element: <></>,
-          },
-        ],
+        children: [{ path: "card", element: <></> }],
       },
     ],
   },

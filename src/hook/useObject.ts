@@ -6,9 +6,11 @@ namespace t {
 }
 
 export function useObject<T>(init: T) {
-  if (!init) throw new Error("initialState can not be falsy");
-  if (typeof init !== "object")
-    throw new Error("useObject can only handle a object");
+  const type = toStringTag(init);
+  const allowTypes = ["object", "array"];
+  const isAllowType = allowTypes.includes(type);
+  if (!isAllowType) new Error("initialState can only be object or array");
+
   return useReducer<t.reducer<T>, T>(
     (state, act) => {
       const target = JSON.parse(JSON.stringify(state)) as T;
@@ -18,4 +20,11 @@ export function useObject<T>(init: T) {
     init,
     (init) => init
   );
+}
+
+function toStringTag(target: unknown) {
+  return Object.prototype.toString
+    .call(target)
+    .replace(/\[object (\w+)\]/, "$1")
+    .toLocaleLowerCase();
 }

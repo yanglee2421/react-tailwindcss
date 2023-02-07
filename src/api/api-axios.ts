@@ -1,4 +1,4 @@
-import axios, { RawAxiosRequestConfig } from "axios";
+import axios from "axios";
 import { message as Message } from "antd";
 
 export const request = axios.create({
