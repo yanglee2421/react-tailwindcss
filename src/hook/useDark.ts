@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 
+namespace t {
+  export type cb = (mediaQuery: MediaQueryList) => void;
+}
+
 /**
  * Hook for listening to browser theme changes
  * @param callback Executed when RC is mounted and browser theme is switched
  */
-export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
+export function useDark(callback: t.cb) {
   useEffect(() => {
     const queryDark = matchMedia("(prefers-color-scheme: dark)");
     callback(queryDark);

@@ -42,6 +42,16 @@ export const routes: RouteObject[] = [
             handle: { title: "表单" },
           },
           {
+            path: "bottle",
+            element: useLazy(() => import("@/page/bottle")),
+            handle: { title: "水罐" },
+          },
+          {
+            path: "magnifier",
+            element: useLazy(() => import("@/page/magnifier")),
+            handle: { title: "放大镜" },
+          },
+          {
             path: "threejs",
             element: useLazy(() => import("@/page/threejs")),
             handle: { title: "threejs" },

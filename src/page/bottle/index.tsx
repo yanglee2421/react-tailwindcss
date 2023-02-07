@@ -1,4 +1,4 @@
-import style from "./demo.module.scss";
+import style from "./style.module.scss";
 import { useClass } from "@/hook";
 import React from "react";
 
@@ -6,7 +6,7 @@ import React from "react";
  * Demo 页面
  * @returns JSX
  */
-export function PageDemo() {
+export function PageBottle() {
   const cx = useClass(style);
 
   return (
@@ -19,4 +19,4 @@ export function PageDemo() {
   );
 }
 
-export default React.memo(PageDemo);
+export default React.memo(PageBottle);

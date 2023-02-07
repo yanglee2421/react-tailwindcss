@@ -5,10 +5,7 @@ namespace t {
     width: number;
     height: number;
   }
-  export interface callback {
-    (param: param): void;
-    (param: param): Function;
-  }
+  export type callback = (param: param) => void | Function;
 }
 
 /**

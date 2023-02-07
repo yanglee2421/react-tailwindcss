@@ -1,0 +1,21 @@
+.box {
+  @extend .h-100, .overflow-hidden;
+  position: relative;
+}
+.outer {
+  position: absolute;
+  @include position(0);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.inner {
+  position: absolute;
+  @include position(0);
+  background-image: linear-gradient(
+    rgba(193, 35, 35, 0.71),
+    rgba(32, 39, 216, 0.71)
+  );
+}
