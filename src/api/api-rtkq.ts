@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { message } from "antd";
 
-namespace Type {
+namespace t {
   interface rej {
     isOk: false;
     mes: unknown;
@@ -58,19 +58,19 @@ export const authApi = createApi({
       keepUnusedDataFor: 60 * 60,
     }),
     // 必应壁纸
-    Bing: build.query<Type.Bing, void>({
+    Bing: build.query<t.Bing, void>({
       query: () => ({
         url: "/bing",
         params: { idx: 0, n: 8 },
       }),
-      transformResponse(res: Type.Bing) {
+      transformResponse(res: t.Bing) {
         if (!res.isOk) message.warning(String(res.mes));
         return res;
       },
       keepUnusedDataFor: 60 * 60,
     }),
     // 注册
-    register: build.mutation<any, Type.auth>({
+    register: build.mutation<any, t.auth>({
       query: (body) => ({
         url: "/auth/register",
         method: "post",
@@ -78,7 +78,7 @@ export const authApi = createApi({
       }),
     }),
     // 登录
-    login: build.mutation<any, Type.auth>({
+    login: build.mutation<any, t.auth>({
       query: (body) => ({
         url: "/auth/login",
         method: "post",
@@ -86,7 +86,7 @@ export const authApi = createApi({
       }),
     }),
     // pwd 查所有
-    pwd: build.query<Type.pwdQuery, Type.pwdReq>({
+    pwd: build.query<t.pwdQuery, t.pwdReq>({
       query: (params) => ({
         url: "/pwd/query",
         params,

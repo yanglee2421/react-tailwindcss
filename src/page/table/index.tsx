@@ -1,121 +1,183 @@
 import style from "./table.module.scss";
-import { Button, Form, Input, Layout, Pagination, Table } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { usePwdQuery, usePwdDelMutation } from "@/api/api-rtkq";
-import { useClass, useResize } from "@/hook";
-import React, { useEffect, useState } from "react";
-import { request } from "@/api/api-axios";
-const cn = useClass(style);
+import { Button, Form, Input, Space, Table, TableProps } from "antd";
+import { useClass, useObject, useResize } from "@/hook";
+import React, { useState } from "react";
+import { usePwdDelMutation, usePwdQuery } from "@/api/api-rtkq";
+
 /**
  * 表格页面
  * @returns JSX
  */
 export function PageTable() {
-  const [form] = Form.useForm();
-  const [req, setReq] = useState({
-    pwd_site: "",
-    pwd_username: "",
+  const [query, setQuery] = useObject({
     page_index: 1,
     page_size: 20,
+    pwd_site: "",
+    pwd_username: "",
   });
-  const { data } = usePwdQuery(req);
 
-  const [delPwd] = usePwdDelMutation();
-  const columns: ColumnsType<any> = [
-    { title: "Id", dataIndex: "pwd_id", align: "center" },
-    { title: "站点", dataIndex: "pwd_site", align: "center" },
-    { title: "用户名", dataIndex: "pwd_username", align: "center" },
-    { title: "密码", dataIndex: "pwd_pwd", align: "center" },
-    {
-      title: "操作",
-      align: "center",
-      render: (row: any) => (
-        <Button onClick={() => delPwd(row.pwd_id)} type="link" danger>
-          delete
-        </Button>
-      ),
-    },
-  ];
+  const { data, isFetching } = usePwdQuery(query);
 
-  const [scr, setScr] = useState(0);
-  const resizeRef = useResize<HTMLDivElement>(
-    ({ height }) => setScr((prev) => height - 40),
-    []
-  );
-
-  useEffect(() => {
-    request({ url: "https://localhost:3000/qqlykm" }).then((res) => {
-      console.log(res);
-    });
-  }, []);
+  const queryHandler = (data: Partial<t.param>) =>
+    setQuery((prev) => Object.assign(prev, data));
 
   return (
-    <Layout className={cn("h-100 flex-column p-1")}>
-      <Form
-        form={form}
-        onFinish={(formData) => {
-          console.log(formData);
-        }}
-        layout="inline"
-        className="between-center"
-      >
-        <div className="flex">
-          <Form.Item label="站点" name="pwd_site">
-            <Input
-              value={req.pwd_site}
-              onChange={(e) =>
-                setReq((prev) => ({
-                  ...prev,
-                  pwd_site: e.target.value.trim(),
-                }))
-              }
-            />
-          </Form.Item>
-          <Form.Item label="用户名">
-            <Input
-              value={req.pwd_username}
-              onChange={(e) =>
-                setReq((prev) => ({
-                  ...prev,
-                  pwd_username: e.target.value.trim(),
-                }))
-              }
-            />
-          </Form.Item>
-        </div>
-        <Form.Item>
-          <Button onClick={() => form.resetFields()}>重置</Button>
-        </Form.Item>
-      </Form>
+    <div className="flex-column">
+      <Header onQuery={queryHandler} />
       <div className="my-1">
-        <Button type="primary">添加</Button>
+        <Button>add</Button>
       </div>
-      <div ref={resizeRef} className={cn("flex-1-hidden")}>
-        <Table
-          className="h-100"
-          columns={columns}
-          rowKey={(row) => row.user_id}
-          dataSource={data?.rows}
-          pagination={{ position: [], pageSize: 100 }}
-          size="small"
-          scroll={{ y: scr }}
-          bordered
-        />
-      </div>
-      <Pagination
-        total={100}
-        showTotal={(num) => `共${num}条`}
-        showSizeChanger
-        pageSizeOptions={["20", "50", "100"]}
-        defaultPageSize={20}
-        showQuickJumper
-        onChange={(page, pageSize) =>
-          setReq((prev) => ({ ...prev, page_index: page, page_size: pageSize }))
-        }
-        className="mt-1"
+      <Main
+        loading={isFetching}
+        data={data}
+        query={query}
+        onQuery={queryHandler}
       />
-    </Layout>
+    </div>
   );
 }
 
 export default React.memo(PageTable);
+
+namespace t {
+  export interface formData {
+    pwd_site: string;
+    pwd_username: string;
+  }
+  export interface param {
+    page_index: number;
+    page_size: number;
+    pwd_site: string;
+    pwd_username: string;
+  }
+  type onQuery = (param: Partial<param>) => void;
+  export interface HeaderProps {
+    onQuery: onQuery;
+  }
+  export interface MainProps {
+    onQuery: onQuery;
+    query: param;
+    loading: boolean;
+    data?: {
+      total: number;
+      rows: {
+        pwd_site: string;
+        pwd_username: string;
+        pwd_id: string;
+        pwd_pwd: string;
+      }[];
+    };
+  }
+}
+
+function Header(props: t.HeaderProps) {
+  const { onQuery } = props;
+
+  const [form] = Form.useForm();
+  const resetHandler = () => {
+    form.resetFields();
+    onQuery({ page_index: 1, pwd_site: "", pwd_username: "" });
+  };
+
+  return (
+    <Form
+      form={form}
+      onFinish={onQuery}
+      name="headerForm"
+      layout="inline"
+      className="between-center"
+    >
+      <div className="flex">
+        <Form.Item label="站点" name="pwd_site">
+          <Input
+            maxLength={10}
+            showCount
+            placeholder="搜站点"
+            autoComplete="off"
+          />
+        </Form.Item>
+        <Form.Item label="账户" name="pwd_username">
+          <Input
+            maxLength={10}
+            showCount
+            placeholder="搜账户"
+            autoComplete="off"
+          />
+        </Form.Item>
+      </div>
+      <Form.Item>
+        <Space>
+          <Button htmlType="submit" type="primary">
+            查询
+          </Button>
+          <Button onClick={resetHandler}>重置</Button>
+        </Space>
+      </Form.Item>
+    </Form>
+  );
+}
+
+function Main(props: t.MainProps) {
+  const { onQuery, query, data, loading } = props;
+
+  const changeHandler: TableProps<any>["onChange"] = (pagi, filter, sort) => {
+    const { current: page_index, pageSize: page_size } = pagi;
+    onQuery({ page_index, page_size });
+  };
+
+  const [del] = usePwdDelMutation();
+
+  const columns: TableProps<any>["columns"] = [
+    { title: "id", align: "center", dataIndex: "pwd_id", ellipsis: true },
+    { title: "站点", align: "center", dataIndex: "pwd_site" },
+    { title: "账户", align: "center", dataIndex: "pwd_username" },
+    { title: "密码", align: "center", dataIndex: "pwd_pwd" },
+    {
+      title: "操作",
+      align: "center",
+      dataIndex: "pwd_id",
+      render(pwd_id) {
+        return (
+          <>
+            <Button onClick={() => {}} type="link">
+              编辑
+            </Button>
+            <Button onClick={() => del(pwd_id)} danger type="link">
+              删除
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
+
+  const [y, setSh] = useState(0);
+  const resizeRef = useResize<HTMLDivElement>(
+    ({ height }) => setSh(height - 56 - 64),
+    []
+  );
+
+  return (
+    <Table
+      ref={resizeRef}
+      dataSource={data?.rows}
+      rowKey="pwd_id"
+      columns={columns}
+      loading={loading}
+      onChange={changeHandler}
+      pagination={{
+        position: ["bottomLeft"],
+        current: query.page_index,
+        pageSize: query.page_size,
+        total: data?.total,
+        showTotal: (total) => `共：${total}条`,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        pageSizeOptions: [20, 50, 100],
+      }}
+      scroll={{ y }}
+      bordered
+      className="flex-1-hidden"
+    />
+  );
+}

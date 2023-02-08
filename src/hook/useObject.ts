@@ -13,9 +13,13 @@ export function useObject<T>(init: T) {
 
   return useReducer<t.reducer<T>, T>(
     (state, act) => {
-      const target = JSON.parse(JSON.stringify(state)) as T;
-      act(target);
-      return target;
+      try {
+        const target = structuredClone(state);
+        act(target);
+        return target;
+      } catch {
+        throw new Error("useObject can`t handle this type");
+      }
     },
     init,
     (init) => init
