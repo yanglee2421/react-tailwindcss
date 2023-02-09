@@ -7,14 +7,39 @@
   backdrop-filter: saturate(50%) blur(4px);
 }
 .box {
-  @extend .h-100h, .clearfix;
+  @extend .h-100h, .p-1;
   background-image: url("@/assets/image/bg/snow-village.jpg");
   @include bgc-img;
-  canvas {
-    background-color: #fff;
+  display: grid;
+  gap: 10px;
+  grid-template: auto / repeat(3, minmax(0, 1fr));
+  place-items: start;
+  > * {
+    box-sizing: content-box;
+    height: 7 * 1.5 * 1em;
+    padding: 0.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 1.5rem;
+    line-height: 1.5;
   }
 }
-.trans {
-  transition: height 0.3s;
-  will-change: height;
+.glass {
+  background-color: rgba(#fff, 0.3);
+  backdrop-filter: blur(1rem);
+}
+.grid {
+  background-image: radial-gradient(#fff 1px, transparent 1px);
+  background-size: 4px 4px;
+  backdrop-filter: blur(4px) saturate(50%);
+}
+.shadow {
+  box-sizing: content-box;
+  padding: 0.5rem;
+  box-shadow: 0 0 0.2rem 0.1rem $danger;
+  background-color: $success;
+  // filter: brightness(0.5) opacity(0.5) drop-shadow(0 0 0.1rem #fff);
+  color: #fff;
+  // white-space: nowrap;
+  text-overflow: ellipsis;
 }
