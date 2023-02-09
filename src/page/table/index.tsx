@@ -1,8 +1,21 @@
 import style from "./table.module.scss";
-import { Button, Form, Input, Space, Table, TableProps } from "antd";
+import {
+  Button,
+  Form,
+  FormProps,
+  Input,
+  Modal,
+  Space,
+  Table,
+  TableProps,
+} from "antd";
 import { useClass, useObject, useResize } from "@/hook";
-import React, { useState } from "react";
-import { usePwdDelMutation, usePwdQuery } from "@/api/api-rtkq";
+import React, { useMemo, useState } from "react";
+import {
+  usePwdDelMutation,
+  usePwdQuery,
+  usePwdSaveMutation,
+} from "@/api/api-rtkq";
 
 /**
  * 表格页面
@@ -21,19 +34,24 @@ export function PageTable() {
   const queryHandler = (data: Partial<t.param>) =>
     setQuery((prev) => Object.assign(prev, data));
 
+  const [showDialog, setShowDialog] = useState(false);
+
   return (
-    <div className="flex-column">
-      <Header onQuery={queryHandler} />
-      <div className="my-1">
-        <Button>add</Button>
+    <>
+      <Dialog open={showDialog} onCancel={() => setShowDialog(false)} />
+      <div className="flex-column">
+        <Header onQuery={queryHandler} />
+        <div className="my-1">
+          <Button onClick={() => setShowDialog(true)}>add</Button>
+        </div>
+        <Main
+          loading={isFetching}
+          data={data}
+          query={query}
+          onQuery={queryHandler}
+        />
       </div>
-      <Main
-        loading={isFetching}
-        data={data}
-        query={query}
-        onQuery={queryHandler}
-      />
-    </div>
+    </>
   );
 }
 
@@ -68,6 +86,53 @@ namespace t {
       }[];
     };
   }
+  export interface DialogProps {
+    open: boolean;
+    onCancel(): void;
+  }
+}
+
+function Dialog(props: t.DialogProps) {
+  const { open, onCancel } = props;
+
+  const [save] = usePwdSaveMutation();
+  const [form] = Form.useForm();
+  const finishHandler: FormProps<any>["onFinish"] = (formData) => {
+    save(formData)
+      .unwrap()
+      .then(({ isOk }) => {
+        if (!isOk) return;
+        onCancel();
+        form.resetFields();
+      });
+  };
+
+  return (
+    <Modal
+      open={open}
+      onCancel={() => {
+        onCancel();
+        form.resetFields();
+      }}
+      onOk={() => form.submit()}
+    >
+      <Form form={form} onFinish={finishHandler}>
+        <Form.Item label="站点" name="pwd_site" rules={[{ required: true }]}>
+          <Input maxLength={10} showCount autoComplete="off" />
+        </Form.Item>
+        <Form.Item
+          label="账户"
+          name="pwd_username"
+          rules={[{ required: true }]}
+        >
+          <Input maxLength={10} showCount autoComplete="off" />
+        </Form.Item>
+        <Form.Item label="密码" name="pwd_pwd" rules={[{ required: true }]}>
+          <Input maxLength={10} showCount autoComplete="off" />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
 }
 
 function Header(props: t.HeaderProps) {
