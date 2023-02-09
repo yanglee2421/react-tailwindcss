@@ -1,5 +1,5 @@
 import style from "./home.module.scss";
-import { Button, Card, Space } from "antd";
+import { Button, Calendar, Card, Space } from "antd";
 import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
 import { useClass } from "@/hook";
 import React, { useContext, useState } from "react";
@@ -47,6 +47,7 @@ export function PageHome() {
       </Card>
       <RouteCard title="RouteCard"></RouteCard>
       <Counter />
+      <Calendar fullscreen={false} />
       <Card></Card>
     </div>
   );

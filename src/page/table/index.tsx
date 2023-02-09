@@ -1,4 +1,3 @@
-import style from "./table.module.scss";
 import {
   Button,
   Form,
@@ -9,8 +8,8 @@ import {
   Table,
   TableProps,
 } from "antd";
-import { useClass, useObject, useResize } from "@/hook";
-import React, { useEffect, useMemo, useState } from "react";
+import { useObject, useResize } from "@/hook";
+import React, { useEffect, useState } from "react";
 import {
   usePwdDelMutation,
   usePwdQuery,
@@ -95,14 +94,18 @@ export function PageTable() {
 
 export default React.memo(PageTable);
 
+/**
+ *
+ * @param props
+ * @returns
+ */
 function Dialog(props: t.DialogProps) {
   const { model, onCancel } = props;
 
-  const [save] = usePwdSaveMutation();
+  const [save, { isLoading }] = usePwdSaveMutation();
   const [form] = Form.useForm();
   const finishHandler: FormProps<any>["onFinish"] = async (formData) => {
     try {
-      console.log(formData);
       const { isOk } = await save(formData).unwrap();
       if (!isOk) return;
       onCancel();
@@ -116,17 +119,18 @@ function Dialog(props: t.DialogProps) {
     if (!model) form.resetFields();
     if (model !== true) form.setFieldsValue(model);
   }, [model]);
-  console.log(model);
+
   return (
     <Modal
       open={Boolean(model)}
       onCancel={onCancel}
       onOk={() => form.submit()}
       forceRender
+      confirmLoading={isLoading}
     >
       <Form form={form} name="dialog-form" onFinish={finishHandler}>
         <Form.Item name="pwd_id" className="none">
-          <Input maxLength={10} showCount autoComplete="off" />
+          <Input maxLength={10} showCount disabled autoComplete="off" />
         </Form.Item>
         <Form.Item label="站点" name="pwd_site" rules={[{ required: true }]}>
           <Input
@@ -167,6 +171,11 @@ function Dialog(props: t.DialogProps) {
   );
 }
 
+/**
+ *
+ * @param props
+ * @returns
+ */
 function Header(props: t.HeaderProps) {
   const { onQuery } = props;
 
@@ -214,21 +223,33 @@ function Header(props: t.HeaderProps) {
   );
 }
 
+/**
+ *
+ * @param props
+ * @returns
+ */
 function Main(props: t.MainProps) {
   const { onQuery, onEdit, query, data, loading } = props;
 
   const changeHandler: TableProps<any>["onChange"] = (pagi, filter, sort) => {
     const { current: page_index, pageSize: page_size } = pagi;
     onQuery({ page_index, page_size });
+    console.log(sort, filter);
   };
 
   const [del] = usePwdDelMutation();
 
   const columns: TableProps<any>["columns"] = [
-    { title: "id", align: "center", dataIndex: "pwd_id", ellipsis: true },
-    { title: "站点", align: "center", dataIndex: "pwd_site" },
-    { title: "账户", align: "center", dataIndex: "pwd_username" },
-    { title: "密码", align: "center", dataIndex: "pwd_pwd" },
+    {
+      title: "id",
+      align: "center",
+      dataIndex: "pwd_id",
+      ellipsis: true,
+      sorter: true,
+    },
+    { title: "站点", align: "center", dataIndex: "pwd_site", sorter: true },
+    { title: "账户", align: "center", dataIndex: "pwd_username", sorter: true },
+    { title: "密码", align: "center", dataIndex: "pwd_pwd", sorter: true },
     {
       title: "操作",
       align: "center",
