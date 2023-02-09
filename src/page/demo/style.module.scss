@@ -13,7 +13,6 @@
   display: grid;
   gap: 10px;
   grid-template: auto / repeat(3, minmax(0, 1fr));
-  place-items: start;
   > * {
     box-sizing: content-box;
     height: 7 * 1.5 * 1em;
@@ -24,22 +23,18 @@
     line-height: 1.5;
   }
 }
-.glass {
-  background-color: rgba(#fff, 0.3);
-  backdrop-filter: blur(1rem);
-}
 .grid {
-  background-image: radial-gradient(#fff 1px, transparent 1px);
-  background-size: 4px 4px;
   backdrop-filter: blur(4px) saturate(50%);
+  background-image: radial-gradient(transparent 1px, #fff 1px);
+  background-size: 4px 4px;
+  color: $vite;
 }
-.shadow {
-  box-sizing: content-box;
-  padding: 0.5rem;
-  box-shadow: 0 0 0.2rem 0.1rem $danger;
-  background-color: $success;
-  // filter: brightness(0.5) opacity(0.5) drop-shadow(0 0 0.1rem #fff);
+.dark {
+  backdrop-filter: blur(8px) saturate(50%);
+  background-color: rgba(#242424, 0.7);
   color: #fff;
-  // white-space: nowrap;
-  text-overflow: ellipsis;
+}
+.light {
+  backdrop-filter: blur(8px) saturate(50%);
+  background-color: rgba($color: #fff, $alpha: 0.7);
 }

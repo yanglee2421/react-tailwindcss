@@ -14,19 +14,19 @@ export function PageDemo() {
   const cx = useClass(style);
   return (
     <div className={cx("box")}>
-      <div className={cx("glass")}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
-        unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
-        similique ea cumque fuga consequatur aliquam nisi aliquid nam
-        architecto.
-      </div>
       <div className={cx("grid")}>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
         unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
         similique ea cumque fuga consequatur aliquam nisi aliquid nam
         architecto.
       </div>
-      <div className={cx("shadow")}>
+      <div className={cx("light")}>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
+        unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
+        similique ea cumque fuga consequatur aliquam nisi aliquid nam
+        architecto.
+      </div>
+      <div className={cx("dark")}>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
         unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
         similique ea cumque fuga consequatur aliquam nisi aliquid nam
