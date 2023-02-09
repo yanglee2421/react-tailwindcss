@@ -10,12 +10,49 @@ import {
   TableProps,
 } from "antd";
 import { useClass, useObject, useResize } from "@/hook";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   usePwdDelMutation,
   usePwdQuery,
   usePwdSaveMutation,
 } from "@/api/api-rtkq";
+
+namespace t {
+  export interface formData {
+    pwd_site: string;
+    pwd_username: string;
+  }
+  export interface param {
+    page_index: number;
+    page_size: number;
+    pwd_site: string;
+    pwd_username: string;
+  }
+  type onQuery = (param: Partial<param>) => void;
+  export interface HeaderProps {
+    onQuery: onQuery;
+  }
+  export interface row {
+    pwd_site: string;
+    pwd_username: string;
+    pwd_id: string;
+    pwd_pwd: string;
+  }
+  export interface MainProps {
+    onQuery: onQuery;
+    onEdit(row: row): void;
+    query: param;
+    loading: boolean;
+    data?: {
+      total: number;
+      rows: row[];
+    };
+  }
+  export interface DialogProps {
+    model: boolean | Omit<row, "pwd_id">;
+    onCancel(): void;
+  }
+}
 
 /**
  * 表格页面
@@ -34,11 +71,11 @@ export function PageTable() {
   const queryHandler = (data: Partial<t.param>) =>
     setQuery((prev) => Object.assign(prev, data));
 
-  const [showDialog, setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState<t.DialogProps["model"]>(false);
 
   return (
     <>
-      <Dialog open={showDialog} onCancel={() => setShowDialog(false)} />
+      <Dialog model={showDialog} onCancel={() => setShowDialog(false)} />
       <div className="flex-column">
         <Header onQuery={queryHandler} />
         <div className="my-1">
@@ -49,6 +86,7 @@ export function PageTable() {
           data={data}
           query={query}
           onQuery={queryHandler}
+          onEdit={(row) => setShowDialog(row)}
         />
       </div>
     </>
@@ -57,78 +95,72 @@ export function PageTable() {
 
 export default React.memo(PageTable);
 
-namespace t {
-  export interface formData {
-    pwd_site: string;
-    pwd_username: string;
-  }
-  export interface param {
-    page_index: number;
-    page_size: number;
-    pwd_site: string;
-    pwd_username: string;
-  }
-  type onQuery = (param: Partial<param>) => void;
-  export interface HeaderProps {
-    onQuery: onQuery;
-  }
-  export interface MainProps {
-    onQuery: onQuery;
-    query: param;
-    loading: boolean;
-    data?: {
-      total: number;
-      rows: {
-        pwd_site: string;
-        pwd_username: string;
-        pwd_id: string;
-        pwd_pwd: string;
-      }[];
-    };
-  }
-  export interface DialogProps {
-    open: boolean;
-    onCancel(): void;
-  }
-}
-
 function Dialog(props: t.DialogProps) {
-  const { open, onCancel } = props;
+  const { model, onCancel } = props;
 
   const [save] = usePwdSaveMutation();
   const [form] = Form.useForm();
-  const finishHandler: FormProps<any>["onFinish"] = (formData) => {
-    save(formData)
-      .unwrap()
-      .then(({ isOk }) => {
-        if (!isOk) return;
-        onCancel();
-        form.resetFields();
-      });
+  const finishHandler: FormProps<any>["onFinish"] = async (formData) => {
+    try {
+      console.log(formData);
+      const { isOk } = await save(formData).unwrap();
+      if (!isOk) return;
+      onCancel();
+      form.resetFields();
+    } catch {
+      throw new Error("form submit error");
+    }
   };
 
+  useEffect(() => {
+    if (!model) form.resetFields();
+    if (model !== true) form.setFieldsValue(model);
+  }, [model]);
+  console.log(model);
   return (
     <Modal
-      open={open}
-      onCancel={() => {
-        onCancel();
-        form.resetFields();
-      }}
+      open={Boolean(model)}
+      onCancel={onCancel}
       onOk={() => form.submit()}
+      forceRender
     >
-      <Form form={form} onFinish={finishHandler}>
-        <Form.Item label="站点" name="pwd_site" rules={[{ required: true }]}>
+      <Form form={form} name="dialog-form" onFinish={finishHandler}>
+        <Form.Item name="pwd_id" className="none">
           <Input maxLength={10} showCount autoComplete="off" />
+        </Form.Item>
+        <Form.Item label="站点" name="pwd_site" rules={[{ required: true }]}>
+          <Input
+            onChange={(e) =>
+              form.setFieldValue("pwd_site", e.target.value.trim())
+            }
+            maxLength={10}
+            showCount
+            autoComplete="off"
+          />
         </Form.Item>
         <Form.Item
           label="账户"
           name="pwd_username"
           rules={[{ required: true }]}
         >
-          <Input maxLength={10} showCount autoComplete="off" />
+          <Input
+            onChange={(e) =>
+              form.setFieldValue("pwd_username", e.target.value.trim())
+            }
+            maxLength={10}
+            showCount
+            autoComplete="off"
+          />
         </Form.Item>
         <Form.Item label="密码" name="pwd_pwd" rules={[{ required: true }]}>
-          <Input maxLength={10} showCount autoComplete="off" />
+          <Input
+            onChange={(e) =>
+              form.setFieldValue("pwd_pwd", e.target.value.trim())
+            }
+            maxLength={10}
+            showCount
+            autoComplete="off"
+          />
         </Form.Item>
       </Form>
     </Modal>
@@ -183,7 +215,7 @@ function Header(props: t.HeaderProps) {
 }
 
 function Main(props: t.MainProps) {
-  const { onQuery, query, data, loading } = props;
+  const { onQuery, onEdit, query, data, loading } = props;
 
   const changeHandler: TableProps<any>["onChange"] = (pagi, filter, sort) => {
     const { current: page_index, pageSize: page_size } = pagi;
@@ -201,10 +233,10 @@ function Main(props: t.MainProps) {
       title: "操作",
       align: "center",
       dataIndex: "pwd_id",
-      render(pwd_id) {
+      render(pwd_id, row) {
         return (
           <>
-            <Button onClick={() => {}} type="link">
+            <Button onClick={() => onEdit(row)} type="link">
               编辑
             </Button>
             <Button onClick={() => del(pwd_id)} danger type="link">
