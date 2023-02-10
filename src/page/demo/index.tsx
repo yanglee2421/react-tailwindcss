@@ -7,31 +7,24 @@ import React, {
   useState,
 } from "react";
 import { useClass, useObject } from "@/hook";
-import { Button, Card, Switch } from "antd";
-import { RestOutlined } from "@ant-design/icons";
+import { useQuery } from "react-query";
+import { getJoke } from "@/api/api-demo";
+import { Button } from "antd";
 
 export function PageDemo() {
   const cx = useClass(style);
+  const { data, isFetching, refetch } = useQuery("joke", getJoke, {
+    staleTime: 60000,
+  });
   return (
     <div className={cx("box")}>
       <div className={cx("grid")}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
-        unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
-        similique ea cumque fuga consequatur aliquam nisi aliquid nam
-        architecto.
+        <Button onClick={() => refetch()} type="primary">
+          下一条
+        </Button>
       </div>
-      <div className={cx("light")}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
-        unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
-        similique ea cumque fuga consequatur aliquam nisi aliquid nam
-        architecto.
-      </div>
-      <div className={cx("dark")}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi,
-        unde nihil? Error, ab. Expedita provident, culpa repellat esse ex a
-        similique ea cumque fuga consequatur aliquam nisi aliquid nam
-        architecto.
-      </div>
+      <div className={cx("light")}>{isFetching ? "loading" : data?.rows}</div>
+      <div className={cx("dark")}>{isFetching ? "loading" : data?.rows}</div>
     </div>
   );
 }

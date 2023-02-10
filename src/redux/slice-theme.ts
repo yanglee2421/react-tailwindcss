@@ -1,24 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-export namespace Type {
-  export interface state {
-    isDark: boolean;
-    galleryIsShow: boolean;
-    galleryList: string[];
-  }
-}
-/**
- * 初始状态
- */
-function initialState(): Type.state {
-  return {
-    isDark: false,
-    galleryIsShow: false,
-    galleryList: [],
-  };
-}
-/**
- * 切片
- */
+
 namespace theme {
   export const {
     actions: { actIsDark, actGalleryIsShow, actGalleryList },
@@ -44,3 +25,16 @@ namespace theme {
 export default theme;
 export const { name, reducer, actIsDark, actGalleryIsShow, actGalleryList } =
   theme;
+
+interface initialState {
+  isDark: boolean;
+  galleryIsShow: boolean;
+  galleryList: string[];
+}
+function initialState(): initialState {
+  return {
+    isDark: false,
+    galleryIsShow: false,
+    galleryList: [],
+  };
+}

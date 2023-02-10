@@ -106,7 +106,7 @@ function BeforeEach() {
   ) => {
     const nextAuth = { user, token, expiration };
     setState((prev) => ({ ...prev, ...nextAuth }));
-    if ((matches.at(-1)?.handle as any)?.title === "登录")
+    if (matches.at(-1)?.pathname === "/login")
       React.startTransition(() => navigate("/", { replace: true }));
     clearTimeout(timer);
     timer = setTimeout(signOut, expiration - Date.now());
@@ -123,13 +123,13 @@ function BeforeEach() {
       const prevAuth = JSON.parse(prevJson);
       const { user, token, expiration } = prevAuth;
       if (!user || !token || !expiration)
-        throw new Error("one or more fields are empty");
+        throw new TypeError("one or more fields are empty");
       if (typeof user !== "string")
-        throw new Error("type error, field user is not a string");
+        throw new TypeError("field user is not a string");
       if (typeof token !== "string")
-        throw new Error("type error,field token is not a string");
+        throw new TypeError("field token is not a string");
       if (typeof expiration !== "number")
-        throw new Error("expiration isn`t a number");
+        throw new TypeError("field expiration isn`t a number");
       if (expiration - Date.now() < 1000 * 60 * 5)
         throw new Error("Login information has expired");
 
@@ -170,9 +170,9 @@ function BeforeEach() {
 
 /**
  * Tests if a pathname is in the whitelist
- * @param str current route`s pathname
+ * @param path current route`s pathname
  * @returns whether the pathname is in the whitelist
  */
-function isInWl(str: string) {
-  return whiteList.some((item) => str.startsWith(item));
+function isInWl(path: string) {
+  return whiteList.some((item) => path.startsWith(item));
 }

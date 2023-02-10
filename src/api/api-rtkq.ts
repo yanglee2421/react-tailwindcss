@@ -50,79 +50,81 @@ export const authApi = createApi({
     },
   }),
   tagTypes: ["pwd", "joke"],
-  endpoints: (build) => ({
-    // 笑话
-    Joke: build.query<any, void>({
-      query: () => ({ url: "/joke" }),
-      providesTags: () => [{ type: "joke", id: "all" }],
-      keepUnusedDataFor: 60 * 60,
-    }),
-    // 必应壁纸
-    Bing: build.query<t.Bing, void>({
-      query: () => ({
-        url: "/bing",
-        params: { idx: 0, n: 8 },
+  endpoints(build) {
+    return {
+      Joke: build.query<any, void>({
+        query: () => ({ url: "/joke" }),
+        providesTags: () => [{ type: "joke", id: "all" }],
+        keepUnusedDataFor: 60 * 60,
       }),
-      transformResponse(res: t.Bing) {
-        if (!res.isOk) message.warning(String(res.mes));
-        return res;
-      },
-      keepUnusedDataFor: 60 * 60,
-    }),
-    // 注册
-    register: build.mutation<any, t.auth>({
-      query: (body) => ({
-        url: "/auth/register",
-        method: "post",
-        body,
+      // 必应壁纸
+      Bing: build.query<t.Bing, void>({
+        query: () => ({
+          url: "/bing",
+          params: { idx: 0, n: 8 },
+        }),
+        transformResponse(res: t.Bing) {
+          if (!res.isOk) message.warning(String(res.mes));
+          return res;
+        },
+        keepUnusedDataFor: 60 * 60,
       }),
-    }),
-    // 登录
-    login: build.mutation<any, t.auth>({
-      query: (body) => ({
-        url: "/auth/login",
-        method: "post",
-        body,
+      // 注册
+      register: build.mutation<any, t.auth>({
+        query: (body) => ({
+          url: "/auth/register",
+          method: "post",
+          body,
+        }),
       }),
-    }),
-    // pwd 查所有
-    pwd: build.query<t.pwdQuery, t.pwdReq>({
-      query: (params) => ({
-        url: "/pwd/query",
-        params,
+      // 登录
+      login: build.mutation<any, t.auth>({
+        query: (body) => ({
+          url: "/auth/login",
+          method: "post",
+          body,
+        }),
       }),
-      providesTags: [{ type: "pwd", id: "all" }],
-    }),
-    // pwd 查单条
-    pwdOne: build.query<any, string>({
-      query: (id) => `/pwd/query/${id}`,
-      providesTags: (res, err, id) => [{ type: "pwd", id }],
-    }),
-    // pwd 删除
-    pwdDel: build.mutation<any, string>({
-      query: (id) => ({
-        url: `/pwd/delete/${id}`,
-        method: "delete",
+      // pwd 查所有
+      pwd: build.query<t.pwdQuery, t.pwdReq>({
+        query: (params) => ({
+          url: "/pwd/query",
+          params,
+        }),
+        providesTags: [{ type: "pwd", id: "all" }],
       }),
-      invalidatesTags: (res, err, id) => [
-        { type: "pwd", id: "all" },
-        { type: "pwd", id },
-      ],
-    }),
-    // pwd 保存
-    pwdSave: build.mutation({
-      query: (body) => ({
-        url: "/pwd/save",
-        method: "post",
-        body,
+      // pwd 查单条
+      pwdOne: build.query<any, string>({
+        query: (id) => `/pwd/query/${id}`,
+        providesTags: (res, err, id) => [{ type: "pwd", id }],
       }),
-      invalidatesTags: (res, err, body) => [
-        { type: "pwd", id: "all" },
-        { type: "pwd", id: body.pwd_id },
-      ],
-    }),
-  }),
+      // pwd 删除
+      pwdDel: build.mutation<any, string>({
+        query: (id) => ({
+          url: `/pwd/delete/${id}`,
+          method: "delete",
+        }),
+        invalidatesTags: (res, err, id) => [
+          { type: "pwd", id: "all" },
+          { type: "pwd", id },
+        ],
+      }),
+      // pwd 保存
+      pwdSave: build.mutation({
+        query: (body) => ({
+          url: "/pwd/save",
+          method: "post",
+          body,
+        }),
+        invalidatesTags: (res, err, body) => [
+          { type: "pwd", id: "all" },
+          { type: "pwd", id: body.pwd_id },
+        ],
+      }),
+    };
+  },
 });
+
 export const {
   useJokeQuery,
   useBingQuery,

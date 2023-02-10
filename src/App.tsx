@@ -12,18 +12,14 @@ import {
 import { router } from "@/route";
 import React, { useEffect, useMemo, useState } from "react";
 
-const { darkAlgorithm, defaultAlgorithm } = theme;
-const GalleryWithPortal = withPortal(Gallery);
-
-/**
- * React App 的根组件
- * @returns AppJSX
- */
 export function App() {
   // 根据 Browser 主题派发 actIsDark
+  const { darkAlgorithm, defaultAlgorithm } = theme;
   const dispatch = useAppDispatch();
   useDark(({ matches }) => dispatch(actIsDark(matches)));
+
   // 根据 store 中的 isDark 返回主题样式
+  const GalleryWithPortal = withPortal(Gallery);
   const { isDark, galleryIsShow } = useAppSelector((state) => state.theme);
   const gallery = useMemo(() => {
     if (!galleryIsShow) return;
