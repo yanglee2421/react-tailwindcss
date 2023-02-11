@@ -7,7 +7,13 @@ import image from "vite-plugin-imagemin";
 
 // https://vitejs.dev/config/
 export default defineConfig((ConfigEnv) => ({
-  plugins: [react(), gzip({ deleteOriginFile: false }), image()],
+  plugins: [
+    react({
+      include: ["**/*.scss"],
+    }),
+    gzip({ deleteOriginFile: false }),
+    image(),
+  ],
   resolve: {
     alias: { "@": resolve(__dirname, "./src") },
   },

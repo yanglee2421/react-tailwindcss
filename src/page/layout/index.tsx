@@ -172,7 +172,7 @@ function Header(props: t.HeaderProps) {
       <MenuOutlined onClick={onIconClick} />
       <Input.Search
         showCount
-        maxLength={20}
+        maxLength={9}
         prefix={<SearchOutlined />}
         placeholder="do some thing"
         enterButton="Go"
