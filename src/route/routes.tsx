@@ -5,9 +5,9 @@ import {
   RouteObject,
   useNavigate,
 } from "react-router-dom";
-import { useLazy } from "@/hook";
+import { useLazy, useObject } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { whiteList } from "./whiteList";
 import { message } from "antd";
 
@@ -91,12 +91,12 @@ function BeforeEach() {
   const navigate = useNavigate();
   const matches = useMatches();
 
-  // 登录鉴权
-  const [state, setState] = useState(initAuth().state);
-  let timer: number | NodeJS.Timeout = 0;
+  // login state、signIn、signOut、isLogined
+  const [state, setState] = useObject(initAuth().state);
+  const timer = useRef<number | NodeJS.Timeout>(0);
   const signOut = () => {
-    setState((prev) => ({ ...prev, ...initAuth().state }));
-    clearTimeout(timer);
+    setState((prev) => Object.assign(prev, initAuth().state));
+    clearTimeout(timer.current);
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
   };
@@ -105,11 +105,11 @@ function BeforeEach() {
     isRemember = false
   ) => {
     const nextAuth = { user, token, expiration };
-    setState((prev) => ({ ...prev, ...nextAuth }));
+    setState((prev) => Object.assign(prev, nextAuth));
     if (matches.at(-1)?.pathname === "/login")
       React.startTransition(() => navigate("/", { replace: true }));
-    clearTimeout(timer);
-    timer = setTimeout(signOut, expiration - Date.now());
+    clearTimeout(timer.current);
+    timer.current = setTimeout(signOut, expiration - Date.now());
     if (isRemember) {
       localStorage.setItem("auth", JSON.stringify(nextAuth));
       localStorage.setItem("token", token);
@@ -144,12 +144,14 @@ function BeforeEach() {
     return false;
   };
   const isLogined = () => Boolean(state.expiration) || preAuth();
+  const ref = useRef({ signOut, signIn, isLogined });
 
   //   路由鉴权
   const outlet = useOutlet();
   const route = useMemo(() => {
     const pathname = matches.at(-1)?.pathname || "";
     if (isInWl(pathname)) return outlet;
+    const { isLogined } = ref.current;
     if (isLogined()) return outlet;
     return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
@@ -162,7 +164,7 @@ function BeforeEach() {
   }, [route]);
 
   return (
-    <CtxAuth.Provider value={{ state, signOut, signIn, isLogined }}>
+    <CtxAuth.Provider value={{ state, ...ref.current }}>
       {route}
     </CtxAuth.Provider>
   );

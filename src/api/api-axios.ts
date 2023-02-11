@@ -16,11 +16,11 @@ request.interceptors.response.use(
     if (status === 200) return data;
     console.warn(statusText);
     Message.warning(statusText);
-    return new Promise(() => {});
+    throw new Error(statusText);
   },
   ({ message }) => {
     console.error(message);
     Message.error(message);
-    return new Promise(() => {});
+    throw new Error(message);
   }
 );

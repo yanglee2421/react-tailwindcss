@@ -33,15 +33,32 @@
   }
 }
 
-@mixin card-glass {
-  @extend .shadow;
-  border-color: transparent;
-  background-color: rgba(#fff, 0.2);
-  backdrop-filter: blur(3px);
-}
-
 @mixin bgc-img {
   background-position: top center;
   background-size: cover;
   background-attachment: fixed;
+}
+
+@mixin acrylic($isDark: false) {
+  $bgc: if($isDark, #242424, #fff);
+  background-color: rgba($bgc, 0.7);
+  backdrop-filter: blur(8px) saturate(50%);
+  $color: if($isDark, #fff, #000);
+  color: $color;
+}
+
+@mixin reseau($isDark: false) {
+  $bgc: if($isDark, #242424, #fff);
+  background-image: radial-gradient(transparent 1px, $bgc 1px);
+  background-size: 4px 4px;
+  backdrop-filter: blur(4px) saturate(50%);
+  $color: if($isDark, #fff, #000);
+  color: $color;
+}
+
+@mixin text-line($n: 3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $n;
+  overflow: hidden;
 }

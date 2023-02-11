@@ -13,28 +13,27 @@
   display: grid;
   gap: 10px;
   grid-template: auto / repeat(3, minmax(0, 1fr));
+  place-items: start stretch;
   > * {
     box-sizing: content-box;
-    height: 7 * 1.5 * 1em;
+    // height: 11 * 1.5 * 1em;
     padding: 0.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     font-size: 1.5rem;
     line-height: 1.5;
   }
 }
 .grid {
-  backdrop-filter: blur(4px) saturate(50%);
-  background-image: radial-gradient(transparent 1px, #fff 1px);
-  background-size: 4px 4px;
-  color: $vite;
+  @include reseau;
+}
+.reseau {
+  @include reseau(true);
+  @include text-line;
 }
 .dark {
-  backdrop-filter: blur(8px) saturate(50%);
-  background-color: rgba(#242424, 0.7);
-  color: #fff;
+  @include acrylic(true);
 }
 .light {
-  backdrop-filter: blur(8px) saturate(50%);
-  background-color: rgba($color: #fff, $alpha: 0.7);
+  @include acrylic;
 }
