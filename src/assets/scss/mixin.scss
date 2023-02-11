@@ -49,6 +49,7 @@
 
 @mixin reseau($isDark: false) {
   $bgc: if($isDark, #242424, #fff);
+  background-color: transparent;
   background-image: radial-gradient(transparent 1px, $bgc 1px);
   background-size: 4px 4px;
   backdrop-filter: blur(4px) saturate(50%);

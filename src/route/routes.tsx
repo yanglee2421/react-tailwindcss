@@ -1,10 +1,4 @@
-import {
-  Navigate,
-  useMatches,
-  useOutlet,
-  RouteObject,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, useMatches, useOutlet, RouteObject } from "react-router-dom";
 import { useLazy } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
 import React, { useEffect, useMemo, useReducer, useRef } from "react";
@@ -92,7 +86,6 @@ type reducer = (state: auth, act: (state: auth) => void) => auth;
  * @returns router result
  */
 function BeforeEach() {
-  const navigate = useNavigate();
   const matches = useMatches();
 
   // 要处理的状态
@@ -109,22 +102,20 @@ function BeforeEach() {
 
   // 登录登出的方法
   const signOut = () => {
-    setState((prev) => Object.assign(prev, initAuth().state));
     clearTimeout(timer.current);
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
+    setState((prev) => Object.assign(prev, initAuth().state));
   };
   const signIn: signIn = ({ user, token, expiration }, isRemember = false) => {
-    const nextAuth = { user, token, expiration };
-    setState((prev) => Object.assign(prev, nextAuth));
-    if (matches.at(-1)?.pathname === "/login")
-      React.startTransition(() => navigate("/", { replace: true }));
     clearTimeout(timer.current);
     timer.current = setTimeout(signOut, expiration - Date.now());
+    const nextAuth = { user, token, expiration };
     if (isRemember) {
       localStorage.setItem("auth", JSON.stringify(nextAuth));
       localStorage.setItem("token", token);
     }
+    setState((prev) => Object.assign(prev, nextAuth));
   };
 
   // 确保store的属性永远指向第一次创建的方法
@@ -134,8 +125,10 @@ function BeforeEach() {
   const outlet = useOutlet();
   const route = useMemo(() => {
     const pathname = matches.at(-1)?.pathname || "";
+    const isLogined = Boolean(state.expiration);
+    if (pathname === "/login" && isLogined) return <Navigate to="/" replace />;
     if (isInWl(pathname)) return outlet;
-    if (state.expiration) return outlet;
+    if (isLogined) return outlet;
     return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
 
@@ -144,7 +137,7 @@ function BeforeEach() {
     const title = (matches.at(-1)?.handle as any)?.title;
     if (typeof title !== "string") return;
     document.title = title;
-  }, [route]);
+  }, [matches]);
 
   return (
     <CtxAuth.Provider value={{ state, ...ref.current }}>

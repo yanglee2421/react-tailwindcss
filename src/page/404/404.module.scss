@@ -9,7 +9,7 @@
   }
 }
 .box-card {
-  @include card-glass;
+  @include acrylic;
   width: min(80%, 400px);
 }
 .p-404 {

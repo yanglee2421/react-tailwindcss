@@ -1,5 +1,4 @@
 import style from "./style.module.scss";
-import { Navigate } from "react-router-dom";
 import { useClass, useResize } from "@/hook";
 import { Particles, preventDefault } from "@/util";
 import React, {
