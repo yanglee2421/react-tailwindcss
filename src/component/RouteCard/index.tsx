@@ -3,20 +3,8 @@ import { Button, Card, Space } from "antd";
 import type { ButtonProps, CardProps, SpaceProps } from "antd";
 import { routes } from "@/route/routes";
 import React, { useMemo } from "react";
-/**
- * @function RouteCard 组件中使用的类型
- */
-export namespace Type {
-  export interface RouteCard extends CardProps {}
-  export interface Space extends SpaceProps {}
-  export interface BackBtn extends ButtonProps {}
-}
-/**
- * 路由卡片
- * @param props 同 CardProps
- * @returns JSX
- */
-export function RouteCard(props: Type.RouteCard) {
+
+export function RouteCard(props: CardProps) {
   const { children, ...restProps } = props;
 
   // 路由按钮

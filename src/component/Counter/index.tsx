@@ -1,17 +1,9 @@
 import { Card, Button, Divider, Space } from "antd";
 import React, { useState } from "react";
+
 const arr: string[] = [];
-/**
- * @function Counter 使用的类型
- */
-export namespace Type {
-  export interface props extends React.PropsWithChildren {}
-}
-/**
- * 计数器卡片
- * @returns JSX
- */
-export function Counter(props: Type.props) {
+
+export function Counter(props: React.PropsWithChildren) {
   const { children, ...restProps } = props;
   const [count, setCount] = useState(0);
   console.log("Counter 组件更新");

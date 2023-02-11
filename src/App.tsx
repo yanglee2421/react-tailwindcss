@@ -3,12 +3,7 @@ import { ConfigProvider, Image, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 import { withPortal } from "@/component";
 import { useDark } from "@/hook";
-import {
-  useAppDispatch,
-  useAppSelector,
-  actIsDark,
-  actGalleryIsShow,
-} from "@/redux";
+import { useAppDispatch, useAppSelector, theme as slice } from "@/redux";
 import { router } from "@/route";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -16,7 +11,7 @@ export function App() {
   // 根据 Browser 主题派发 actIsDark
   const { darkAlgorithm, defaultAlgorithm } = theme;
   const dispatch = useAppDispatch();
-  useDark(({ matches }) => dispatch(actIsDark(matches)));
+  useDark(({ matches }) => dispatch(slice.actions.actIsDark(matches)));
 
   // 根据 store 中的 isDark 返回主题样式
   const GalleryWithPortal = withPortal(Gallery);
@@ -55,8 +50,11 @@ function Gallery() {
     const onVisibleChange = (vis: boolean) => {
       setVisible(vis);
       vis
-        ? dispatch(actGalleryIsShow(true))
-        : setTimeout(() => dispatch(actGalleryIsShow(false)), 300);
+        ? dispatch(slice.actions.actGalleryIsShow(true))
+        : setTimeout(
+            () => dispatch(slice.actions.actGalleryIsShow(false)),
+            300
+          );
     };
 
     return (

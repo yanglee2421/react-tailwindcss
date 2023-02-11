@@ -91,9 +91,11 @@ function BeforeEach() {
   const navigate = useNavigate();
   const matches = useMatches();
 
-  // login state、signIn、signOut、isLogined
+  // 要处理的状态
   const [state, setState] = useObject(initAuth().state);
   const timer = useRef<number | NodeJS.Timeout>(0);
+
+  // 登录登出的方法
   const signOut = () => {
     setState((prev) => Object.assign(prev, initAuth().state));
     clearTimeout(timer.current);
@@ -115,6 +117,8 @@ function BeforeEach() {
       localStorage.setItem("token", token);
     }
   };
+
+  // 从storage还原登录状态、验证是否登录
   const preAuth = () => {
     try {
       const prevJson = localStorage.getItem("auth");
@@ -144,6 +148,8 @@ function BeforeEach() {
     return false;
   };
   const isLogined = () => Boolean(state.expiration) || preAuth();
+
+  // 确保store中的方法永远不变
   const ref = useRef({ signOut, signIn, isLogined });
 
   //   路由鉴权
