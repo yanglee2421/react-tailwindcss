@@ -9,9 +9,6 @@ export function initAuth() {
   };
   return {
     state,
-    isLogined() {
-      return false;
-    },
     signIn(param: typeof state, isRemember = false) {},
     signOut() {},
   };

@@ -5,9 +5,9 @@ import {
   RouteObject,
   useNavigate,
 } from "react-router-dom";
-import { useLazy, useObject } from "@/hook";
+import { useLazy } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useRef } from "react";
 import { whiteList } from "./whiteList";
 import { message } from "antd";
 
@@ -83,6 +83,10 @@ export const routes: RouteObject[] = [
   },
 ];
 
+type auth = ReturnType<typeof initAuth>["state"];
+type signIn = ReturnType<typeof initAuth>["signIn"];
+type reducer = (state: auth, act: (state: auth) => void) => auth;
+
 /**
  * Executed before every route change
  * @returns router result
@@ -92,7 +96,15 @@ function BeforeEach() {
   const matches = useMatches();
 
   // 要处理的状态
-  const [state, setState] = useObject(initAuth().state);
+  const [state, setState] = useReducer<reducer, auth>(
+    (state, act) => {
+      const target = structuredClone(state);
+      act(target);
+      return target;
+    },
+    initAuth().state,
+    init
+  );
   const timer = useRef<number | NodeJS.Timeout>(0);
 
   // 登录登出的方法
@@ -102,10 +114,7 @@ function BeforeEach() {
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
   };
-  const signIn: ReturnType<typeof initAuth>["signIn"] = (
-    { user, token, expiration },
-    isRemember = false
-  ) => {
+  const signIn: signIn = ({ user, token, expiration }, isRemember = false) => {
     const nextAuth = { user, token, expiration };
     setState((prev) => Object.assign(prev, nextAuth));
     if (matches.at(-1)?.pathname === "/login")
@@ -118,47 +127,15 @@ function BeforeEach() {
     }
   };
 
-  // 从storage还原登录状态、验证是否登录
-  const preAuth = () => {
-    try {
-      const prevJson = localStorage.getItem("auth");
-      if (!prevJson) return false;
-
-      const prevAuth = JSON.parse(prevJson);
-      const { user, token, expiration } = prevAuth;
-      if (!user || !token || !expiration)
-        throw new TypeError("one or more fields are empty");
-      if (typeof user !== "string")
-        throw new TypeError("field user is not a string");
-      if (typeof token !== "string")
-        throw new TypeError("field token is not a string");
-      if (typeof expiration !== "number")
-        throw new TypeError("field expiration isn`t a number");
-      if (expiration - Date.now() < 1000 * 60 * 5)
-        throw new Error("Login information has expired");
-
-      React.startTransition(() => signIn({ user, token, expiration }));
-      return true;
-    } catch (err) {
-      console.error(err);
-      localStorage.removeItem("auth");
-      localStorage.removeItem("token");
-      message.warning("登录信息已失效");
-    }
-    return false;
-  };
-  const isLogined = () => Boolean(state.expiration) || preAuth();
-
-  // 确保store中的方法永远不变
-  const ref = useRef({ signOut, signIn, isLogined });
+  // 确保store的属性永远指向第一次创建的方法
+  const ref = useRef({ signOut, signIn });
 
   //   路由鉴权
   const outlet = useOutlet();
   const route = useMemo(() => {
     const pathname = matches.at(-1)?.pathname || "";
     if (isInWl(pathname)) return outlet;
-    const { isLogined } = ref.current;
-    if (isLogined()) return outlet;
+    if (state.expiration) return outlet;
     return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
 
@@ -183,4 +160,37 @@ function BeforeEach() {
  */
 function isInWl(path: string) {
   return whiteList.some((item) => path.startsWith(item));
+}
+
+/**
+ * function to generate a auth
+ * @param auth default for auth
+ * @returns initial auth
+ */
+function init(auth: auth) {
+  try {
+    const prevJson = localStorage.getItem("auth");
+    if (!prevJson) return auth;
+
+    const prevAuth = JSON.parse(prevJson);
+    const { user, token, expiration } = prevAuth;
+    if (!user || !token || !expiration)
+      throw new TypeError("one or more fields are empty");
+    if (typeof user !== "string")
+      throw new TypeError("field user is not a string");
+    if (typeof token !== "string")
+      throw new TypeError("field token is not a string");
+    if (typeof expiration !== "number")
+      throw new TypeError("field expiration isn`t a number");
+    if (expiration - Date.now() < 1000 * 60 * 5)
+      throw new Error("Login information has expired");
+
+    return { user, token, expiration };
+  } catch (err) {
+    console.error(err);
+    localStorage.removeItem("auth");
+    localStorage.removeItem("token");
+    message.warning("登录信息已失效");
+  }
+  return auth;
 }

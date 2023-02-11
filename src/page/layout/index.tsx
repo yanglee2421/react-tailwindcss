@@ -21,7 +21,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { useClass, useResize } from "@/hook";
-import { useAppDispatch, useAppSelector, actIsDark } from "@/redux";
+import { useAppDispatch, useAppSelector, theme } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/vergil.jpg";
 import dz from "@/assets/image/avatar/dz.jpg";
@@ -80,7 +80,7 @@ export function PageLayout() {
   const darkHandler = useCallback<React.MouseEventHandler<HTMLElement>>(
     (e) => {
       e.stopPropagation();
-      dispatch(actIsDark(!isDark));
+      dispatch(theme.actions.actIsDark(!isDark));
     },
     [isDark]
   );
