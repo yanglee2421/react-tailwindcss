@@ -1,15 +1,19 @@
-.form-ul {
+@mixin list {
   column-count: 2;
-  li + li {
+  > li + li {
     @extend .my-1;
   }
+}
+
+.form-ul {
+  @include list;
   input:where([type="image"]) {
     width: 5rem;
   }
 }
 .box {
-  padding: 30px;
+  @extend .p-1;
 }
 .ol {
-  column-count: 2;
+  @include list;
 }

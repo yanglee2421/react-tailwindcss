@@ -15,7 +15,8 @@ export function PageForm() {
           e.preventDefault();
           message.success("提交成功");
           const data = new FormData(e.currentTarget);
-          console.log([...data.entries()]);
+          const obj = Object.fromEntries(data.entries());
+          console.log(obj);
         }}
       >
         <Label>
@@ -34,9 +35,9 @@ export function PageForm() {
           <input type="time" name="time" />
           {/* 单选复选 */}
           <input type="checkbox" name="checkbox" />
-          <input type="radio" name="radio" />
+          <input type="radio" name="radio" defaultChecked value={1} />
           {/* 其它输入 */}
-          <input type="color" name="color" />
+          <input type="color" name="color" defaultValue="#ffffff" />
           <input type="file" name="file" />
           <input type="range" name="range" />
           <input type="hidden" name="hidden" />
@@ -48,6 +49,13 @@ export function PageForm() {
         </Label>
         <ol className={cx("ol")}>
           <li>
+            <label>
+              radio2：
+              <input type="radio" name="radio" value={2} />
+            </label>
+          </li>
+          <li>
+            <label>select：</label>
             <select name="select">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -55,6 +63,7 @@ export function PageForm() {
             </select>
           </li>
           <li>
+            <label>textarea：</label>
             <textarea
               name="textarea"
               maxLength={20}
