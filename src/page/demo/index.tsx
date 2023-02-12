@@ -4,6 +4,7 @@ import { useClass, useObject } from "@/hook";
 import { useQuery, useMutation } from "react-query";
 import { getJoke } from "@/api/api-demo";
 import { Button, Space } from "antd";
+import { request } from "@/api/api-axios";
 
 export function PageDemo() {
   const cx = useClass(style);
@@ -62,6 +63,19 @@ export function PageDemo() {
             danger
           >
             {query.detail.address}
+          </Button>
+          <Button
+            onClick={() =>
+              request({
+                url: "/get",
+                params: { pid: "aaa" },
+                data: { id: "xxx" },
+                method: "get",
+              })
+            }
+            danger
+          >
+            del
           </Button>
         </Space>
       </div>

@@ -89,6 +89,7 @@ function BeforeEach() {
   const matches = useMatches();
 
   // 要处理的状态
+  const timer = useRef<number | NodeJS.Timeout>(0);
   const [state, setState] = useReducer<reducer, auth>(
     (state, act) => {
       const target = structuredClone(state);
@@ -98,7 +99,6 @@ function BeforeEach() {
     initAuth().state,
     init
   );
-  const timer = useRef<number | NodeJS.Timeout>(0);
 
   // 登录登出的方法
   const signOut = () => {
@@ -124,9 +124,10 @@ function BeforeEach() {
   //   路由鉴权
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const pathname = matches.at(-1)?.pathname || "";
     const isLogined = Boolean(state.expiration);
-    if (pathname === "/login" && isLogined) return <Navigate to="/" replace />;
+    const pathname = matches.at(-1)?.pathname || "";
+    if (pathname === "/login")
+      return isLogined ? <Navigate to="/" replace /> : outlet;
     if (isInWl(pathname)) return outlet;
     if (isLogined) return outlet;
     return <Navigate to="/login" replace />;
@@ -135,8 +136,7 @@ function BeforeEach() {
   //   标题随动
   useEffect(() => {
     const title = (matches.at(-1)?.handle as any)?.title;
-    if (typeof title !== "string") return;
-    document.title = title;
+    if (typeof title === "string") document.title = title;
   }, [matches]);
 
   return (
