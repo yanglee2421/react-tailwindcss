@@ -2,6 +2,7 @@ import { useClass } from "@/hook";
 import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
+import { message } from "antd";
 
 export function PageForm() {
   const cx = useClass(style);
@@ -12,15 +13,16 @@ export function PageForm() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          message.success("提交成功");
           const data = new FormData(e.currentTarget);
           console.log([...data.entries()]);
         }}
       >
         <Label>
-          <input type="text" name="text" />
-          <input type="number" name="number" />
+          <input type="text" name="text" required />
+          <input type="number" name="number" max={99} min={1} />
           <input type="url" name="url" />
-          <input type="search" name="search" />
+          <input type="search" name="search" maxLength={9} minLength={2} />
           <input type="password" name="password" />
           <input type="email" name="email" />
           <input type="tel" name="tel" />
@@ -53,7 +55,13 @@ export function PageForm() {
             </select>
           </li>
           <li>
-            <textarea name="textarea" cols={30} rows={5}></textarea>
+            <textarea
+              name="textarea"
+              maxLength={20}
+              minLength={2}
+              cols={30}
+              rows={5}
+            ></textarea>
           </li>
         </ol>
       </form>
