@@ -1,1 +1,0 @@
-import{r as u}from"./index-a3b6d2d0.js";function f(o){return u.useCallback(r=>{const n=t=>t.map(e=>o[e]||e).join(" ")+" ";if(Array.isArray(r))return n(r);if(typeof r=="string"){const t=r.replace(/ +/g,",").split(",");return n(t)}const i=Object.keys(r).filter(t=>r[t]);return n(i)},[])}export{f as u};

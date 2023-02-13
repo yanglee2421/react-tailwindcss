@@ -1,1 +1,0 @@
-import{r as s}from"./index-a3b6d2d0.js";import{u as c}from"./index-6009b6f5.js";function a(){const[,r]=s.useReducer(e=>e+1,0);return r}function p(){let r=arguments.length>0&&arguments[0]!==void 0?arguments[0]:!0;const e=s.useRef({}),n=a(),t=c();return s.useEffect(()=>{const u=t.subscribe(o=>{e.current=o,r&&n()});return()=>t.unsubscribe(u)},[]),e.current}export{a,p as u};
