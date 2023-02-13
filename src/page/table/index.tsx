@@ -270,9 +270,8 @@ function Main(props: t.MainProps) {
   ];
 
   const [y, setSh] = useState(0);
-  const resizeRef = useResize<HTMLDivElement>(
-    ({ height }) => setSh(height - 56 - 64),
-    []
+  const resizeRef = useResize<HTMLDivElement>(({ height }) =>
+    setSh(height - 56 - 64)
   );
 
   return (

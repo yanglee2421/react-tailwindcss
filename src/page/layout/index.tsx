@@ -38,7 +38,7 @@ export function PageLayout() {
 
   //   响应式布局
   const [vw, setVW] = useState(0);
-  const resizeRef = useResize(({ width }) => setVW(width), []);
+  const resizeRef = useResize(({ width }) => setVW(width));
   const asider = useMemo(() => {
     if (vw < 576) return;
     return (

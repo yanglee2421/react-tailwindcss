@@ -92,9 +92,13 @@ function BeforeEach() {
   const timer = useRef<number | NodeJS.Timeout>(0);
   const [state, setState] = useReducer<reducer, auth>(
     (state, act) => {
-      const target = structuredClone(state);
-      act(target);
-      return target;
+      try {
+        const target = structuredClone(state);
+        act(target);
+        return target;
+      } catch {
+        throw new Error("structuredClone can`t handle this type");
+      }
     },
     initAuth().state,
     init

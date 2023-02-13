@@ -63,27 +63,24 @@ export function PageLogin() {
   );
 
   const cvsRef = useRef<HTMLCanvasElement>(null);
-  const resizeRef = useResize<HTMLDivElement>(
-    (box) => {
-      const cvs = cvsRef.current;
-      if (!cvs) return;
-      Object.assign(cvs, box);
+  const resizeRef = useResize<HTMLDivElement>((box) => {
+    const cvs = cvsRef.current;
+    if (!cvs) return;
+    Object.assign(cvs, box);
 
-      let particle: null | Particles = null;
-      const timer = setTimeout(() => {
-        particle = new Particles(cvs, (box.width / 1920) * 120);
-        particle.animate();
-        particle.bindEvent();
-      }, 500);
+    let particle: null | Particles = null;
+    const timer = setTimeout(() => {
+      particle = new Particles(cvs, (box.width / 1920) * 120);
+      particle.animate();
+      particle.bindEvent();
+    }, 500);
 
-      return () => {
-        clearTimeout(timer);
-        particle?.abortAnimate();
-        particle?.abortEvent();
-      };
-    },
-    [cvsRef]
-  );
+    return () => {
+      clearTimeout(timer);
+      particle?.abortAnimate();
+      particle?.abortEvent();
+    };
+  });
 
   return (
     <div ref={resizeRef} className={cn("login-root")}>

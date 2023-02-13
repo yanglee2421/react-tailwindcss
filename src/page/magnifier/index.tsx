@@ -11,9 +11,8 @@ export function PageMagnifier() {
     x: 0,
     y: 0,
   });
-  const resizeRef = useResize<HTMLDivElement>(
-    (box) => setInner((prev) => Object.assign(prev, box)),
-    []
+  const resizeRef = useResize<HTMLDivElement>((box) =>
+    setInner((prev) => Object.assign(prev, box))
   );
 
   const boxHandler = (e: React.MouseEvent) => {

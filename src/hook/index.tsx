@@ -97,8 +97,7 @@ function toStringTag(target: unknown) {
  * @returns ref used to specify dom
  */
 export function useResize<T extends HTMLElement>(
-  callback: (param: { width: number; height: number }) => void | Function,
-  deps: React.DependencyList
+  callback: (param: { width: number; height: number }) => void | Function
 ) {
   const resizeRef = useRef<T>(null);
 
@@ -125,7 +124,7 @@ export function useResize<T extends HTMLElement>(
       obverser.unobserve(dom);
       obverser.disconnect();
     };
-  }, [resizeRef, ...deps]);
+  }, []);
 
   return resizeRef;
 }
