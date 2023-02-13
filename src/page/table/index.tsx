@@ -3,6 +3,7 @@ import {
   Form,
   FormProps,
   Input,
+  message,
   Modal,
   Space,
   Table,
@@ -94,11 +95,6 @@ export function PageTable() {
 
 export default React.memo(PageTable);
 
-/**
- *
- * @param props
- * @returns
- */
 function Dialog(props: t.DialogProps) {
   const { model, onCancel } = props;
 
@@ -107,17 +103,24 @@ function Dialog(props: t.DialogProps) {
   const finishHandler: FormProps<any>["onFinish"] = async (formData) => {
     try {
       const { isOk } = await save(formData).unwrap();
-      if (!isOk) return;
+      if (!isOk) throw new Error("form submit error");
       onCancel();
       form.resetFields();
     } catch {
-      throw new Error("form submit error");
+      message.error("submit error");
     }
   };
 
   useEffect(() => {
-    if (!model) form.resetFields();
-    if (model !== true) form.setFieldsValue(model);
+    switch (model) {
+      case true:
+        return;
+      case false:
+        form.resetFields();
+        return;
+      default:
+        form.setFieldsValue(model);
+    }
   }, [model]);
 
   return (
@@ -171,11 +174,6 @@ function Dialog(props: t.DialogProps) {
   );
 }
 
-/**
- *
- * @param props
- * @returns
- */
 function Header(props: t.HeaderProps) {
   const { onQuery } = props;
 
@@ -223,11 +221,6 @@ function Header(props: t.HeaderProps) {
   );
 }
 
-/**
- *
- * @param props
- * @returns
- */
 function Main(props: t.MainProps) {
   const { onQuery, onEdit, query, data, loading } = props;
 
