@@ -1,7 +1,7 @@
 /**
- * 返回入参的数据类型
- * @param target 任意类型的数据
- * @returns target 的 toStringTag
+ * Geting the type of the target value
+ * @param target target value
+ * @returns the type of the target value
  */
 export function toStringTag(target: unknown) {
   return Object.prototype.toString

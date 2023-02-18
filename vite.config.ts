@@ -8,9 +8,7 @@ import image from "vite-plugin-imagemin";
 // https://vitejs.dev/config/
 export default defineConfig((ConfigEnv) => ({
   plugins: [
-    react({
-      include: ["**/*.scss"],
-    }),
+    react({ include: ["**/*.scss"] }),
     gzip({ deleteOriginFile: false }),
     image(),
   ],
@@ -19,9 +17,7 @@ export default defineConfig((ConfigEnv) => ({
   },
   css: {
     preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/assets/index.scss" as *;`,
-      },
+      scss: { additionalData: `@use "@/assets/index.scss" as *;` },
     },
   },
   envDir: resolve(__dirname, "./config"),
