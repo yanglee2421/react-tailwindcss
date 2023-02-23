@@ -18,7 +18,7 @@ function mutation() {
     mutate,
     mutateAsync,
     reset,
-  } = useMutation((body: any) => fetch("/", { body }), {
+  } = useMutation((body: string) => fetch("/", { body }), {
     retry: 3,
     async onMutate(body) {
       await queryClient.cancelQueries("unique");
