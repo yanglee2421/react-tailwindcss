@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useReducer, useMemo } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useReducer,
+  useMemo,
+  useCallback,
+} from "react";
 import { Skeleton } from "antd";
 
 /**
@@ -25,7 +31,8 @@ export function useClass(style: CSSModuleClasses) {
     const target = Object.keys(className).filter((key) => className[key]);
     return arrStr(target);
   };
-  return useRef(classFn).current;
+
+  return useCallback(classFn, [""]);
 }
 
 /**
