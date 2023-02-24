@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useReducer } from "react";
+import React, { useRef, useEffect, useReducer, useMemo } from "react";
 import { Skeleton } from "antd";
 
 /**
@@ -132,12 +132,15 @@ export function useResize<T extends HTMLElement>(
 /**
  * A hook for extracting and generating hyperlinks from a string
  */
-export function useLink() {
+export function useGetLink() {
   return useRef(getLink).current;
 }
 
 function getLink(str: unknown) {
-  if (typeof str !== "string") return "Some errors occurred, please try again";
+  const defMsg = "Some errors occurred, please try again";
+
+  if (typeof str !== "string") return defMsg;
+  if (!str) return defMsg;
 
   const reg =
     /^(?<prefix>.*)(?<link>https?\:\/\/.+\.\w{2,3}(\:\d{2,5})?)(?<suffix>.*)$/gis;
