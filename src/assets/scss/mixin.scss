@@ -47,6 +47,12 @@
   color: $color;
 }
 
+@mixin acrylic-bing {
+  background-color: rgba(#fff, 0.65);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 8px 32px 0 rgb(0 0 0 / 0.2);
+}
+
 @mixin reseau($isDark: false) {
   $bgc: if($isDark, #242424, #fff);
   background-color: transparent;
