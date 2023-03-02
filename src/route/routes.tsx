@@ -127,9 +127,6 @@ function BeforeEach() {
     setState((prev) => Object.assign(prev, nextAuth));
   };
 
-  // 确保store的属性永远指向第一次创建的方法
-  const ref = useRef({ signOut, signIn });
-
   //   路由鉴权
   const outlet = useOutlet();
   const route = useMemo(() => {
@@ -149,7 +146,7 @@ function BeforeEach() {
   }, [matches]);
 
   return (
-    <CtxAuth.Provider value={{ state, ...ref.current }}>
+    <CtxAuth.Provider value={{ state, signIn, signOut }}>
       {route}
     </CtxAuth.Provider>
   );
