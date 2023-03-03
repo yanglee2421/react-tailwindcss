@@ -69,7 +69,7 @@ export function useDark(callback: (mediaQuery: MediaQueryList) => void) {
  * @param init initialState
  * @returns A set function that don't need to return a value
  */
-export function useObject<T>(init: T) {
+export function useStructure<T>(init: T) {
   const type = toStringTag(init);
   const allowTypes = ["object", "array"];
   const isAllowType = allowTypes.includes(type);

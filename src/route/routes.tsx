@@ -93,8 +93,7 @@ type reducer = (state: auth, act: (state: auth) => void) => auth;
 function BeforeEach() {
   const matches = useMatches();
 
-  // 要处理的状态
-  const timer = useRef<number | NodeJS.Timeout>(0);
+  // Login status
   const [state, setState] = useReducer<reducer, auth>(
     (state, act) => {
       try {
@@ -109,7 +108,10 @@ function BeforeEach() {
     init
   );
 
-  // 登录登出的方法
+  // Auto Logout Timer
+  const timer = useRef<number | NodeJS.Timeout>(0);
+
+  // signOut & signIn
   const signOut = () => {
     clearTimeout(timer.current);
     localStorage.removeItem("auth");
@@ -127,7 +129,7 @@ function BeforeEach() {
     setState((prev) => Object.assign(prev, nextAuth));
   };
 
-  //   路由鉴权
+  // return routing result
   const outlet = useOutlet();
   const route = useMemo(() => {
     const isLogined = Boolean(state.expiration);
@@ -139,7 +141,7 @@ function BeforeEach() {
     return <Navigate to="/login" replace />;
   }, [state, outlet, matches]);
 
-  //   标题随动
+  // title follows route
   useEffect(() => {
     const title = (matches.at(-1)?.handle as any)?.title;
     if (typeof title === "string") document.title = title;
