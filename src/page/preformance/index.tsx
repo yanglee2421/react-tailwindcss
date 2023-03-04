@@ -8,6 +8,8 @@ export default function Page() {
   const ref = useRef({});
   const mem = useMemo(() => ({}), []);
   const cfx = useCallback(() => {}, [count]);
+  globalMod.target ??= setState;
+  console.log(globalMod.target === setState);
 
   /*   useEffect(() => {
     if (globalMod.target === null) {
