@@ -9,7 +9,7 @@ import {
   Table,
   TableProps,
 } from "antd";
-import { useObject, useResize } from "@/hook";
+import { useStructure, useResize } from "@/hook";
 import React, { useEffect, useState } from "react";
 import {
   usePwdDelMutation,
@@ -59,7 +59,7 @@ namespace t {
  * @returns JSX
  */
 export function PageTable() {
-  const [query, setQuery] = useObject({
+  const [query, setQuery] = useStructure({
     page_index: 1,
     page_size: 20,
     pwd_site: "",

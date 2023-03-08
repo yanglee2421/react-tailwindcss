@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { globalMod } from "@/util";
+import style from "./style.module.scss";
+import { useClass } from "@/hook";
 
 export default function Page() {
   const [count, setCount] = useState(0);
@@ -25,6 +27,7 @@ export default function Page() {
   return (
     <>
       <h1>{count}</h1>
+      <Title />
       <button onClick={(e) => setCount((prev) => prev + 1)}>+1</button>
       {globalMod.target === ref && <p>123456</p>}
       {/* <Component /> */}
@@ -34,7 +37,22 @@ export default function Page() {
 }
 
 function Component() {
+  const cx = useClass(style);
   console.log("render");
 
-  return <></>;
+  return (
+    <div className={cx("outer")}>
+      <div className={cx("inner")}></div>
+    </div>
+  );
+}
+
+function Title() {
+  const cx = useClass(style);
+
+  return (
+    <div>
+      <span className={cx("title-h1")}>Hello world</span>
+    </div>
+  );
 }

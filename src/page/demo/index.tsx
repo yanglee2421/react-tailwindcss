@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useClass, useObject } from "@/hook";
+import { useClass, useStructure } from "@/hook";
 import { useQuery, useMutation } from "react-query";
 import { getJoke } from "@/api/api-demo";
 import { Button, Space } from "antd";
@@ -17,7 +17,7 @@ export function PageDemo() {
   const cx = useClass(style);
   const [count, setCount] = useState(0);
 
-  const [query, setQuery] = useObject({
+  const [query, setQuery] = useStructure({
     name: "孙悟空",
     detail: { address: "花果山" },
   });

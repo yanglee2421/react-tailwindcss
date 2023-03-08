@@ -83,7 +83,7 @@ export function useStructure<T>(init: T) {
         act(target);
         return target;
       } catch {
-        throw new Error("useObject can`t handle this type");
+        throw new Error("useStructure can`t handle this type");
       }
     },
     init,

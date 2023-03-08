@@ -1,11 +1,11 @@
-import { useClass, useObject, useResize } from "@/hook";
+import { useClass, useStructure, useResize } from "@/hook";
 import React, { useEffect, useReducer } from "react";
 import style from "./style.module.scss";
 
 export function PageMagnifier() {
   const cx = useClass(style);
-  const [outer, setOuter] = useObject({ x: 0, y: 0 });
-  const [inner, setInner] = useObject({
+  const [outer, setOuter] = useStructure({ x: 0, y: 0 });
+  const [inner, setInner] = useStructure({
     width: 0,
     height: 0,
     x: 0,
