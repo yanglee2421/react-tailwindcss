@@ -26,12 +26,12 @@ export default function Page() {
 
   return (
     <>
-      <h1>{count}</h1>
-      <Title />
+      <div>
+        <span>{count}</span>
+      </div>
       <button onClick={(e) => setCount((prev) => prev + 1)}>+1</button>
-      {globalMod.target === ref && <p>123456</p>}
-      {/* <Component /> */}
       {child}
+      <Layout></Layout>
     </>
   );
 }
@@ -47,12 +47,53 @@ function Component() {
   );
 }
 
-function Title() {
+function Title(props: React.PropsWithChildren) {
+  const { children } = props;
+
   const cx = useClass(style);
 
   return (
     <div>
-      <span className={cx("title-h1")}>Hello world</span>
+      <span className={cx("title-h1")}>{children}</span>
+    </div>
+  );
+}
+
+function Layout() {
+  const cx = useClass(style);
+
+  return (
+    <div>
+      <Title>Grid</Title>
+      <div className={cx("grid-1")}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <Title>Flex</Title>
+      <div className={cx("flex-box")}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <Title>Grid Case 2</Title>
+      <div className={cx("grid-box")}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 }

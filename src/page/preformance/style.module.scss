@@ -64,3 +64,44 @@
   background-image: linear-gradient(275deg, #00ccff, #d400d4);
   -webkit-background-clip: text;
 }
+.grid-1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+  > * {
+    @extend .b;
+    height: 5rem;
+  }
+}
+
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+
+  > * {
+    @extend .b;
+    flex: 1 0 22rem;
+    height: 5rem;
+  }
+}
+
+.grid-box {
+  @extend .overflow-auto;
+  $items: 4;
+  $gap: 1rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - #{($items - 1) * $gap}) / #{$items});
+  gap: $gap;
+  padding: 1rem;
+
+  > * {
+    @extend .b;
+    height: 5rem;
+    scroll-snap-align: start;
+  }
+}
