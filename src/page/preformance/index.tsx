@@ -102,20 +102,20 @@ function Layout() {
 function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({
+    const video = videoRef.current;
+    if (!video) return;
+
+    (async () => {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           width: 300,
           height: 200,
         },
         audio: {},
-      })
-      .then((stream) => {
-        const video = videoRef.current;
-        if (!video) return;
-        video.srcObject = stream;
-        video.onloadedmetadata = () => video.play();
       });
+      video.srcObject = mediaStream;
+      video.onloadedmetadata = () => video.play();
+    })();
   }, []);
 
   return (
