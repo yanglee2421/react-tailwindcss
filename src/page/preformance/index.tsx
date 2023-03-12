@@ -26,6 +26,7 @@ export default function Page() {
 
   return (
     <>
+      <Camera />
       <div>
         <span>{count}</span>
       </div>
@@ -94,6 +95,32 @@ function Layout() {
         <div></div>
         <div></div>
       </div>
+    </div>
+  );
+}
+
+function Camera() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          width: 300,
+          height: 200,
+        },
+        audio: {},
+      })
+      .then((stream) => {
+        const video = videoRef.current;
+        if (!video) return;
+        video.srcObject = stream;
+        video.onloadedmetadata = () => video.play();
+      });
+  }, []);
+
+  return (
+    <div>
+      <video ref={videoRef} width={300} height={200}></video>
     </div>
   );
 }
