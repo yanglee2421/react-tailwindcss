@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { globalMod } from "@/util";
 import style from "./style.module.scss";
 import { useClass } from "@/hook";
-import { Tag, Input } from "antd";
+import { Tag, Input, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 export default function Page() {
@@ -22,19 +22,9 @@ export default function Page() {
     console.log(globalMod.target === ref);
   }, [count]); */
 
-  const child = useMemo(() => {
-    return <Component />;
-  }, [cfx]);
-
   return (
     <>
-      {/* <Camera /> */}
-      <Tags />
-      <div>
-        <span>{count}</span>
-      </div>
       <button onClick={(e) => setCount((prev) => prev + 1)}>+1</button>
-      {child}
       <Layout></Layout>
     </>
   );
@@ -70,8 +60,12 @@ function Layout() {
     <div>
       <Title>Grid</Title>
       <div className={cx("grid-1")}>
-        <div></div>
-        <div></div>
+        <div>
+          <Tags></Tags>
+        </div>
+        <div>
+          <Languages />
+        </div>
         <div></div>
         <div></div>
         <div></div>
@@ -80,7 +74,7 @@ function Layout() {
       </div>
       <Title>Flex</Title>
       <div className={cx("flex-box")}>
-        <div></div>
+        <div>{/* <Camera /> */}</div>
         <div></div>
         <div></div>
         <div></div>
@@ -90,7 +84,9 @@ function Layout() {
       </div>
       <Title>Grid Case 2</Title>
       <div className={cx("grid-box")}>
-        <div></div>
+        <div>
+          <Component />
+        </div>
         <div></div>
         <div></div>
         <div></div>
@@ -133,7 +129,7 @@ function Tags() {
 
   const [arr, setArr] = useState<string[]>(["001", "002"]);
   const tags = useMemo(() => {
-    return arr.map((item) => <Tag>{item}</Tag>);
+    return arr.map((item) => <Tag key={item}>{item}</Tag>);
   }, [arr]);
 
   const [showInput, setShowInput] = useState(false);
@@ -151,7 +147,11 @@ function Tags() {
         value={input}
         onChange={(e) => setInput(e.target.value.trim())}
         onPressEnter={(e) => {
-          setArr((prev) => [...prev, input]);
+          setArr((prev) => {
+            if (prev.includes(input)) return prev;
+            return [...prev, input];
+          });
+          setInput("");
           setShowInput(false);
         }}
         onBlur={() => {
@@ -170,4 +170,46 @@ function Tags() {
       {inputElement}
     </div>
   );
+}
+
+function Languages() {
+  return (
+    <Select
+      mode="multiple"
+      allowClear
+      placeholder="Search by languages"
+      options={languages()}
+      className="w-100"
+    />
+  );
+}
+
+function languages() {
+  return [
+    { label: "Chinese (Simplified)", value: "Chinese (Simplified)" },
+    { label: "Chinese (Traditional)", value: "Chinese (Traditional)" },
+    { label: "Czech", value: "Czech" },
+    { label: "Danish", value: "Danish" },
+    { label: "Dutch", value: "Dutch" },
+    { label: "English(US)", value: "English(US)" },
+    { label: "English(UK)", value: "English(UK)" },
+    { label: "English(AU)", value: "English(AU)" },
+    { label: "English(CA)", value: "English(CA)" },
+    { label: "Finnish", value: "Finnish" },
+    { label: "French", value: "French" },
+    { label: "German", value: "German" },
+    { label: "Italian", value: "Italian" },
+    { label: "Japanese", value: "Japanese" },
+    { label: "Korean", value: "Korean" },
+    { label: "Norwegian", value: "Norwegian" },
+    { label: "Polish", value: "Polish" },
+    { label: "Norwegian", value: "Norwegian" },
+    { label: "Portuguese(Brazil)", value: "Portuguese(Brazil)" },
+    { label: "Portuguese(Portugal)", value: "Portuguese(Portugal)" },
+    { label: "Spanish", value: "Spanish" },
+    { label: "Swedish", value: "Swedish" },
+    { label: "Thai", value: "Thai" },
+    { label: "Turkish", value: "Turkish" },
+    { label: "Vietnamese", value: "Vietnamese" },
+  ];
 }
