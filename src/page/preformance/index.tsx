@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { globalMod } from "@/util";
 import style from "./style.module.scss";
 import { useClass } from "@/hook";
+import { Tag, Input } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 export default function Page() {
   const [count, setCount] = useState(0);
@@ -26,7 +28,8 @@ export default function Page() {
 
   return (
     <>
-      <Camera />
+      {/* <Camera /> */}
+      <Tags />
       <div>
         <span>{count}</span>
       </div>
@@ -121,6 +124,50 @@ function Camera() {
   return (
     <div>
       <video ref={videoRef} width={300} height={200}></video>
+    </div>
+  );
+}
+
+function Tags() {
+  const cx = useClass(style);
+
+  const [arr, setArr] = useState<string[]>(["001", "002"]);
+  const tags = useMemo(() => {
+    return arr.map((item) => <Tag>{item}</Tag>);
+  }, [arr]);
+
+  const [showInput, setShowInput] = useState(false);
+  const [input, setInput] = useState("");
+  const inputElement = useMemo(() => {
+    if (!showInput)
+      return (
+        <Tag onClick={() => setShowInput(true)} className={cx("tag-dash")}>
+          <PlusOutlined />
+          New Tag
+        </Tag>
+      );
+    return (
+      <Input
+        value={input}
+        onChange={(e) => setInput(e.target.value.trim())}
+        onPressEnter={(e) => {
+          setArr((prev) => [...prev, input]);
+          setShowInput(false);
+        }}
+        onBlur={() => {
+          setInput("");
+          setShowInput(false);
+        }}
+        autoFocus
+        size="small"
+      />
+    );
+  }, [showInput, input]);
+
+  return (
+    <div className="flex">
+      {tags}
+      {inputElement}
     </div>
   );
 }
