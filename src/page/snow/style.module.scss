@@ -1,6 +1,6 @@
 .ctx {
   position: absolute;
-  @include position(0);
+  inset: 0;
 }
 .box {
   position: relative;
