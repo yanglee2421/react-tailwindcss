@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useReducer,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useRef, useEffect, useReducer, useCallback } from "react";
 import { Skeleton } from "antd";
 
 /**

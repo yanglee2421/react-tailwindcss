@@ -78,6 +78,11 @@ export const routes: RouteObject[] = [
         element: useLazy(() => import("@/page/preformance")),
         handle: { title: "性能测试" },
       },
+      {
+        path: "Gpt",
+        element: useLazy(() => import("@/page/gpt")),
+        handle: { title: "GPT Copywriting" },
+      },
     ],
   },
 ];
