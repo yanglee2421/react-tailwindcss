@@ -4,7 +4,6 @@ import { App } from "./App";
 import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import { store } from "@/redux";
-import "normalize.css";
 import "@/assets/reset.scss";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/api/react-query";
