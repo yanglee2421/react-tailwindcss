@@ -60,12 +60,8 @@ function Layout() {
     <div>
       <Title>Grid</Title>
       <div className={cx("grid-1")}>
-        <div>
-          <Tags></Tags>
-        </div>
-        <div>
-          <Languages />
-        </div>
+        <div>{/* <Tags></Tags> */}</div>
+        <div>{/* <Languages /> */}</div>
         <div></div>
         <div></div>
         <div></div>
@@ -122,94 +118,4 @@ function Camera() {
       <video ref={videoRef} width={300} height={200}></video>
     </div>
   );
-}
-
-function Tags() {
-  const cx = useClass(style);
-
-  const [arr, setArr] = useState<string[]>(["001", "002"]);
-  const tags = useMemo(() => {
-    return arr.map((item) => <Tag key={item}>{item}</Tag>);
-  }, [arr]);
-
-  const [showInput, setShowInput] = useState(false);
-  const [input, setInput] = useState("");
-  const inputElement = useMemo(() => {
-    if (!showInput)
-      return (
-        <Tag onClick={() => setShowInput(true)} className={cx("tag-dash")}>
-          <PlusOutlined />
-          New Tag
-        </Tag>
-      );
-    return (
-      <Input
-        value={input}
-        onChange={(e) => setInput(e.target.value.trim())}
-        onPressEnter={(e) => {
-          setArr((prev) => {
-            if (prev.includes(input)) return prev;
-            return [...prev, input];
-          });
-          setInput("");
-          setShowInput(false);
-        }}
-        onBlur={() => {
-          setInput("");
-          setShowInput(false);
-        }}
-        autoFocus
-        size="small"
-      />
-    );
-  }, [showInput, input]);
-
-  return (
-    <div className="flex">
-      {tags}
-      {inputElement}
-    </div>
-  );
-}
-
-function Languages() {
-  return (
-    <Select
-      mode="multiple"
-      allowClear
-      placeholder="Search by languages"
-      options={languages()}
-      className="w-100"
-    />
-  );
-}
-
-function languages() {
-  return [
-    { label: "Chinese (Simplified)", value: "Chinese (Simplified)" },
-    { label: "Chinese (Traditional)", value: "Chinese (Traditional)" },
-    { label: "Czech", value: "Czech" },
-    { label: "Danish", value: "Danish" },
-    { label: "Dutch", value: "Dutch" },
-    { label: "English(US)", value: "English(US)" },
-    { label: "English(UK)", value: "English(UK)" },
-    { label: "English(AU)", value: "English(AU)" },
-    { label: "English(CA)", value: "English(CA)" },
-    { label: "Finnish", value: "Finnish" },
-    { label: "French", value: "French" },
-    { label: "German", value: "German" },
-    { label: "Italian", value: "Italian" },
-    { label: "Japanese", value: "Japanese" },
-    { label: "Korean", value: "Korean" },
-    { label: "Norwegian", value: "Norwegian" },
-    { label: "Polish", value: "Polish" },
-    { label: "Norwegian", value: "Norwegian" },
-    { label: "Portuguese(Brazil)", value: "Portuguese(Brazil)" },
-    { label: "Portuguese(Portugal)", value: "Portuguese(Portugal)" },
-    { label: "Spanish", value: "Spanish" },
-    { label: "Swedish", value: "Swedish" },
-    { label: "Thai", value: "Thai" },
-    { label: "Turkish", value: "Turkish" },
-    { label: "Vietnamese", value: "Vietnamese" },
-  ];
 }

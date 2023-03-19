@@ -1,36 +1,35 @@
 $radius: 0.5rem;
 
 .box {
+  box-sizing: border-box;
   display: grid;
-  place-items: center;
-  height: 100vh;
+  overflow: hidden;
+  // place-items: center;
+  // padding: 1rem;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 .box-main {
   display: grid;
-  grid-template-rows: minmax(0, 1fr);
-  grid-template-columns: repeat(2, minmax(288px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   border-radius: $radius;
   box-shadow: $box-shadow;
-  background-color: white;
+
+  @media (max-width: 600px) {
+    grid-template-rows: 1fr 1fr;
+    > *:last-child {
+      grid-row: 1 / span 1;
+    }
+  }
 
   > * {
+    flex: 1 0 22rem;
     padding: 0.5rem;
   }
-
-  @media (max-width: 575px) {
-    width: 100%;
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    grid-template-columns: auto;
-
-    > *:last-child {
-      order: 0;
-      border-radius: 0 0 $radius $radius;
-    }
-    > * {
-      order: 1;
-    }
-  }
 }
+
 .main-right {
   display: flex;
   flex-direction: column;
@@ -42,12 +41,12 @@ $radius: 0.5rem;
     position: relative;
     flex: 1;
     overflow: hidden;
-
-    > div {
-      position: absolute;
-      height: 100%;
-      overflow: auto;
-      overflow: overlay;
-    }
   }
+}
+.right-board {
+  position: absolute;
+  inset: 0;
+  padding-right: 0.5rem;
+  overflow: auto;
+  overflow: overlay;
 }

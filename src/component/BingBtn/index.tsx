@@ -17,3 +17,7 @@ export function BingBtn(props: ButtonProps) {
     </Button>
   );
 }
+
+BingBtn.Group = () => {
+  return <></>;
+};

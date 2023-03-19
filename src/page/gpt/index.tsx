@@ -1,105 +1,136 @@
 import { useClass } from "@/hook";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.scss";
-import { Button, Checkbox, Form, Input, Select, Tag } from "antd";
-import "@wangeditor/editor/dist/css/style.css";
-import {
-  IDomEditor,
-  IEditorConfig,
-  IToolbarConfig,
-  i18nChangeLanguage,
-} from "@wangeditor/editor";
-import { Editor, Toolbar } from "@wangeditor/editor-for-react";
-
-i18nChangeLanguage("en");
+import { Button, Checkbox, Form, Input, InputNumber, Select, Tag } from "antd";
+import { Keywords, Languages } from "@/component";
 
 export function PageGpt() {
   const cx = useClass(style);
+
+  const handleSubmit = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <div className={cx("box")}>
       <main className={cx("box-main")}>
         <section className={cx("main-left")}>
           <h2>Left</h2>
-          <Form layout="vertical">
-            <Form.Item label="Description" rules={[{ required: true }]}>
+          <Form onFinish={handleSubmit} layout="vertical">
+            <Form.Item
+              label="Description"
+              name="description"
+              rules={[{ required: true }]}
+            >
               <Input.TextArea maxLength={3000} showCount />
             </Form.Item>
-            <Form.Item label="Generate">
-              <Checkbox></Checkbox>
+            <Form.Item label="Generate" name="title">
+              <InpNum />
             </Form.Item>
-            <Form.Item label="Keywords">
-              <Tag>xxxx</Tag>
+            <Form.Item label="Generate" name="title2">
+              <InpNum />
             </Form.Item>
-            <Form.Item label="Languages">
-              <Select />
+            <Form.Item label="Generate" name="title3">
+              <InpNum />
+            </Form.Item>
+            <Form.Item label="Keywords" name="keywords">
+              <Keywords />
+            </Form.Item>
+            <Form.Item label="Languages" name="languages">
+              <Languages />
             </Form.Item>
             <Form.Item>
-              <Button htmlType="submit">Submit</Button>
+              <div className="text-end">
+                <Button htmlType="submit" size="large">
+                  Submit
+                </Button>
+                <Button
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  type="link"
+                >
+                  Feedback
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </section>
         <section className={cx("main-right")}>
           <h2>Right</h2>
+          <div>
+            <div className={cx("right-board")}>
+              <Lorem number={10} />
+            </div>
+          </div>
         </section>
       </main>
     </div>
   );
 }
 
-export default React.memo(MyEditor);
+export default React.memo(PageGpt);
 
-function MyEditor() {
-  // editor 实例
-  const [editor, setEditor] = useState<IDomEditor | null>(null); // TS 语法
+interface InpNumProps {
+  value?: string;
+  onChange?(str: string | null): void;
+}
 
-  // 编辑器内容
-  const [html, setHtml] = useState("<p>hello</p>");
+function InpNum(props: InpNumProps) {
+  const { value, onChange } = props;
 
-  // 模拟 ajax 请求，异步设置 html
-  useEffect(() => {
-    setTimeout(() => {
-      setHtml("<p>hello world</p>");
-    }, 1500);
-  }, []);
+  const [isEnabled, setIsDisabled] = useState(false);
 
-  // 工具栏配置
-  const toolbarConfig: Partial<IToolbarConfig> = {}; // TS 语法
-
-  // 编辑器配置
-  const editorConfig: Partial<IEditorConfig> = {
-    // TS 语法
-    placeholder: "请输入内容...",
-  };
-
-  // 及时销毁 editor ，重要！
-  useEffect(() => {
-    return () => {
-      if (editor == null) return;
-      editor.destroy();
-      setEditor(null);
+  const chk = useMemo(() => {
+    const handleChkChange = (checked: boolean) => {
+      checked || onChange?.(null);
+      setIsDisabled(!isEnabled);
     };
-  }, [editor]);
 
+    return (
+      <Checkbox onChange={(e) => handleChkChange(e.target.checked)}>
+        Title
+      </Checkbox>
+    );
+  }, [isEnabled, onChange]);
+
+  const handleChange = (str: string | null) => {
+    const target = isEnabled ? null : str;
+    onChange?.(str);
+  };
   return (
-    <>
-      <div style={{ border: "1px solid #ccc", zIndex: 100 }}>
-        <Toolbar
-          editor={editor}
-          defaultConfig={toolbarConfig}
-          mode="default"
-          style={{ borderBottom: "1px solid #ccc" }}
-        />
-        <Editor
-          defaultConfig={editorConfig}
-          value={html}
-          onCreated={setEditor}
-          onChange={(editor) => setHtml(editor.getHtml())}
-          mode="default"
-          style={{ height: "500px", overflowY: "hidden" }}
-        />
-      </div>
-      <div style={{ marginTop: "15px" }}>{html}</div>
-    </>
+    <div className="flex start-center">
+      {chk}
+      <InputNumber
+        value={value}
+        onChange={handleChange}
+        disabled={!isEnabled}
+        autoComplete="off"
+      />
+    </div>
   );
+}
+
+interface LoremProps {
+  number: number;
+}
+
+function Lorem(props: LoremProps) {
+  const { number } = props;
+
+  const result = useMemo(() => {
+    const arr: React.ReactNode[] = [];
+    for (let i = 0; i < number; i++) {
+      arr.push(
+        <p key={i}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure fuga,
+          quidem quo mollitia quis suscipit. Animi tempora ab illum provident,
+          inventore iusto dignissimos sed, ut distinctio laboriosam, nisi quasi
+          quae!
+        </p>
+      );
+    }
+    return arr;
+  }, [number]);
+
+  return <>{result}</>;
 }
