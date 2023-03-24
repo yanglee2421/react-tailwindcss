@@ -14,18 +14,15 @@ export default defineConfig((ConfigEnv) => ({
       scss: { additionalData: `@use "@/assets/index.scss" as *;` },
     },
   },
+  base: "/vite-react/",
   envDir: resolve(__dirname, "./config"),
-  base: base(ConfigEnv),
   build: build(ConfigEnv),
   server: server(ConfigEnv),
 }));
 
-function base({ mode }: ConfigEnv): UserConfig["base"] {
-  return "/vite-react/";
-}
-
 function build({ mode }: ConfigEnv): UserConfig["build"] {
-  const outDir = mode === "gitee" ? "docs" : "react-app";
+  const isGitee = mode === "gitee";
+  const outDir = isGitee ? "docs" : "react-app";
 
   return {
     outDir,
