@@ -2,11 +2,10 @@ import { ConfigEnv, defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
-import gzip from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
 export default defineConfig((ConfigEnv) => ({
-  plugins: [react(), gzip({ deleteOriginFile: false })],
+  plugins: [react()],
   resolve: {
     alias: { "@": resolve(__dirname, "./src") },
   },
@@ -33,8 +32,8 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
     rollupOptions: {
       output: {
         manualChunks(id) {
-          const isAntd = id.includes("node_modules/antd");
-          if (isAntd) return "antd";
+          // const isAntd = id.includes("node_modules/antd");
+          // if (isAntd) return "antd";
         },
       },
     },

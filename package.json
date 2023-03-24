@@ -32,7 +32,6 @@
     "@vitejs/plugin-react-swc": "^3.2.0",
     "sass": "^1.60.0",
     "typescript": "^5.0.2",
-    "vite": "^4.2.1",
-    "vite-plugin-compression": "^0.5.1"
+    "vite": "^4.2.1"
   }
 }
