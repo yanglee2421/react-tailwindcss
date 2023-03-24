@@ -32,11 +32,13 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
     outDir,
     rollupOptions: {
       output: {
-        manualChunks: {
-          three: ["three"],
+        manualChunks(id) {
+          const isAntd = id.includes("node_modules/antd");
+          if (isAntd) return "antd";
         },
       },
     },
+    chunkSizeWarningLimit: 1000,
   };
 }
 
