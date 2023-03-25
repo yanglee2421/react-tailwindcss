@@ -1,11 +1,11 @@
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
 import { message } from "antd";
 
 export function PageForm() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   return (
     <div className={cx("box")}>
@@ -87,7 +87,7 @@ namespace t {
 }
 
 function Label(props: t.props) {
-  const cx = useClass(style);
+  const cx = useStyle(style);
   const arr = React.Children.map<ReactNode, any>(props.children, (e, index) => {
     if (!e) return;
     return (

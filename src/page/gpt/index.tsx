@@ -1,11 +1,11 @@
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.scss";
 import { Button, Checkbox, Form, Input, InputNumber, Select, Tag } from "antd";
 import { Keywords, Languages } from "@/component";
 
 export function PageGpt() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   const handleSubmit = (data: any) => {
     console.log(data);

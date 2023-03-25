@@ -1,9 +1,9 @@
 import { Navigate, useMatches, useOutlet, RouteObject } from "react-router-dom";
-import { useLazy } from "@/hook";
 import { CtxAuth, initAuth } from "@/stores";
 import React, { useEffect, useMemo, useReducer, useRef } from "react";
 import { whiteList } from "./whiteList";
 import { message } from "antd";
+import { Skeleton } from "antd";
 
 export const routes: RouteObject[] = [
   {
@@ -13,74 +13,74 @@ export const routes: RouteObject[] = [
       { path: "*", element: <Navigate to="/404" replace /> },
       {
         path: "login",
-        element: useLazy(() => import("@/page/login")),
+        element: toLazy(() => import("@/page/login")),
         handle: { title: "登录" },
       },
       {
         path: "",
-        element: useLazy(() => import("@/page/layout")),
+        element: toLazy(() => import("@/page/layout")),
         children: [
           {
             path: "",
-            element: useLazy(() => import("@/page/home")),
+            element: toLazy(() => import("@/page/home")),
             handle: { title: "首页" },
           },
           {
             path: "404",
-            element: useLazy(() => import("@/page/404")),
+            element: toLazy(() => import("@/page/404")),
             handle: { title: "404，NotFound" },
           },
           {
             path: "particle",
-            element: useLazy(() => import("@/page/particle")),
+            element: toLazy(() => import("@/page/particle")),
             handle: { title: "粒子" },
           },
           {
             path: "snow",
-            element: useLazy(() => import("@/page/snow")),
+            element: toLazy(() => import("@/page/snow")),
             handle: { title: "雪飘" },
           },
           {
             path: "form",
-            element: useLazy(() => import("@/page/form")),
+            element: toLazy(() => import("@/page/form")),
             handle: { title: "表单" },
           },
           {
             path: "bottle",
-            element: useLazy(() => import("@/page/bottle")),
+            element: toLazy(() => import("@/page/bottle")),
             handle: { title: "水罐" },
           },
           {
             path: "magnifier",
-            element: useLazy(() => import("@/page/magnifier")),
+            element: toLazy(() => import("@/page/magnifier")),
             handle: { title: "放大镜" },
           },
           {
             path: "threejs",
-            element: useLazy(() => import("@/page/threejs")),
+            element: toLazy(() => import("@/page/threejs")),
             handle: { title: "threejs" },
           },
           {
             path: "table",
-            element: useLazy(() => import("@/page/table")),
+            element: toLazy(() => import("@/page/table")),
             handle: { title: "表格" },
           },
         ],
       },
       {
         path: "demo",
-        element: useLazy(() => import("@/page/demo")),
+        element: toLazy(() => import("@/page/demo")),
         handle: { title: "demo" },
         children: [{ path: "card", element: <></> }],
       },
       {
         path: "preformance",
-        element: useLazy(() => import("@/page/preformance")),
+        element: toLazy(() => import("@/page/preformance")),
         handle: { title: "性能测试" },
       },
       {
         path: "Gpt",
-        element: useLazy(() => import("@/page/gpt")),
+        element: toLazy(() => import("@/page/gpt")),
         handle: { title: "GPT Copywriting" },
       },
     ],
@@ -199,4 +199,13 @@ function init(auth: auth) {
     message.warning("登录信息已失效");
   }
   return auth;
+}
+
+function toLazy(callback: Parameters<typeof React.lazy>[0]) {
+  const Inner = React.lazy(callback);
+  return (
+    <React.Suspense fallback={<Skeleton active />}>
+      <Inner />
+    </React.Suspense>
+  );
 }

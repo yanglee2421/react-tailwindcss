@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useClass, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hook";
 import { Particles, preventDefault } from "@/util";
 import React, {
   useCallback,
@@ -47,7 +47,7 @@ namespace Type {
  * @returns JSX
  */
 export function PageLogin() {
-  const cn = useClass(style);
+  const cn = useStyle(style);
 
   // 登录&注册卡片
   const [isRegister, setIsRegister] = useState(false);
@@ -94,7 +94,7 @@ export default React.memo(PageLogin);
 
 function CardLogin(props: Type.props) {
   const { isRegister, onLinkClick } = props;
-  const cn = useClass(style);
+  const cn = useStyle(style);
 
   const [loginFn] = useLoginMutation();
   // 表单提交
@@ -171,7 +171,7 @@ function CardLogin(props: Type.props) {
 
 function CardRegister(props: Type.props) {
   const { isRegister, onLinkClick } = props;
-  const cn = useClass(style);
+  const cn = useStyle(style);
   const clickHandler = preventDefault(onLinkClick);
   // 处理注册
   const [registerFn] = useRegisterMutation();

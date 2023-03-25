@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { globalMod } from "@/util";
 import style from "./style.module.scss";
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import { Tag, Input, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -31,7 +31,7 @@ export default function Page() {
 }
 
 function Component() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
   console.log("render");
 
   return (
@@ -44,7 +44,7 @@ function Component() {
 function Title(props: React.PropsWithChildren) {
   const { children } = props;
 
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   return (
     <div>
@@ -54,7 +54,7 @@ function Title(props: React.PropsWithChildren) {
 }
 
 function Layout() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   return (
     <div>

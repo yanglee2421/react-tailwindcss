@@ -1,13 +1,13 @@
 import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
-import { useClass, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hook";
 import { Snow } from "@/util";
 import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/bg/snow.jpg";
 import villageBg from "@/assets/image/bg/snow-village.jpg";
 
 export function PageSnow() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   const cvsRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useResize((box) => {

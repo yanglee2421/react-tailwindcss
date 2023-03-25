@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import { Tag, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import style from "./style.module.scss";
@@ -12,7 +12,7 @@ interface KeywordsProps {
 export function Keywords(props: KeywordsProps) {
   const { value, onChange } = props;
 
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   const tags = useMemo(() => {
     if (!Array.isArray(value)) return;

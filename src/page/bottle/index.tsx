@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React from "react";
 
 /**
@@ -7,7 +7,7 @@ import React from "react";
  * @returns JSX
  */
 export function PageBottle() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   return (
     <div className={cx("box")}>

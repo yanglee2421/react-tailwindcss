@@ -1,7 +1,7 @@
 import style from "./home.module.scss";
 import { Button, Calendar, Card, Space } from "antd";
 import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React, { useContext, useState } from "react";
 import { CtxAuth } from "@/stores";
 import justHer from "@/assets/image/bg/justHer.jpg";
@@ -14,7 +14,7 @@ import snowNight from "@/assets/image/bg/snow-night.jpg";
  * @returns JSX
  */
 export function PageHome() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   const [cout, setCout] = useState(0);
 

@@ -20,7 +20,7 @@ import {
   HomeOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { useClass, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hook";
 import { useAppDispatch, useAppSelector, theme } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/vergil.jpg";
@@ -34,7 +34,7 @@ import jz from "@/assets/image/avatar/jz.jpg";
 import mei from "@/assets/image/avatar/mei.jpg";
 
 export function PageLayout() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   //   响应式布局
   const [vw, setVW] = useState(0);
@@ -166,7 +166,7 @@ namespace t {
  */
 function Header(props: t.HeaderProps) {
   const { onIconClick } = props;
-  const cx = useClass(style);
+  const cx = useStyle(style);
   return (
     <Layout.Header className={cx("box-hd")}>
       <MenuOutlined onClick={onIconClick} />
@@ -183,7 +183,7 @@ function Header(props: t.HeaderProps) {
 }
 
 function AsiderContent() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
   const items: MenuProps["items"] = [
     {
       key: 1,
@@ -199,7 +199,7 @@ function AsiderContent() {
  * @returns
  */
 function DrawerContent() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
 
   // ListItems
   const arr = [

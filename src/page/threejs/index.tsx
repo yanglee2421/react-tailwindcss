@@ -8,14 +8,14 @@ import {
   WebGLRenderer,
 } from "three";
 // antd
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React, { useEffect, useId } from "react";
 /**
  * threejs 页面
  * @returns JSX
  */
 export function PageThreejs() {
-  const cn = useClass(style);
+  const cn = useStyle(style);
   const uid = useId();
   useEffect(() => {
     // 场景

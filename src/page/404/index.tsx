@@ -1,7 +1,7 @@
 import style from "./404.module.scss";
 import { NavLink } from "react-router-dom";
 import { Button, Card, Divider } from "antd";
-import { useClass } from "@/hook";
+import { useStyle } from "@/hook";
 import React from "react";
 
 /**
@@ -9,7 +9,7 @@ import React from "react";
  * @returns JSX
  */
 export function Page404() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
   return (
     <div className={cx("box")}>
       <div>

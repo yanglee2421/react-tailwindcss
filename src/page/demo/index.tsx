@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useClass, useStructure } from "@/hook";
+import { useStyle, useStructure } from "@/hook";
 import { useQuery, useMutation } from "react-query";
 import { getJoke } from "@/api/api-demo";
 import { Button, Space } from "antd";
@@ -14,7 +14,7 @@ import { request } from "@/api/api-axios";
 import { globalMod as obj } from "@/util";
 
 export function PageDemo() {
-  const cx = useClass(style);
+  const cx = useStyle(style);
   const [count, setCount] = useState(0);
 
   const [query, setQuery] = useStructure({
