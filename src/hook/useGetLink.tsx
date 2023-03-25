@@ -2,6 +2,7 @@ import { useCallback } from "react";
 
 /**
  * A hook for extracting and generating hyperlinks from a string
+ * @returns A Function to extract and generate hyperlinks
  */
 export function useGetLink(defMsg: string) {
   return useCallback(

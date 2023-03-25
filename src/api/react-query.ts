@@ -1,13 +1,20 @@
-import { QueryClient, DefaultOptions } from "react-query";
+import {
+  QueryClient,
+  DefaultOptions,
+  QueryCache,
+  MutationCache,
+} from "react-query";
 
 export const queryClient = new QueryClient({
+  queryCache: new QueryCache(),
+  mutationCache: new MutationCache(),
   defaultOptions: {
     queries: queries(),
     mutations: mutations(),
   },
 });
 
-function queries(): DefaultOptions<unknown>["queries"] {
+function queries(): DefaultOptions["queries"] {
   return {
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
@@ -17,6 +24,6 @@ function queries(): DefaultOptions<unknown>["queries"] {
   };
 }
 
-function mutations(): DefaultOptions<unknown>["mutations"] {
+function mutations(): DefaultOptions["mutations"] {
   return {};
 }

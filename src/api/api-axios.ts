@@ -1,5 +1,5 @@
 import axios from "axios";
-import { message as Message } from "antd";
+import { message } from "antd";
 
 export const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -15,12 +15,12 @@ request.interceptors.response.use(
     const { status, statusText, data } = res;
     if (status === 200) return data;
     console.warn(statusText);
-    Message.warning(statusText);
+    message.warning(statusText);
     throw new Error(statusText);
   },
-  ({ message }) => {
-    console.error(message);
-    Message.error(message);
-    throw new Error(message);
+  (err) => {
+    console.error(err);
+    message.error(err.message);
+    throw new Error(err.message, { cause: err.cause });
   }
 );
