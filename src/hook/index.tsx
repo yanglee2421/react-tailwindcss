@@ -129,33 +129,3 @@ export function useResize<T extends HTMLElement>(
 
   return resizeRef;
 }
-
-/**
- * A hook for extracting and generating hyperlinks from a string
- */
-export function useGetLink() {
-  return useRef(getLink).current;
-}
-
-function getLink(str: unknown) {
-  const defMsg = "Some errors occurred, please try again";
-
-  if (typeof str !== "string") return defMsg;
-  if (!str) return defMsg;
-
-  const reg =
-    /^(?<prefix>.*)(?<link>https?\:\/\/.+\.\w{2,3}(\:\d{2,5})?)(?<suffix>.*)$/gis;
-  const res = reg.exec(str);
-  if (!res) return str;
-  const { groups } = res;
-  if (!groups) return str;
-
-  const { link } = groups;
-  const a = (
-    <a key={link} href={link} target="_blank">
-      {link}
-    </a>
-  );
-
-  return Object.values({ ...groups, link: a });
-}
