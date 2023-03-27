@@ -6,11 +6,16 @@ import { useCallback } from "react";
  * @returns function that returns a class name
  */
 export function useStyle(style: CSSModuleClasses) {
-  type className = string | string[] | Record<string, boolean>;
-  const classFn = (className: className) => {
-    const arrStr = (arr: string[]) =>
-      arr.map((item) => style[item] || item).join(" ") + " ";
+  return useCallback(getClass(style), [style]);
+}
 
+type className = string | string[] | Record<string, boolean>;
+
+function getClass(style: CSSModuleClasses) {
+  const arrStr = (arr: string[]) =>
+    arr.map((item) => style[item] || item).join(" ") + " ";
+
+  return (className: className) => {
     // 字符串数组写法
     if (Array.isArray(className)) return arrStr(className);
 
@@ -24,6 +29,4 @@ export function useStyle(style: CSSModuleClasses) {
     const target = Object.keys(className).filter((key) => className[key]);
     return arrStr(target);
   };
-
-  return useCallback(classFn, [""]);
 }

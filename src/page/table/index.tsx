@@ -58,7 +58,7 @@ namespace t {
  * 表格页面
  * @returns JSX
  */
-export function PageTable() {
+export default function PageTable() {
   const [query, setQuery] = useStructure({
     page_index: 1,
     page_size: 20,
@@ -92,8 +92,6 @@ export function PageTable() {
     </>
   );
 }
-
-export default React.memo(PageTable);
 
 function Dialog(props: t.DialogProps) {
   const { model, onCancel } = props;

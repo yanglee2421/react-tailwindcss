@@ -4,7 +4,7 @@ import style from "./style.module.scss";
 import { Button, Checkbox, Form, Input, InputNumber, Select, Tag } from "antd";
 import { Keywords, Languages } from "@/component";
 
-export function PageGpt() {
+export default function PageGpt() {
   const cx = useStyle(style);
 
   const handleSubmit = (data: any) => {
@@ -67,8 +67,6 @@ export function PageGpt() {
     </div>
   );
 }
-
-export default React.memo(PageGpt);
 
 interface InpNumProps {
   value?: string;

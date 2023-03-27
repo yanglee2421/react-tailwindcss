@@ -6,11 +6,11 @@ import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/bg/snow.jpg";
 import villageBg from "@/assets/image/bg/snow-village.jpg";
 
-export function PageSnow() {
+export default function PageSnow() {
   const cx = useStyle(style);
 
   const cvsRef = useRef<HTMLCanvasElement>(null);
-  const resizeRef = useResize((box) => {
+  const resizeRef = useResize<HTMLElement>((box) => {
     const canvas = cvsRef.current;
     if (!canvas) return;
     Object.assign(canvas, box);
@@ -45,5 +45,3 @@ export function PageSnow() {
     </Layout>
   );
 }
-
-export default React.memo(PageSnow);

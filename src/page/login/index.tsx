@@ -46,7 +46,7 @@ namespace Type {
  * 登录页面
  * @returns JSX
  */
-export function PageLogin() {
+export default function PageLogin() {
   const cn = useStyle(style);
 
   // 登录&注册卡片
@@ -89,8 +89,6 @@ export function PageLogin() {
     </div>
   );
 }
-
-export default React.memo(PageLogin);
 
 function CardLogin(props: Type.props) {
   const { isRegister, onLinkClick } = props;

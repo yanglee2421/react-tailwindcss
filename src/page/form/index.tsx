@@ -4,7 +4,7 @@ import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
 import { message } from "antd";
 
-export function PageForm() {
+export default function PageForm() {
   const cx = useStyle(style);
 
   return (
@@ -77,8 +77,6 @@ export function PageForm() {
     </div>
   );
 }
-
-export default React.memo(PageForm);
 
 namespace t {
   export interface props extends React.PropsWithChildren {

@@ -14,7 +14,7 @@ import React, { useEffect, useId } from "react";
  * threejs 页面
  * @returns JSX
  */
-export function PageThreejs() {
+export default function PageThreejs() {
   const cn = useStyle(style);
   const uid = useId();
   useEffect(() => {
@@ -46,5 +46,3 @@ export function PageThreejs() {
   }, []);
   return <div id={uid} className={cn("h-100 overflow-hidden")}></div>;
 }
-
-export default React.memo(PageThreejs);

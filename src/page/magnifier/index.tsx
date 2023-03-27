@@ -2,7 +2,7 @@ import { useStyle, useStructure, useResize } from "@/hook";
 import React, { useEffect, useReducer } from "react";
 import style from "./style.module.scss";
 
-export function PageMagnifier() {
+export default function PageMagnifier() {
   const cx = useStyle(style);
   const [outer, setOuter] = useStructure({ x: 0, y: 0 });
   const [inner, setInner] = useStructure({
@@ -45,4 +45,3 @@ export function PageMagnifier() {
     </div>
   );
 }
-export default React.memo(PageMagnifier);

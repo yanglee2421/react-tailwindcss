@@ -33,12 +33,12 @@ import fh from "@/assets/image/avatar/fh.jpg";
 import jz from "@/assets/image/avatar/jz.jpg";
 import mei from "@/assets/image/avatar/mei.jpg";
 
-export function PageLayout() {
+export default function PageLayout() {
   const cx = useStyle(style);
 
   //   响应式布局
   const [vw, setVW] = useState(0);
-  const resizeRef = useResize(({ width }) => setVW(width));
+  const resizeRef = useResize<HTMLElement>(({ width }) => setVW(width));
   const asider = useMemo(() => {
     if (vw < 576) return;
     return (
@@ -151,7 +151,6 @@ export function PageLayout() {
     </>
   );
 }
-export default React.memo(PageLayout);
 
 namespace t {
   export interface HeaderProps {

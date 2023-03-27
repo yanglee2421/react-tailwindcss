@@ -6,7 +6,7 @@ import React from "react";
  * Demo 页面
  * @returns JSX
  */
-export function PageBottle() {
+export default function PageBottle() {
   const cx = useStyle(style);
 
   return (
@@ -18,5 +18,3 @@ export function PageBottle() {
     </div>
   );
 }
-
-export default React.memo(PageBottle);

@@ -13,7 +13,7 @@ import snowNight from "@/assets/image/bg/snow-night.jpg";
  * 首页
  * @returns JSX
  */
-export function PageHome() {
+export default function PageHome() {
   const cx = useStyle(style);
 
   const [cout, setCout] = useState(0);
@@ -52,5 +52,3 @@ export function PageHome() {
     </div>
   );
 }
-
-export default React.memo(PageHome);

@@ -13,7 +13,7 @@ import { Button, Space } from "antd";
 import { request } from "@/api/api-axios";
 import { globalMod as obj } from "@/util";
 
-export function PageDemo() {
+export default function PageDemo() {
   const cx = useStyle(style);
   const [count, setCount] = useState(0);
 
@@ -95,4 +95,3 @@ export function PageDemo() {
     </div>
   );
 }
-export default React.memo(PageDemo);

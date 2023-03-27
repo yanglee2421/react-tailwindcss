@@ -8,7 +8,7 @@ import React from "react";
  * 404 页面
  * @returns JSX
  */
-export function Page404() {
+export default function Page404() {
   const cx = useStyle(style);
   return (
     <div className={cx("box")}>
@@ -33,5 +33,3 @@ export function Page404() {
     </div>
   );
 }
-
-export default React.memo(Page404);

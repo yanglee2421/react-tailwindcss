@@ -8,7 +8,7 @@ import React, { useRef } from "react";
  * 粒子页面
  * @returns JSX
  */
-export function PageParticle() {
+export default function PageParticle() {
   const cx = useStyle(style);
 
   const ctxRef = useRef<HTMLCanvasElement>(null);
@@ -36,5 +36,3 @@ export function PageParticle() {
     </Layout>
   );
 }
-
-export default React.memo(PageParticle);
