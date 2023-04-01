@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "antd";
-import { useBingQuery } from "@/api/api-rtkq";
+import { useBingQuery } from "@/apis/api-rtkq";
 import { theme, useAppDispatch } from "@/redux";
 import React, { useCallback } from "react";
 

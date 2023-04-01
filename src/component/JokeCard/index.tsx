@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, Skeleton } from "antd";
-import { useJokeQuery } from "@/api/api-rtkq";
+import { useJokeQuery } from "@/apis/api-rtkq";
 import avatar from "@/assets/image/avatar/sakura.jpg";
 
 export function JokeCard() {

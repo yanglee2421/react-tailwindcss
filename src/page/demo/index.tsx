@@ -8,9 +8,9 @@ import React, {
 } from "react";
 import { useStyle, useStructure } from "@/hook";
 import { useQuery, useMutation } from "react-query";
-import { getJoke } from "@/api/api-demo";
+import { getJoke } from "@/apis/api-demo";
 import { Button, Space } from "antd";
-import { request } from "@/api/api-axios";
+import { request } from "@/apis/api-axios";
 import { globalMod as obj } from "@/util";
 
 export default function PageDemo() {

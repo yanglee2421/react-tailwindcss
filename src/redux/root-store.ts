@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { authApi } from "@/api/api-rtkq";
+import { authApi } from "@/apis/api-rtkq";
 import { gallery } from "./slice-gallery";
 import { theme } from "./slice-theme";
 /**

@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { useRegisterMutation, useLoginMutation } from "@/api/api-rtkq";
+import { useRegisterMutation, useLoginMutation } from "@/apis/api-rtkq";
 import { CtxAuth } from "@/stores";
 
 namespace Type {

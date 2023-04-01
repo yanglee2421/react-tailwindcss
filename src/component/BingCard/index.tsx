@@ -5,7 +5,7 @@ import {
   PauseOutlined,
   VerticalRightOutlined,
 } from "@ant-design/icons";
-import { useBingQuery } from "@/api/api-rtkq";
+import { useBingQuery } from "@/apis/api-rtkq";
 import { useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/ssw.jpg";
 
