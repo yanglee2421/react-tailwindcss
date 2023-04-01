@@ -9,7 +9,7 @@ import {
   Table,
   TableProps,
 } from "antd";
-import { useStructure, useResize } from "@/hook";
+import { useStructure, useResize } from "@/hooks";
 import React, { useEffect, useState } from "react";
 import {
   usePwdDelMutation,

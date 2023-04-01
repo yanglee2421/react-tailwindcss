@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useStyle, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hooks";
 import { Particles, preventDefault } from "@/util";
 import React, {
   useCallback,

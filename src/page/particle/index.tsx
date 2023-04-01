@@ -1,7 +1,7 @@
 import style from "./particle.module.scss";
 import { NavLink } from "react-router-dom";
 import { Button, Layout, Space } from "antd";
-import { useStyle, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hooks";
 import { Particles } from "@/util";
 import React, { useRef } from "react";
 /**

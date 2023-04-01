@@ -1,7 +1,7 @@
 import { NavLink, useMatches, useNavigate } from "react-router-dom";
 import { Button, Card, Space } from "antd";
 import type { ButtonProps, CardProps, SpaceProps } from "antd";
-import { routes } from "@/route/routes";
+import { routes } from "@/routes/routes";
 import React, { useMemo } from "react";
 
 export function RouteCard(props: CardProps) {

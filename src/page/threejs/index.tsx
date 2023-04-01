@@ -8,7 +8,7 @@ import {
   WebGLRenderer,
 } from "three";
 // antd
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React, { useEffect, useId } from "react";
 /**
  * threejs 页面

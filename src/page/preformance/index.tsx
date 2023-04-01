@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { globalMod } from "@/util";
 import style from "./style.module.scss";
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import { Tag, Input, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 

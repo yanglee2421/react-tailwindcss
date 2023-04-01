@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React from "react";
 
 /**

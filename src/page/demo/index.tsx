@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useStyle, useStructure } from "@/hook";
+import { useStyle, useStructure } from "@/hooks";
 import { useQuery, useMutation } from "react-query";
 import { getJoke } from "@/apis/api-demo";
 import { Button, Space } from "antd";

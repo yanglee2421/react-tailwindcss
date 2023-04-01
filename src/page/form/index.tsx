@@ -1,4 +1,4 @@
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";

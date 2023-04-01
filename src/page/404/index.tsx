@@ -1,7 +1,7 @@
 import style from "./404.module.scss";
 import { NavLink } from "react-router-dom";
 import { Button, Card, Divider } from "antd";
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React from "react";
 
 /**

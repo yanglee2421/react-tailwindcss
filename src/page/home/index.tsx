@@ -1,7 +1,7 @@
 import style from "./home.module.scss";
 import { Button, Calendar, Card, Space } from "antd";
 import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React, { useContext, useState } from "react";
 import { CtxAuth } from "@/stores";
 import justHer from "@/assets/image/bg/justHer.jpg";

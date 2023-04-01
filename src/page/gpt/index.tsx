@@ -1,4 +1,4 @@
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.scss";
 import { Button, Checkbox, Form, Input, InputNumber, Select, Tag } from "antd";

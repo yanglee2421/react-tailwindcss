@@ -20,7 +20,7 @@ import {
   HomeOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { useStyle, useResize } from "@/hook";
+import { useStyle, useResize } from "@/hooks";
 import { useAppDispatch, useAppSelector, theme } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/vergil.jpg";

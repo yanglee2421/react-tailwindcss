@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useStyle } from "@/hook";
+import { useStyle } from "@/hooks";
 import { Tag, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import style from "./style.module.scss";
