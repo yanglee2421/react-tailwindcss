@@ -1,6 +1,6 @@
 import style from "./style.module.scss";
-import { useStyle, useResize } from "@/hooks";
-import { Particles, preventDefault } from "@/util";
+import { useStyle, useResize, useLogin } from "@/hooks";
+import { Particles, preventDefault } from "@/utils";
 import React, {
   useCallback,
   useContext,
@@ -11,7 +11,6 @@ import React, {
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useRegisterMutation, useLoginMutation } from "@/apis/api-rtkq";
-import { CtxAuth } from "@/stores";
 
 namespace Type {
   export interface formValue {
@@ -97,7 +96,7 @@ function CardLogin(props: Type.props) {
   const [loginFn] = useLoginMutation();
   // 表单提交
   const [form] = Form.useForm();
-  const { signIn } = useContext(CtxAuth);
+  const { signIn } = useLogin();
   const onFinish = async (value: Type.formValue) => {
     try {
       const res = await loginFn(value).unwrap();

@@ -3,12 +3,15 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "@/apis/api-rtkq";
 import { gallery } from "./slice-gallery";
 import { theme } from "./slice-theme";
+import { sliceAuth } from "./slice-auth";
+
 /**
  * 全局store
  */
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
+    [sliceAuth.name]: sliceAuth.reducer,
     [gallery.name]: gallery.reducer,
     [theme.name]: theme.reducer,
   },

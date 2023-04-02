@@ -1,9 +1,8 @@
 import { Navigate, useMatches, useOutlet, RouteObject } from "react-router-dom";
-import { CtxAuth, initAuth } from "@/stores";
-import React, { useEffect, useMemo, useReducer, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import { whiteList } from "./whiteList";
-import { message } from "antd";
 import { Skeleton } from "antd";
+import { useAppSelector } from "@/redux";
 
 export const routes: RouteObject[] = [
   {
@@ -87,10 +86,6 @@ export const routes: RouteObject[] = [
   },
 ];
 
-type auth = ReturnType<typeof initAuth>["state"];
-type signIn = ReturnType<typeof initAuth>["signIn"];
-type reducer = (state: auth, act: (state: auth) => void) => auth;
-
 /**
  * Executed before every route change
  * @returns router result
@@ -99,52 +94,19 @@ function BeforeEach() {
   const matches = useMatches();
 
   // Login status
-  const [state, setState] = useReducer<reducer, auth>(
-    (state, act) => {
-      try {
-        const target = structuredClone(state);
-        act(target);
-        return target;
-      } catch {
-        throw new Error("structuredClone can`t handle this type");
-      }
-    },
-    initAuth().state,
-    init
-  );
-
-  // Auto Logout Timer
-  const timer = useRef<number | NodeJS.Timeout>(0);
-
-  // signOut & signIn
-  const signOut = () => {
-    clearTimeout(timer.current);
-    localStorage.removeItem("auth");
-    localStorage.removeItem("token");
-    setState((prev) => Object.assign(prev, initAuth().state));
-  };
-  const signIn: signIn = ({ user, token, expiration }, isRemember = false) => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(signOut, expiration - Date.now());
-    const nextAuth = { user, token, expiration };
-    if (isRemember) {
-      localStorage.setItem("auth", JSON.stringify(nextAuth));
-      localStorage.setItem("token", token);
-    }
-    setState((prev) => Object.assign(prev, nextAuth));
-  };
+  const auth = useAppSelector((state) => state.auth);
 
   // return routing result
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const isLogined = Boolean(state.expiration);
+    const isLogined = Boolean(auth.expiration);
     const pathname = matches.at(-1)?.pathname || "";
     if (pathname === "/login")
       return isLogined ? <Navigate to="/" replace /> : outlet;
     if (isInWl(pathname)) return outlet;
     if (isLogined) return outlet;
     return <Navigate to="/login" replace />;
-  }, [state, outlet, matches]);
+  }, [auth, outlet, matches]);
 
   // title follows route
   useEffect(() => {
@@ -152,11 +114,7 @@ function BeforeEach() {
     if (typeof title === "string") document.title = title;
   }, [matches]);
 
-  return (
-    <CtxAuth.Provider value={{ state, signIn, signOut }}>
-      {route}
-    </CtxAuth.Provider>
-  );
+  return <>{route}</>;
 }
 
 /**
@@ -173,33 +131,6 @@ function isInWl(path: string) {
  * @param auth default for auth
  * @returns initial auth
  */
-function init(auth: auth) {
-  try {
-    const prevJson = localStorage.getItem("auth");
-    if (!prevJson) return auth;
-
-    const prevAuth = JSON.parse(prevJson);
-    const { user, token, expiration } = prevAuth;
-    if (!user || !token || !expiration)
-      throw new TypeError("one or more fields are empty");
-    if (typeof user !== "string")
-      throw new TypeError("field user is not a string");
-    if (typeof token !== "string")
-      throw new TypeError("field token is not a string");
-    if (typeof expiration !== "number")
-      throw new TypeError("field expiration isn`t a number");
-    if (expiration - Date.now() < 1000 * 60 * 5)
-      throw new Error("Login information has expired");
-
-    return { user, token, expiration };
-  } catch (err) {
-    console.error(err);
-    localStorage.removeItem("auth");
-    localStorage.removeItem("token");
-    message.warning("登录信息已失效");
-  }
-  return auth;
-}
 
 function toLazy(callback: Parameters<typeof React.lazy>[0]) {
   const Inner = React.lazy(callback);
