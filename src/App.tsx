@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { ConfigProvider, Image, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
-import { withPortal } from "@/component";
+import { withPortal } from "@/components";
 import { useDark } from "@/hooks";
 import { useAppDispatch, useAppSelector, theme as slice } from "@/redux";
 import { router } from "@/routes";
