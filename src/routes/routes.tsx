@@ -1,8 +1,7 @@
-import { Navigate, useMatches, useOutlet, RouteObject } from "react-router-dom";
-import React, { useEffect, useMemo } from "react";
-import { whiteList } from "./whiteList";
+import { Navigate, RouteObject } from "react-router-dom";
+import React from "react";
 import { Skeleton } from "antd";
-import { useAppSelector } from "@/redux";
+import { BeforeEach } from "./BeforeEach";
 
 export const routes: RouteObject[] = [
   {
@@ -87,51 +86,10 @@ export const routes: RouteObject[] = [
 ];
 
 /**
- * Executed before every route change
- * @returns router result
- */
-function BeforeEach() {
-  const matches = useMatches();
-
-  // Login status
-  const auth = useAppSelector((state) => state.auth);
-
-  // return routing result
-  const outlet = useOutlet();
-  const route = useMemo(() => {
-    const isLogined = Boolean(auth.expiration);
-    const pathname = matches.at(-1)?.pathname || "";
-    if (pathname === "/login")
-      return isLogined ? <Navigate to="/" replace /> : outlet;
-    if (isInWl(pathname)) return outlet;
-    if (isLogined) return outlet;
-    return <Navigate to="/login" replace />;
-  }, [auth, outlet, matches]);
-
-  // title follows route
-  useEffect(() => {
-    const title = (matches.at(-1)?.handle as any)?.title;
-    if (typeof title === "string") document.title = title;
-  }, [matches]);
-
-  return <>{route}</>;
-}
-
-/**
- * Tests if a pathname is in the whitelist
- * @param path current route`s pathname
- * @returns whether the pathname is in the whitelist
- */
-function isInWl(path: string) {
-  return whiteList.some((item) => path.startsWith(item));
-}
-
-/**
  * function to generate a auth
  * @param auth default for auth
  * @returns initial auth
  */
-
 function toLazy(callback: Parameters<typeof React.lazy>[0]) {
   const Inner = React.lazy(callback);
   return (

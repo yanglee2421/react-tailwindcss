@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { globalMod } from "@/util";
+import { globalMod } from "@/utils";
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
 import { Tag, Input, Select } from "antd";
