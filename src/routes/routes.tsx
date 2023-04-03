@@ -81,6 +81,11 @@ export const routes: RouteObject[] = [
         element: toLazy(() => import("@/pages/gpt")),
         handle: { title: "GPT Copywriting" },
       },
+      {
+        path: "sign",
+        element: toLazy(() => import("@/pages/sign")),
+        handle: { title: "Google Chrome Credential" },
+      },
     ],
   },
 ];

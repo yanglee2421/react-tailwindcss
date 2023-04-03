@@ -1,1 +1,1 @@
-export const whiteList = ["/demo", "/preformance", "/gpt"];
+export const whiteList = ["/demo", "/preformance", "/gpt", "/sign"];
