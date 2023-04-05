@@ -1,9 +1,8 @@
 import style from "./home.module.scss";
 import { Button, Calendar, Card, Space } from "antd";
-import { Counter, JokeCard, RouteCard, BingCard } from "@/component";
-import { useStyle } from "@/hooks";
-import React, { useContext, useState } from "react";
-import { CtxAuth } from "@/stores";
+import { Counter, JokeCard, RouteCard, BingCard } from "@/components";
+import { useSignOut, useStyle } from "@/hooks";
+import React, { useState } from "react";
 import justHer from "@/assets/image/bg/justHer.jpg";
 import snowBg from "@/assets/image/bg/snow.jpg";
 import snowVillage from "@/assets/image/bg/snow-village.jpg";
@@ -17,8 +16,7 @@ export default function PageHome() {
   const cx = useStyle(style);
 
   const [cout, setCout] = useState(0);
-
-  const { signOut } = useContext(CtxAuth);
+  const signOut = useSignOut();
 
   return (
     <div className={cx("home")}>

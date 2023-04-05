@@ -6,18 +6,34 @@ export const sliceAuth = createSlice({
   initialState,
   reducers: {
     actSignOut(state) {
-      const initialData = getInitialData();
-      Object.assign(state, initialData);
+      const nullLogin = getNullLogin();
+      state.login = nullLogin;
     },
-    actSignIn(state, { payload }: PayloadAction<initialData>) {
-      Object.assign(state, payload);
+    actSignIn(state, { payload }: PayloadAction<LoginData>) {
+      state.login = payload;
+    },
+    actTimer(state, { payload }: PayloadAction<NodeJS.Timeout | number>) {
+      state.timer = payload;
     },
   },
 });
 
-export type initialData = ReturnType<typeof getInitialData>;
+export type LoginData = ReturnType<typeof getNullLogin>;
 
-function getInitialData() {
+interface State {
+  login: LoginData;
+  timer: NodeJS.Timeout | number;
+}
+
+function initialState(): State {
+  const login = getInitLogin();
+  return {
+    login,
+    timer: 0,
+  };
+}
+
+function getNullLogin() {
   return {
     user: "",
     token: "",
@@ -25,11 +41,13 @@ function getInitialData() {
   };
 }
 
-function initialState() {
-  const auth = getInitialData();
+function getInitLogin() {
+  const login = getNullLogin();
+
+  // Restore login status from localstorage
   try {
     const prevJson = localStorage.getItem("auth");
-    if (!prevJson) return auth;
+    if (!prevJson) return login;
 
     const prevAuth = JSON.parse(prevJson);
     const { user, token, expiration } = prevAuth;
@@ -44,12 +62,12 @@ function initialState() {
     if (expiration - Date.now() < 1000 * 60 * 5)
       throw new Error("Login information has expired");
 
-    return { user, token, expiration };
+    Object.assign(login, { user, token, expiration });
   } catch (err) {
     console.error(err);
     localStorage.removeItem("auth");
     localStorage.removeItem("token");
     message.warning("登录信息已失效");
   }
-  return auth;
+  return login;
 }

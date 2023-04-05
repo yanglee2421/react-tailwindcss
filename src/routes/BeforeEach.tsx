@@ -11,19 +11,19 @@ export function BeforeEach() {
   const matches = useMatches();
 
   // Login status
-  const auth = useAppSelector((state) => state.auth);
+  const login = useAppSelector((state) => state.auth.login);
 
   // return routing result
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const isLogined = Boolean(auth.expiration);
+    const isLogined = Boolean(login.expiration);
     const pathname = matches.at(-1)?.pathname || "";
     if (pathname === "/login")
       return isLogined ? <Navigate to="/" replace /> : outlet;
     if (isInWl(pathname)) return outlet;
     if (isLogined) return outlet;
     return <Navigate to="/login" replace />;
-  }, [auth, outlet, matches]);
+  }, [login, outlet, matches]);
 
   // title follows route
   useEffect(() => {
