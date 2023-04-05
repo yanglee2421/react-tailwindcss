@@ -1,12 +1,19 @@
 import style from "./404.module.scss";
 import { useStyle } from "@/hooks";
-import React from "react";
+import { Button, Result } from "antd";
+import { NavLink } from "react-router-dom";
 
 /**
  * 404 页面
  * @returns JSX
  */
 export default function Page404() {
-  const cx = useStyle(style);
-  return <div className={cx("box")}></div>;
+  const extra = (
+    <NavLink to="/">
+      <Button type="primary" size="large">
+        Take me home
+      </Button>
+    </NavLink>
+  );
+  return <Result status="404" title="404" subTitle="Not Found" extra={extra} />;
 }

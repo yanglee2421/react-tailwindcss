@@ -1,7 +1,7 @@
 import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
 import { useStyle, useResize } from "@/hooks";
-import { Snow } from "@/util";
+import { Snow } from "@/utils";
 import React, { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/bg/snow.jpg";
 import villageBg from "@/assets/image/bg/snow-village.jpg";
