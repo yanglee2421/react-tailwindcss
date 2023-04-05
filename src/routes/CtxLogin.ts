@@ -1,9 +1,21 @@
 import React from "react";
 
-const inititalValue = getInitLoginState();
+const inititalValue = getInitialValue();
 export const CtxLogin = React.createContext(inititalValue);
 
-export function getInitLoginState() {
+interface LoginState {
+  user: string;
+  token: string;
+  expiration: number;
+}
+
+interface InititalValue {
+  state: LoginState;
+  signIn(state: LoginState, isRemember?: boolean): void;
+  signOut(): void;
+}
+
+export function getInitialValue(): InititalValue {
   return {
     state: {
       user: "",

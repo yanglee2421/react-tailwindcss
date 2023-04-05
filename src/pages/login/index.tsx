@@ -134,9 +134,8 @@ function CardLogin(props: Type.props) {
           name="password"
           rules={[{ required: true, message: "Please input your Password!" }]}
         >
-          <Input
+          <Input.Password
             prefix={<LockOutlined className={cn("site-form-item-icon")} />}
-            type="password"
             placeholder="密码"
           />
         </Form.Item>

@@ -1,38 +1,34 @@
-import { log } from "console";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate, useOutlet } from "react-router-dom";
 
 type submit = React.HtmlHTMLAttributes<HTMLFormElement>["onSubmit"];
-
+/**
+ * 浏览器抓取密码如何触发？
+ *
+ * 表单提交的默认行为
+ * 路由发生变化
+ * 两个input
+ * - 挂载时，text + password
+ * - 提交时，text + password
+ */
 export default function PageSign() {
-  const handleSubmit: submit = async (e) => {
-    e.preventDefault();
-    if (!e.nativeEvent.target) return;
-    // @ts-ignore
-    const data = new FormData(e.nativeEvent.target);
-    const res = Object.fromEntries(data.entries());
-    const _r = await navigator.credentials.store(
-      // @ts-ignore
-      new PasswordCredential({
-        id: res.user,
-        password: res.password,
-      })
-    );
-    log;
-  };
+  const navigate = useNavigate();
+  const outlet = useOutlet();
 
-  const handleGet = async () => {
-    const data = await navigator.credentials.get();
-    console.log(data);
-  };
-
+  const [showPwd, setShowPwd] = useState(true);
   return (
     <div>
-      <form action="#" onSubmit={handleSubmit}>
-        <input type="text" name="user" />
-        <input type="password" name="password" />
-        <button type="submit">save</button>
+      {outlet}
+      <form>
+        <input type="text" />
+        <input type={showPwd ? "text" : "password"} />
+        <input
+          type="checkbox"
+          checked={showPwd}
+          onChange={(e) => setShowPwd(e.target.checked)}
+        />
+        <button onClick={() => navigate("/sign/show")}>save</button>
       </form>
-      <button onClick={handleGet}>get</button>
     </div>
   );
 }

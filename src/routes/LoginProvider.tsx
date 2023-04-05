@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import { CtxLogin, getInitLoginState } from "./CtxLogin";
+import { CtxLogin, getInitialValue } from "./CtxLogin";
 import { message } from "antd";
 
 type LoginState = ReturnType<typeof getInitState>;
@@ -9,21 +9,28 @@ export function LoginProvider(props: React.PropsWithChildren) {
 
   const [state, setState] = useState(() => getInitState());
 
-  const timerRef = useRef(0);
+  const timerRef = useRef<NodeJS.Timeout | number>(0);
 
   const signOut = () => {
     clearTimeout(timerRef.current);
-    const nextState = getInitLoginState().state;
+    const nextState = getInitialValue().state;
     setState(nextState);
+    localStorage.removeItem("auth");
   };
-  const signIn = (nextState: LoginState, isRemmber: boolean) => {};
+  const signIn = (nextState: LoginState, isRemember: boolean = false) => {
+    timerRef.current = setTimeout(signOut, nextState.expiration - Date.now());
+    setState(nextState);
+    if (isRemember) {
+      localStorage.setItem("auth", JSON.stringify(nextState));
+    }
+  };
 
   const value = useMemo(() => ({ state, signOut, signIn }), [state]);
   return <CtxLogin.Provider value={value}>{children}</CtxLogin.Provider>;
 }
 
 function getInitState() {
-  const initialValue = getInitLoginState().state;
+  const initialValue = getInitialValue().state;
 
   try {
     const prevJson = localStorage.getItem("auth");

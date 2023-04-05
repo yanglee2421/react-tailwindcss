@@ -85,6 +85,12 @@ export const routes: RouteObject[] = [
         path: "sign",
         element: toLazy(() => import("@/pages/sign")),
         handle: { title: "Google Chrome Credential" },
+        children: [
+          {
+            path: ":id",
+            element: <>16513151313</>,
+          },
+        ],
       },
     ],
   },
