@@ -1,6 +1,6 @@
 import style from "./style.module.scss";
 import { useStyle, useResize, useSignIn } from "@/hooks";
-import { Particles, preventDefault } from "@/utils";
+import { Particles } from "@/utils";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -104,7 +104,6 @@ function CardLogin(props: Type.props) {
       console.error(err);
     }
   };
-  const clickHandler = preventDefault(onLinkClick);
 
   return (
     <Card className={cn(["card-login", isRegister ? "rotate-y-180" : ""])}>
@@ -140,7 +139,7 @@ function CardLogin(props: Type.props) {
           <a
             className={cn("login-form-forgot")}
             href="xxx"
-            onClick={preventDefault()}
+            onClick={(e) => e.preventDefault()}
           >
             Forgot password
           </a>
@@ -150,7 +149,13 @@ function CardLogin(props: Type.props) {
             Login
           </Button>
           Or{" "}
-          <a onClick={clickHandler} href="xxx">
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              onLinkClick();
+            }}
+            href="xxx"
+          >
             register now!
           </a>
         </Form.Item>
@@ -162,7 +167,7 @@ function CardLogin(props: Type.props) {
 function CardRegister(props: Type.props) {
   const { isRegister, onLinkClick } = props;
   const cn = useStyle(style);
-  const clickHandler = preventDefault(onLinkClick);
+
   // 处理注册
   const [registerFn] = useRegisterMutation();
   const [form] = Form.useForm();
@@ -234,7 +239,13 @@ function CardRegister(props: Type.props) {
             Register
           </Button>
           Or{" "}
-          <a onClick={clickHandler} href="xxx">
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              onLinkClick();
+            }}
+            href="xxx"
+          >
             login now!
           </a>
         </Form.Item>
