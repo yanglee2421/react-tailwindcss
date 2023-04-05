@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useOutlet } from "react-router-dom";
+import { NavLink, useOutlet } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -7,7 +7,6 @@ import {
   FloatButton,
   Input,
   Layout,
-  List,
   Menu,
   MenuProps,
 } from "antd";
@@ -24,14 +23,6 @@ import { useStyle, useResize } from "@/hooks";
 import { useAppDispatch, useAppSelector, theme } from "@/redux";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import avatar from "@/assets/image/avatar/vergil.jpg";
-import dz from "@/assets/image/avatar/dz.jpg";
-import kl from "@/assets/image/avatar/kl.jpg";
-import sakura from "@/assets/image/avatar/sakura.jpg";
-import ssw from "@/assets/image/avatar/ssw.jpg";
-import bcy from "@/assets/image/avatar/bcy.jpg";
-import fh from "@/assets/image/avatar/fh.jpg";
-import jz from "@/assets/image/avatar/jz.jpg";
-import mei from "@/assets/image/avatar/mei.jpg";
 
 export default function PageLayout() {
   const cx = useStyle(style);
@@ -104,9 +95,7 @@ export default function PageLayout() {
         onClose={() => setIsDrawer((prev) => !prev)}
         placement={vw < 576 ? "top" : "left"}
         closeIcon={<MenuOutlined />}
-      >
-        <DrawerContent />
-      </Drawer>
+      ></Drawer>
     ),
     [isDrawer, vw]
   );
@@ -187,44 +176,30 @@ function AsiderContent() {
     {
       key: 1,
       label: "首页",
-      icon: <HomeOutlined />,
+      icon: (
+        <NavLink to="/">
+          <HomeOutlined />
+        </NavLink>
+      ),
+    },
+    {
+      key: 2,
+      label: "Snow",
+      icon: (
+        <NavLink to="/snow">
+          <HomeOutlined />
+        </NavLink>
+      ),
+    },
+    {
+      key: 3,
+      label: "Particle",
+      icon: (
+        <NavLink to="/particle">
+          <HomeOutlined />
+        </NavLink>
+      ),
     },
   ];
   return <Menu items={items} className={cx("h-100")} />;
-}
-
-/**
- * Drawer Content
- * @returns
- */
-function DrawerContent() {
-  const cx = useStyle(style);
-
-  // ListItems
-  const arr = [
-    { src: dz, title: "标题", description: "这是描述", link: "链接" },
-    { src: kl, title: "标题", description: "这是描述", link: "链接" },
-    { src: sakura, title: "标题", description: "这是描述", link: "链接" },
-    { src: ssw, title: "标题", description: "这是描述", link: "链接" },
-    { src: bcy, title: "标题", description: "这是描述", link: "链接" },
-    { src: fh, title: "标题", description: "这是描述", link: "链接" },
-    { src: jz, title: "标题", description: "这是描述", link: "链接" },
-    { src: mei, title: "标题", description: "这是描述", link: "链接" },
-  ];
-  const items = useMemo(
-    () =>
-      arr.map((item) => (
-        <List.Item key={item.src}>
-          <List.Item.Meta
-            avatar={<Avatar src={item.src} size={48} />}
-            title={item.title}
-            description={item.description}
-          />
-          <Button type="link">{item.link}</Button>
-        </List.Item>
-      )),
-    []
-  );
-
-  return <List>{items}</List>;
 }

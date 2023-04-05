@@ -1,5 +1,3 @@
-import style from "./404.module.scss";
-import { useStyle } from "@/hooks";
 import { Button, Result } from "antd";
 import { NavLink } from "react-router-dom";
 

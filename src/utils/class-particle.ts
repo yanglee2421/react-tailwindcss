@@ -101,11 +101,11 @@ export class Particles {
     const { signal } = this.#controller;
     this.canvas.addEventListener(
       "mouseover",
-      ({ clientX, clientY }) => {
+      ({ offsetX, offsetY }) => {
         if (this.#one) return;
         this.#one = new Particle(this.canvas);
-        this.#one.x = clientX;
-        this.#one.y = clientY;
+        this.#one.x = offsetX;
+        this.#one.y = offsetY;
         this.#one.xv = 0;
         this.#one.yv = 0;
         this.#arr.push(this.#one);
@@ -114,10 +114,10 @@ export class Particles {
     );
     this.canvas.addEventListener(
       "mousemove",
-      ({ clientX, clientY }) => {
+      ({ offsetX, offsetY }) => {
         if (!this.#one) return;
-        this.#one.x = clientX;
-        this.#one.y = clientY;
+        this.#one.x = offsetX;
+        this.#one.y = offsetY;
       },
       { signal }
     );

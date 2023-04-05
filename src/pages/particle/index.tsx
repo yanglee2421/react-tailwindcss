@@ -1,8 +1,6 @@
 import style from "./particle.module.scss";
-import { NavLink } from "react-router-dom";
-import { Button, Layout, Space } from "antd";
 import { useStyle, useResize } from "@/hooks";
-import { Particles } from "@/util";
+import { Particles } from "@/utils";
 import React, { useRef } from "react";
 /**
  * 粒子页面
@@ -31,8 +29,8 @@ export default function PageParticle() {
     };
   });
   return (
-    <Layout ref={resizeRef} className={cx("partcle")}>
+    <div ref={resizeRef} className={cx("partcle")}>
       <canvas ref={ctxRef} className={cx("particle-canvas")}></canvas>
-    </Layout>
+    </div>
   );
 }
