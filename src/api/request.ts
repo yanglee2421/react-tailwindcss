@@ -3,7 +3,7 @@ import { message } from "antd";
 
 export const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 20000,
+  timeout: 1000 * 60,
   headers: {
     common: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   },

@@ -2,11 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import "antd/dist/reset.css";
-import { Provider } from "react-redux";
-import { store } from "@/redux";
 import "@/assets/scss/reset.scss";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "@/apis/react-query";
+import { store, Provider } from "@/redux";
+import { queryClient, QueryClientProvider } from "@/api";
 
 const root = document.querySelector("#root")!;
 ReactDOM.createRoot(root).render(

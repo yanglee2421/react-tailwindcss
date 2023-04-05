@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useQuery, useMutation } from "react-query";
-import { queryClient } from "@/apis/react-query";
+import { queryClient } from "@/api";
 
 function fetchTodos() {
   return fetch("");

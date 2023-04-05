@@ -15,7 +15,7 @@ import {
   usePwdDelMutation,
   usePwdQuery,
   usePwdSaveMutation,
-} from "@/apis/api-rtkq";
+} from "@/api/api-rtkq";
 
 namespace t {
   export interface formData {

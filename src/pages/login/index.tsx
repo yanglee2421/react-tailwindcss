@@ -4,7 +4,7 @@ import { Particles, preventDefault } from "@/utils";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { useRegisterMutation, useLoginMutation } from "@/apis/api-rtkq";
+import { useRegisterMutation, useLoginMutation } from "@/api/api-rtkq";
 
 namespace Type {
   export interface formValue {
