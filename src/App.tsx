@@ -5,38 +5,30 @@ import { withPortal } from "@/components";
 import { useDark } from "@/hooks";
 import { useAppDispatch, useAppSelector, theme as slice } from "@/redux";
 import { router } from "@/routes";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 export function App() {
   // 根据 Browser 主题派发 actIsDark
-  const { darkAlgorithm, defaultAlgorithm } = theme;
   const dispatch = useAppDispatch();
   useDark(({ matches }) => dispatch(slice.actions.actIsDark(matches)));
 
   // 根据 store 中的 isDark 返回主题样式
   const GalleryWithPortal = withPortal(Gallery);
-  const { isDark, galleryIsShow } = useAppSelector((state) => state.theme);
-  const gallery = useMemo(() => {
-    if (!galleryIsShow) return;
-    return <GalleryWithPortal />;
-  }, [galleryIsShow]);
+
+  const { darkAlgorithm, defaultAlgorithm } = theme;
+  const isDark = useAppSelector((state) => state.theme.isDark);
+  const algorithm = isDark ? darkAlgorithm : defaultAlgorithm;
 
   return (
-    <ConfigProvider
-      locale={zhCN}
-      theme={{ algorithm: isDark ? darkAlgorithm : defaultAlgorithm }}
-    >
+    <ConfigProvider locale={zhCN} theme={{ algorithm }}>
       <RouterProvider router={router} />
-      {gallery}
+      <GalleryWithPortal />
     </ConfigProvider>
   );
 }
 
 function Gallery() {
-  // state 跟随 store
-  const [visible, setVisible] = useState(false);
   const { galleryIsShow, galleryList } = useAppSelector((state) => state.theme);
-  useEffect(() => setVisible(galleryIsShow), [galleryIsShow]);
 
   // Image 数组
   const imgList = useMemo(
@@ -47,22 +39,15 @@ function Gallery() {
   // 画廊主体
   const dispatch = useAppDispatch();
   const imgGroup = useMemo(() => {
-    const onVisibleChange = (vis: boolean) => {
-      setVisible(vis);
-      vis
-        ? dispatch(slice.actions.actGalleryIsShow(true))
-        : setTimeout(
-            () => dispatch(slice.actions.actGalleryIsShow(false)),
-            300
-          );
-    };
+    const onVisibleChange = (vis: boolean) =>
+      dispatch(slice.actions.actGalleryIsShow(vis));
 
     return (
-      <Image.PreviewGroup preview={{ visible, onVisibleChange }}>
+      <Image.PreviewGroup preview={{ visible: galleryIsShow, onVisibleChange }}>
         {imgList}
       </Image.PreviewGroup>
     );
-  }, [visible, imgList]);
+  }, [galleryIsShow, imgList]);
 
   return <div className="none">{imgGroup}</div>;
 }
