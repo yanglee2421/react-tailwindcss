@@ -13,6 +13,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.3",
+    "@tinymce/tinymce-react": "^4.3.0",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-react": "^1.0.6",
     "antd": "^5.3.2",
@@ -22,7 +23,8 @@
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
-    "three": "^0.150.1"
+    "three": "^0.150.1",
+    "tinymce": "^6.4.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.7",
