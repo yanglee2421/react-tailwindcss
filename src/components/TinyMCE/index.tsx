@@ -102,7 +102,7 @@ function toolbar() {
     "fontfamily fontsizeinput |" +
     "bold italic forecolor | alignleft aligncenter " +
     "alignright alignjustify | bullist numlist outdent indent emoticons | " +
-    "removeformat | help"
+    "removeformat fullscreen | help"
   );
 }
 
