@@ -77,7 +77,7 @@ export default function MyEdit() {
   return (
     <PageDemo
       onInit={(evt: any, editor: any) => (editorRef.current = editor)}
-      initialValue={html}
+      value={html}
       init={{
         height: 500,
         menubar: true,
