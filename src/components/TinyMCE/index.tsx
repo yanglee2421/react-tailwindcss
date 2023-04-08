@@ -17,19 +17,23 @@ export function TinyMCE(props: TinyMCEProps) {
       onEditorChange={onChange}
       apiKey="4hxy0mee8bp47o512g4sy8s3ihg2djrmbiwtei8kduky11io"
       onInit={(evt, editor) => (editorRef.current = editor)}
-      init={{
-        height: 500,
-        branding: false,
-        skin: true,
-        menubar: false,
-        plugins: plugins(),
-        toolbar: toolbar(),
-        content_css: true,
-        content_style: content_style(),
-      }}
+      init={init()}
       {...restProps}
     />
   );
+}
+
+function init(): IAllProps["init"] {
+  return {
+    skin: true,
+    content_css: true,
+    menubar: false,
+    branding: false,
+    height: 500,
+    plugins: plugins(),
+    toolbar: toolbar(),
+    content_style: content_style(),
+  };
 }
 
 function plugins() {
