@@ -21,8 +21,7 @@
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
-    "three": "^0.150.1",
-    "tinymce": "^6.4.1"
+    "three": "^0.150.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.7",
