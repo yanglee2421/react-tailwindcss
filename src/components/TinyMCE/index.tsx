@@ -25,8 +25,8 @@ export function TinyMCE(props: TinyMCEProps) {
 
 function init(): IAllProps["init"] {
   return {
-    skin: true,
-    content_css: true,
+    // skin: true,
+    // content_css: true,
     menubar: false,
     branding: false,
     height: 500,
