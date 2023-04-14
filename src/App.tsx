@@ -1,6 +1,5 @@
 import { RouterProvider } from "react-router-dom";
 import { ConfigProvider, Image, theme } from "antd";
-import zhCN from "antd/es/locale/zh_CN";
 import { withPortal } from "@/components";
 import { useDark } from "@/hooks";
 import { useAppDispatch, useAppSelector, theme as slice } from "@/redux";
@@ -20,7 +19,7 @@ export function App() {
   const algorithm = isDark ? darkAlgorithm : defaultAlgorithm;
 
   return (
-    <ConfigProvider locale={zhCN} theme={{ algorithm }}>
+    <ConfigProvider theme={{ algorithm }}>
       <RouterProvider router={router} />
       <GalleryWithPortal />
     </ConfigProvider>

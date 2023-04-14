@@ -1,27 +1,123 @@
-import { useInfiniteQuery, useQuery, useMutation } from "react-query";
-import { queryClient } from "@/api";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-function fetchTodos() {
-  return fetch("");
+const queryClient = useQueryClient();
+
+function query() {
+  const {
+    data,
+    dataUpdatedAt,
+    error,
+    errorUpdatedAt,
+    failureCount,
+    failureReason,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isPaused,
+    isLoading,
+    isLoadingError,
+    isPlaceholderData,
+    isPreviousData,
+    isRefetchError,
+    isRefetching,
+    isInitialLoading,
+    isStale,
+    isSuccess,
+    refetch,
+    remove,
+    status,
+    fetchStatus,
+  } = useQuery({
+    queryKey: [],
+    queryFn() {
+      return Promise.resolve({ name: "" });
+    },
+    cacheTime: 1000 * 60 * 5,
+    enabled: true,
+    networkMode: "online",
+    initialData() {
+      return { name: "" };
+    },
+    initialDataUpdatedAt: Date.now(),
+    keepPreviousData: false,
+    meta: {},
+    notifyOnChangeProps: ["data"],
+    onError(err) {},
+    onSettled(data, err) {},
+    onSuccess(data) {},
+    placeholderData() {
+      return { name: "" };
+    },
+    // queryKeyHashFn either-or queryKey
+    // queryKeyHashFn(keys) {
+    //   return keys;
+    // },
+    refetchInterval: false,
+    refetchIntervalInBackground: false,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+    retry: 3,
+    retryOnMount: true,
+    retryDelay: 1000 * 3,
+    select(data) {
+      return data;
+    },
+    staleTime: 0,
+    structuralSharing: true,
+    suspense: false,
+    useErrorBoundary: false,
+    //
+    isDataEqual(oldData, newData) {
+      return false;
+    },
+  });
 }
 
 function mutation() {
   const {
-    isLoading,
-    isError,
-    isSuccess,
-    isIdle,
-    isPaused,
     data,
     error,
-    status,
+    isError,
+    isIdle,
+    isLoading,
+    isPaused,
+    isSuccess,
+    failureCount,
+    failureReason,
     mutate,
     mutateAsync,
     reset,
-  } = useMutation((body: string) => fetch("/", { body }), {
+    status,
+  } = useMutation({
+    async mutationFn() {
+      return {};
+    },
+    cacheTime: Infinity,
+    // mutationKey either-or mutationFn
+    // mutationKey: "unique",
+    networkMode: "online",
+    onError() {},
+    onMutate() {},
+    onSettled() {},
+    onSuccess() {},
+    retry: 3,
+    retryDelay(attempt) {
+      return Math.min(attempt > 1 ? 2 ** attempt * 1000 : 1000);
+    },
+    useErrorBoundary: false,
+    meta: {},
+  });
+  useMutation((body: string) => fetch("/", { body }), {
     retry: 3,
     async onMutate(body) {
-      await queryClient.cancelQueries("unique");
+      await queryClient.cancelQueries(["unique"]);
       await queryClient.resumePausedMutations();
     },
     onSuccess(data) {
@@ -35,7 +131,7 @@ function mutation() {
 function infiniteQuery() {
   // 除以下独有API外，还支持useQuery上所有的API
   const { fetchNextPage, fetchPreviousPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery("unique", fetchTodos, {
+    useInfiniteQuery(["unique"], () => {}, {
       getNextPageParam(lastPage, pages) {},
       getPreviousPageParam(lastPage, pages) {},
       select(data) {
@@ -48,44 +144,7 @@ function infiniteQuery() {
 }
 
 async function prefetchTodos() {
-  await queryClient.prefetchQuery("todos", fetchTodos);
-  const data = queryClient.getQueryData("todos");
-  queryClient.setQueryData("todos", (prev: unknown) => data);
-}
-
-function query() {
-  const {
-    isLoading,
-    isError,
-    isSuccess,
-    isIdle,
-    isFetching,
-    data,
-    error,
-    status,
-    isPreviousData,
-    refetch,
-  } = useQuery("unique", fetchTodos, {
-    staleTime: 1000 * 60 * 5,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchInterval: false,
-    cacheTime: 1000 * 60 * 5,
-    retry: 3,
-    retryDelay: 1000 * 60,
-    structuralSharing: false,
-    enabled: true,
-    keepPreviousData: true,
-    initialDataUpdatedAt: Date.now(),
-    isDataEqual() {
-      return false;
-    },
-    placeholderData() {
-      return {};
-    },
-    initialData() {
-      return {};
-    },
-  });
+  await queryClient.prefetchQuery(["todos"], () => {});
+  const data = queryClient.getQueryData(["todos"]);
+  queryClient.setQueryData(["todos"], (prev: unknown) => data);
 }
