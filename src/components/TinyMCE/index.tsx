@@ -15,7 +15,7 @@ export function TinyMCE(props: TinyMCEProps) {
     <Editor
       value={value}
       onEditorChange={onChange}
-      apiKey="4hxy0mee8bp47o512g4sy8s3ihg2djrmbiwtei8kduky11io"
+      // apiKey="4hxy0mee8bp47o512g4sy8s3ihg2djrmbiwtei8kduky11io"
       onInit={(evt, editor) => (editorRef.current = editor)}
       init={init()}
       {...restProps}
