@@ -1,14 +1,14 @@
 import { useReducer } from "react";
 
-type reducer<T> = (pa: T, act: (param: T) => void) => T;
+type reducer<TData> = (pa: TData, act: (param: TData) => void) => TData;
 
 /**
  * Hooks for manipulating Object State
  * @param init initialState
  * @returns A set function that don't need to return a value
  */
-export function useStructure<T>(init: T) {
-  return useReducer<reducer<T>, T>(
+export function useStructure<TData>(init: TData) {
+  return useReducer<reducer<TData>, TData>(
     (state, act) => {
       try {
         const target = structuredClone(state);

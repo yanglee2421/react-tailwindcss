@@ -5,8 +5,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-const queryClient = useQueryClient();
-
 function query() {
   const {
     data,
@@ -81,6 +79,8 @@ function query() {
 }
 
 function mutation() {
+  const queryClient = useQueryClient();
+
   const {
     data,
     error,
@@ -128,6 +128,27 @@ function mutation() {
   });
 }
 
+async function client() {
+  const queryClient = useQueryClient();
+
+  // to in invalidateQueries
+  queryClient.invalidateQueries({
+    // queryKey either-or predicate
+    // queryKey: [],
+    predicate(query) {
+      return query.queryKey.includes("unique");
+    },
+  });
+
+  // to get/set queryData
+  const data = queryClient.getQueryData(["todos"]);
+  queryClient.setQueryData(["todos"], (prev: unknown) => data);
+
+  // to fetch
+  await queryClient.prefetchQuery(["todos"], () => {});
+  await queryClient.fetchQuery({ queryKey: ["todos"], queryFn() {} });
+}
+
 function infiniteQuery() {
   // 除以下独有API外，还支持useQuery上所有的API
   const { fetchNextPage, fetchPreviousPage, hasNextPage, isFetchingNextPage } =
@@ -141,10 +162,4 @@ function infiniteQuery() {
         };
       },
     });
-}
-
-async function prefetchTodos() {
-  await queryClient.prefetchQuery(["todos"], () => {});
-  const data = queryClient.getQueryData(["todos"]);
-  queryClient.setQueryData(["todos"], (prev: unknown) => data);
 }

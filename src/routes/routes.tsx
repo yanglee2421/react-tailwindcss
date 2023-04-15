@@ -74,11 +74,6 @@ export const routes: RouteObject[] = [
   },
 ];
 
-/**
- * function to generate a auth
- * @param auth default for auth
- * @returns initial auth
- */
 function toLazy(callback: Parameters<typeof React.lazy>[0]) {
   const Inner = React.lazy(callback);
   return (
