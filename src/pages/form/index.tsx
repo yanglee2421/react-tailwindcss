@@ -78,13 +78,11 @@ export default function PageForm() {
   );
 }
 
-namespace t {
-  export interface props extends React.PropsWithChildren {
-    label?: string;
-  }
+interface LabelProps extends React.PropsWithChildren {
+  label?: string;
 }
 
-function Label(props: t.props) {
+function Label(props: LabelProps) {
   const cx = useStyle(style);
   const arr = React.Children.map<ReactNode, any>(props.children, (e, index) => {
     if (!e) return;

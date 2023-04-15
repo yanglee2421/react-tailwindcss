@@ -1,6 +1,6 @@
 import style from "./home.module.scss";
 import { Card } from "antd";
-import { useSignOut, useStyle } from "@/hooks";
+import { useStyle } from "@/hooks";
 import React, { useState } from "react";
 
 /**
