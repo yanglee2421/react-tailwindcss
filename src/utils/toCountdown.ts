@@ -1,8 +1,7 @@
-type Param = ConstructorParameters<typeof Date>[0];
+type Param = ConstructorParameters<typeof Date>;
 
-export function toCountdown(param: Param) {
-  const date = new Date(param);
-  console.log(date.toLocaleString());
+export function toCountdown(...param: Param) {
+  const date = new Date(...param);
   const target = date.getTime() - Date.now();
 
   const perDay = 1000 * 60 * 60 * 24;
@@ -21,7 +20,5 @@ export function toCountdown(param: Param) {
   const sec = Math.floor(restMin / perSec);
   const restSec = restMin % perSec;
 
-  const res = `${day}天/${hour}小时/${min}分/${sec}秒/${restSec}毫秒`;
-  console.log(res);
-  return res;
+  return `${day}天/${hour}小时/${min}分/${sec}秒/${restSec}毫秒`;
 }
