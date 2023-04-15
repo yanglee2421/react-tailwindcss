@@ -1,24 +1,19 @@
-type Param = ConstructorParameters<typeof Date>;
+type TargetTime = ConstructorParameters<typeof Date>;
 
-export function toCountdown(...param: Param) {
-  const date = new Date(...param);
-  const target = date.getTime() - Date.now();
+export function toCountdown(...targetTime: TargetTime) {
+  const targetDate = new Date(...targetTime);
+  const difference = targetDate.getTime() - Date.now();
 
-  const perDay = 1000 * 60 * 60 * 24;
-  const day = Math.floor(target / perDay);
-  const restDay = target % perDay;
-
-  const perHour = 1000 * 60 * 60;
-  const hour = Math.floor(restDay / perHour);
-  const restHour = restDay % perHour;
-
-  const perMin = 1000 * 60;
-  const min = Math.floor(restHour / perMin);
-  const restMin = restDay % perMin;
-
-  const perSec = 1000;
-  const sec = Math.floor(restMin / perSec);
-  const restSec = restMin % perSec;
+  const [day, restDay] = getTimeCarry(difference, 1000 * 60 * 60 * 24);
+  const [hour, restHour] = getTimeCarry(restDay, 1000 * 60 * 60);
+  const [min, restMin] = getTimeCarry(restHour, 1000 * 60);
+  const [sec, restSec] = getTimeCarry(restMin, 1000);
 
   return `${day}天/${hour}小时/${min}分/${sec}秒/${restSec}毫秒`;
+}
+
+function getTimeCarry(totalTime: number, unit: number) {
+  const time = Math.floor(totalTime / unit);
+  const restTime = totalTime % unit;
+  return [time, restTime];
 }
