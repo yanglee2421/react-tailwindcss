@@ -40,7 +40,6 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
   const isGitee = mode === "gitee";
-
   const https = isGitee && {
     key: readFileSync(resolve(__dirname, "./config/localhost+1-key.pem")),
     cert: readFileSync(resolve(__dirname, "./config/localhost+1.pem")),
