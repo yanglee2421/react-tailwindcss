@@ -1,17 +1,14 @@
 import { TinyMCE } from "@/components";
 import style from "./style.module.scss";
-import React, { useRef, useEffect, useState } from "react";
 import { useStyle } from "@/hooks";
-import { Drawer } from "antd";
+import React, { useRef, useEffect, useState } from "react";
 
 export default function MyEdit() {
   const cx = useStyle(style);
   const [html, setHtml] = useState("");
   return (
     <div className={cx("box")}>
-      <Drawer open={true} width="100vw" height="100vh" placement="top">
-        <TinyMCE value={html} onChange={setHtml} />
-      </Drawer>
+      <TinyMCE value={html} onChange={setHtml} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
-import React from "react";
 
 /**
  * Demo 页面

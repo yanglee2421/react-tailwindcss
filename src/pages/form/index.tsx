@@ -1,5 +1,5 @@
 import { useStyle } from "@/hooks";
-import React, { ReactNode } from "react";
+import React from "react";
 import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
 import { message } from "antd";
@@ -78,13 +78,15 @@ export default function PageForm() {
   );
 }
 
-interface LabelProps extends React.PropsWithChildren {
+interface LabelProps {
   label?: string;
+  children: any[];
 }
 
 function Label(props: LabelProps) {
+  const { children, ...restProps } = props;
   const cx = useStyle(style);
-  const arr = React.Children.map<ReactNode, any>(props.children, (e, index) => {
+  const arr = React.Children.map(children, (e, index) => {
     if (!e) return;
     return (
       <li key={index}>
