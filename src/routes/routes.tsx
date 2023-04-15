@@ -70,8 +70,8 @@ export const routes: RouteObject[] = [
 
 type ToLazyParams = Parameters<typeof React.lazy>;
 
-function toLazy(...callback: ToLazyParams) {
-  const Inner = React.lazy(...callback);
+function toLazy(...toLazyParams: ToLazyParams) {
+  const Inner = React.lazy(...toLazyParams);
   return (
     <React.Suspense fallback={<Skeleton active />}>
       <Inner />
