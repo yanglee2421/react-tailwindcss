@@ -20,7 +20,7 @@ export default function PageParticle() {
 
     let p: null | Particles = null;
     const timer = setTimeout(() => {
-      const bgFactory = new BgFactory();
+      const bgFactory = new BgFactory(canvas);
       p = bgFactory.particle(canvas, (box.width / 1920) * 120, 100);
       p.animate();
       p.bindEvent();

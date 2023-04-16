@@ -1,10 +1,12 @@
 import style from "./style.module.scss";
 import { useStyle, useResize, useSignIn } from "@/hooks";
-import { Particles } from "@/utils";
+import { BgFactory } from "@/utils";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useRegisterMutation, useLoginMutation } from "@/api/api-rtkq";
+
+type Particles = ReturnType<InstanceType<typeof BgFactory>["particle"]>;
 
 namespace Type {
   export interface formValue {
@@ -63,7 +65,8 @@ export default function PageLogin() {
 
     let particle: null | Particles = null;
     const timer = setTimeout(() => {
-      particle = new Particles(cvs, (box.width / 1920) * 120);
+      const bgFactory = new BgFactory(cvs);
+      particle = bgFactory.particle(cvs, (box.width / 1920) * 120);
       particle.animate();
       particle.bindEvent();
     }, 500);
