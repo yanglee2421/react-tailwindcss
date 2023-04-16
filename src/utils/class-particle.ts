@@ -53,7 +53,7 @@ export class Particles {
   constructor(
     private readonly canvas: HTMLCanvasElement,
     particleNum = 100,
-    private lineMax: number = 100
+    private lineMax = 100
   ) {
     for (let i = 0; i < particleNum; i++) {
       this.#arr.push(new Particle(this.canvas));
