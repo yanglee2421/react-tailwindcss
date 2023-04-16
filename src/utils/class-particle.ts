@@ -1,4 +1,10 @@
-import { GetRandom } from "./class-getRandom";
+class GetRandom {
+  constructor(private readonly min: number, private readonly max: number) {}
+  get() {
+    return Math.random() * (this.max - this.min) + this.min;
+  }
+}
+
 const getVelocity = new GetRandom(-1, 1);
 const getRadius = new GetRandom(2, 4);
 
