@@ -1,16 +1,60 @@
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
-import { Card } from "antd";
+import { Button, Card, Drawer, List, Modal } from "antd";
 import React, { useRef, useEffect, useState } from "react";
 
 export default function MyEdit() {
   const cx = useStyle(style);
-  const [html, setHtml] = useState("");
+  const [showDlg, setShowDlg] = useState(false);
+  const [showDrw, setShowDrw] = useState(false);
   return (
-    <div className={cx("box b-red")}>
-      <Card></Card>
-      <Card></Card>
-    </div>
+    <>
+      <Modal
+        open={showDlg}
+        onCancel={() => setShowDlg(false)}
+        title="Comparison"
+      >
+        <div className={cx("box")}>
+          <Card title="Exist">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere at
+            amet vitae unde. Tempore quae rem ipsum cupiditate dolorum culpa?
+            Harum doloribus recusandae nesciunt, laudantium quae iste ipsum
+            quibusdam. Saepe?
+          </Card>
+          <Card title="New"></Card>
+        </div>
+      </Modal>
+      <Drawer
+        open={showDrw}
+        onClose={() => setShowDrw(false)}
+        placement="top"
+        height="100%"
+        title="Detail"
+        extra={
+          <>
+            <Button>Edit</Button>
+            <Button>Create new product</Button>
+            <Button onClick={() => setShowDlg(true)}>
+              Save current product
+            </Button>
+          </>
+        }
+      ></Drawer>
+      <div className={cx("box b-red")}>
+        <Card title="Form"></Card>
+        <Card title="History">
+          <List>
+            <List.Item onClick={() => setShowDrw(true)}>label1</List.Item>
+            <List.Item>label1</List.Item>
+            <List.Item>label1</List.Item>
+            <List.Item>label1</List.Item>
+            <List.Item>label1</List.Item>
+            <List.Item>label1</List.Item>
+            <List.Item>label1</List.Item>
+          </List>
+        </Card>
+      </div>
+    </>
   );
 }
 

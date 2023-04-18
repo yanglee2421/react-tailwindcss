@@ -13,7 +13,7 @@ export default defineConfig((configEnv) => ({
   },
   css: {
     preprocessorOptions: {
-      scss: { additionalData: `@use "@/assets/index.scss" as *;` },
+      scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
     },
   },
   base: "/vite-react/",
