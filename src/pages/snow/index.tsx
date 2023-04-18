@@ -19,7 +19,7 @@ export default function PageSnow() {
 
     let snow: null | Snow = null;
     const timer = setTimeout(() => {
-      const bgFactory = new BgFactory();
+      const bgFactory = new BgFactory(canvas);
       snow = bgFactory.snow(canvas, (box.width / 1920) * 200);
       snow.animate();
     }, 500);

@@ -4,10 +4,12 @@ import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 
 // https://vitejs.dev/config/
-export default defineConfig((ConfigEnv) => ({
+export default defineConfig((configEnv) => ({
   plugins: [react()],
   resolve: {
-    alias: { "@": resolve(__dirname, "./src") },
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
   },
   css: {
     preprocessorOptions: {
@@ -16,8 +18,8 @@ export default defineConfig((ConfigEnv) => ({
   },
   base: "/vite-react/",
   envDir: resolve(__dirname, "./config"),
-  build: build(ConfigEnv),
-  server: server(ConfigEnv),
+  build: build(configEnv),
+  server: server(configEnv),
 }));
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
@@ -55,6 +57,9 @@ function server({ mode }: ConfigEnv): UserConfig["server"] {
         changeOrigin: true,
         ws: true,
       },
+    },
+    fs: {
+      allow: [".."],
     },
   };
 }

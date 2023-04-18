@@ -12,7 +12,7 @@ export const sliceAuth = createSlice({
     actSignIn(state, { payload }: PayloadAction<LoginData>) {
       state.login = payload;
     },
-    actTimer(state, { payload }: PayloadAction<NodeJS.Timeout | number>) {
+    actTimer(state, { payload }: PayloadAction<number>) {
       state.timer = payload;
     },
   },
@@ -22,7 +22,7 @@ export type LoginData = ReturnType<typeof getNullLogin>;
 
 interface State {
   login: LoginData;
-  timer: NodeJS.Timeout | number;
+  timer: number;
 }
 
 function initialState(): State {

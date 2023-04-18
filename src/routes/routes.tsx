@@ -10,9 +10,9 @@ export const routes: RouteObject[] = [
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
       {
-        path: "login",
-        element: toLazy(() => import("@/pages/login")),
-        handle: { title: "登录" },
+        path: "404",
+        element: toLazy(() => import("@/pages/404")),
+        handle: { title: "404，NotFound" },
       },
       {
         path: "",
@@ -20,9 +20,9 @@ export const routes: RouteObject[] = [
         handle: { title: "首页" },
       },
       {
-        path: "404",
-        element: toLazy(() => import("@/pages/404")),
-        handle: { title: "404，NotFound" },
+        path: "login",
+        element: toLazy(() => import("@/pages/login")),
+        handle: { title: "登录" },
       },
       {
         path: "particle",

@@ -1,14 +1,15 @@
-import { TinyMCE } from "@/components";
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
+import { Card } from "antd";
 import React, { useRef, useEffect, useState } from "react";
 
 export default function MyEdit() {
   const cx = useStyle(style);
   const [html, setHtml] = useState("");
   return (
-    <div className={cx("box")}>
-      <TinyMCE value={html} onChange={setHtml} />
+    <div className={cx("box b-red")}>
+      <Card></Card>
+      <Card></Card>
     </div>
   );
 }
