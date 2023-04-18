@@ -40,7 +40,7 @@ export default function MyEdit() {
           </>
         }
       ></Drawer>
-      <div className={cx("box b-red")}>
+      <div className={cx("box b p-1")}>
         <Card title="Form"></Card>
         <Card title="History">
           <List>
