@@ -4,7 +4,7 @@ import { App } from "./App";
 import "antd/dist/reset.css";
 import "@yanglee2421/scss";
 import { store, Provider } from "@/redux";
-import { queryClient, QueryClientProvider } from "@/api";
+import { queryClient, QueryClientProvider } from "@/api/queryClient";
 
 const root = document.querySelector("#root")!;
 ReactDOM.createRoot(root).render(
