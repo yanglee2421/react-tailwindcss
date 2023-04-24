@@ -55,11 +55,6 @@ export const routes: RouteObject[] = [
         handle: { title: "threejs" },
       },
       {
-        path: "table",
-        element: toLazy(() => import("@/pages/table")),
-        handle: { title: "表格" },
-      },
-      {
         path: "preformance",
         element: toLazy(() => import("@/pages/preformance")),
         handle: { title: "性能测试" },

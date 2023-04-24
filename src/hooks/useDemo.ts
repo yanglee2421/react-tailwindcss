@@ -6,6 +6,12 @@ import {
 } from "@tanstack/react-query";
 
 function query() {
+  const queryClient = useQueryClient();
+
+  queryClient.setQueryDefaults(["unique"], {
+    async queryFn() {},
+  });
+
   const {
     data,
     dataUpdatedAt,
@@ -33,8 +39,8 @@ function query() {
     fetchStatus,
   } = useQuery({
     queryKey: [],
-    queryFn() {
-      return Promise.resolve({ name: "" });
+    async queryFn() {
+      return { name: "" };
     },
     cacheTime: 1000 * 60 * 5,
     enabled: true,
@@ -52,10 +58,9 @@ function query() {
     placeholderData() {
       return { name: "" };
     },
-    // queryKeyHashFn either-or queryKey
-    // queryKeyHashFn(keys) {
-    //   return keys;
-    // },
+    queryKeyHashFn(keys) {
+      return keys.join();
+    },
     refetchInterval: false,
     refetchIntervalInBackground: false,
     refetchOnMount: true,
@@ -80,7 +85,11 @@ function query() {
 
 function mutation() {
   const queryClient = useQueryClient();
-
+  queryClient.setMutationDefaults(["unique"], {
+    async mutationFn() {
+      return "successly";
+    },
+  });
   const {
     data,
     error,
@@ -96,12 +105,12 @@ function mutation() {
     reset,
     status,
   } = useMutation({
-    async mutationFn() {
-      return {};
-    },
+    // async mutationFn() {
+    //   return {};
+    // },
     cacheTime: Infinity,
     // mutationKey either-or mutationFn
-    // mutationKey: "unique",
+    mutationKey: ["unique"],
     networkMode: "online",
     onError() {},
     onMutate() {},
@@ -142,7 +151,7 @@ async function client() {
 
   // to get/set queryData
   const data = queryClient.getQueryData(["todos"]);
-  queryClient.setQueryData(["todos"], (prev: unknown) => data);
+  queryClient.setQueryData(["todos"], (prev: unknown) => Object.create(null));
 
   // to fetch
   await queryClient.prefetchQuery(["todos"], () => {});
