@@ -1,14 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import style from "./style.module.scss";
-import { useStructure, useStyle } from "@/hooks";
+import { useStyle } from "@/hooks";
+
+interface Data {
+  msg: string;
+}
 
 export default function MyEdit() {
   const cx = useStyle(style);
-  // 用法
-  const [obj, setObj] = useStructure({
-    name: "孙悟空",
-  });
-  setObj((prev) => {
-    prev.name = "猪八戒";
-  });
-  return <></>;
+  const { data } = useQuery<Data>(["unique"]);
+  return <>{data?.msg}</>;
 }

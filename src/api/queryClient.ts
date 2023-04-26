@@ -9,6 +9,12 @@ export const queryClient = new QueryClient({
   },
 });
 
+queryClient.setQueryDefaults(["unique"], {
+  async queryFn() {
+    return { msg: "hello world" };
+  },
+});
+
 queryClient.setMutationDefaults(["post-demo"], {
   mutationFn() {
     return Promise.resolve({ msg: "successly" });
