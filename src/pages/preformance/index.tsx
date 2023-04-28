@@ -37,11 +37,11 @@ export default function MyEdit() {
 
   const fEl = useMemo(() => {
     return <Chd1 data={state.data1} />;
-  }, [state]);
+  }, [state.data1]);
 
   const sEl = useMemo(() => {
     return <Chd2 data={state.data2} />;
-  }, [state]);
+  }, [state.data2]);
 
   return (
     <>
