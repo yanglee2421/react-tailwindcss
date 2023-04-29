@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "types": ["node"],
+
+    // Initialized by vite
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
