@@ -1,0 +1,27 @@
+.reverse {
+  position: relative;
+}
+
+.reverse__front,
+.reverse__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transition: transform 0.3s;
+}
+
+.reverse__back {
+  transform: rotateY(-180deg);
+}
+
+.reverse__chk {
+  display: none;
+  &:checked {
+    ~ .reverse__front {
+      transform: rotateY(180deg);
+    }
+    ~ .reverse__back {
+      transform: rotateY(0);
+    }
+  }
+}
