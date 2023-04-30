@@ -1,4 +1,4 @@
-export function toLink(str: unknown, msg: string = "") {
+export function toLink(str: unknown, msg = "") {
   if (typeof str !== "string") return msg;
   if (!str) return msg;
 
