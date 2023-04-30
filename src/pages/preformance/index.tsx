@@ -14,12 +14,7 @@ export default function PagePre() {
       className={cx("h-100 box")}
     >
       <div className="b">
-        <Reverse
-          value={showBack}
-          onChange={setShowBack}
-          back={"back"}
-          className="h-100"
-        >
+        <Reverse showBack={showBack} back={"back"} className="h-100">
           <div className="b h-100">fron</div>
         </Reverse>
       </div>

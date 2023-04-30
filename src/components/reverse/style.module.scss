@@ -2,6 +2,15 @@
   position: relative;
 }
 
+.reverse--back {
+  .reverse__front {
+    transform: rotateY(180deg);
+  }
+  .reverse__back {
+    transform: rotateY(0);
+  }
+}
+
 .reverse__front,
 .reverse__back {
   position: absolute;
@@ -12,16 +21,4 @@
 
 .reverse__back {
   transform: rotateY(-180deg);
-}
-
-.reverse__chk {
-  display: none;
-  &:checked {
-    ~ .reverse__front {
-      transform: rotateY(180deg);
-    }
-    ~ .reverse__back {
-      transform: rotateY(0);
-    }
-  }
 }
