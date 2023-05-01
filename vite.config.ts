@@ -17,7 +17,7 @@ export default defineConfig((configEnv) => ({
     },
   },
   base: "/vite-react/",
-  envDir: resolve(__dirname, "./config"),
+  // envDir: resolve(__dirname, "./config"),
   build: build(configEnv),
   server: server(configEnv),
 }));
@@ -50,6 +50,7 @@ function server({ mode }: ConfigEnv): UserConfig["server"] {
   return {
     https,
     port: 5173,
+    fs: { allow: [".."] },
     proxy: {
       "/dev": {
         target: "http://127.0.0.1",
@@ -57,9 +58,6 @@ function server({ mode }: ConfigEnv): UserConfig["server"] {
         changeOrigin: true,
         ws: true,
       },
-    },
-    fs: {
-      allow: [".."],
     },
   };
 }

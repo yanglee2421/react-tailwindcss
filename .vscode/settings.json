@@ -2,6 +2,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "vite.config.ts": "index.html, tsconfig.json, tsconfig.*.json",
-    "README.md": "LICENSE, .gitignore, .prettierrc, .prettierignore"
+    "README.md": "LICENSE, .gitignore, .prettierrc, .prettierignore",
+    ".env.development": ".env.*"
   }
 }
