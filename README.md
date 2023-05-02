@@ -1,11 +1,14 @@
 # vite-react
 
-## 路由列表
+## SOLID 原则
 
-- [雪飘](https://yanglee2421.github.io/vite-react/#/snow)
-- [粒子](https://yanglee2421.github.io/vite-react/#/particle)
+1. Single Responsibility Principle
+2. OpenClosed Principle
+3. Liskov Substitution Principle
+4. Interface Segregation Principle
+5. Dependency Inversion Principle
 
-## 代码规范
+## BEM 命名
 
 - CSS
 
@@ -55,6 +58,6 @@ function useFunc() {
  * @params optional
  * @return promise
  */
-function getFunc() {}
-function postFunc() {}
+async function get_some() {}
+async function post_some() {}
 ```
