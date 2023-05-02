@@ -1,38 +1,34 @@
 import style from "./style.module.scss";
-import { Reverse } from "@/components";
 import { useStyle } from "@/hooks";
 import { Button, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useState, useContext, useMemo } from "react";
+import { Ctx } from "./utils";
+import { Counter } from "@/components";
+
+const Child2 = React.memo(Chid);
 
 export default function PagePre() {
   const cx = useStyle(style);
 
-  const [showBack, setShowBack] = useState(false);
+  const [ctxValue, setCtxValue] = useState({});
 
-  const handleModal = () => {
-    Modal.confirm({
-      title: "Title",
-      content: <>485341321</>,
-      okText: "LKJSLj",
-      cancelText: "ljlkjlj",
-      onOk() {},
-      onCancel() {},
-    });
-  };
+  const childEl = useMemo(() => {
+    return <Chid></Chid>;
+  }, []);
 
   return (
-    <div
-      onClick={(e) => setShowBack((prev) => !prev)}
-      className={cx("h-100 box")}
-    >
-      <div className="b">
-        <Reverse showBack={showBack} back={"back"} className="h-100">
-          <div className="b h-100">fron</div>
-        </Reverse>
-      </div>
-      <Button onClick={handleModal} type="text">
-        click me
-      </Button>
+    <div className={cx("h-100 box")}>
+      <button onClick={() => setCtxValue({})}>change</button>
+      <Ctx.Provider value={ctxValue}>
+        <Child2></Child2>
+      </Ctx.Provider>
     </div>
   );
+}
+
+function Chid() {
+  // const ctxValue = useContext(Ctx);
+  // console.log("ctxValue", ctxValue);
+
+  return <Counter></Counter>;
 }
