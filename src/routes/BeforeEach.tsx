@@ -10,20 +10,12 @@ import { whiteList } from "./whiteList";
 export function BeforeEach() {
   const matches = useMatches();
 
-  // Login status
-  const login = useAppSelector((state) => state.auth.login);
-
   // return routing result
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const isLogined = Boolean(login.expiration);
-    const pathname = matches.at(-1)?.pathname || "";
-    if (pathname === "/login")
-      return isLogined ? <Navigate to="/" replace /> : outlet;
-    if (isInWl(pathname)) return outlet;
-    if (isLogined) return outlet;
+    return outlet;
     return <Navigate to="/login" replace />;
-  }, [login, outlet, matches]);
+  }, [outlet, matches]);
 
   // title follows route
   useEffect(() => {

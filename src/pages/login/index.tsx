@@ -1,5 +1,5 @@
 import style from "./style.module.scss";
-import { useStyle, useResize, useSignIn } from "@/hooks";
+import { useStyle, useResize } from "@/hooks";
 import { BgFactory } from "@/utils";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Button, Card, Checkbox, Form, Input, message } from "antd";
@@ -93,13 +93,11 @@ function CardLogin(props: Type.props) {
   const [loginFn] = useLoginMutation();
   // 表单提交
   const [form] = Form.useForm();
-  const signIn = useSignIn();
   const onFinish = async (value: Type.formValue) => {
     try {
       const res = await loginFn(value).unwrap();
       const { isOk, token, username: user, invalidTime: expiration, mes } = res;
       if (isOk) {
-        signIn({ user, token, expiration }, value.remember);
         return;
       }
       message.warning(mes);
