@@ -4,7 +4,7 @@ type SetState = (state: State) => void;
 type Payload = PayloadAction<SetState>;
 
 export const login = createSlice({
-  name: "auth",
+  name: "login",
   initialState,
   reducers: {
     actSetState(state, { payload }: Payload) {

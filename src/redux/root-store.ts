@@ -1,6 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { authApi } from "@/api/api-rtkq";
+import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
 import { login } from "./slice-login";
 import {
   persistStore,
@@ -14,37 +12,33 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const rootReducers = combineReducers({
-  // [authApi.reducerPath]: authApi.reducer,
+const rootReducer = combineReducers({
   [login.name]: login.reducer,
 });
 
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    version: 1,
+    storage,
+  },
+  rootReducer
+);
+
 export const store = configureStore({
-  // reducer: {
-  //   [authApi.reducerPath]: authApi.reducer,
-  //   [login.name]: login.reducer,
-  // },
-  reducer: persistReducer(
-    {
-      key: "root",
-      version: 1,
-      storage,
-    },
-    rootReducers
-  ),
+  reducer: persistedReducer,
   middleware(getMiddleWare) {
-    return getMiddleWare().concat(authApi.middleware);
+    return getMiddleWare({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
   },
 });
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = typeof rootReducer extends Reducer<infer R, any>
+  ? R
+  : unknown;
 export type AppDispatch = typeof store.dispatch;
-
-/**
- * 设置 setupListeners 以支持以下属性
- * 1. refetchOnReconnect
- * 2. refetchOnFocus
- */
-setupListeners(store.dispatch);
