@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
-type Reducer<TData> = (pa: TData, act: (param: TData) => unknown) => TData;
+type ActFn<TData> = (param: TData) => void;
+type Reducer<TData> = (pa: TData, actFn: ActFn<TData>) => TData;
 
 /**
  * Hooks for manipulating Object State
@@ -9,12 +10,13 @@ type Reducer<TData> = (pa: TData, act: (param: TData) => unknown) => TData;
  */
 export function useStructure<TData>(state: TData) {
   return useReducer<Reducer<TData>, TData>(
-    (prev, act) => {
+    (prev, actFn) => {
       try {
         const next = structuredClone(prev);
-        return act(next) === false ? prev : next;
+        actFn(next);
+        return next;
       } catch {
-        throw new Error("useStructure can`t handle this type");
+        throw new Error("structuredClone can`t handle this type");
       }
     },
     state,

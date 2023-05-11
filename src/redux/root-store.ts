@@ -29,6 +29,11 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware(getMiddleWare) {
     return getMiddleWare({
+      /**
+       * One of the core usage principles for Redux is that
+       * you should not put non-serializable values in state or actions.
+       * However, like most rules, there are exceptions.
+       */
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },

@@ -16,16 +16,13 @@ export function useResize<T extends Element>(
       throw new Error("resizeRef必须指向一个htmlelement");
 
     let clearFn: Function | void;
-    const obverser = new ResizeObserver(
-      ([
-        {
-          contentBoxSize: [{ inlineSize: width, blockSize: height }],
-        },
-      ]) => {
-        typeof clearFn === "function" && clearFn();
-        clearFn = callback({ width, height });
-      }
-    );
+    const obverser = new ResizeObserver((entries) => {
+      const [{ contentBoxSize }] = entries;
+      const [{ inlineSize: width, blockSize: height }] = contentBoxSize;
+
+      typeof clearFn === "function" && clearFn();
+      clearFn = callback({ width, height });
+    });
     obverser.observe(dom);
 
     return () => {

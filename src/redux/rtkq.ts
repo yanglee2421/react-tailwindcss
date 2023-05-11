@@ -28,17 +28,17 @@ export const rtkq = createApi({
     return {
       // Get all
       pwdAll: build.query<Item[], Partial<ItemParams>>({
+        keepUnusedDataFor: 60 * 60,
+        providesTags: [{ type: "pwd", id: "all" }],
         query(params) {
           return {
             url: "/pwd/query",
             params,
           };
         },
-        providesTags: [{ type: "pwd", id: "all" }],
         transformResponse(res: Item[]) {
           return res;
         },
-        keepUnusedDataFor: 60 * 60,
       }),
       // Get one
       pwdOne: build.query({

@@ -1,13 +1,15 @@
 import { useReducer } from "react";
 
-type Reducer<TData> = (state: TData, act: (params: TData) => unknown) => TData;
+type ActFn<TData> = (params: TData) => void;
+type Reducer<TData> = (state: TData, actFn: ActFn<TData>) => TData;
 
 export function useObject<TData>(state: TData) {
   return useReducer<Reducer<TData>, TData>(
-    (prev, act) => {
+    (prev, actFn) => {
       try {
         const next = { ...prev };
-        return act(next) === false ? prev : next;
+        actFn(next);
+        return next;
       } catch {
         throw new Error("state muse be a simple object");
       }
