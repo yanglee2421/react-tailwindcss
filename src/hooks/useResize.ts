@@ -12,22 +12,23 @@ export function useResize<T extends Element>(
 
   useEffect(() => {
     const dom = resizeRef.current;
-    if (!(dom instanceof Element))
-      throw new Error("resizeRef必须指向一个htmlelement");
+    const isElement = dom instanceof Element;
+    if (!isElement) throw new Error("resizeRef必须指向一个htmlelement");
 
-    let clearFn: Function | void;
+    let clearFn: unknown;
     const obverser = new ResizeObserver((entries) => {
       const [{ contentBoxSize }] = entries;
       const [{ inlineSize: width, blockSize: height }] = contentBoxSize;
 
+      // Clear previos resize effect
       typeof clearFn === "function" && clearFn();
       clearFn = callback({ width, height });
     });
     obverser.observe(dom);
 
+    // Clear previos effect
     return () => {
       typeof clearFn === "function" && clearFn();
-      obverser.unobserve(dom);
       obverser.disconnect();
     };
   }, []);
