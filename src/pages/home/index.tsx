@@ -1,7 +1,6 @@
+import React, { useEffect, useRef } from "react";
 import style from "./home.module.scss";
-import { Card } from "antd";
 import { useStyle } from "@/hooks";
-import { useAppSelector } from "@/redux";
 
 /**
  * 首页
@@ -10,12 +9,18 @@ import { useAppSelector } from "@/redux";
 export default function PageHome() {
   const cx = useStyle(style);
 
-  const state = useAppSelector((state) => state);
-  console.log(state);
+  const divRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const div = divRef.current;
+    if (!div) return;
+    const observer = new ResizeObserver((entries) => {
+      console.log(entries);
+    });
+    observer.observe(div);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
-  return (
-    <div className={cx("home")}>
-      <Card></Card>
-    </div>
-  );
+  return <div ref={divRef} className={cx("home b h-100")}></div>;
 }
