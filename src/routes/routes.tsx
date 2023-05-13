@@ -1,7 +1,6 @@
 import { Navigate, RouteObject } from "react-router-dom";
-import React from "react";
-import { Skeleton } from "antd";
 import { BeforeEach } from "./BeforeEach";
+import { toLazy } from "@/utils";
 
 export const routes: RouteObject[] = [
   {
@@ -62,14 +61,3 @@ export const routes: RouteObject[] = [
     ],
   },
 ];
-
-type ToLazyParams = Parameters<typeof React.lazy>;
-
-function toLazy(...toLazyParams: ToLazyParams) {
-  const Inner = React.lazy(...toLazyParams);
-  return (
-    <React.Suspense fallback={<Skeleton active />}>
-      <Inner />
-    </React.Suspense>
-  );
-}
