@@ -52,9 +52,6 @@ function query() {
     keepPreviousData: false,
     meta: {},
     notifyOnChangeProps: ["data"],
-    onError(err) {},
-    onSettled(data, err) {},
-    onSuccess(data) {},
     placeholderData() {
       return { name: "" };
     },
