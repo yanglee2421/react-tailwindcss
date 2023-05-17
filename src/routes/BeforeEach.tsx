@@ -10,22 +10,26 @@ import { useAppSelector } from "@/redux";
 export function BeforeEach() {
   const matches = useMatches();
   const isLogined = useAppSelector((state) => state.login.isLogined);
-  console.log(matches);
+  console.log(isLogined);
 
   // return routing result
   const outlet = useOutlet();
   const route = useMemo(() => {
-    const id = matches.at(-1)?.id || "";
+    const curr = matches.at(-1);
+    if (!curr) throw new Error("error in  BeforeEach");
 
-    // Allow if the path is in the whitelist
-    const isInWl = toIsInWl(id);
+    const isInLogin = curr.id === "login";
+    if (isInLogin) return isLogined ? <Navigate to="/" /> : outlet;
+
+    // If the path is in the whitelist, let it go
+    const isInWl = toIsInWl(curr.id);
     if (isInWl) return outlet;
 
-    // Allow if user is logged in
-    if (isLogined) return outlet;
+    // If not logged in, go login
+    if (!isLogined) return <Navigate to="/login" />;
 
-    // Otherwise jump to the login page
-    return <Navigate to="/login" />;
+    // In other cases, let it go
+    return outlet;
   }, [outlet, matches, isLogined]);
 
   // title follows route
