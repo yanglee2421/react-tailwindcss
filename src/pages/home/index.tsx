@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useAppDispatch, login } from "@/redux";
 import style from "./home.module.scss";
 import { useStyle } from "@/hooks";
 
@@ -9,18 +9,14 @@ import { useStyle } from "@/hooks";
 export default function PageHome() {
   const cx = useStyle(style);
 
-  const divRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const div = divRef.current;
-    if (!div) return;
-    const observer = new ResizeObserver((entries) => {
-      console.log(entries);
-    });
-    observer.observe(div);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const disPatch = useAppDispatch();
+  const handleLogout = () => {
+    disPatch(login.actions.actSetState(false));
+  };
 
-  return <div ref={divRef} className={cx("home b h-100")}></div>;
+  return (
+    <div className={cx("home b h-100")}>
+      <button onClick={handleLogout}>log out</button>
+    </div>
+  );
 }

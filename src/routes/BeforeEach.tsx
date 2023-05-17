@@ -10,7 +10,6 @@ import { useAppSelector } from "@/redux";
 export function BeforeEach() {
   const matches = useMatches();
   const isLogined = useAppSelector((state) => state.login.isLogined);
-  console.log(isLogined);
 
   // return routing result
   const outlet = useOutlet();

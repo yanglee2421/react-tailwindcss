@@ -16,7 +16,7 @@ export default defineConfig((configEnv) => ({
       scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
     },
   },
-  base: "/vite-react/",
+  base: "/vite-react",
   // envDir: resolve(__dirname, "./config"),
   build: build(configEnv),
   server: server(configEnv),
