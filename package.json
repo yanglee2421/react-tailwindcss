@@ -16,7 +16,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.29.5",
     "@tinymce/tinymce-react": "^4.3.0",
-    "@yanglee2421/scss": "^0.0.2",
+    "@yanglee2421/scss": "^0.0.4",
     "antd": "^5.4.6",
     "axios": "^1.4.0",
     "react": "^18.2.0",
