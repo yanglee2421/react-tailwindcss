@@ -9,16 +9,19 @@ export const routes: RouteObject[] = [
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
       {
+        id: "404",
         path: "404",
         element: toLazy(() => import("@/pages/404")),
         handle: { title: "404，NotFound" },
       },
       {
         path: "",
+        id: "index",
         element: toLazy(() => import("@/pages/home")),
         handle: { title: "首页" },
       },
       {
+        id: "login",
         path: "login",
         element: toLazy(() => import("@/pages/login")),
         handle: { title: "登录" },
