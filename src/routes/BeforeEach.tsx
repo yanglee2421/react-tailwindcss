@@ -1,40 +1,61 @@
-import { useMatches, useOutlet, Navigate } from "react-router-dom";
+import {
+  useMatches,
+  useOutlet,
+  Navigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useMemo, useEffect } from "react";
 import { toIsInWl } from "./whiteList";
 import { useAppSelector } from "@/redux";
 
 /**
- * Executed before every route change
- * @returns router result
+ * Routing authentication
+ * @returns routing result
  */
 export function BeforeEach() {
+  const outlet = useOutlet();
   const matches = useMatches();
+  const [searchParams] = useSearchParams();
   const isLogined = useAppSelector((state) => state.login.isLogined);
 
   // return routing result
-  const outlet = useOutlet();
   const route = useMemo(() => {
     const curr = matches.at(-1);
-    if (!curr) throw new Error("error in  BeforeEach");
+    if (!curr) throw new Error("no any route");
 
+    // Current route is login
     const isInLogin = curr.id === "login";
-    if (isInLogin) return isLogined ? <Navigate to="/" /> : outlet;
+    if (isInLogin) {
+      const pathname = searchParams.get("redirect") || "/";
+      return isLogined ? <Navigate to={{ pathname }} /> : outlet;
+    }
 
-    // If the path is in the whitelist, let it go
+    // Current route is in the whitelist
     const isInWl = toIsInWl(curr.id);
     if (isInWl) return outlet;
 
-    // If not logged in, go login
-    if (!isLogined) return <Navigate to="/login" />;
+    // No logged, go login
+    if (!isLogined) {
+      const urlSearchParams = new URLSearchParams(searchParams);
+      urlSearchParams.set("redirect", curr.pathname);
+      const search = urlSearchParams.toString();
+      return <Navigate to={{ pathname: "/login", search }} />;
+    }
 
-    // In other cases, let it go
+    // Logged
     return outlet;
-  }, [outlet, matches, isLogined]);
+  }, [outlet, matches, searchParams, isLogined]);
 
-  // title follows route
+  // Title follows route
   useEffect(() => {
-    const title = (matches.at(-1)?.handle as any)?.title;
-    if (typeof title === "string") document.title = title;
+    const curr = matches.at(-1);
+    if (!curr) return;
+
+    const handle: any = curr.handle;
+    const title = handle?.title;
+    if (typeof title !== "string") return;
+
+    document.title = title;
   }, [matches]);
 
   return <>{route}</>;
