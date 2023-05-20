@@ -4,7 +4,7 @@ import style from "./style.module.scss";
 import img from "@/assets/image/avatar/fh.jpg";
 import { message } from "antd";
 
-export default function PageForm() {
+export function Component() {
   const cx = useStyle(style);
 
   return (

@@ -7,7 +7,7 @@ import { Counter } from "@/components";
 
 const Child2 = React.memo(Chid);
 
-export default function PagePre() {
+export function Component() {
   const cx = useStyle(style);
 
   const [ctxValue, setCtxValue] = useState({});

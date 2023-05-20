@@ -5,7 +5,7 @@ import { useStyle } from "@/hooks";
  * Demo 页面
  * @returns JSX
  */
-export default function PageBottle() {
+export function Component() {
   const cx = useStyle(style);
 
   return (

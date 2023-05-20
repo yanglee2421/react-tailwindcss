@@ -1,6 +1,6 @@
 import { login, useAppDispatch } from "@/redux";
 
-export default function PageLogin() {
+export function Component() {
   const dispatch = useAppDispatch();
   const handleLogin = () => {
     dispatch(login.actions.actSetState(true));

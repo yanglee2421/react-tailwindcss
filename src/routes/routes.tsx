@@ -1,6 +1,5 @@
 import { Navigate, RouteObject } from "react-router-dom";
 import { BeforeEach } from "./BeforeEach";
-import { toLazy } from "@/utils";
 
 export const routes: RouteObject[] = [
   {
@@ -11,55 +10,82 @@ export const routes: RouteObject[] = [
       {
         id: "404",
         path: "404",
-        element: toLazy(() => import("@/pages/404")),
         handle: { title: "404，NotFound" },
+        lazy() {
+          return import("@/pages/404");
+        },
       },
       {
-        path: "",
         id: "index",
-        element: toLazy(() => import("@/pages/home")),
+        index: true,
         handle: { title: "首页" },
+        lazy() {
+          return import("@/pages/home");
+        },
       },
       {
         id: "login",
         path: "login",
-        element: toLazy(() => import("@/pages/login")),
         handle: { title: "登录" },
+        lazy() {
+          return import("@/pages/login");
+        },
       },
       {
+        id: "particle",
         path: "particle",
-        element: toLazy(() => import("@/pages/particle")),
         handle: { title: "粒子" },
+        lazy() {
+          return import("@/pages/particle");
+        },
       },
       {
+        id: "snow",
         path: "snow",
-        element: toLazy(() => import("@/pages/snow")),
         handle: { title: "雪飘" },
+        lazy() {
+          return import("@/pages/snow");
+        },
       },
       {
+        id: "form",
         path: "form",
-        element: toLazy(() => import("@/pages/form")),
         handle: { title: "表单" },
+        lazy() {
+          return import("@/pages/form");
+        },
       },
       {
+        id: "bottle",
         path: "bottle",
-        element: toLazy(() => import("@/pages/bottle")),
         handle: { title: "水罐" },
+        lazy() {
+          return import("@/pages/bottle");
+        },
       },
       {
+        id: "magnifier",
         path: "magnifier",
-        element: toLazy(() => import("@/pages/magnifier")),
         handle: { title: "放大镜" },
+        lazy() {
+          return import("@/pages/magnifier");
+        },
       },
       {
+        id: "threejs",
         path: "threejs",
-        element: toLazy(() => import("@/pages/threejs")),
         handle: { title: "threejs" },
+        lazy() {
+          return import("@/pages/threejs");
+        },
       },
       {
+        id: "preformance",
         path: "preformance",
-        element: toLazy(() => import("@/pages/preformance")),
         handle: { title: "性能测试" },
+        lazy() {
+          return import("@/pages/preformance");
+        },
       },
     ],
   },

@@ -9,7 +9,7 @@ type Particles = ReturnType<InstanceType<typeof BgFactory>["particle"]>;
  * 粒子页面
  * @returns JSX
  */
-export default function PageParticle() {
+export function Component() {
   const cx = useStyle(style);
 
   const ctxRef = useRef<HTMLCanvasElement>(null);

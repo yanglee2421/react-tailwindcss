@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
  * 404 页面
  * @returns JSX
  */
-export default function Page404() {
+export function Component() {
   const extra = (
     <NavLink to="/">
       <Button type="primary" size="large">

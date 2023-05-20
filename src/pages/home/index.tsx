@@ -6,7 +6,7 @@ import { useStyle } from "@/hooks";
  * 首页
  * @returns JSX
  */
-export default function PageHome() {
+export function Component() {
   const cx = useStyle(style);
 
   const disPatch = useAppDispatch();

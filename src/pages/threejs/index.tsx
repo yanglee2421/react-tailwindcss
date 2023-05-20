@@ -14,7 +14,7 @@ import React, { useEffect, useId } from "react";
  * threejs 页面
  * @returns JSX
  */
-export default function PageThreejs() {
+export function Component() {
   const cn = useStyle(style);
   const uid = useId();
   useEffect(() => {

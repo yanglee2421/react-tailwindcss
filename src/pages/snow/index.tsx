@@ -8,7 +8,7 @@ import villageBg from "@/assets/image/bg/snow-village.jpg";
 
 type Snow = ReturnType<InstanceType<typeof BgFactory>["snow"]>;
 
-export default function PageSnow() {
+export function Component() {
   const cx = useStyle(style);
 
   const cvsRef = useRef<HTMLCanvasElement>(null);
