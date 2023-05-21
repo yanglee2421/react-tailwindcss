@@ -1,10 +1,11 @@
 import { Navigate, RouteObject } from "react-router-dom";
-import { BeforeEach } from "./BeforeEach";
 
 export const routes: RouteObject[] = [
   {
     path: "",
-    element: <BeforeEach />,
+    lazy() {
+      return import("./BeforeEach");
+    },
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
       {

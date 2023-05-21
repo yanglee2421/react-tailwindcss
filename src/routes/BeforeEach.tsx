@@ -12,7 +12,7 @@ import { useAppSelector } from "@/redux";
  * Routing authentication
  * @returns routing result
  */
-export function BeforeEach() {
+export function Component() {
   const outlet = useOutlet();
   const matches = useMatches();
   const [searchParams] = useSearchParams();
