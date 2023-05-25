@@ -6,4 +6,4 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { store, persistor } from "./root-store";
 export { login } from "./slice-login";
-export { Provider } from "react-redux";
+export { ReactRedux } from "./ReactRedux";
