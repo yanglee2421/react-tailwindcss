@@ -4,19 +4,40 @@ import {
   DefaultOptions,
 } from "@tanstack/react-query";
 import React from "react";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
 
-const client = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: queries(),
     mutations: mutations(),
   },
 });
 
-export function ClientProvider(props: React.PropsWithChildren) {
+// QueryClient Default query & mutation
+queryClient.setQueryDefaults(["unique"], {
+  async queryFn() {
+    return { msg: "hello world" };
+  },
+});
+queryClient.setMutationDefaults(["post-demo"], {
+  mutationFn() {
+    return Promise.resolve({ msg: "successly" });
+  },
+});
+
+// Persist queryClient by sessionStorage
+const persister = createSyncStoragePersister({ storage: sessionStorage });
+persistQueryClient({ queryClient, persister });
+
+export function ReactQuery(props: React.PropsWithChildren) {
   const { children } = props;
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 }
 
+// QueryClient config
 function queries(): DefaultOptions["queries"] {
   return {
     staleTime: 1000 * 60 * 5,

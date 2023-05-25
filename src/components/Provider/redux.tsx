@@ -56,7 +56,7 @@ const store = configureStore({
 
 const persistedStore = persistStore(store);
 
-export function ReduxProvider(props: React.PropsWithChildren) {
+export function Redux(props: React.PropsWithChildren) {
   const { children } = props;
   return (
     <Provider store={store}>
