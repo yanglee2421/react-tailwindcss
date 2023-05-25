@@ -50,7 +50,7 @@ setupListeners(store.dispatch);
 // Create persist store
 export const persistedStore = persistStore(store);
 
+export type AppDispatch = typeof store.dispatch;
 export type RootState = typeof rootReducer extends Reducer<infer R, any>
   ? R
   : unknown;
-export type AppDispatch = typeof store.dispatch;

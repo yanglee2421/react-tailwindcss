@@ -4,6 +4,5 @@ import type { AppDispatch, RootState } from "./root-store";
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export { store, persistor } from "./root-store";
-export { login } from "./slice-login";
 export { ReactRedux } from "./ReactRedux";
+export { login } from "./slice-login";
