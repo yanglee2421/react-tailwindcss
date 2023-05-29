@@ -41,12 +41,13 @@ export function Component() {
         >
           <label>Email</label>
           <input
-            type="text"
+            type="number"
             {...register("email", {
               required: {
                 value: true,
                 message: "nmsl",
               },
+              valueAsNumber: true,
             })}
           />
           {errors.email && (
