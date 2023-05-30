@@ -3,10 +3,6 @@ import style from "./home.module.scss";
 import { useStyle } from "@/hooks";
 import { useForm, Controller } from "react-hook-form";
 
-/**
- * 首页
- * @returns JSX
- */
 export function Component() {
   const cx = useStyle(style);
 
@@ -41,13 +37,17 @@ export function Component() {
         >
           <label>Email</label>
           <input
-            type="number"
+            type="text"
             {...register("email", {
               required: {
                 value: true,
                 message: "nmsl",
               },
-              valueAsNumber: true,
+              valueAsNumber: false,
+              validate(value) {
+                const isEmail = value.includes("@");
+                if (!isEmail) return "msg@";
+              },
             })}
           />
           {errors.email && (
