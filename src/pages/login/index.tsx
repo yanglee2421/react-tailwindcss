@@ -2,6 +2,8 @@ import { login, useAppDispatch } from "@/redux";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useId } from "react";
+// import { Checkbox } from "./form";
+import { ItemTell } from "./form-items";
 
 export function Component() {
   const dispatch = useAppDispatch();
@@ -18,10 +20,13 @@ export function Component() {
     handleSubmit,
     reset,
     formState: { errors },
+    control,
   } = useForm({
     defaultValues: {
       email: "",
       password: "",
+      checkbox: false,
+      tel: "",
     },
   });
 
@@ -39,10 +44,12 @@ export function Component() {
   return (
     <div className="h-100">
       <form action="#" onSubmit={handleSubmit(onSubmit)} onReset={handleReset}>
+        <ItemTell control={control}></ItemTell>
+        {/* <Checkbox control={control}></Checkbox> */}
         <div>
           <label htmlFor={emailId}>Email</label>
           <input
-            type="text"
+            type="email"
             id={emailId}
             maxLength={30}
             {...register("email", {
