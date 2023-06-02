@@ -1,8 +1,3 @@
-/**
- * 将base64下载为文件
- * @param data base64数据
- * @param filename 文件名
- */
 export function downloadBase64File(dataUrl: string, filename: string) {
   const data = base64Img2Blob(dataUrl);
   const urlBlob = URL.createObjectURL(data);
@@ -25,11 +20,6 @@ function base64Img2Blob(code: string) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
-/**
- * 加载base64图片
- * @param base64
- * @returns
- */
 export function loadImage(base64: string) {
   return new Promise((resolve, rej) => {
     const img = new Image();

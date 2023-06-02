@@ -1,7 +1,3 @@
-/**
- *
- * @returns Whether the current browser is firefox
- */
-export function toIsFirefox() {
+export function getIsFirefox() {
   return navigator.userAgent.includes("Firefox");
 }
