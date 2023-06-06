@@ -1,14 +1,8 @@
 import style from "./particle.module.scss";
 import { useStyle, useResize } from "@/hooks";
-import { BgFactory } from "@/utils";
-import React, { useRef } from "react";
+import { Particles } from "@/utils";
+import { useRef } from "react";
 
-type Particles = ReturnType<InstanceType<typeof BgFactory>["particle"]>;
-
-/**
- * 粒子页面
- * @returns JSX
- */
 export function Component() {
   const cx = useStyle(style);
 
@@ -20,10 +14,9 @@ export function Component() {
 
     let p: null | Particles = null;
     const timer = setTimeout(() => {
-      const bgFactory = new BgFactory(canvas);
-      p = bgFactory.particle(canvas, (box.width / 1920) * 120, 100);
-      p.animate();
-      p.bindEvent();
+      const particle = new Particles(canvas, (box.width / 1920) * 120, 100);
+      particle.animate();
+      particle.bindEvent();
     }, 500);
 
     return () => {

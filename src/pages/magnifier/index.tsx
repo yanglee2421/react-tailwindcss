@@ -1,5 +1,5 @@
 import { useStyle, useStructure, useResize } from "@/hooks";
-import React, { useEffect, useReducer } from "react";
+import React from "react";
 import style from "./style.module.scss";
 
 export function Component() {

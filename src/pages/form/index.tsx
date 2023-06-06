@@ -84,7 +84,7 @@ interface LabelProps {
 }
 
 function Label(props: LabelProps) {
-  const { children, ...restProps } = props;
+  const { children } = props;
   const cx = useStyle(style);
   const arr = React.Children.map(children, (e, index) => {
     if (!e) return;

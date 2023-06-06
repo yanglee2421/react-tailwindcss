@@ -9,7 +9,7 @@ import {
 } from "three";
 // antd
 import { useStyle } from "@/hooks";
-import React, { useEffect, useId } from "react";
+import { useEffect, useId } from "react";
 /**
  * threejs 页面
  * @returns JSX

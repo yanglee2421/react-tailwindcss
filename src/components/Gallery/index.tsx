@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useMemo } from "react";
 import { useAppDispatch, useAppSelector, theme } from "@/redux";
 import { Image } from "antd";

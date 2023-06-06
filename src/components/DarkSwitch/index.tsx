@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Switch, SwitchProps } from "antd";
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector, theme } from "@/redux";

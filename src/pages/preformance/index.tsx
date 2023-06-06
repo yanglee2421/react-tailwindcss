@@ -1,7 +1,6 @@
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
-import { Button, Modal } from "antd";
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState } from "react";
 import { Ctx } from "./utils";
 import { Counter } from "@/components";
 
@@ -11,10 +10,6 @@ export function Component() {
   const cx = useStyle(style);
 
   const [ctxValue, setCtxValue] = useState({});
-
-  const childEl = useMemo(() => {
-    return <Chid></Chid>;
-  }, []);
 
   return (
     <div className={cx("h-100 box")}>

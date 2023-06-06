@@ -1,12 +1,10 @@
 import style from "./style.module.scss";
 import { Layout, Switch } from "antd";
 import { useStyle, useResize } from "@/hooks";
-import { BgFactory } from "@/utils";
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import snowBg from "@/assets/image/bg/snow.jpg";
 import villageBg from "@/assets/image/bg/snow-village.jpg";
-
-type Snow = ReturnType<InstanceType<typeof BgFactory>["snow"]>;
+import { Snow } from "@/utils";
 
 export function Component() {
   const cx = useStyle(style);
@@ -19,8 +17,7 @@ export function Component() {
 
     let snow: null | Snow = null;
     const timer = setTimeout(() => {
-      const bgFactory = new BgFactory(canvas);
-      snow = bgFactory.snow(canvas, (box.width / 1920) * 200);
+      const snow = new Snow(canvas, (box.width / 1920) * 200);
       snow.animate();
     }, 500);
 

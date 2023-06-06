@@ -1,17 +1,17 @@
 import { Button, Result } from "antd";
 import { NavLink } from "react-router-dom";
 
-/**
- * 404 页面
- * @returns JSX
- */
 export function Component() {
-  const extra = (
+  const extra = <HomeLink></HomeLink>;
+  return <Result status="404" title="404" subTitle="Not Found" extra={extra} />;
+}
+
+function HomeLink() {
+  return (
     <NavLink to="/">
       <Button type="primary" size="large">
         Take me home
       </Button>
     </NavLink>
   );
-  return <Result status="404" title="404" subTitle="Not Found" extra={extra} />;
 }

@@ -45,7 +45,8 @@ export const rtkq = createApi({
         query(id) {
           return `/pwd/query/${id}`;
         },
-        providesTags(res, err, id) {
+        providesTags(...args) {
+          const id = args[2];
           return [{ type: "pwd", id }];
         },
       }),
@@ -57,7 +58,8 @@ export const rtkq = createApi({
             method: "delete",
           };
         },
-        invalidatesTags(res, err, id) {
+        invalidatesTags(...args) {
+          const id = args[2];
           return [
             { type: "pwd", id: "all" },
             { type: "pwd", id },
@@ -73,7 +75,8 @@ export const rtkq = createApi({
             body,
           };
         },
-        invalidatesTags(res, err, body) {
+        invalidatesTags(...args) {
+          const body = args[2];
           return [
             { type: "pwd", id: "all" },
             { type: "pwd", id: body.id },
