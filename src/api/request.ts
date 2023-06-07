@@ -3,12 +3,13 @@ import axios, { AxiosError } from "axios";
 export const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 1000 * 60,
-  headers: {
-    common: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  },
 });
 
-request.interceptors.request.use((config) => config);
+request.interceptors.request.use((config) => {
+  const jwt = localStorage.getItem("token");
+  config.headers.setAuthorization(`Bearer ${jwt}`);
+  return config;
+});
 request.interceptors.response.use(
   (res) => {
     const { status, statusText, data } = res;
