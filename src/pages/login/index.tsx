@@ -1,9 +1,7 @@
 import { login, useAppDispatch } from "@/redux";
-import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useId } from "react";
-// import { Checkbox } from "./form";
-import { ItemTell } from "./form-items";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 export function Component() {
   const dispatch = useAppDispatch();
@@ -11,22 +9,40 @@ export function Component() {
     dispatch(login.actions.actSetState(true));
   };
 
-  useQuery({
-    queryKey: ["unique"],
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required()
+      .email()
+      .max(30)
+      .test((v, { createError }) => {
+        if (v === "yanglee2421@gmail.com") return true;
+        return createError({ message: "Email不正确" });
+      }),
+    password: yup
+      .string()
+      .required()
+      .max(16)
+      .test((v, { createError }) => {
+        if (v === "admin") return true;
+        return createError({ message: "密码不正确" });
+      }),
   });
+  // const schema = yup.object({
+  //   email: yup.string().required().email().max(30).default("usr"),
+  //   password: yup.string().required().max(16).default("pwd"),
+  // });
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-    control,
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       email: "",
       password: "",
-      checkbox: false,
-      tel: "",
     },
   });
 
@@ -38,60 +54,25 @@ export function Component() {
     reset();
   };
 
-  const emailId = useId();
-  const pwdId = useId();
-
   return (
     <div className="h-100">
-      <form action="#" onSubmit={handleSubmit(onSubmit)} onReset={handleReset}>
-        <ItemTell control={control}></ItemTell>
-        {/* <Checkbox control={control}></Checkbox> */}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        onReset={handleReset}
+        action="#"
+        noValidate
+        className="b"
+      >
         <div>
-          <label htmlFor={emailId}>Email</label>
-          <input
-            type="email"
-            id={emailId}
-            maxLength={30}
-            {...register("email", {
-              required: {
-                value: true,
-                message: "email is required",
-              },
-              minLength: {
-                value: 8,
-                message: "字符长度在8-30位",
-              },
-              maxLength: {
-                value: 30,
-                message: "字符长度在8-30位",
-              },
-            })}
-          />
+          <label>user:</label>
+          <input type="email" maxLength={30} {...register("email")} />
           {errors.email && (
             <p className="text-danger">{errors.email.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor={pwdId}>Password</label>
-          <input
-            type="password"
-            id={pwdId}
-            maxLength={16}
-            {...register("password", {
-              required: {
-                value: true,
-                message: "pwd is required",
-              },
-              minLength: {
-                value: 8,
-                message: "字符长度在8-16位",
-              },
-              maxLength: {
-                value: 16,
-                message: "字符长度在8-16位",
-              },
-            })}
-          />
+          <label>Email:</label>
+          <input type="password" maxLength={16} {...register("password")} />
           {errors.password && (
             <p className="text-danger">{errors.password.message}</p>
           )}
