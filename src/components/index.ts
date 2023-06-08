@@ -5,3 +5,4 @@ export { Reverse } from "./reverse";
 export { withPortal } from "./withPortal";
 
 export { Counter } from "./Counter";
+export { Collapse } from "./collapse";
