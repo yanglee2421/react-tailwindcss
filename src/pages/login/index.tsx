@@ -2,6 +2,7 @@ import { login, useAppDispatch } from "@/redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useId } from "react";
 
 export function Component() {
   const dispatch = useAppDispatch();
@@ -27,6 +28,10 @@ export function Component() {
         if (v === "admin") return true;
         return createError({ message: "密码不正确" });
       }),
+    isRemember: yup.boolean().test((v, { createError }) => {
+      if (v) return true;
+      return createError({ message: "不记住你登nm" });
+    }),
   });
   // const schema = yup.object({
   //   email: yup.string().required().email().max(30).default("usr"),
@@ -43,6 +48,7 @@ export function Component() {
     defaultValues: {
       email: "",
       password: "",
+      isRemember: false,
     },
   });
 
@@ -53,6 +59,8 @@ export function Component() {
   const handleReset = () => {
     reset();
   };
+
+  const uid = useId();
 
   return (
     <div className="h-100">
@@ -75,6 +83,13 @@ export function Component() {
           <input type="password" maxLength={16} {...register("password")} />
           {errors.password && (
             <p className="text-danger">{errors.password.message}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor={uid}>IsRemember:</label>
+          <input type="checkbox" id={uid} {...register("isRemember")} />
+          {errors.isRemember && (
+            <p className="text-danger">{errors.isRemember.message}</p>
           )}
         </div>
         <div>
