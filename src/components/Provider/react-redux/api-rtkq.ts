@@ -12,7 +12,7 @@ interface Item {
   age: number;
 }
 
-export const rtkq = createApi({
+export const apiRtkq = createApi({
   reducerPath: "rtkq",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,

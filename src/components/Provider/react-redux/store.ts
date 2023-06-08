@@ -1,7 +1,7 @@
 import { configureStore, combineReducers, Reducer } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { login } from "./slice-login";
-import { rtkq } from "./rtkq";
+import { apiRtkq } from "./api-rtkq";
 
 // Redux persist
 import { persistStore } from "redux-persist";
@@ -19,7 +19,7 @@ import storage from "redux-persist/lib/storage/session";
 // Create rootReducer
 const rootReducer = combineReducers({
   [login.name]: login.reducer,
-  [rtkq.reducerPath]: rtkq.reducer,
+  [apiRtkq.reducerPath]: apiRtkq.reducer,
 });
 
 // Create persist reducer
