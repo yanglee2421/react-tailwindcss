@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { useFormCtx } from "./hooks";
+import { useFormCtx } from "./ctx-form";
 import type { Fields } from "./index";
 
 interface ItemProps {
@@ -12,15 +12,8 @@ export function ItemEmail(props: ItemProps) {
   const formCtx = useFormCtx();
   if (!formCtx) throw new Error("no provider form-ctx");
 
-  const {
-    register,
-    formState: { errors },
-  } = formCtx;
-
-  if (errors.isRemember) {
-    errors.isRemember.message;
-  }
-
+  const { register, formState } = formCtx;
+  const { errors } = formState;
   const err = errors[field];
 
   return (
@@ -38,11 +31,8 @@ export function ItemPassword(props: ItemProps) {
   const formCtx = useFormCtx();
   if (!formCtx) throw new Error("no provider form-ctx");
 
-  const {
-    register,
-    formState: { errors },
-  } = formCtx;
-
+  const { register, formState } = formCtx;
+  const { errors } = formState;
   const err = errors[field];
 
   return (
@@ -60,14 +50,11 @@ export function ItemIsRemember(props: ItemProps) {
   const formCtx = useFormCtx();
   if (!formCtx) throw new Error("no provider form-ctx");
 
-  const {
-    register,
-    formState: { errors },
-  } = formCtx;
+  const { register, formState } = formCtx;
+  const { errors } = formState;
+  const err = errors[field];
 
   const uid = useId();
-
-  const err = errors[field];
 
   return (
     <div>
