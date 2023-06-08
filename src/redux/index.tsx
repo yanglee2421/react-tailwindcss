@@ -9,7 +9,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import React from "react";
 
 // Slice
-export { login } from "./slice-login";
+export { sliceLogin } from "./slice-login";
+export { sliceTheme } from "./slice-theme";
 
 // Hooks
 type UseAppDispatch = () => AppDispatch;

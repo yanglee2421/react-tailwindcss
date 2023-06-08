@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 // Slice
-export { login } from "./slice-login";
 export { apiRtkq } from "./api-rtkq";
+export { sliceLogin } from "./slice-login";
 
 // Hooks
 type UseAppSelector = TypedUseSelectorHook<RootState>;

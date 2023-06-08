@@ -1,9 +1,7 @@
-import { configureStore, combineReducers, Reducer } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { login } from "./slice-login";
-import { apiRtkq } from "./api-rtkq";
+import { configureStore, combineReducers, Reducer } from "@reduxjs/toolkit";
 
-// Redux persist
+// Persist
 import { persistStore } from "redux-persist";
 import {
   persistReducer,
@@ -16,14 +14,18 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
-// Create rootReducer
+// Slice
+import { sliceLogin } from "./slice-login";
+import { apiRtkq } from "./api-rtkq";
+
+// Create reducer
 const rootReducer = combineReducers({
-  [login.name]: login.reducer,
   [apiRtkq.reducerPath]: apiRtkq.reducer,
+  [sliceLogin.name]: sliceLogin.reducer,
 });
 
 // Create persist reducer
-const persistedReducucer = persistReducer(
+const reducer = persistReducer(
   {
     storage,
     version: 1,
@@ -34,9 +36,14 @@ const persistedReducucer = persistReducer(
 
 // Create store
 export const store = configureStore({
-  reducer: persistedReducucer,
+  reducer,
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({
+      /**
+       * One of the core usage principles for Redux is that
+       * you should not put non-serializable values in state or actions.
+       * However, like most rules, there are exceptions.
+       */
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },

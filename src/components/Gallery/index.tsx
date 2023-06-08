@@ -1,32 +1,35 @@
-// @ts-nocheck
-import { useMemo } from "react";
-import { useAppDispatch, useAppSelector, theme } from "@/redux";
+import React, { useMemo, useState } from "react";
 import { Image } from "antd";
-import { withPortal } from "@/components";
+import { CtxGallery } from "@/hooks";
 
-export function Gallery() {
-  const { galleryIsShow, galleryList } = useAppSelector((state) => state.theme);
+interface GalleryProps extends React.PropsWithChildren {}
 
-  // Image 数组
-  const imgList = useMemo(
-    () => galleryList.map((src) => <Image key={src} src={src} />),
-    [galleryList]
-  );
+export function Gallery(props: GalleryProps) {
+  const { children } = props;
 
-  // 画廊主体
-  const dispatch = useAppDispatch();
-  const imgGroup = useMemo(() => {
-    const onVisibleChange = (vis: boolean) =>
-      dispatch(theme.actions.actGalleryIsShow(vis));
+  const [imgList, setImgList] = useState<string[]>([]);
+
+  // Preview element
+  const galleryEl = useMemo(() => {
+    const visible = !!imgList.length;
+    const onVisibleChange = (isVis: boolean) => {
+      if (isVis) return;
+      setImgList([]);
+    };
+
+    const imgEl = imgList.map((src) => <Image key={src} src={src} />);
 
     return (
-      <Image.PreviewGroup preview={{ visible: galleryIsShow, onVisibleChange }}>
-        {imgList}
+      <Image.PreviewGroup preview={{ visible, onVisibleChange }}>
+        {imgEl}
       </Image.PreviewGroup>
     );
-  }, [galleryIsShow, imgList]);
+  }, [imgList]);
 
-  return <div className="none">{imgGroup}</div>;
+  return (
+    <CtxGallery.Provider value={{ imgList }}>
+      <div className="none">{galleryEl}</div>
+      {children}
+    </CtxGallery.Provider>
+  );
 }
-
-export const GalleryWithPortal = withPortal(Gallery);

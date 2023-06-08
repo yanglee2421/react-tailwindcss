@@ -1,4 +1,4 @@
-import { useAppDispatch, login } from "@/redux";
+import { useAppDispatch, sliceLogin } from "@/redux";
 import style from "./home.module.scss";
 import { useStyle } from "@/hooks";
 
@@ -7,7 +7,7 @@ export function Component() {
 
   const disPatch = useAppDispatch();
   const handleLogout = () => {
-    disPatch(login.actions.actSetState(false));
+    disPatch(sliceLogin.actions.actSetState(false));
   };
 
   return (

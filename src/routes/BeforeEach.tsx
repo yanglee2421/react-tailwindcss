@@ -8,29 +8,24 @@ import { useMemo, useEffect } from "react";
 import { toIsInWl } from "./whiteList";
 import { useAppSelector } from "@/redux";
 
-/**
- * Routing authentication
- * @returns routing result
- */
 export function Component() {
   const outlet = useOutlet();
   const matches = useMatches();
   const [searchParams] = useSearchParams();
   const isLogined = useAppSelector((state) => state.login.isLogined);
 
-  // return routing result
-  const route = useMemo(() => {
+  const routeEl = useMemo(() => {
     const curr = matches.at(-1);
     if (!curr) throw new Error("no any route");
 
-    // Current route is login
+    // In page login
     const isInLogin = curr.id === "login";
     if (isInLogin) {
       const pathname = searchParams.get("redirect") || "/";
       return isLogined ? <Navigate to={{ pathname }} /> : outlet;
     }
 
-    // Current route is in the whitelist
+    // In whitelist
     const isInWl = toIsInWl(curr.id);
     if (isInWl) return outlet;
 
@@ -58,5 +53,5 @@ export function Component() {
     document.title = title;
   }, [matches]);
 
-  return <>{route}</>;
+  return <>{routeEl}</>;
 }

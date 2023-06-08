@@ -1,5 +1,5 @@
 import { ItemEmail, ItemPassword, ItemIsRemember } from "./form-items";
-import { login, useAppDispatch } from "@/redux";
+import { sliceLogin, useAppDispatch } from "@/redux";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ export function Component() {
 
   const handleSubmit = formReturn.handleSubmit((data: unknown) => {
     console.log(data);
-    dispatch(login.actions.actSetState(true));
+    dispatch(sliceLogin.actions.actSetState(true));
   });
 
   const [open, setOpen] = useState(false);
