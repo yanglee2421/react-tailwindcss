@@ -1,39 +1,79 @@
-import { Controller, Control } from "react-hook-form";
+import { useId } from "react";
+import { useFormCtx } from "./hooks";
+import type { Fields } from "./index";
 
-interface FieldsValue {
-  email: string;
-  password: string;
-  checkbox: boolean;
-  tel: string;
+interface ItemProps {
+  field: Fields;
 }
 
-interface ItemEmailProps {
-  control: Control<FieldsValue>;
-}
+export function ItemEmail(props: ItemProps) {
+  const { field } = props;
 
-export function ItemTell(props: ItemEmailProps) {
-  const { control } = props;
+  const formCtx = useFormCtx();
+  if (!formCtx) throw new Error("no provider form-ctx");
+
+  const {
+    register,
+    formState: { errors },
+  } = formCtx;
+
+  if (errors.isRemember) {
+    errors.isRemember.message;
+  }
+
+  const err = errors[field];
+
   return (
-    <Controller
-      name="tel"
-      control={control}
-      defaultValue=""
-      rules={{ required: "tel is required" }}
-      render={({ field, fieldState: { error } }) => {
-        return (
-          <div>
-            <input
-              type="tel"
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              ref={field.ref}
-              name={field.name}
-            />
-            {error && <p>{error.message}</p>}
-          </div>
-        );
-      }}
-    ></Controller>
+    <div>
+      <label>user:</label>
+      <input type="email" maxLength={30} {...register(field)} />
+      {err && <p className="text-danger">{err.message}</p>}
+    </div>
+  );
+}
+
+export function ItemPassword(props: ItemProps) {
+  const { field } = props;
+
+  const formCtx = useFormCtx();
+  if (!formCtx) throw new Error("no provider form-ctx");
+
+  const {
+    register,
+    formState: { errors },
+  } = formCtx;
+
+  const err = errors[field];
+
+  return (
+    <div>
+      <label>Email:</label>
+      <input type="password" maxLength={16} {...register(field)} />
+      {err && <p className="text-danger">{err.message}</p>}
+    </div>
+  );
+}
+
+export function ItemIsRemember(props: ItemProps) {
+  const { field } = props;
+
+  const formCtx = useFormCtx();
+  if (!formCtx) throw new Error("no provider form-ctx");
+
+  const {
+    register,
+    formState: { errors },
+  } = formCtx;
+
+  const uid = useId();
+
+  const err = errors[field];
+
+  return (
+    <div>
+      <label htmlFor={uid}>IsRemember:</label>
+      <input type="checkbox" id={uid} {...register(field)} />
+      {err && <p className="text-danger">{err.message}</p>}
+    </div>
   );
 }
