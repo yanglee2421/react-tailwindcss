@@ -5,26 +5,26 @@ import {
   useSelector,
 } from "react-redux";
 
-// Persist
+// Persist Imports
 import { PersistGate } from "redux-persist/integration/react";
 
-// Store
+// Store Imports
 import { store, persistor, AppDispatch, RootState } from "./root-store";
 
-// React
+// React Imports
 import React from "react";
 
-// Slice
+// Slice Exports
 export { sliceLogin } from "./slice-login";
 export { sliceTheme } from "./slice-theme";
 
-// Hooks
+// Hooks Exports
 type UseAppDispatch = () => AppDispatch;
 type UseAppSelector = TypedUseSelectorHook<RootState>;
 export const useAppDispatch: UseAppDispatch = useDispatch;
 export const useAppSelector: UseAppSelector = useSelector;
 
-// Components
+// Components Exports
 export function ReactRedux(props: React.PropsWithChildren) {
   const { children } = props;
   return (
