@@ -4,8 +4,14 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
-import { store, persistor, AppDispatch, RootState } from "./root-store";
+
+// Persist
 import { PersistGate } from "redux-persist/integration/react";
+
+// Store
+import { store, persistor, AppDispatch, RootState } from "./root-store";
+
+// React
 import React from "react";
 
 // Slice

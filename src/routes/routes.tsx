@@ -4,7 +4,7 @@ export const routes: RouteObject[] = [
   {
     path: "",
     lazy() {
-      return import("./BeforeEach");
+      return import("./before-each");
     },
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
