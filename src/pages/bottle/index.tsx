@@ -1,10 +1,6 @@
 import style from "./style.module.scss";
 import { useStyle } from "@/hooks";
 
-/**
- * Demo 页面
- * @returns JSX
- */
 export function Component() {
   const cx = useStyle(style);
 

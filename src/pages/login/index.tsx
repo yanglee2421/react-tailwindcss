@@ -4,8 +4,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { CtxForm } from "./ctx-form";
-import { Collapse } from "@/components";
-import { useState } from "react";
 
 export enum Fields {
   email = "email",
@@ -34,45 +32,24 @@ export function Component() {
 
   // Submit & reset
   const handleReset = () => formReturn.reset();
-
   const handleSubmit = formReturn.handleSubmit((data: unknown) => {
     console.log(data);
     dispatch(sliceLogin.actions.actSetState(true));
   });
 
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="h-100">
-      <label>
-        setOpen
-        <input
-          type="checkbox"
-          checked={open}
-          onChange={(e) => {
-            setOpen(e.target.checked);
-          }}
-        />
-      </label>
-      <Collapse open={open}>
-        <form
-          onSubmit={handleSubmit}
-          onReset={handleReset}
-          action="#"
-          noValidate
-          className="b"
-        >
-          <CtxForm.Provider value={{ ...formReturn }}>
-            <ItemEmail field={Fields.email}></ItemEmail>
-            <ItemPassword field={Fields.pwd}></ItemPassword>
-            <ItemIsRemember field={Fields.isChk}></ItemIsRemember>
-          </CtxForm.Provider>
-          <div>
-            <button type="submit">login</button>
-            <button type="reset">reset</button>
-          </div>
-        </form>
-      </Collapse>
+      <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
+        <CtxForm.Provider value={{ ...formReturn }}>
+          <ItemEmail field={Fields.email}></ItemEmail>
+          <ItemPassword field={Fields.pwd}></ItemPassword>
+          <ItemIsRemember field={Fields.isChk}></ItemIsRemember>
+        </CtxForm.Provider>
+        <div>
+          <button type="submit">login</button>
+          <button type="reset">reset</button>
+        </div>
+      </form>
     </div>
   );
 }
