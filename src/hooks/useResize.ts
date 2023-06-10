@@ -20,13 +20,13 @@ export function useResize<T extends Element>(
       const [{ contentBoxSize }] = entries;
       const [{ inlineSize: width, blockSize: height }] = contentBoxSize;
 
-      // Clear previos resize effect
+      // Clear Previos Resize Effect
       typeof clearFn === "function" && clearFn();
       clearFn = callback({ width, height });
     });
     obverser.observe(dom);
 
-    // Clear previos effect
+    // Clear Previos Effect
     return () => {
       typeof clearFn === "function" && clearFn();
       obverser.disconnect();

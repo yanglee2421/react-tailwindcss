@@ -18,18 +18,18 @@ export function Component() {
     const curr = matches.at(-1);
     if (!curr) throw new Error("no any route");
 
-    // In page login
+    // In Page Login
     const isInLogin = curr.id === "login";
     if (isInLogin) {
       const pathname = searchParams.get("redirect") || "/";
       return isLogined ? <Navigate to={{ pathname }} /> : outlet;
     }
 
-    // In whitelist
+    // In Whitelist
     const isInWl = toIsInWl(curr.id);
     if (isInWl) return outlet;
 
-    // No logged, go login
+    // No Logged, Go Login
     if (!isLogined) {
       const urlSearchParams = new URLSearchParams(searchParams);
       urlSearchParams.set("redirect", curr.pathname);
@@ -41,7 +41,7 @@ export function Component() {
     return outlet;
   }, [outlet, matches, searchParams, isLogined]);
 
-  // Title follows route
+  // Title Follow Route
   useEffect(() => {
     const curr = matches.at(-1);
     if (!curr) return;
