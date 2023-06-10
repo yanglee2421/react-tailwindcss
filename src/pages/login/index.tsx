@@ -3,7 +3,7 @@ import { sliceLogin, useAppDispatch } from "@/redux";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { CtxForm } from "./ctx-form";
+import { CtxForm } from "./hooks";
 
 export enum Fields {
   email = "email",
