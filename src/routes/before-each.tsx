@@ -5,7 +5,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useMemo, useEffect } from "react";
-import { toIsInWl } from "./whitelist";
+import { toIsInWl } from "./-whitelist";
 import { useAppSelector } from "@/redux";
 
 export function Component() {
