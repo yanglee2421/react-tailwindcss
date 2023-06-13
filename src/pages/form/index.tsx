@@ -35,7 +35,7 @@ export function Component() {
           <input type="time" name="time" />
           {/* 单选复选 */}
           <input type="checkbox" name="checkbox" />
-          <input type="radio" name="radio" defaultChecked value={1} />
+          <input type="radio" name="radio" defaultChecked />
           {/* 其它输入 */}
           <input type="color" name="color" defaultValue="#ffffff" />
           <input type="file" name="file" />
