@@ -27,7 +27,7 @@ export function useLoginQuery() {
     initialData() {
       return getInitData();
     },
-    initialDataUpdatedAt: 1000 * 10,
+    initialDataUpdatedAt: Date.now(),
     placeholderData() {
       const prevData = queryClient.getQueryData(["auth_login"]) as Res;
       const initData = getInitData();
