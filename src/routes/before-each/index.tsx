@@ -1,12 +1,24 @@
+import "./style.scss";
+
+// Router Imports
 import {
   useMatches,
   useOutlet,
   Navigate,
   useSearchParams,
 } from "react-router-dom";
-import { useMemo, useEffect } from "react";
-import { toIsInWl } from "./whitelist";
+
+// React Imports
+import { useMemo } from "react";
+
+// Redux Imports
 import { useAppSelector } from "@/redux";
+
+// Config Imports
+import { toIsInWl } from "@/routes/whitelist";
+
+// Hooks Imports
+import { useDocTitle, useNprogress } from "./hooks";
 
 export function Component() {
   const outlet = useOutlet();
@@ -14,6 +26,7 @@ export function Component() {
   const [searchParams] = useSearchParams();
   const isLogined = useAppSelector((state) => state.login.isLogined);
 
+  // Route Element
   const routeEl = useMemo(() => {
     const curr = matches.at(-1);
     if (!curr) throw new Error("no any route");
@@ -41,17 +54,9 @@ export function Component() {
     return outlet;
   }, [outlet, matches, searchParams, isLogined]);
 
-  // Title Follow Route
-  useEffect(() => {
-    const curr = matches.at(-1);
-    if (!curr) return;
-
-    const handle: any = curr.handle;
-    const title = handle?.title;
-    if (typeof title !== "string") return;
-
-    document.title = title;
-  }, [matches]);
+  // ** Hooks
+  useDocTitle(matches);
+  useNprogress(matches);
 
   return <>{routeEl}</>;
 }
