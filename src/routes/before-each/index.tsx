@@ -50,7 +50,7 @@ export function Component() {
       return <Navigate to={{ pathname: "/login", search }} />;
     }
 
-    // Logged
+    // ** Logged
     return outlet;
   }, [outlet, matches, searchParams, isLogined]);
 

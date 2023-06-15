@@ -1,2 +1,2 @@
-export * from "./useDocTitle";
-export * from "./useNprogress";
+export * from "./use-doc-title";
+export * from "./use-nprogress";
