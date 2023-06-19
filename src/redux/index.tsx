@@ -17,6 +17,7 @@ import React from "react";
 // Slice Exports
 export { sliceLogin } from "./slice-login";
 export { sliceTheme } from "./slice-theme";
+export { sliceDemo } from "./slice-demo";
 
 // Hooks Exports
 type UseAppDispatch = () => AppDispatch;

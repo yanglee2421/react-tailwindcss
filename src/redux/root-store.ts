@@ -13,13 +13,15 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
-// Slice
+// Slice Imports
 import { sliceLogin } from "./slice-login";
 import { sliceTheme } from "./slice-theme";
+import { sliceDemo } from "./slice-demo";
 
 const rootReducer = combineReducers({
   [sliceLogin.name]: sliceLogin.reducer,
   [sliceTheme.name]: sliceTheme.reducer,
+  [sliceDemo.name]: sliceDemo.reducer,
 });
 
 const reducer = persistReducer(

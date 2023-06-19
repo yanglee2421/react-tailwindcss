@@ -1,12 +1,12 @@
-import { useAppDispatch, sliceLogin } from "@/redux";
-
-// Style Imports
 import style from "./home.module.scss";
+
+// Redux Imports
+import { useAppDispatch, useAppSelector, sliceLogin, sliceDemo } from "@/redux";
 
 // Hooks Imports
 import { useStyle } from "@/hooks";
 // import { useLoginQuery } from "./hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 export function Component() {
@@ -24,7 +24,7 @@ export function Component() {
   //   localStorage.setItem("token", data.token);
   // }, [data]);
 
-  const [list, setList] = useState<string[]>([]);
+  const list = useAppSelector((state) => state.demo.list);
 
   const listEl = useMemo(() => {
     return list.map((item) => <li key={item}>{item}</li>);
@@ -57,11 +57,11 @@ export function Component() {
   });
 
   useEffect(() => {
-    setList((prev) => {
-      const isExist = prev.includes(data.time);
-      if (isExist) return prev;
-      return [...prev, data.time];
-    });
+    if (!data) return;
+
+    const { time } = data;
+
+    disPatch(sliceDemo.actions.listAdd(time));
   }, [data]);
 
   return (
