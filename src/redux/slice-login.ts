@@ -1,3 +1,4 @@
+// Redux Toolkit Imports
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const sliceLogin = createSlice({
@@ -10,11 +11,7 @@ export const sliceLogin = createSlice({
   },
 });
 
-interface State {
-  isLogined: boolean;
-}
-
-function initialState(): State {
+function initialState() {
   return {
     isLogined: false,
   };

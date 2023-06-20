@@ -1,7 +1,9 @@
+// Router Imports
 import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import { routes } from "./routes";
 
-export const router =
-  import.meta.env.MODE === "gitee"
-    ? createHashRouter(routes)
-    : createBrowserRouter(routes, { basename: "/vite-react" });
+const isGitee = import.meta.env.MODE === "gitee";
+
+export const router = isGitee
+  ? createHashRouter(routes)
+  : createBrowserRouter(routes, { basename: "/vite-react" });

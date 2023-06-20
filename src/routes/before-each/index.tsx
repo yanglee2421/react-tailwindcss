@@ -1,3 +1,4 @@
+// Styles Imports
 import "./style.scss";
 
 // Router Imports
@@ -7,15 +8,13 @@ import {
   Navigate,
   useSearchParams,
 } from "react-router-dom";
+import { toIsInWl } from "@/routes/whitelist";
 
 // React Imports
 import { useMemo } from "react";
 
 // Redux Imports
 import { useAppSelector } from "@/redux";
-
-// Config Imports
-import { toIsInWl } from "@/routes/whitelist";
 
 // Hooks Imports
 import { useDocTitle, useNprogress } from "./hooks";

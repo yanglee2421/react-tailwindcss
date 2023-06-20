@@ -1,6 +1,7 @@
+// Redux Toolkit Imports
 import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
 
-// Persist
+// Persist Imports
 import {
   persistStore,
   persistReducer,
@@ -18,12 +19,14 @@ import { sliceLogin } from "./slice-login";
 import { sliceTheme } from "./slice-theme";
 import { sliceDemo } from "./slice-demo";
 
+// Create Reducer
 const rootReducer = combineReducers({
   [sliceLogin.name]: sliceLogin.reducer,
   [sliceTheme.name]: sliceTheme.reducer,
   [sliceDemo.name]: sliceDemo.reducer,
 });
 
+// Create Persisted Reducer
 const reducer = persistReducer(
   {
     key: "root",
@@ -33,6 +36,7 @@ const reducer = persistReducer(
   rootReducer
 );
 
+// Create Store
 export const store = configureStore({
   reducer,
   middleware(getMiddleWare) {
@@ -44,9 +48,10 @@ export const store = configureStore({
   },
 });
 
+// Create Persisted Store
 export const persistor = persistStore(store);
 
-export type RootState = typeof rootReducer extends Reducer<infer R, any>
-  ? R
-  : unknown;
+// ** Types
+type RootReducer = typeof rootReducer;
+export type RootState = RootReducer extends Reducer<infer R, any> ? R : unknown;
 export type AppDispatch = typeof store.dispatch;

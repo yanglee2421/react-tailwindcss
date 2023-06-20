@@ -1,7 +1,8 @@
+// React Imports
 import { useEffect } from "react";
 
 // Router Imports
-import type { useMatches } from "react-router-dom";
+import { useMatches } from "react-router-dom";
 
 type Matches = ReturnType<typeof useMatches>;
 

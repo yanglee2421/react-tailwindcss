@@ -1,10 +1,11 @@
+// React Imports
 import { useEffect } from "react";
 
 // NProgress Imports
 import NProgress from "nprogress";
 
 // Router Imports
-import type { useMatches } from "react-router-dom";
+import { useMatches } from "react-router-dom";
 
 type Matches = ReturnType<typeof useMatches>;
 

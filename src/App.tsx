@@ -1,6 +1,9 @@
+// Router Imports
 import { RouterProvider } from "react-router-dom";
-import { ConfigProvider, theme } from "antd";
 import { router } from "@/routes";
+
+// Antd Imports
+import { ConfigProvider, theme } from "antd";
 
 export function App() {
   const { darkAlgorithm, defaultAlgorithm } = theme;

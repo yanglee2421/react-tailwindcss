@@ -1,3 +1,4 @@
+// Redux Toolkit Imports
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const sliceTheme = createSlice({
