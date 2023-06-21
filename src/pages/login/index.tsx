@@ -1,13 +1,20 @@
-import { ItemEmail, ItemPassword, ItemIsRemember } from "./form-items";
+// Redux Imports
 import { sliceLogin, useAppDispatch } from "@/redux";
 
 // Form Imports
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ItemEmail, ItemPassword, ItemIsRemember } from "./form-items";
 
 // Hooks Imports
 import { CtxForm } from "./hooks";
+
+// React Imports
+import React from "react";
+
+// Utils Imports
+import { toBase64 } from "@/utils";
 
 export enum Fields {
   email = "email",
@@ -41,6 +48,16 @@ export function Component() {
     dispatch(sliceLogin.actions.actSetState(true));
   });
 
+  // File Change
+  const handleChange: HandleChange = async (evt) => {
+    const { files } = evt.target;
+    if (!files) return;
+
+    const file = files[0];
+    const data = await toBase64(file);
+    console.log(data);
+  };
+
   return (
     <div className="h-100">
       <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
@@ -49,6 +66,7 @@ export function Component() {
           <ItemPassword field={Fields.pwd}></ItemPassword>
           <ItemIsRemember field={Fields.isChk}></ItemIsRemember>
         </CtxForm.Provider>
+        <input type="file" onChange={handleChange} />
         <div>
           <button type="submit">login</button>
           <button type="reset">reset</button>
@@ -57,6 +75,7 @@ export function Component() {
     </div>
   );
 }
+type HandleChange = React.ChangeEventHandler<HTMLInputElement>;
 
 // Validate fields rules
 function getSchema() {
