@@ -5,7 +5,11 @@ export function toBase64(blob: Blob) {
     const worker = new Worker();
     worker.postMessage(blob);
     worker.onmessage = (evt) => {
+      // ** Event
       const { data } = evt;
+
+      // ** Close
+      worker.terminate();
 
       // ** Reject
       if (!data) {
