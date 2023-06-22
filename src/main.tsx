@@ -1,6 +1,6 @@
 // React Imports
-import ReactDOM from "react-dom/client";
 import React from "react";
+import ReactDOM from "react-dom/client";
 
 // ** App
 import { App } from "./App";
