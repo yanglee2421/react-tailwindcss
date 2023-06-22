@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// ** App
+// App Imports
 import { App } from "./App";
 
 // Styles Imports
@@ -10,7 +10,7 @@ import "antd/dist/reset.css";
 import "@yanglee2421/scss";
 
 // Provider Imports
-import { ReactRedux } from "@/redux";
+import { ReduxProvider } from "@/redux";
 import { ReactQuery } from "@/components/-provider";
 
 // ** Element
@@ -21,10 +21,10 @@ if (!el) throw new Error("invalid element");
 const root = ReactDOM.createRoot(el);
 root.render(
   <React.StrictMode>
-    <ReactRedux>
+    <ReduxProvider>
       <ReactQuery>
         <App />
       </ReactQuery>
-    </ReactRedux>
+    </ReduxProvider>
   </React.StrictMode>
 );
