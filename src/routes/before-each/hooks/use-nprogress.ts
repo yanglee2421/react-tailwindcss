@@ -1,3 +1,6 @@
+// Styles Imports
+import "../style.scss";
+
 // React Imports
 import { useEffect } from "react";
 

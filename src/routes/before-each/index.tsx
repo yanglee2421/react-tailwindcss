@@ -1,6 +1,3 @@
-// Styles Imports
-import "./style.scss";
-
 // Router Imports
 import {
   useMatches,
@@ -20,36 +17,40 @@ import { useAppSelector } from "@/redux";
 import { useDocTitle, useNprogress } from "./hooks";
 
 export function Component() {
+  // Router Hooks
   const outlet = useOutlet();
   const matches = useMatches();
   const [searchParams] = useSearchParams();
+
+  // Redux Hooks
   const isLogined = useAppSelector((state) => state.login.isLogined);
 
-  // Route Element
-  const routeEl = useMemo(() => {
-    const curr = matches.at(-1);
-    if (!curr) throw new Error("no any route");
+  // Result Element
+  const resultEl = useMemo(() => {
+    const to = matches.at(-1);
+    if (!to) throw new Error("no any route");
 
-    // In Page Login
-    const isInLogin = curr.id === "login";
+    // To Login
+    const { id } = to;
+    const isInLogin = id === "login";
     if (isInLogin) {
       const pathname = searchParams.get("redirect") || "/";
       return isLogined ? <Navigate to={{ pathname }} /> : outlet;
     }
 
-    // In Whitelist
-    const isInWl = toIsInWl(curr.id);
+    // ** Whitelist
+    const isInWl = toIsInWl(id);
     if (isInWl) return outlet;
 
     // No Logged, Go Login
     if (!isLogined) {
       const urlSearchParams = new URLSearchParams(searchParams);
-      urlSearchParams.set("redirect", curr.pathname);
+      urlSearchParams.set("redirect", to.pathname);
       const search = urlSearchParams.toString();
       return <Navigate to={{ pathname: "/login", search }} />;
     }
 
-    // ** Logged
+    // Has Logged
     return outlet;
   }, [outlet, matches, searchParams, isLogined]);
 
@@ -57,5 +58,5 @@ export function Component() {
   useDocTitle(matches);
   useNprogress(matches);
 
-  return <>{routeEl}</>;
+  return <>{resultEl}</>;
 }
