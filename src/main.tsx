@@ -11,7 +11,7 @@ import "@yanglee2421/scss";
 
 // Provider Imports
 import { ReactRedux } from "@/redux";
-import { ReactQuery } from "@/components/provider";
+import { ReactQuery } from "@/components/-provider";
 
 // ** Element
 const el = document.querySelector("#root");
