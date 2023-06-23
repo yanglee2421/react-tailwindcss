@@ -1,6 +1,3 @@
-// Styles Imports
-import "../style.scss";
-
 // React Imports
 import { useEffect } from "react";
 
@@ -10,8 +7,6 @@ import NProgress from "nprogress";
 // Router Imports
 import { useMatches } from "react-router-dom";
 
-type Matches = ReturnType<typeof useMatches>;
-
 export function useNprogress(matches: Matches) {
   return useEffect(() => {
     NProgress.done();
@@ -20,3 +15,4 @@ export function useNprogress(matches: Matches) {
     };
   }, [matches]);
 }
+type Matches = ReturnType<typeof useMatches>;

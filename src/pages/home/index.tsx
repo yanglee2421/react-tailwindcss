@@ -65,7 +65,7 @@ export function Component() {
   }, [data]);
 
   return (
-    <div className={cx("home b h-100")}>
+    <div className={cx("home h-100")}>
       <ul> {listEl} </ul>
       <button onClick={handleLogout}>log out</button>
     </div>

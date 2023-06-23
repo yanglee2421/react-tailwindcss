@@ -1,7 +1,11 @@
+// Query Imports
 import { QueryClient, DefaultOptions } from "@tanstack/react-query";
+
+// Persist Imports
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 
+// ** QueryClient
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: queries(),
@@ -9,7 +13,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-// QueryClient Default query & mutation
+// ** Defaults
 queryClient.setQueryDefaults(["unique"], {
   async queryFn() {
     return { msg: "hello world" };
@@ -21,12 +25,12 @@ queryClient.setMutationDefaults(["post-demo"], {
   },
 });
 
-// Persist queryClient by sessionStorage
+// ** Persist
 const storage = globalThis.sessionStorage;
 const persister = createSyncStoragePersister({ storage });
 persistQueryClient({ queryClient, persister });
 
-// QueryClient config
+// ** Config
 function queries(): DefaultOptions["queries"] {
   return {
     staleTime: 1000 * 60 * 5,
