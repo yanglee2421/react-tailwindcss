@@ -7,18 +7,16 @@ export function toBase64(blob: Blob) {
     worker.onmessage = (evt) => {
       // ** Event
       const { data } = evt;
+      const { result, error } = data;
 
       // ** Close
       worker.terminate();
 
       // ** Reject
-      if (!data) {
-        const err = new Error("invalid blob");
-        return rej(err);
-      }
+      if (error) return rej(error);
 
       // ** Resolve
-      return res(data);
+      return res(result);
     };
   });
 }

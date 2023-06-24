@@ -10,10 +10,6 @@ import "antd/dist/reset.css";
 import "@yanglee2421/scss";
 import "@/assets/scss/global.scss";
 
-// Provider Imports
-import { ReduxProvider } from "@/redux";
-import { QueryProvider } from "@/api/provider";
-
 // ** Element
 const el = document.querySelector("#root");
 if (!el) throw new Error("Invalid Element!");
@@ -22,10 +18,6 @@ if (!el) throw new Error("Invalid Element!");
 const root = ReactDOM.createRoot(el);
 root.render(
   <React.StrictMode>
-    <ReduxProvider>
-      <QueryProvider>
-        <App />
-      </QueryProvider>
-    </ReduxProvider>
+    <App />
   </React.StrictMode>
 );

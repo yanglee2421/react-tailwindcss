@@ -2,16 +2,19 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/routes";
 
-// Antd Imports
-import { ConfigProvider, theme } from "antd";
+// Provider Imports
+import { ThemeProvider } from "@/theme";
+import { ReduxProvider } from "@/redux";
+import { QueryProvider } from "@/api/provider";
 
 export function App() {
-  const { darkAlgorithm, defaultAlgorithm } = theme;
-  const algorithm = false ? darkAlgorithm : defaultAlgorithm;
-
   return (
-    <ConfigProvider theme={{ algorithm }}>
-      <RouterProvider router={router} />
-    </ConfigProvider>
+    <QueryProvider>
+      <ReduxProvider>
+        <ThemeProvider>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </ReduxProvider>
+    </QueryProvider>
   );
 }
