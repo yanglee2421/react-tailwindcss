@@ -9,12 +9,12 @@ import { QueryProvider } from "@/api/provider";
 
 export function App() {
   return (
-    <QueryProvider>
-      <ReduxProvider>
+    <ReduxProvider>
+      <QueryProvider>
         <ThemeProvider>
           <RouterProvider router={router} />
         </ThemeProvider>
-      </ReduxProvider>
-    </QueryProvider>
+      </QueryProvider>
+    </ReduxProvider>
   );
 }
