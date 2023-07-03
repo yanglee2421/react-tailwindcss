@@ -10,6 +10,9 @@ import "antd/dist/reset.css";
 import "@yanglee2421/scss";
 import "@/assets/scss/global.scss";
 
+// I18n Imports
+import "@/i18n";
+
 // ** Element
 const el = document.querySelector("#root");
 if (!el) throw new Error("Invalid Element!");
