@@ -1,18 +1,15 @@
-// @ts-nocheck
+// Antd Imports
 import { Switch, SwitchProps } from "antd";
-import { useCallback } from "react";
-import { useAppDispatch, useAppSelector, theme } from "@/redux";
-/**
- * 手动切换网页黑暗模式的开关
- * @param props 同 SwitchProps
- * @returns JSX
- */
+
+// Redux Imports
+import { useAppDispatch, useAppSelector, sliceTheme } from "@/redux";
+
 export function DarkSwitch(props: SwitchProps) {
   const dispatch = useAppDispatch();
   const isDark = useAppSelector((state) => state.theme.isDark);
-  const swhChg = useCallback(
-    (params: boolean) => dispatch(theme.actions.actIsDark(params)),
-    []
-  );
+  const swhChg = (params: boolean) => {
+    const action = sliceTheme.actions.isDark(params);
+    return dispatch(action);
+  };
   return <Switch {...props} onChange={swhChg} checked={isDark} />;
 }
