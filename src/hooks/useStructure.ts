@@ -1,15 +1,8 @@
-import { useReducer } from "react";
+// React Imports
+import React, { useReducer } from "react";
 
-type ActFn<TData> = (param: TData) => void;
-type Reducer<TData> = (pa: TData, actFn: ActFn<TData>) => TData;
-
-/**
- * Hooks for manipulating Object State
- * @param init initialState
- * @returns A set function that don't need to return a value
- */
-export function useStructure<TData>(state: TData) {
-  return useReducer<Reducer<TData>, TData>(
+export function useStructure<TData>(tData: TData) {
+  return useReducer<React.Reducer<TData, React.Dispatch<TData>>, TData>(
     (prev, actFn) => {
       try {
         const next = structuredClone(prev);
@@ -19,7 +12,7 @@ export function useStructure<TData>(state: TData) {
         throw new Error("structuredClone can`t handle this type");
       }
     },
-    state,
-    (init) => init
+    tData,
+    (tData) => tData
   );
 }
