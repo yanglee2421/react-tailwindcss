@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import React from "react";
 
 // Store Imports
-import { store, persistor } from "./root-store";
+import { store, persistor } from "./redux-store";
 
 export function ReduxProvider(props: React.PropsWithChildren) {
   // ** Props
