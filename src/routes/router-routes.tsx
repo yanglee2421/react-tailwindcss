@@ -5,7 +5,7 @@ export const routes: RouteObject[] = [
   {
     path: "",
     lazy() {
-      return import("./before-each");
+      return import("./router-guard");
     },
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
@@ -71,14 +71,6 @@ export const routes: RouteObject[] = [
         handle: { title: "放大镜" },
         lazy() {
           return import("@/pages/magnifier");
-        },
-      },
-      {
-        id: "threejs",
-        path: "threejs",
-        handle: { title: "threejs" },
-        lazy() {
-          return import("@/pages/threejs");
         },
       },
       {

@@ -5,7 +5,7 @@ import {
   Navigate,
   useSearchParams,
 } from "react-router-dom";
-import { toIsInWl } from "@/routes/whitelist";
+import { toIsInWl } from "./router-whitelist";
 
 // React Imports
 import { useMemo } from "react";
@@ -14,7 +14,8 @@ import { useMemo } from "react";
 import { useAppSelector } from "@/redux";
 
 // Hooks Imports
-import { useDocTitle, useNprogress } from "./hooks";
+import { useDocTitle } from "./use-doc-title";
+import { useNprogress } from "./use-nprogress";
 
 export function Component() {
   // Router Hooks
@@ -25,8 +26,8 @@ export function Component() {
   // Redux Hooks
   const isLogined = useAppSelector((state) => state.login.isLogined);
 
-  // Result Element
-  const resultEl = useMemo(() => {
+  // Route Element
+  const routeEL = useMemo(() => {
     const to = matches.at(-1);
     if (!to) throw new Error("no any route");
 
@@ -42,7 +43,7 @@ export function Component() {
     const isInWl = toIsInWl(id);
     if (isInWl) return outlet;
 
-    // No Logged, Go Login
+    // Not Logged, Go Login
     if (!isLogined) {
       const urlSearchParams = new URLSearchParams(searchParams);
       urlSearchParams.set("redirect", to.pathname);
@@ -58,5 +59,5 @@ export function Component() {
   useDocTitle(matches);
   useNprogress(matches);
 
-  return <>{resultEl}</>;
+  return <>{routeEL}</>;
 }
