@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:nocheck": "vite build",
+    "build:live": "vite build --mode=live",
     "preview": "vite preview"
   },
   "dependencies": {

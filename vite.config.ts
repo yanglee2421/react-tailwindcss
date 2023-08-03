@@ -4,28 +4,43 @@ import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 
 // https://vitejs.dev/config/
-export default defineConfig((configEnv) => ({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "./src"),
+export default defineConfig((configEnv) => {
+  const { mode } = configEnv;
+
+  let base = "/base";
+  switch (mode) {
+    case "live":
+      base = "/dist";
+  }
+
+  return {
+    plugins: [react()],
+
+    resolve: {
+      alias: {
+        "@": resolve(__dirname, "./src"),
+      },
     },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
+    css: {
+      preprocessorOptions: {
+        scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
+      },
     },
-  },
-  base: "/dist",
-  // base: "https://zqgc2023.absen.com/wp-content/themes/shopeo-child/",
-  // envDir: resolve(__dirname, "./config"),
-  build: build(configEnv),
-  server: server(configEnv),
-}));
+
+    base,
+    // base: "https://zqgc2023.absen.com/wp-content/themes/shopeo-child/",
+    // envDir: resolve(__dirname, "./config"),
+    build: build(configEnv),
+    server: server(configEnv),
+  };
+});
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
-  const isGitee = mode === "gitee";
-  const outDir = isGitee ? "docs" : void 0;
+  let outDir = "dist";
+  switch (mode) {
+    case "live":
+      outDir = "dist";
+  }
 
   return {
     outDir,
@@ -33,14 +48,21 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
     rollupOptions: {
       output: {
         // dir: "dist",
-        // file: "res.test.js",
-        // manualChunks(id) {
-        //   const isAntd = id.includes("node_modules/antd");
-        //   if (isAntd) return "antd";
-        // },
-        entryFileNames: "index.test.js",
-        assetFileNames: "[name][extname]",
-        chunkFileNames: "[name].js",
+        manualChunks(id) {
+          const isAntd = id.includes("node_modules/antd");
+          if (isAntd) return "antd";
+        },
+        // entryFileNames: "assets/[name]-[hash].js",
+        // chunkFileNames: "assets/[name]-[hash].js",
+        // assetFileNames: "assets/[name]-[hash][extname]",
+        // Backend Integration
+        entryFileNames(chunkInfo) {
+          void chunkInfo;
+          return "assets/main.js";
+        },
+        assetFileNames(chunkInfo) {
+          return `assets/${chunkInfo.name}`;
+        },
       },
     },
     chunkSizeWarningLimit: 1000,
