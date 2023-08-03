@@ -16,7 +16,8 @@ export default defineConfig((configEnv) => ({
       scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
     },
   },
-  base: "/vite-react",
+  base: "/dist",
+  // base: "https://zqgc2023.absen.com/wp-content/themes/shopeo-child/",
   // envDir: resolve(__dirname, "./config"),
   build: build(configEnv),
   server: server(configEnv),
@@ -24,16 +25,22 @@ export default defineConfig((configEnv) => ({
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
   const isGitee = mode === "gitee";
-  const outDir = isGitee ? "docs" : "react-app";
+  const outDir = isGitee ? "docs" : void 0;
 
   return {
     outDir,
+    manifest: true,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          // const isAntd = id.includes("node_modules/antd");
-          // if (isAntd) return "antd";
-        },
+        // dir: "dist",
+        // file: "res.test.js",
+        // manualChunks(id) {
+        //   const isAntd = id.includes("node_modules/antd");
+        //   if (isAntd) return "antd";
+        // },
+        entryFileNames: "index.test.js",
+        assetFileNames: "[name][extname]",
+        chunkFileNames: "[name].js",
       },
     },
     chunkSizeWarningLimit: 1000,
