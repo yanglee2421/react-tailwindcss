@@ -16,29 +16,13 @@ import React from "react";
 // Utils Imports
 import { toBase64 } from "@/utils";
 
-export enum Fields {
-  email = "email",
-  pwd = "password",
-  isChk = "isRemember",
-}
-
-export interface FormValues {
-  [Fields.email]: string;
-  [Fields.pwd]: string;
-  [Fields.isChk]: boolean;
-}
-
 export function Component() {
   const dispatch = useAppDispatch();
 
   const schema = getSchema();
-  const formReturn = useForm<FormValues>({
+  const formReturn = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      [Fields.email]: "",
-      [Fields.pwd]: "",
-      [Fields.isChk]: false,
-    },
+    defaultValues: {},
   });
 
   // Submit & reset
@@ -57,16 +41,60 @@ export function Component() {
     const data = await toBase64(file);
     console.log(data);
   };
+  ("fd8c594e22e0f69a66e9e3a85ee8e15a");
+  ("8e42370be18688840ae1f99874dce8a1");
+
+  // const api_key = "7f60282345fe46e7dc8a811478e4cbba";
+  const api_key = "7f60282345fe46e7dc8a811478e4cbba";
+  const client_secret = "394c4c6a9ca298d413ac24f3a4e922a0";
+  const scopes = "read_products,write_products";
+  // const scopes =
+  //   "read_products,write_products,read_inventory,write_inventory,read_content,write_content";
+  // const redirect_uri = "http://localhost:5173/base/login";
+  const redirect_uri =
+    "https://api-stg.warp-driven.com/connection/shopify/auth/callback";
+  const nonce = "";
+  const option = "";
+  // const aHref = `https://woolworlds.myshopify.com/admin/oauth/authorize?client_id=${api_key}&scope=${scopes}&redirect_uri=${redirect_uri}&state=${nonce}&grant_options[]=${option}`;
+  const aHref = `https://admin.shopify.com/oauth/authorize?client_id=${api_key}&scope=${scopes}&redirect_uri=${redirect_uri}&state=${nonce}&grant_options[]=${option}`;
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const code = urlSearchParams.get("code");
+
+  console.log(Object.fromEntries(urlSearchParams.entries()));
+
+  if (code) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("code", code || "");
+    searchParams.set("client_id", api_key);
+    searchParams.set("client_secret", client_secret);
+
+    console.log(searchParams.toString());
+
+    // fetch("https://woolworlds.myshopify.com/admin/oauth/access_token", {
+    //   method: "POST",
+    //   body: searchParams,
+    // })
+    //   .then((res) => (res.ok ? res.json() : res.statusText))
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+  }
 
   return (
     <div className="h-100">
       <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
         <CtxForm.Provider value={{ ...formReturn }}>
-          <ItemEmail field={Fields.email}></ItemEmail>
-          <ItemPassword field={Fields.pwd}></ItemPassword>
-          <ItemIsRemember field={Fields.isChk}></ItemIsRemember>
+          <ItemEmail field={"email"}></ItemEmail>
+          <ItemPassword field={"pwd"}></ItemPassword>
+          <ItemIsRemember field={"isChk"}></ItemIsRemember>
         </CtxForm.Provider>
-        <input type="file" onChange={handleChange} />
+        <div>
+          <input type="file" onChange={handleChange} />
+        </div>
+        <div>
+          <a href={aHref}>shopify oauth</a>
+        </div>
         <div>
           <button type="submit">login</button>
           <button type="reset">reset</button>
