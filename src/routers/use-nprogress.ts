@@ -7,7 +7,10 @@ import NProgress from "nprogress";
 // Router Imports
 import { useMatches } from "react-router-dom";
 
-export function useNprogress(matches: Matches) {
+export function useNprogress() {
+  // Router Hooks
+  const matches = useMatches();
+
   return useEffect(() => {
     NProgress.done();
     return () => {
@@ -15,4 +18,3 @@ export function useNprogress(matches: Matches) {
     };
   }, [matches]);
 }
-type Matches = ReturnType<typeof useMatches>;

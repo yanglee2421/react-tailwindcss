@@ -27,9 +27,9 @@ export function Component() {
 
   // Submit & reset
   const handleReset = () => formReturn.reset();
-  const handleSubmit = formReturn.handleSubmit((data: unknown) => {
+  const handleSubmit = formReturn.handleSubmit((data) => {
     console.log(data);
-    dispatch(sliceLogin.actions.actSetState(true));
+    dispatch(sliceLogin.actions.islogged(true));
   });
 
   // File Change
@@ -41,8 +41,6 @@ export function Component() {
     const data = await toBase64(file);
     console.log(data);
   };
-  ("fd8c594e22e0f69a66e9e3a85ee8e15a");
-  ("8e42370be18688840ae1f99874dce8a1");
 
   // const api_key = "7f60282345fe46e7dc8a811478e4cbba";
   const api_key = "7f60282345fe46e7dc8a811478e4cbba";
@@ -61,15 +59,11 @@ export function Component() {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const code = urlSearchParams.get("code");
 
-  console.log(Object.fromEntries(urlSearchParams.entries()));
-
   if (code) {
     const searchParams = new URLSearchParams();
     searchParams.set("code", code || "");
     searchParams.set("client_id", api_key);
     searchParams.set("client_secret", client_secret);
-
-    console.log(searchParams.toString());
 
     // fetch("https://woolworlds.myshopify.com/admin/oauth/access_token", {
     //   method: "POST",
@@ -86,8 +80,8 @@ export function Component() {
       <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
         <CtxForm.Provider value={{ ...formReturn }}>
           <ItemEmail field={"email"}></ItemEmail>
-          <ItemPassword field={"pwd"}></ItemPassword>
-          <ItemIsRemember field={"isChk"}></ItemIsRemember>
+          <ItemPassword field={"passwd"}></ItemPassword>
+          <ItemIsRemember field={"isRemember"}></ItemIsRemember>
         </CtxForm.Provider>
         <div>
           <input type="file" onChange={handleChange} />
@@ -117,7 +111,7 @@ function getSchema() {
         if (v === "yanglee2421@gmail.com") return true;
         return createError({ message: "Email不正确" });
       }),
-    password: yup
+    passwd: yup
       .string()
       .required()
       .max(16)

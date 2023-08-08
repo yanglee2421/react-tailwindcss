@@ -14,7 +14,7 @@ export function Component() {
 
   const disPatch = useAppDispatch();
   const handleLogout = () => {
-    disPatch(sliceLogin.actions.actSetState(false));
+    disPatch(sliceLogin.actions.islogged(false));
   };
 
   // const { data } = useLoginQuery();

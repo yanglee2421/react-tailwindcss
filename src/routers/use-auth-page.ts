@@ -2,25 +2,32 @@
 import React, { useMemo } from "react";
 
 // Router Imports
-import { useMatches, useSearchParams, Navigate } from "react-router-dom";
-import { toIsInWhitelist } from "@/router/router-whitelist";
+import {
+  useMatches,
+  useSearchParams,
+  Navigate,
+  useOutlet,
+} from "react-router-dom";
+import { toIsInWl } from "./router-whitelist";
 
 // Redux Imports
 import { useAppSelector } from "@/redux";
 
-export function useAuthPage(outlet: React.ReactNode) {
+export function useAuthPage() {
   // Router Hooks
+  const outlet = useOutlet();
   const matches = useMatches();
   const to = matches.at(-1);
   if (!to) throw new Error("invalid routes");
+
   const { id, pathname } = to;
   const isToLogin = id === "login";
-  const isInWhitelist = toIsInWhitelist(id);
+  const isInWhitelist = toIsInWl(id);
 
   const [searchParams] = useSearchParams();
 
   // Redux Hooks
-  const isLogged = useAppSelector((s) => s.login.isLogged);
+  const isLogged = useAppSelector((s) => s.login.islogged);
 
   return useMemo(() => {
     // To Login

@@ -5,14 +5,14 @@ export const sliceLogin = createSlice({
   name: "login",
   initialState,
   reducers: {
-    actSetState(state, { payload }: PayloadAction<boolean>) {
-      state.isLogined = payload;
+    islogged(state, { payload }: PayloadAction<boolean>) {
+      state.islogged = payload;
     },
   },
 });
 
 function initialState() {
   return {
-    isLogined: false,
+    islogged: false,
   };
 }
