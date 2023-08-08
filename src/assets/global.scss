@@ -1,0 +1,31 @@
+// ** Reset
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+#root {
+  height: 100%;
+
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// ** Nprogress
+#nprogress .bar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+
+  width: 100%;
+  height: 3px;
+
+  background-color: gold;
+}

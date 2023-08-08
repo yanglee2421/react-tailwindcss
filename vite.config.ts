@@ -1,5 +1,8 @@
+// Vite Imports
 import { ConfigEnv, defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+
+// NodeJs Imports
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 
@@ -55,6 +58,7 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
         // entryFileNames: "assets/[name]-[hash].js",
         // chunkFileNames: "assets/[name]-[hash].js",
         // assetFileNames: "assets/[name]-[hash][extname]",
+
         // Backend Integration
         entryFileNames(chunkInfo) {
           void chunkInfo;
@@ -70,6 +74,7 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 }
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
+  // ** Https
   const isGitee = mode === "gitee";
   const https = isGitee && {
     key: readFileSync(resolve(__dirname, "./config/localhost+1-key.pem")),

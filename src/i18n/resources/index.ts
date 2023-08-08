@@ -1,9 +1,13 @@
-// I18n Imports
+// I18next Imports
 import { Resource } from "i18next";
-import { en } from "./en";
-import { zh } from "./zh";
+
+// Resources Imports
+import { en } from "./lng-en";
+import { zh } from "./lng-zh";
+import { fr } from "./lng-fr";
 
 export const resources: Resource = {
   en: { translation: en },
   zh: { translation: zh },
+  fr: { translation: fr },
 };
