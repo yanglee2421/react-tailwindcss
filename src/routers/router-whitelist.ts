@@ -1,4 +1,4 @@
-export const whiteList = ["login", "404"];
+export const whiteList = ["login", "list"];
 
 export const toIsInWl = (path: string) => {
   return whiteList.includes(path);
