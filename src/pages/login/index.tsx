@@ -11,10 +11,13 @@ import { ItemEmail, ItemPassword, ItemIsRemember } from "./form-items";
 import { CtxForm } from "./hooks";
 
 // React Imports
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Utils Imports
 import { toBase64 } from "@/utils";
+
+// API Imports
+import { axiosMock } from "@/api/axios-mock";
 
 export function Component() {
   const dispatch = useAppDispatch();
@@ -75,6 +78,37 @@ export function Component() {
     //   });
   }
 
+  const [joke, setJoke] = useState("");
+  useEffect(() => {
+    setJoke("");
+    const controller = new AbortController();
+    const { signal } = controller;
+    axiosMock({
+      signal,
+      url: "http://localhost:3002/redirect",
+      onDownloadProgress(progressEvent) {
+        setJoke(progressEvent.event.target.responseText);
+      },
+    });
+
+    // void (async () => {
+    //   const res = await fetch("http://localhost:3002/redirect", { signal });
+    //   const reader = res.body?.getReader();
+    //   while (reader) {
+    //     const { done, value } = await reader.read();
+    //     const textDecoder = new TextDecoder();
+    //     const text = textDecoder.decode(value);
+    //     // console.log(text);
+    //     setJoke((prev) => (prev += text));
+    //     if (done) break;
+    //   }
+    // })();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
   return (
     <div className="h-100">
       <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
@@ -94,6 +128,7 @@ export function Component() {
           <button type="reset">reset</button>
         </div>
       </form>
+      <p>{joke}</p>
     </div>
   );
 }

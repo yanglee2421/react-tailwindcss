@@ -16,6 +16,9 @@ import "@/assets/scss/global.scss";
 // I18n Imports
 import "@/i18n";
 
+// Fake Database Imports
+import "@/data";
+
 // ** Element
 const el = document.querySelector("#root");
 if (!el) throw new Error("Invalid Element!");
