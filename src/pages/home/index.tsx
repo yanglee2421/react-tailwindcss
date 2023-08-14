@@ -1,73 +1,109 @@
-import style from "./home.module.scss";
-
 // Redux Imports
-import { useAppDispatch, useAppSelector, sliceLogin, sliceDemo } from "@/redux";
+import { useAppDispatch, sliceLogin } from "@/redux";
 
-// Hooks Imports
-import { useStyle } from "@/hooks";
-// import { useLoginQuery } from "./hooks";
-import { useEffect, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+// MUI Imports
+import { styled } from "@mui/material";
+
+// React Imports
+import { useMemo, useRef } from "react";
+
+const UlStyled = styled("ul")(({ theme }) => {
+  return {
+    listStyle: "none",
+    overflow: "hidden",
+    scrollSnapType: "x mandatory",
+
+    display: "flex",
+    width: "25rem",
+    padding: 0,
+    // border: "blue dashed",
+    margin: 0,
+
+    "& > li": {
+      scrollSnapStop: "always",
+      scrollSnapAlign: "start",
+
+      flex: "0 0 25rem",
+      height: 100,
+      padding: 0,
+      border: "1px red dashed",
+      margin: 0,
+    },
+    [theme.breakpoints.down("md")]: {
+      overflow: "auto",
+    },
+  };
+});
 
 export function Component() {
-  const cx = useStyle(style);
-
-  const disPatch = useAppDispatch();
-  const handleLogout = () => {
-    disPatch(sliceLogin.actions.islogged(false));
+  const dispatch = useAppDispatch();
+  const handleLoggout = () => {
+    const action = sliceLogin.actions.islogged(false);
+    dispatch(action);
   };
 
-  // const { data } = useLoginQuery();
+  const count = 5;
+  const liEl = useMemo(() => {
+    const list = [];
+    for (let i = 0; i < count; i++) {
+      list.push(i);
+    }
 
-  // useEffect(() => {
-  //   if (!data) return;
-  //   localStorage.setItem("token", data.token);
-  // }, [data]);
-
-  const list = useAppSelector((state) => state.demo.list);
-
-  const listEl = useMemo(() => {
     return list.map((item) => <li key={item}>{item}</li>);
-  }, [list]);
+  }, [count]);
 
-  const { data } = useQuery({
-    queryKey: ["refresh"],
-    async queryFn() {
-      const time = new Date().toLocaleTimeString();
-      console.log(time);
-      return { time };
-    },
+  const dotEl = useMemo(() => {
+    const list = [];
+    for (let i = 0; i < count; i++) {
+      list.push(i);
+    }
 
-    // ** Initial
-    initialData() {
-      const time = new Date().toLocaleTimeString();
-      console.log(time);
-      return { time };
-    },
-    initialDataUpdatedAt() {
-      return Date.now();
-    },
+    return list.map((item) => {
+      const handleDotClick = () => {
+        const rootStyle = globalThis.getComputedStyle(document.documentElement);
+        const el = ulRef.current;
 
-    // ** Refetch
-    refetchInterval: 1000 * 60 * 30,
-    refetchIntervalInBackground: true,
+        el?.scroll({
+          left: item * 25 * Number.parseInt(rootStyle.fontSize),
+          behavior: "smooth",
+        });
+      };
 
-    // Stale Time
-    staleTime: 1000 * 60 * 30,
-  });
+      return <button onClick={handleDotClick}>dix-{item}</button>;
+    });
+  }, [count]);
 
-  useEffect(() => {
-    if (!data) return;
+  const ulRef = useRef<HTMLUListElement>(null);
 
-    const { time } = data;
+  const handlePrevClick = () => {
+    const el = ulRef.current;
 
-    disPatch(sliceDemo.actions.listAdd(time));
-  }, [data]);
+    const rootStyle = globalThis.getComputedStyle(document.documentElement);
+    el?.scrollBy({
+      left: -25 * Number.parseInt(rootStyle.fontSize),
+      behavior: "smooth",
+    });
+  };
+  const handleNextClick = () => {
+    const rootStyle = globalThis.getComputedStyle(document.documentElement);
+    const el = ulRef.current;
+
+    el?.scrollBy({
+      left: 25 * Number.parseInt(rootStyle.fontSize),
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div className={cx("home h-100")}>
-      <ul> {listEl} </ul>
-      <button onClick={handleLogout}>log out</button>
+    <div>
+      <button onClick={handleLoggout}>log out</button>
+      <hr />
+      <UlStyled ref={ulRef}>{liEl}</UlStyled>
+      <hr />
+      <button onClick={handlePrevClick}>prev</button>
+      <button onClick={handleNextClick}>next</button>
+      <hr />
+      {dotEl}
     </div>
   );
 }
