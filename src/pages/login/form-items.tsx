@@ -1,16 +1,17 @@
+// React Imports
 import { useId } from "react";
-import { useFormCtx } from "./hooks";
-import type { Fields } from "./index";
+
+// Form Imports
+import { useController, useFormContext } from "react-hook-form";
 
 interface ItemProps {
-  field: Fields;
+  field: string;
 }
 
 export function ItemEmail(props: ItemProps) {
   const { field } = props;
 
-  const formCtx = useFormCtx();
-  if (!formCtx) throw new Error("no provider form-ctx");
+  const formCtx = useFormContext();
 
   const { register, formState } = formCtx;
   const { errors } = formState;
@@ -28,8 +29,7 @@ export function ItemEmail(props: ItemProps) {
 export function ItemPassword(props: ItemProps) {
   const { field } = props;
 
-  const formCtx = useFormCtx();
-  if (!formCtx) throw new Error("no provider form-ctx");
+  const formCtx = useFormContext();
 
   const { register, formState } = formCtx;
   const { errors } = formState;
@@ -47,12 +47,10 @@ export function ItemPassword(props: ItemProps) {
 export function ItemIsRemember(props: ItemProps) {
   const { field } = props;
 
-  const formCtx = useFormCtx();
-  if (!formCtx) throw new Error("no provider form-ctx");
+  const { register, control } = useFormContext();
+  const { fieldState } = useController({ control, name: field });
 
-  const { register, formState } = formCtx;
-  const { errors } = formState;
-  const err = errors[field];
+  const err = fieldState.error;
 
   const uid = useId();
 
