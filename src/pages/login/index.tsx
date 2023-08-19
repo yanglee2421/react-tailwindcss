@@ -2,13 +2,10 @@
 import { sliceLogin, useAppDispatch } from "@/redux";
 
 // Form Imports
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ItemEmail, ItemPassword, ItemIsRemember } from "./form-items";
-
-// Hooks Imports
-import { CtxForm } from "./hooks";
 
 // React Imports
 import React, { useEffect, useState } from "react";
@@ -112,11 +109,11 @@ export function Component() {
   return (
     <div className="h-100">
       <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
-        <CtxForm.Provider value={{ ...formReturn }}>
-          <ItemEmail field={"email"}></ItemEmail>
-          <ItemPassword field={"passwd"}></ItemPassword>
-          <ItemIsRemember field={"isRemember"}></ItemIsRemember>
-        </CtxForm.Provider>
+        <FormProvider {...formReturn}>
+          <ItemEmail name={"email"}></ItemEmail>
+          <ItemPassword name={"passwd"}></ItemPassword>
+          <ItemIsRemember name={"isRemember"}></ItemIsRemember>
+        </FormProvider>
         <div>
           <input type="file" onChange={handleChange} />
         </div>

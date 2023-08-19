@@ -5,50 +5,47 @@ import { useId } from "react";
 import { useController, useFormContext } from "react-hook-form";
 
 interface ItemProps {
-  field: string;
+  name: string;
 }
 
 export function ItemEmail(props: ItemProps) {
-  const { field } = props;
+  const { name } = props;
 
-  const formCtx = useFormContext();
-
-  const { register, formState } = formCtx;
-  const { errors } = formState;
-  const err = errors[field];
+  const { control } = useFormContext();
+  const { field, fieldState } = useController({ control, name });
+  const { error } = fieldState;
 
   return (
     <div>
       <label>user:</label>
-      <input type="email" maxLength={30} {...register(field)} />
-      {err && <p className="text-danger">{err.message}</p>}
+      <input type="email" maxLength={30} {...field} />
+      {error && <p className="text-danger">{error.message}</p>}
     </div>
   );
 }
 
 export function ItemPassword(props: ItemProps) {
-  const { field } = props;
+  const { name } = props;
 
-  const formCtx = useFormContext();
+  const { control } = useFormContext();
+  const { field, fieldState } = useController({ control, name });
 
-  const { register, formState } = formCtx;
-  const { errors } = formState;
-  const err = errors[field];
+  const { error } = fieldState;
 
   return (
     <div>
       <label>Email:</label>
-      <input type="password" maxLength={16} {...register(field)} />
-      {err && <p className="text-danger">{err.message}</p>}
+      <input type="password" maxLength={16} {...field} />
+      {error && <p className="text-danger">{error.message}</p>}
     </div>
   );
 }
 
 export function ItemIsRemember(props: ItemProps) {
-  const { field } = props;
+  const { name } = props;
 
-  const { register, control } = useFormContext();
-  const { fieldState } = useController({ control, name: field });
+  const { control } = useFormContext();
+  const { field, fieldState } = useController({ control, name });
 
   const err = fieldState.error;
 
@@ -57,7 +54,7 @@ export function ItemIsRemember(props: ItemProps) {
   return (
     <div>
       <label htmlFor={uid}>IsRemember:</label>
-      <input type="checkbox" id={uid} {...register(field)} />
+      <input type="checkbox" id={uid} {...field} />
       {err && <p className="text-danger">{err.message}</p>}
     </div>
   );
