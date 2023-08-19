@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "@/routers";
 
 // Provider Imports
-import { ThemeProvider } from "@/themes";
+import { ThemeProvider } from "@/themes/mui";
 import { ReduxProvider } from "@/redux";
 import { QueryProvider } from "@/api/provider";
 
