@@ -9,6 +9,7 @@ import React from "react";
 
 // Antd Imports
 import { ConfigProvider } from "antd";
+import zhCN from "antd/es/locale/zh_CN";
 
 export function ThemeProvider(props: React.PropsWithChildren) {
   // ** Props
@@ -18,5 +19,9 @@ export function ThemeProvider(props: React.PropsWithChildren) {
   const { darkAlgorithm, defaultAlgorithm } = theme;
   const algorithm = false ? darkAlgorithm : defaultAlgorithm;
 
-  return <ConfigProvider theme={{ algorithm }}>{children}</ConfigProvider>;
+  return (
+    <ConfigProvider theme={{ algorithm }} locale={zhCN}>
+      {children}
+    </ConfigProvider>
+  );
 }
