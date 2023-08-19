@@ -13,6 +13,7 @@ export function ItemEmail(props: ItemProps) {
 
   const { control } = useFormContext();
   const { field, fieldState } = useController({ control, name });
+
   const { error } = fieldState;
 
   return (
@@ -47,7 +48,7 @@ export function ItemIsRemember(props: ItemProps) {
   const { control } = useFormContext();
   const { field, fieldState } = useController({ control, name });
 
-  const err = fieldState.error;
+  const { error } = fieldState;
 
   const uid = useId();
 
@@ -55,7 +56,7 @@ export function ItemIsRemember(props: ItemProps) {
     <div>
       <label htmlFor={uid}>IsRemember:</label>
       <input type="checkbox" id={uid} {...field} />
-      {err && <p className="text-danger">{err.message}</p>}
+      {error && <p className="text-danger">{error.message}</p>}
     </div>
   );
 }
