@@ -10,6 +10,7 @@ import { App } from "./App";
 
 // Styles Imports
 import "antd/dist/reset.css";
+import "@yanglee2421/scss";
 import "@/assets/scss/global.scss";
 
 // I18n Imports

@@ -21,6 +21,7 @@
     "@yanglee2421/scss": "^0.0.4",
     "antd": "^5.8.1",
     "axios": "^1.4.0",
+    "clsx": "^2.0.0",
     "i18next": "^23.4.1",
     "i18next-browser-languagedetector": "^7.1.0",
     "nprogress": "^0.2.0",
