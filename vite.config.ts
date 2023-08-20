@@ -25,6 +25,14 @@ export default defineConfig((configEnv) => {
       },
     },
 
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@yanglee2421/scss/src" as *;`,
+        },
+      },
+    },
+
     base,
     // envDir: resolve(__dirname, "./config"),
     build: build(configEnv),
