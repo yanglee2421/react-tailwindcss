@@ -81,14 +81,6 @@ export const routes: RouteObject[] = [
           return import("@/pages/preformance");
         },
       },
-      {
-        id: "list",
-        path: "list",
-        handle: { title: "列表" },
-        lazy() {
-          return import("@/pages/list");
-        },
-      },
     ],
   },
 ];

@@ -7,6 +7,3 @@ export { withPortal } from "./with-portal";
 
 export { Counter } from "./Counter";
 export { Collapse } from "./collapse";
-
-// ** Form
-export * from "./item-radio";

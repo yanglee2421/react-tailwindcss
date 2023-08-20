@@ -13,6 +13,6 @@ export const sliceLogin = createSlice({
 
 function initialState() {
   return {
-    islogged: false,
+    islogged: true,
   };
 }
