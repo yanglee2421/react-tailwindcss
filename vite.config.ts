@@ -24,14 +24,8 @@ export default defineConfig((configEnv) => {
         "@": resolve(__dirname, "./src"),
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: { additionalData: `@use "@yanglee2421/scss/src" as *;` },
-      },
-    },
 
     base,
-    // base: "https://zqgc2023.absen.com/wp-content/themes/shopeo-child/",
     // envDir: resolve(__dirname, "./config"),
     build: build(configEnv),
     server: server(configEnv),
@@ -47,29 +41,16 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 
   return {
     outDir,
-    manifest: true,
+    manifest: false,
+    chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
-        // dir: "dist",
         manualChunks(id) {
           const isAntd = id.includes("node_modules/antd");
           if (isAntd) return "antd";
         },
-        // entryFileNames: "assets/[name]-[hash].js",
-        // chunkFileNames: "assets/[name]-[hash].js",
-        // assetFileNames: "assets/[name]-[hash][extname]",
-
-        // Backend Integration
-        entryFileNames(chunkInfo) {
-          void chunkInfo;
-          return "assets/main.js";
-        },
-        assetFileNames(chunkInfo) {
-          return `assets/${chunkInfo.name}`;
-        },
       },
     },
-    chunkSizeWarningLimit: 1000,
   };
 }
 
