@@ -1,6 +1,3 @@
-// Vite Imports
-import "vite/modulepreload-polyfill";
-
 // React Imports
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -16,14 +13,23 @@ import "@/assets/scss/global.scss";
 // I18n Imports
 import "@/i18n";
 
-// ** Element
-const el = document.querySelector("#root");
-if (!el) throw new Error("Invalid Element!");
+// Fake Database Imports
+import "@/data";
 
-// ** Root
-const root = ReactDOM.createRoot(el);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// HTML Element
+const el = document.querySelector("#root");
+bootstrap(el);
+
+function bootstrap(el: Element | null) {
+  if (!el) {
+    console.error("Invalid Element");
+    return;
+  }
+
+  // React Root
+  ReactDOM.createRoot(el).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}

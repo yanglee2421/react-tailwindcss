@@ -4,17 +4,12 @@ import react from "@vitejs/plugin-react-swc";
 
 // NodeJs Imports
 import { resolve } from "node:path";
-import { readFileSync } from "node:fs";
+// import { readFileSync } from "node:fs";
 
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
   const { mode } = configEnv;
-
-  let base = "/base";
-  switch (mode) {
-    case "live":
-      base = "/dist";
-  }
+  void mode;
 
   return {
     plugins: [react()],
@@ -33,7 +28,7 @@ export default defineConfig((configEnv) => {
       },
     },
 
-    base,
+    base: "/vite-react",
     // envDir: resolve(__dirname, "./config"),
     build: build(configEnv),
     server: server(configEnv),
@@ -41,14 +36,10 @@ export default defineConfig((configEnv) => {
 });
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
-  let outDir = "dist";
-  switch (mode) {
-    case "live":
-      outDir = "dist";
-  }
+  void mode;
 
   return {
-    outDir,
+    outDir: "dist",
     manifest: false,
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
@@ -63,23 +54,20 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 }
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
-  // ** Https
-  const isGitee = mode === "gitee";
-  const https = isGitee && {
-    key: readFileSync(resolve(__dirname, "./config/localhost+1-key.pem")),
-    cert: readFileSync(resolve(__dirname, "./config/localhost+1.pem")),
-  };
+  void mode;
 
   return {
-    https,
-    port: 5173,
+    https: false,
     fs: { allow: [".."] },
+    port: 5173,
     proxy: {
       "/dev": {
-        target: "http://127.0.0.1",
-        rewrite: (path) => path.replace(/^\/dev/, ""),
-        changeOrigin: true,
         ws: true,
+        changeOrigin: true,
+        target: "http://127.0.0.1",
+        rewrite(path) {
+          return path.replace(/^\/dev/, "");
+        },
       },
     },
   };
