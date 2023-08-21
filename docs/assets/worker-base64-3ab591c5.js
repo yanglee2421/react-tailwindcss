@@ -1,0 +1,1 @@
+(function(){"use strict";self.onmessage=o=>{const{data:a}=o,s=new FileReader;s.readAsDataURL(a),s.onload=t=>{var e;const r=(e=t.target)==null?void 0:e.result;if(!r){const n=new Error("Invalid Data!");return self.postMessage({error:n})}return self.postMessage({result:r})},s.onerror=t=>{var e;const r=(e=t.target)==null?void 0:e.error;return self.postMessage({error:r})}}})();

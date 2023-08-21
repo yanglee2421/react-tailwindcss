@@ -39,7 +39,7 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
   void mode;
 
   return {
-    outDir: "dist",
+    outDir: "docs",
     manifest: false,
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
