@@ -4,4 +4,7 @@ export { useStructure } from "./useStructure";
 export { useStyle } from "./useStyle";
 export { useObject } from "./useObject";
 export { useResizeEffect } from "./useResizeEffect";
-export * from "./useCtxGallery";
+
+// Demo Query
+export * from "./use-demo-get";
+export * from "./use-demo-post";
