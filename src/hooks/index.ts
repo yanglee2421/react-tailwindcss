@@ -6,5 +6,4 @@ export { useObject } from "./useObject";
 export { useResizeEffect } from "./useResizeEffect";
 
 // Demo Query
-export * from "./use-demo-get";
 export * from "./use-demo-post";

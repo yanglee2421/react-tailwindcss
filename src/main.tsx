@@ -14,7 +14,7 @@ import "@/assets/scss/global.scss";
 import "@/i18n";
 
 // Fake Database Imports
-import "@/data";
+import "@/api/fakedb";
 
 // HTML Element
 const el = document.querySelector("#root");
