@@ -1,0 +1,1 @@
+import{r as u}from"./antd-756ea8ee.js";function p(t){return u.useCallback(i(t),[t])}function i(t){const e=r=>r.map(n=>t[n]||n).join(" ")+" ";return r=>{if(Array.isArray(r))return e(r);if(typeof r=="string"){const o=r.replace(/ +/g,",").split(",");return e(o)}const n=Object.keys(r).filter(o=>r[o]);return e(n)}}export{p as u};

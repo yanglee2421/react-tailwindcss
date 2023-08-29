@@ -23,7 +23,7 @@ export default defineConfig((configEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@yanglee2421/scss/src" as *;`,
+          additionalData: `@use "@/assets/scss" as *;`,
         },
       },
       modules: {

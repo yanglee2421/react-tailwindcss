@@ -18,7 +18,7 @@ export const Home = () => {
   const usr = useAppSelector((s) => s.login.usr);
 
   const handleSignOut = () => {
-    const action = sliceLogin.actions.islogged(false);
+    const action = sliceLogin.actions.usr(null);
     dispatch(action);
   };
 

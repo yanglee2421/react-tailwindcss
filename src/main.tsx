@@ -7,8 +7,8 @@ import { App } from "./App";
 
 // Styles Imports
 import "antd/dist/reset.css";
-import "@yanglee2421/scss";
 import "@/assets/scss/global.scss";
+import "@/assets/css/style.css";
 
 // I18n Imports
 import "@/i18n";

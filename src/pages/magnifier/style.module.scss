@@ -1,6 +1,7 @@
 .box {
-  @extend .h-100, .overflow-hidden;
   position: relative;
+  overflow: hidden;
+  height: 100%;
 }
 .outer {
   position: absolute;
