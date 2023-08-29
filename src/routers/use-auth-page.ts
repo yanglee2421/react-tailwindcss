@@ -17,32 +17,31 @@ export function useAuthPage() {
   // Router Hooks
   const outlet = useOutlet();
   const matches = useMatches();
-  const to = matches.at(-1);
-  if (!to) throw new Error("invalid routes");
-
-  const { id, pathname } = to;
-  const isToLogin = id === "login";
-  const isInWhitelist = toIsInWl(id);
-
   const [searchParams] = useSearchParams();
 
+  const nextRoute = matches[matches.length - 1];
+
   // Redux Hooks
-  const isLogged = useAppSelector((s) => s.login.islogged);
+  const usr = useAppSelector((s) => s.login.usr);
 
   return useMemo(() => {
+    const { id, pathname } = nextRoute;
+
     // To Login
+    const isToLogin = id === "login";
     if (isToLogin) {
       const returnURL = searchParams.get("returnURL");
       const goPath = returnURL || "/";
-      if (isLogged) return React.createElement(Navigate, { to: goPath });
+      if (usr) return React.createElement(Navigate, { to: goPath });
       return outlet;
     }
 
     // To Whitelist
+    const isInWhitelist = toIsInWl(id);
     if (isInWhitelist) return outlet;
 
     // Has Logged
-    if (isLogged) return outlet;
+    if (usr) return outlet;
 
     // Not Logged
     const urlSearchParams = new URLSearchParams();
@@ -51,5 +50,5 @@ export function useAuthPage() {
     const to = { pathname: "/login", search };
 
     return React.createElement(Navigate, { to });
-  }, [outlet, isToLogin, isInWhitelist, isLogged, pathname, searchParams]);
+  }, [outlet, matches, searchParams, usr]);
 }

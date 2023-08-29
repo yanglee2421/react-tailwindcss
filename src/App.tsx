@@ -6,13 +6,16 @@ import { router } from "@/routers";
 import { ThemeProvider } from "@/themes";
 import { ReduxProvider } from "@/redux";
 import { QueryProvider } from "@/api/provider";
+import { AclProvider } from "@/configs/acl";
 
 export function App() {
   return (
     <ReduxProvider>
       <QueryProvider>
         <ThemeProvider>
-          <RouterProvider router={router} />
+          <AclProvider>
+            <RouterProvider router={router} />
+          </AclProvider>
         </ThemeProvider>
       </QueryProvider>
     </ReduxProvider>

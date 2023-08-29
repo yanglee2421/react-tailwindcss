@@ -7,9 +7,11 @@ export const sliceLogin = createSlice({
   reducers: {
     islogged(state, { payload }: PayloadAction<boolean>) {
       state.islogged = payload;
+      if (payload) return;
+      state.usr = null;
     },
-    role(state, { payload }: PayloadAction<"admin" | "client">) {
-      state.role = payload;
+    usr(state, { payload }: PayloadAction<Usr | null>) {
+      state.usr = payload;
     },
   },
 });
@@ -17,11 +19,15 @@ export const sliceLogin = createSlice({
 function initialState(): State {
   return {
     islogged: false,
-    role: "client",
+    usr: null,
   };
 }
 
 interface State {
   islogged: boolean;
-  role: "admin" | "client";
+  usr: Usr | null;
+}
+
+interface Usr {
+  role: string;
 }

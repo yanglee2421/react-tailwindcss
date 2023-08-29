@@ -3,7 +3,7 @@ import styles from "./home.module.scss";
 import clsx from "clsx";
 
 // Redux Imports
-import { useAppDispatch, sliceLogin } from "@/redux";
+import { useAppDispatch, sliceLogin, useAppSelector } from "@/redux";
 
 // Antd Imports
 import { Typography, Layout, Button } from "antd";
@@ -11,14 +11,18 @@ import { Typography, Layout, Button } from "antd";
 // Theme Imports
 import { ThemeToggle } from "@/themes";
 
+import { useAcl } from "@/configs/acl";
+
 export const Home = () => {
   const dispatch = useAppDispatch();
+  const usr = useAppSelector((s) => s.login.usr);
+
   const handleSignOut = () => {
     const action = sliceLogin.actions.islogged(false);
     dispatch(action);
   };
 
-  console.log(styles);
+  const ability = useAcl();
 
   return (
     <Layout className={clsx(styles.home)}>
@@ -28,7 +32,9 @@ export const Home = () => {
           Sign Out
         </Button>
       </div>
-      <Typography>home</Typography>
+      <Typography.Title>home</Typography.Title>
+      <Typography.Text>{usr?.role}</Typography.Text>
+      {ability.can("update", "Article") && "Has permissions"}
     </Layout>
   );
 };
