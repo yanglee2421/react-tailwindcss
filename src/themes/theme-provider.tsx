@@ -1,6 +1,3 @@
-// Theme Imports
-import { theme } from "./theme";
-
 // React Imports
 import React from "react";
 
@@ -8,7 +5,7 @@ import React from "react";
 import { useAppSelector } from "@/redux";
 
 // Antd Imports
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 
 export function ThemeProvider(props: React.PropsWithChildren) {

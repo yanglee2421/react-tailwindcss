@@ -15,9 +15,7 @@ export function Component() {
   const dispatch = useAppDispatch();
 
   const handleSignIn = (role: "admin" | "client") => {
-    const action = sliceLogin.actions.islogged(true);
     const roleAction = sliceLogin.actions.usr({ role });
-    dispatch(action);
     dispatch(roleAction);
   };
 
