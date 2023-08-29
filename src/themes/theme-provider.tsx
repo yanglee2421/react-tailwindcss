@@ -5,7 +5,7 @@ import { theme } from "./theme";
 import React from "react";
 
 // Redux Imports
-// import {} from ''
+import { useAppSelector } from "@/redux";
 
 // Antd Imports
 import { ConfigProvider } from "antd";
@@ -16,8 +16,9 @@ export function ThemeProvider(props: React.PropsWithChildren) {
   const { children } = props;
 
   // ** Theme
+  const isDark = useAppSelector((s) => s.theme.isDark);
   const { darkAlgorithm, defaultAlgorithm } = theme;
-  const algorithm = false ? darkAlgorithm : defaultAlgorithm;
+  const algorithm = isDark ? darkAlgorithm : defaultAlgorithm;
 
   return (
     <ConfigProvider theme={{ algorithm }} locale={zhCN}>

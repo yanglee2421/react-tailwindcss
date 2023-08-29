@@ -32,6 +32,7 @@ const reducer = persistReducer(
     key: "root",
     version: 1,
     storage,
+    blacklist: [sliceDemo.name],
   },
   rootReducer
 );
@@ -42,7 +43,15 @@ export const store = configureStore({
   middleware(getMiddleWare) {
     return getMiddleWare({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          "login/role",
+        ],
       },
     });
   },

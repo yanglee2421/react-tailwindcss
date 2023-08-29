@@ -2,11 +2,33 @@
 import styles from "./home.module.scss";
 import clsx from "clsx";
 
-// Utils Imports
-import { toStyles } from "@/utils";
+// Redux Imports
+import { useAppDispatch, sliceLogin } from "@/redux";
 
-const s = toStyles(styles);
+// Antd Imports
+import { Typography, Layout, Button } from "antd";
+
+// Theme Imports
+import { ThemeToggle } from "@/themes";
 
 export const Home = () => {
-  return <div className={clsx(s("home"))}>home</div>;
+  const dispatch = useAppDispatch();
+  const handleSignOut = () => {
+    const action = sliceLogin.actions.islogged(false);
+    dispatch(action);
+  };
+
+  console.log(styles);
+
+  return (
+    <Layout className={clsx(styles.home)}>
+      <div>
+        <ThemeToggle />
+        <Button onClick={handleSignOut} type="primary" danger>
+          Sign Out
+        </Button>
+      </div>
+      <Typography>home</Typography>
+    </Layout>
+  );
 };

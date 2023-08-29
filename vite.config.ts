@@ -26,6 +26,9 @@ export default defineConfig((configEnv) => {
           additionalData: `@use "@yanglee2421/scss/src" as *;`,
         },
       },
+      modules: {
+        localsConvention: "camelCaseOnly",
+      },
     },
 
     base: "/vite-react",
