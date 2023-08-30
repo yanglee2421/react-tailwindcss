@@ -19,13 +19,8 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 
-// Styles Imports
-import styles from "./login.module.scss";
-
 // React Imports
 import { useEffect, useRef } from "react";
-
-void styles;
 
 export function Component() {
   // Redux Hooks
