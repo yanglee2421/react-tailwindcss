@@ -2,16 +2,7 @@
 import { useAppDispatch, sliceLogin } from "@/redux";
 
 // Antd Imports
-import {
-  Button,
-  Checkbox,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Row,
-  Typography,
-} from "antd";
+import { Button, Col, Divider, Row, Typography } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
@@ -22,11 +13,16 @@ import {
 // React Imports
 import { useEffect, useRef } from "react";
 
+// Components Imports
+import { FormLogin, FormValues } from "./form-login";
+
+void styles;
+
 export function Component() {
   // Redux Hooks
   const dispatch = useAppDispatch();
 
-  const handleSignIn = (role: "admin" | "client") => {
+  const handleSignIn = (role: string) => {
     const roleAction = sliceLogin.actions.usr({ role });
     dispatch(roleAction);
   };
@@ -53,10 +49,16 @@ export function Component() {
     };
   }, []);
 
+  // Form Submit
+  const handleSubmit = (data: FormValues) => {
+    console.log(data);
+    handleSignIn(data.passwd);
+  };
+
   return (
     <>
       <Row className="h-full border">
-        <Col xs={0} md={12} lg={14} xl={16}>
+        <Col xs={0} md={12} lg={14} xl={16} xxl={18}>
           <section ref={elRef}>this</section>
         </Col>
         <Col
@@ -64,40 +66,16 @@ export function Component() {
           md={12}
           lg={10}
           xl={8}
+          xxl={6}
           className="flex flex-col justify-center border-0 border-l border-solid border-slate-300 px-10 md:px-8"
         >
           <Typography.Title>Wellcome to here!</Typography.Title>
           <Typography.Paragraph>lorem</Typography.Paragraph>
-          <Form onFinish={handleSignIn} layout="vertical" size="large">
-            <Form.Item label="Email">
-              <Input type="email" />
-            </Form.Item>
-            <Form.Item label="Password">
-              <Input.Password />
-            </Form.Item>
-            <Form.Item>
-              <div className="flex justify-between">
-                <Checkbox>Remember Me</Checkbox>
-                <Typography.Link>Forgot password?</Typography.Link>
-              </div>
-            </Form.Item>
-            <Form.Item>
-              <Button
-                htmlType="submit"
-                type="primary"
-                block
-                className="uppercase font-medium"
-              >
-                Sign In As Admin
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <div className="flex gap-3 justify-center">
-                <Typography.Text>New on our platform?</Typography.Text>
-                <Typography.Link underline>Create an account</Typography.Link>
-              </div>
-            </Form.Item>
-          </Form>
+          <FormLogin onSubmit={handleSubmit} />
+          <div className="flex gap-3 justify-center">
+            <Typography.Text>New on our platform?</Typography.Text>
+            <Typography.Link underline>Create an account</Typography.Link>
+          </div>
           <Divider>Or</Divider>
           <div className="flex justify-center gap-3">
             <Button shape="circle" size="large" icon={<FacebookOutlined />} />
