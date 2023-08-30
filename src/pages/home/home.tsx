@@ -17,12 +17,14 @@ export const Home = () => {
   const dispatch = useAppDispatch();
   const usr = useAppSelector((s) => s.login.usr);
 
+  console.log(usr);
+
   const handleSignOut = () => {
     const action = sliceLogin.actions.usr(null);
     dispatch(action);
   };
 
-  const ability = useAcl();
+  const acl = useAcl();
 
   return (
     <Layout className={clsx(styles.home)}>
@@ -34,7 +36,9 @@ export const Home = () => {
       </div>
       <Typography.Title>home</Typography.Title>
       <Typography.Text>{usr?.role}</Typography.Text>
-      {ability.can("update", "Article") && "Has permissions"}
+      {acl.can("create", "Article") && (
+        <Typography.Text>You have persisi</Typography.Text>
+      )}
     </Layout>
   );
 };
