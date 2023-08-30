@@ -5,7 +5,6 @@ import { UserOutlined } from "@ant-design/icons";
 export function InputEmail() {
   return (
     <Form.Item
-      label="Email"
       name={"email"}
       rules={[
         { required: true, message: "Email is requred!" },

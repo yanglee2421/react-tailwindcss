@@ -1,6 +1,6 @@
 import { mock } from "./mock";
 import "./mock-table";
-import "./mock-login";
+import "./mock-usr";
 import "./mock-hello";
 
 mock.onAny().passThrough();

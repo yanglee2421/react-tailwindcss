@@ -7,6 +7,3 @@ export { toBase64 } from "./toBase64";
 // ** Class
 export { Snow } from "./class-snow";
 export { Particles } from "./class-particle";
-
-//
-export * from "./get-usr-map";

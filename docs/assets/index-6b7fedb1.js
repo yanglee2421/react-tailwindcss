@@ -1,0 +1,1 @@
+import{j as t,d as o}from"./index-f0e7dd37.js";import{h as n,B as r}from"./antd-63f1a089.js";function m(){const e=t.jsx(s,{});return t.jsx(n,{status:"404",title:"404",subTitle:"Not Found",extra:e})}function s(){return t.jsx(o,{to:"/",children:t.jsx(r,{type:"primary",size:"large",children:"Take me home"})})}export{m as Component};

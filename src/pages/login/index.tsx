@@ -2,7 +2,7 @@
 import { useAppDispatch, sliceLogin } from "@/redux";
 
 // Antd Imports
-import { Button, Col, Divider, Row, Typography } from "antd";
+import { Button, Col, Divider, Row, Typography, Alert } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
@@ -57,7 +57,7 @@ export function Component() {
     <>
       <Row className="h-full border">
         <Col xs={0} md={12} lg={14} xl={16} xxl={18}>
-          <section ref={elRef}>this</section>
+          <section ref={elRef}></section>
         </Col>
         <Col
           xs={24}
@@ -67,8 +67,27 @@ export function Component() {
           xxl={6}
           className="flex flex-col justify-center border-0 border-l border-solid border-slate-300 px-10 md:px-8"
         >
-          <Typography.Title>Wellcome to here!</Typography.Title>
-          <Typography.Paragraph>lorem</Typography.Paragraph>
+          <Typography.Title level={2}>Wellcome to here!</Typography.Title>
+          <Typography.Paragraph className="text-gray-400 text-base">
+            Please sign-in to your account and start the adventure.
+          </Typography.Paragraph>
+          <Alert
+            message={
+              <div className="flex flex-col gap-1">
+                <Typography.Text className="text-blue-500">
+                  admin：<span className="font-semibold">admin@demo.com</span>
+                  <span> / </span>
+                  Pass：<span className="font-semibold">admin123456</span>
+                </Typography.Text>
+                <Typography.Text className="text-blue-500">
+                  client：<span className="font-semibold">client@demo.com</span>
+                  <span> / </span>
+                  Pass：<span className="font-semibold">client123456</span>
+                </Typography.Text>
+              </div>
+            }
+            className="mb-5"
+          />
           <FormLogin onSubmit={handleSubmit} />
           <div className="flex gap-3 justify-center">
             <Typography.Text>New on our platform?</Typography.Text>

@@ -5,7 +5,6 @@ import { LockOutlined } from "@ant-design/icons";
 export function InputPasswd() {
   return (
     <Form.Item
-      label="Password"
       name={"passwd"}
       rules={[
         { required: true, message: "Password is required!" },
