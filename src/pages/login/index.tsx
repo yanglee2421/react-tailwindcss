@@ -16,8 +16,6 @@ import { useEffect, useRef } from "react";
 // Components Imports
 import { FormLogin, FormValues } from "./form-login";
 
-void styles;
-
 export function Component() {
   // Redux Hooks
   const dispatch = useAppDispatch();
