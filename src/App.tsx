@@ -12,11 +12,11 @@ export function App() {
   return (
     <ReduxProvider>
       <QueryProvider>
-        <ThemeProvider>
-          <AclProvider>
+        <AclProvider>
+          <ThemeProvider>
             <RouterProvider router={router} />
-          </AclProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </AclProvider>
       </QueryProvider>
     </ReduxProvider>
   );
