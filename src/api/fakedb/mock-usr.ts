@@ -36,11 +36,11 @@ mock.onPatch(BASE_URI).reply((config) => {
   return [200, {}];
 });
 mock.onPost(BASE_URI).reply((config) => {
-  // ** Config
-  const { data } = config;
-  if (!data) return [400, {}];
-
   try {
+    // ** Config
+    const { data } = config;
+    if (!data) return [400, {}];
+
     const { email, passwd } = JSON.parse(data);
     const usr = usrList.find((item) => item.email === email);
     if (!usr) return [400, { msg: "Email or password is incorrect!" }];
