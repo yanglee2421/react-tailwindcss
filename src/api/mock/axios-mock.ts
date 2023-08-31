@@ -33,6 +33,15 @@ axiosMock.interceptors.response.use(
   },
   (err: AxiosError) => {
     const { message, response } = err;
-    throw new Error(message, { cause: response });
+    console.error(err);
+
+    // No Data
+    if (!response?.data) {
+      throw new Error(message, { cause: response });
+    }
+
+    // Has Data
+    const msg = Reflect.get(Object(response.data), "msg");
+    throw new Error(msg, { cause: response });
   }
 );

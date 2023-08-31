@@ -3,17 +3,16 @@ import { axiosMock } from "./axios-mock";
 import { AxiosRequestConfig } from "axios";
 
 export function usr_post(req: Req) {
-  return axiosMock<unknown, Params>({
+  return axiosMock<unknown, Data, Data>({
+    method: "POST",
     url: "/usr",
     ...req,
   });
 }
 
-export interface Req extends AxiosRequestConfig {
-  params: Params;
-}
+export interface Req extends AxiosRequestConfig<Data> {}
 
-export interface Params {
+export interface Data {
   email: string;
   passwd: string;
 }

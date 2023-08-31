@@ -1,6 +1,3 @@
-// Redux Imports
-import { useAppDispatch, sliceLogin } from "@/redux";
-
 // Antd Imports
 import { Button, Col, Divider, Row, Typography, Alert } from "antd";
 import {
@@ -14,17 +11,9 @@ import {
 import { useEffect, useRef } from "react";
 
 // Components Imports
-import { FormLogin, FormValues } from "./form-login";
+import { FormLogin } from "./form-login";
 
 export function Component() {
-  // Redux Hooks
-  const dispatch = useAppDispatch();
-
-  const handleSignIn = (role: string) => {
-    const roleAction = sliceLogin.actions.usr({ role });
-    dispatch(roleAction);
-  };
-
   // IntersectionObserver Hooks
   const elRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -46,12 +35,6 @@ export function Component() {
       observer.disconnect();
     };
   }, []);
-
-  // Form Submit
-  const handleSubmit = (data: FormValues) => {
-    console.log(data);
-    handleSignIn(data.passwd);
-  };
 
   return (
     <>
@@ -88,7 +71,7 @@ export function Component() {
             }
             className="mb-5"
           />
-          <FormLogin onSubmit={handleSubmit} />
+          <FormLogin />
           <div className="flex gap-3 justify-center">
             <Typography.Text>New on our platform?</Typography.Text>
             <Typography.Link underline>Create an account</Typography.Link>

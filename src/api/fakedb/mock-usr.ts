@@ -37,14 +37,19 @@ mock.onPatch(BASE_URI).reply((config) => {
 });
 mock.onPost(BASE_URI).reply((config) => {
   // ** Config
-  const { params } = config;
-  if (!params) return [400, {}];
+  const { data } = config;
+  if (!data) return [400, {}];
 
-  const usr = usrList.find((item) => item.email === params.email);
-  if (!usr) return [400, {}];
+  try {
+    const { email, passwd } = JSON.parse(data);
+    const usr = usrList.find((item) => item.email === email);
+    if (!usr) return [400, { msg: "Email or password is incorrect!" }];
 
-  const isVali = usr.passwd === params.passwd;
-  if (!isVali) return [400, {}];
+    const isVali = usr.passwd === passwd;
+    if (!isVali) return [400, {}];
 
-  return [200, usr];
+    return [200, usr];
+  } catch {
+    return [500, { msg: "System error" }];
+  }
 });
