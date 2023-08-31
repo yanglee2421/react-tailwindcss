@@ -1,7 +1,8 @@
 // Mock Imports
 import { mock } from "./mock";
 
-const usrSet = new Set([
+const BASE_URI = "/usr";
+const usrList = [
   {
     email: "admin@demo.com",
     passwd: "admin123456",
@@ -12,23 +13,13 @@ const usrSet = new Set([
     passwd: "client123456",
     role: "client",
   },
-]);
-
-void usrSet;
+];
 
 // ** Endpoints
-mock.onPost("/usr").reply((config) => {
-  const { data } = config;
-
-  try {
-    return [200, data];
-    // eslint-disable-next-line
-  } catch (error: any) {
-    const msg = error.message;
-    return [403, { msg: msg }];
-  }
+mock.onPut(BASE_URI).reply((config) => {
+  return [200, {}];
 });
-mock.onDelete("/usr").reply((config) => {
+mock.onDelete(BASE_URI).reply((config) => {
   const { data } = config;
 
   try {
@@ -41,4 +32,19 @@ mock.onDelete("/usr").reply((config) => {
     return [500, { msg }];
   }
 });
-mock.onPatch("/usr");
+mock.onPatch(BASE_URI).reply((config) => {
+  return [200, {}];
+});
+mock.onPost(BASE_URI).reply((config) => {
+  // ** Config
+  const { params } = config;
+  if (!params) return [400, {}];
+
+  const usr = usrList.find((item) => item.email === params.email);
+  if (!usr) return [400, {}];
+
+  const isVali = usr.passwd === params.passwd;
+  if (!isVali) return [400, {}];
+
+  return [200, usr];
+});
