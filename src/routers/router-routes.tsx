@@ -12,17 +12,9 @@ export const routes: RouteObject[] = [
       {
         id: "404",
         path: "404",
-        handle: { title: "404，NotFound" },
+        handle: { title: "404, NotFound" },
         lazy() {
           return import("@/pages/404");
-        },
-      },
-      {
-        id: "index",
-        index: true,
-        handle: { title: "首页" },
-        lazy() {
-          return import("@/pages/home");
         },
       },
       {
@@ -31,6 +23,14 @@ export const routes: RouteObject[] = [
         handle: { title: "登录" },
         lazy() {
           return import("@/pages/login");
+        },
+      },
+      {
+        id: "index",
+        index: true,
+        handle: { title: "首页" },
+        lazy() {
+          return import("@/pages/home");
         },
       },
       {
