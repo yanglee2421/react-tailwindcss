@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 export function useIsDark() {
   // Prepare State
   const [isDark, setIsDark] = useState(() => {
-    const queryDark = matchMedia("(prefers-color-scheme: dark)");
-    return queryDark.matches;
+    const { matches } = matchMedia("(prefers-color-scheme: dark)");
+    return matches;
   });
 
-  // Bind Event
+  // Bind Change
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
 
     const queryDark = matchMedia("(prefers-color-scheme: dark)");
+    setIsDark(queryDark.matches);
+
     queryDark.addEventListener(
       "change",
       (evt) => {
