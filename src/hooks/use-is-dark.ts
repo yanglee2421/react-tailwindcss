@@ -13,10 +13,10 @@ export function useIsDark() {
     const controller = new AbortController();
     const { signal } = controller;
 
-    const queryDark = matchMedia("(prefers-color-scheme: dark)");
-    setIsDark(queryDark.matches);
+    const mediaQuery = matchMedia("(prefers-color-scheme: dark)");
+    setIsDark(mediaQuery.matches);
 
-    queryDark.addEventListener(
+    mediaQuery.addEventListener(
       "change",
       (evt) => {
         setIsDark(evt.matches);
