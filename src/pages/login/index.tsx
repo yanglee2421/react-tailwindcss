@@ -1,5 +1,5 @@
 // Antd Imports
-import { Button, Col, Divider, Row, Typography, Alert } from "antd";
+import { Button, Divider, Typography, Alert } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
@@ -15,20 +15,19 @@ import { FormLogin } from "./form-login";
 
 export function Component() {
   // IntersectionObserver Hooks
-  const elRef = useRef<HTMLElement>(null);
+  const elRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = elRef.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
-      ([{ isIntersecting, intersectionRatio }]) => {
+      ([{ isIntersecting, intersectionRatio }], observer) => {
         if (isIntersecting) {
           console.log("entry", intersectionRatio);
           observer.unobserve(el);
         }
       }
     );
-
     observer.observe(el);
 
     return () => {
@@ -38,18 +37,9 @@ export function Component() {
 
   return (
     <>
-      <Row className="h-full border">
-        <Col xs={0} md={12} lg={14} xl={16} xxl={18}>
-          <section ref={elRef}></section>
-        </Col>
-        <Col
-          xs={24}
-          md={12}
-          lg={10}
-          xl={8}
-          xxl={6}
-          className="flex flex-col justify-center border-0 border-l border-solid border-slate-300 px-10 md:px-8"
-        >
+      <main className="flex h-full ">
+        <section ref={elRef} className="flex-1"></section>
+        <section className="w-full md:max-w-md flex flex-col justify-center px-6 shadow-lg">
           <Typography.Title level={2}>Wellcome to here!</Typography.Title>
           <Typography.Paragraph className="text-gray-400 text-base">
             Please sign-in to your account and start the adventure.
@@ -91,8 +81,8 @@ export function Component() {
               icon={<GoogleOutlined className="text-red-500" />}
             />
           </div>
-        </Col>
-      </Row>
+        </section>
+      </main>
     </>
   );
 }

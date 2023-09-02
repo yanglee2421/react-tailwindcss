@@ -3,7 +3,7 @@ import styles from "./home.module.scss";
 import clsx from "clsx";
 
 // Redux Imports
-import { useAppDispatch, sliceLogin, useAppSelector } from "@/redux";
+import { useAppSelector } from "@/redux";
 
 // Antd Imports
 import { Typography, Layout, Button } from "antd";
@@ -11,26 +11,28 @@ import { Typography, Layout, Button } from "antd";
 // Theme Imports
 import { ThemeToggle } from "@/themes";
 
+// Acl Imports
 import { useAcl } from "@/configs/acl";
 
-export const Home = () => {
-  const dispatch = useAppDispatch();
-  const usr = useAppSelector((s) => s.login.usr);
+// Login Imports
+import { useLogin } from "@/hooks";
 
+export const Home = () => {
+  // Redux Hooks
+  const usr = useAppSelector((s) => s.login.usr);
   console.log(usr);
 
-  const handleSignOut = () => {
-    const action = sliceLogin.actions.usr(null);
-    dispatch(action);
-  };
-
+  // Acl Hooks
   const acl = useAcl();
+
+  // Login Hooks
+  const { signOut } = useLogin();
 
   return (
     <Layout className={clsx(styles.home)}>
       <div>
         <ThemeToggle />
-        <Button onClick={handleSignOut} type="primary" danger>
+        <Button onClick={signOut} type="primary" danger>
           Sign Out
         </Button>
       </div>

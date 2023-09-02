@@ -7,17 +7,14 @@ import { InputPasswd } from "./input-passwd";
 import { InputRemember } from "./input-remember";
 
 // API Imports
-import { useUsrPost } from "@/hooks";
-
-// Redux Imports
-import { useAppDispatch, sliceLogin } from "@/redux";
+import { useUsrPost, useLogin } from "@/hooks";
 
 export function FormLogin(props: FormLoginProps) {
   // ** Props
   const {} = props;
 
-  // Redux Hooks
-  const dispatch = useAppDispatch();
+  // Login Hooks
+  const { signIn } = useLogin();
 
   // Form Hooks
   const [form] = Form.useForm();
@@ -27,10 +24,8 @@ export function FormLogin(props: FormLoginProps) {
 
   // Form Submit
   const handleSubmit = async (data: FormValues) => {
-    console.log(data);
     const usr = await mutateAsync({ data });
-    const roleAction = sliceLogin.actions.usr(usr);
-    dispatch(roleAction);
+    signIn(usr);
   };
 
   return (
