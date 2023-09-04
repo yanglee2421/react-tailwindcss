@@ -56,5 +56,5 @@ mock.onPost(BASE_URI).reply((config) => {
 mock.onGet(BASE_URI).reply((config) => {
   void config;
 
-  return [200, { loginAt: Date.now() }];
+  return [200, { loginAt: Date.now(), role: "admin", email: "" }];
 });
