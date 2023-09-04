@@ -47,7 +47,7 @@ export function Component() {
           className="flex-1 bg-fixed bg-cover relative"
           style={{ backgroundImage: `url(${justHer})` }}
         >
-          <IconReact />
+          <IconReact className="absolute top-5 left-5" />
         </section>
         <section className="w-full md:max-w-md flex flex-col justify-center px-6 shadow-lg">
           <Typography.Title level={2}>Wellcome to here!</Typography.Title>
