@@ -84,7 +84,7 @@ export function Component() {
 
 interface LabelProps {
   label?: string;
-  children: any[];
+  children: React.JSX.Element[];
 }
 
 function Label(props: LabelProps) {

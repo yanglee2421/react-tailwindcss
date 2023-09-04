@@ -1,19 +1,14 @@
-// Acl Imports
-import { useAbility } from "@casl/react";
-
 // React Imports
 import React from "react";
 
 // Types Imports
-import { AppAbility, defineAbilityFor } from "./define-ability-for";
+import { defineAbilityFor } from "./define-ability-for";
 
 // Redux Imports
 import { useAppSelector } from "@/redux";
 
-const ability = defineAbilityFor("client");
-const AclContext = React.createContext<AppAbility>(ability);
-
-export const useAcl = () => useAbility(AclContext);
+// Context Imports
+import { AclContext } from "./use-acl";
 
 export function AclProvider(props: React.PropsWithChildren) {
   // ** Props

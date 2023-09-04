@@ -30,13 +30,9 @@ export function Component() {
 
     let p: null | Particles = null;
     const timer = setTimeout(() => {
-      const particle = new Particles(
-        canvas,
-        (box.inlineSize / 1920) * 120,
-        100
-      );
-      particle.animate();
-      particle.bindEvent();
+      p = new Particles(canvas, (box.inlineSize / 1920) * 120, 100);
+      p.animate();
+      p.bindEvent();
     }, 500);
 
     return () => {

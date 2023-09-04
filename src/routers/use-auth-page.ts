@@ -19,12 +19,11 @@ export function useAuthPage() {
   const matches = useMatches();
   const [searchParams] = useSearchParams();
 
-  const nextRoute = matches[matches.length - 1];
-
   // Redux Hooks
   const usr = useAppSelector((s) => s.login.usr);
 
   return useMemo(() => {
+    const nextRoute = matches[matches.length - 1];
     const { id, pathname } = nextRoute;
 
     // To Login

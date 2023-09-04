@@ -20,13 +20,13 @@ export function Component() {
   useEffect(() => {
     if (!size) return;
 
-    const [box] = size?.contentBoxSize;
+    const [box] = size.contentBoxSize;
     setInner((prev) => ({
       ...prev,
       width: box.inlineSize,
       height: box.blockSize,
     }));
-  }, [size]);
+  }, [setInner, size]);
 
   const boxHandler = (e: React.MouseEvent) => {
     const { offsetX, offsetY } = e.nativeEvent;

@@ -34,11 +34,11 @@ export function useLoginMe() {
   useEffect(() => {
     if (!data) return;
     signIn(data);
-  }, [data]);
+  }, [signIn, data]);
 
   // Log out if authentication fails
   useEffect(() => {
     if (!isError) return;
     signOut();
-  }, [isError]);
+  }, [signOut, isError]);
 }

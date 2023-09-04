@@ -36,7 +36,7 @@ export function Component() {
 
     let snow: null | Snow = null;
     const timer = setTimeout(() => {
-      const snow = new Snow(canvas, (box.inlineSize / 1920) * 200);
+      snow = new Snow(canvas, (box.inlineSize / 1920) * 200);
       snow.animate();
     }, 500);
 

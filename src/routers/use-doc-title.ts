@@ -11,8 +11,8 @@ export function useDocTitle() {
     const curr = matches.at(-1);
     if (!curr) return;
 
-    const handle: any = curr.handle;
-    const title = handle?.title;
+    const { handle } = curr;
+    const title = Reflect.get(Object(handle), "title");
     if (typeof title !== "string") return;
 
     document.title = title;

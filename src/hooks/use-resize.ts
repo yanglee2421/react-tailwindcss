@@ -24,7 +24,7 @@ export function useResize<T extends Element>(elRef: React.RefObject<T>) {
       obverser.disconnect();
       setSize(null);
     };
-  }, [setSize]);
+  }, [elRef, setSize]);
 
   return size;
 }
