@@ -20,4 +20,5 @@ export interface Data {
 export interface Res {
   email: string;
   role: string;
+  loginAt: number;
 }

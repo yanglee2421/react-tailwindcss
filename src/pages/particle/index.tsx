@@ -1,20 +1,40 @@
+// Style Imports
 import style from "./particle.module.scss";
-import { useStyle, useResize } from "@/hooks";
+
+// Hooks Imports
+import { useResize } from "@/hooks";
+
+// Utils Imports
 import { Particles } from "@/utils";
-import { useRef } from "react";
+
+// React Imports
+import { useEffect, useRef } from "react";
 
 export function Component() {
-  const cx = useStyle(style);
-
   const ctxRef = useRef<HTMLCanvasElement>(null);
-  const resizeRef = useResize<HTMLDivElement>((box) => {
+  const resizeRef = useRef<HTMLDivElement>(null);
+  const size = useResize(resizeRef);
+
+  useEffect(() => {
+    if (!size) return;
+
+    const [box] = size.contentBoxSize;
+
     const canvas = ctxRef.current;
     if (!canvas) return;
-    Object.assign(canvas, box);
+
+    Object.assign(canvas, {
+      width: box.inlineSize,
+      height: box.blockSize,
+    });
 
     let p: null | Particles = null;
     const timer = setTimeout(() => {
-      const particle = new Particles(canvas, (box.width / 1920) * 120, 100);
+      const particle = new Particles(
+        canvas,
+        (box.inlineSize / 1920) * 120,
+        100
+      );
       particle.animate();
       particle.bindEvent();
     }, 500);
@@ -24,10 +44,11 @@ export function Component() {
       p?.abortAnimate();
       p?.abortEvent();
     };
-  });
+  }, [size]);
+
   return (
-    <div ref={resizeRef} className={cx("partcle")}>
-      <canvas ref={ctxRef} className={cx("particle-canvas")}></canvas>
+    <div ref={resizeRef} className={style.partcle}>
+      <canvas ref={ctxRef} className={style.particleCanvas}></canvas>
     </div>
   );
 }

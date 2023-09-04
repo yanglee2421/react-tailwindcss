@@ -1,9 +1,13 @@
-import { useStyle, useStructure, useResize } from "@/hooks";
-import React from "react";
+// Hooks Imports
+import { useStructure, useResize } from "@/hooks";
+
+// React Imports
+import React, { useEffect, useRef } from "react";
+
+// Style Imports
 import style from "./style.module.scss";
 
 export function Component() {
-  const cx = useStyle(style);
   const [outer, setOuter] = useStructure({ x: 0, y: 0 });
   const [inner, setInner] = useStructure({
     width: 0,
@@ -11,9 +15,18 @@ export function Component() {
     x: 0,
     y: 0,
   });
-  const resizeRef = useResize<HTMLDivElement>((box) =>
-    setInner((prev) => Object.assign(prev, box))
-  );
+  const resizeRef = useRef<HTMLDivElement>(null);
+  const size = useResize<HTMLDivElement>(resizeRef);
+  useEffect(() => {
+    if (!size) return;
+
+    const [box] = size?.contentBoxSize;
+    setInner((prev) => ({
+      ...prev,
+      width: box.inlineSize,
+      height: box.blockSize,
+    }));
+  }, [size]);
 
   const boxHandler = (e: React.MouseEvent) => {
     const { offsetX, offsetY } = e.nativeEvent;
@@ -28,13 +41,13 @@ export function Component() {
   };
 
   return (
-    <div ref={resizeRef} onMouseMove={boxHandler} className={cx("box")}>
+    <div ref={resizeRef} onMouseMove={boxHandler} className={style.box}>
       <div
-        className={cx("outer")}
+        className={style.outer}
         style={{ transform: `translate(${outer.x}px, ${outer.y}px)` }}
       >
         <div
-          className={cx("inner")}
+          className={style.inner}
           style={{
             width: inner.width,
             height: inner.height,

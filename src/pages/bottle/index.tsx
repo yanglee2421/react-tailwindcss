@@ -1,15 +1,13 @@
+// Styles Imports
 import style from "./style.module.scss";
-import { useStyle } from "@/hooks";
 
 export function Component() {
-  const cx = useStyle(style);
-
   return (
-    <div className={cx("box")}>
-      <div className={cx("bottle")}>
-        <div className={cx("water")}></div>
+    <div className={style.box}>
+      <div className={style.bottle}>
+        <div className={style.water}></div>
       </div>
-      <div className={cx("bottle-bottom")}></div>
+      <div className={style.bottleBottom}></div>
     </div>
   );
 }

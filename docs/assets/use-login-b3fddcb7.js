@@ -1,0 +1,1 @@
+import{w as u,j as e,u as r,z as t}from"./index-1aa5fb56.js";function g(){const n=u(),o=e(s=>s.login.usr),i=r();return{signIn:s=>{const c=t.actions.usr(s);n(c)},signOut:()=>{const s=t.actions.usr(null);n(s),i.clear()},usr:o}}export{g as u};

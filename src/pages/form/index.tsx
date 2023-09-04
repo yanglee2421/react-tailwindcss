@@ -1,14 +1,18 @@
-import { useStyle } from "@/hooks";
+// React Imports
 import React from "react";
+
+// Style Imports
 import style from "./style.module.scss";
-import img from "@/assets/image/avatar/fh.jpg";
+
+// Assets Imports
+import img from "@/assets/image/bg/lake.jpg";
+
+// Antd Imports
 import { message } from "antd";
 
 export function Component() {
-  const cx = useStyle(style);
-
   return (
-    <div className={cx("box")}>
+    <div className={style.box}>
       <h2>Form & Input</h2>
       <form
         onSubmit={(e) => {
@@ -43,11 +47,11 @@ export function Component() {
           <input type="hidden" name="hidden" />
           {/* 表单操作 */}
           <input type="button" value="inputBtn" />
-          <input type="image" src={img} />
+          <input type="image" src={img} width={50} />
           <input type="submit" value="submitBtn" />
           <input type="reset" value="resetBtn" />
         </Label>
-        <ol className={cx("ol")}>
+        <ol className={style.ol}>
           <li>
             <label>
               radio2：
@@ -84,8 +88,9 @@ interface LabelProps {
 }
 
 function Label(props: LabelProps) {
+  // ** Props
   const { children } = props;
-  const cx = useStyle(style);
+
   const arr = React.Children.map(children, (e, index) => {
     if (!e) return;
     return (
@@ -97,5 +102,5 @@ function Label(props: LabelProps) {
       </li>
     );
   });
-  return <ol className={cx("form-ul")}>{arr}</ol>;
+  return <ol className={style.formUl}>{arr}</ol>;
 }
