@@ -17,6 +17,8 @@ const usrList = [
 
 // ** Endpoints
 mock.onPut(BASE_URI).reply((config) => {
+  void config;
+
   return [200, {}];
 });
 mock.onDelete(BASE_URI).reply((config) => {
@@ -33,6 +35,8 @@ mock.onDelete(BASE_URI).reply((config) => {
   }
 });
 mock.onPatch(BASE_URI).reply((config) => {
+  void config;
+
   return [200, {}];
 });
 mock.onPost(BASE_URI).reply((config) => {
@@ -48,4 +52,9 @@ mock.onPost(BASE_URI).reply((config) => {
   if (!isVali) throw new Error("Email or password is incorrect!");
 
   return [200, usr];
+});
+mock.onGet(BASE_URI).reply((config) => {
+  void config;
+
+  return [200, { loginAt: Date.now() }];
 });
