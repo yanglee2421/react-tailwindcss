@@ -27,7 +27,7 @@ export function useLoginMe() {
       return usr?.loginAt;
     },
 
-    refetchInterval: 1000 * 10,
+    refetchInterval: 1000 * 30,
   });
 
   // Update user information when authentication is successful

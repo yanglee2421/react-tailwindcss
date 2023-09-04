@@ -10,11 +10,11 @@ export function useUsrPost() {
   // API Hooks
   const queryClient = useQueryClient();
   return useMutation<Res, Error, Req>({
-    async mutationFn(req) {
+    mutationFn(req) {
       return usr_post(req);
     },
     onSuccess(data) {
-      queryClient.setQueryData<Res>(["usr-refresh"], (prev) => {
+      queryClient.setQueryData<Res>(["usr_get"], (prev) => {
         if (!prev) return data;
         return { ...prev, ...data };
       });
