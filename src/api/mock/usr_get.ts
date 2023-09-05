@@ -10,7 +10,5 @@ export function usr_get(req: AxiosRequestConfig) {
 }
 
 export interface Res {
-  role: string;
-  email: string;
   loginAt: number;
 }

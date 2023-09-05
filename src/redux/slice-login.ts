@@ -8,6 +8,10 @@ export const sliceLogin = createSlice({
     usr(state, { payload }: PayloadAction<Usr | null>) {
       state.usr = payload;
     },
+    usrPatch(s, { payload }: PayloadAction<Partial<Usr>>) {
+      if (!s.usr) return;
+      Object.assign(s.usr, payload);
+    },
   },
 });
 
