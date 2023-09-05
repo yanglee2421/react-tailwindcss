@@ -1,0 +1,1 @@
+import{o}from"./index-f8d17fc4.js";import{c as r}from"./clsx-1229b3e0.js";import"./antd-57ea9798.js";const t="_box_12dm3_1",s={box:t};function x(){return o.jsx("div",{className:r(["h-full",s.box]),children:"performance"})}export{x as Component};

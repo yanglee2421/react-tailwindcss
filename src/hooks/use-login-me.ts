@@ -33,7 +33,7 @@ export function useLoginMe() {
       return usr?.loginAt;
     },
 
-    refetchInterval: 1000 * 10,
+    refetchInterval: 1000 * 60 * 30,
 
     retry: 2,
     retryDelay: 1000 * 3,
