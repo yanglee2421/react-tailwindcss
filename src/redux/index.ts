@@ -13,5 +13,6 @@ export { ReduxProvider } from "./redux-provider";
 
 // Slice Exports
 export { sliceLogin } from "./slice-login";
+export { sliceLoginSession } from "./slice-login-session";
 export { sliceTheme } from "./slice-theme";
 export { sliceDemo } from "./slice-demo";
