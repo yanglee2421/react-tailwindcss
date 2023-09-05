@@ -29,14 +29,16 @@ export const Home = () => {
   const { signOut } = useLogin();
 
   return (
-    <Layout className={clsx(styles.home)}>
+    <Layout className={clsx([styles.home, "h-full"])}>
       <div>
         <ThemeToggle />
         <Button onClick={signOut} type="primary" danger>
           Sign Out
         </Button>
       </div>
-      <Typography.Title>home</Typography.Title>
+      <Typography.Title className="bg-left-bottom bg-no-repeat bg-gradient-to-r from-sky-500 to-indigo-500 bg-[length:0_2px] hover:bg-[length:100%_2px] transition-all">
+        home
+      </Typography.Title>
       <Typography.Text>{usr?.role}</Typography.Text>
       {acl.can("create", "Article") && (
         <Typography.Text>You have persisi</Typography.Text>
