@@ -1,6 +1,3 @@
-// Redux Imports
-import { useAppSelector } from "@/redux";
-
 // Antd Imports
 import { Typography, Layout, Button } from "antd";
 
@@ -15,7 +12,7 @@ import { useLogin } from "@/hooks";
 
 export function Home() {
   // Redux Hooks
-  const usr = useAppSelector((s) => s.login.usr);
+  const { usr } = useLogin();
 
   // Acl Hooks
   const acl = useAcl();

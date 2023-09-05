@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 import { toIsInWl } from "./router-whitelist";
 
-// Redux Imports
-import { useAppSelector } from "@/redux";
+// Login Imports
+import { useLogin } from "@/hooks";
 
 export function useAuthPage() {
   // Router Hooks
@@ -20,7 +20,7 @@ export function useAuthPage() {
   const [searchParams] = useSearchParams();
 
   // Redux Hooks
-  const usr = useAppSelector((s) => s.login.usr);
+  const { usr } = useLogin();
 
   return useMemo(() => {
     const nextRoute = matches[matches.length - 1];

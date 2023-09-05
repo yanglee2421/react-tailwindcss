@@ -1,8 +1,8 @@
 // Redux Toolkit Imports
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export const sliceLogin = createSlice({
-  name: "login",
+export const sliceLoginLocal = createSlice({
+  name: "loginLocal",
   initialState,
   reducers: {
     usr(state, { payload }: PayloadAction<Usr | null>) {

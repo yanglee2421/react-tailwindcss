@@ -6,17 +6,15 @@ import { Res } from "@/api/mock/usr_get";
 // React Imports
 import { useEffect } from "react";
 
-// Redux Imports
-import { useAppDispatch, sliceLogin, useAppSelector } from "@/redux";
+// Login Imports
+import { useLogin } from "./use-login";
 
 // Toast Imports
 import { message } from "antd";
 
 export function useLoginMe() {
   // Redux Hooks
-  const dispatch = useAppDispatch();
-  const usr = useAppSelector((s) => s.login.usr);
-
+  const { usr, updateUsr, signOut } = useLogin();
   // API Hooks
   const { isError, error, data } = useQuery<Res, Error>({
     enabled: Boolean(usr),
@@ -43,17 +41,15 @@ export function useLoginMe() {
   useEffect(() => {
     if (!data) return;
 
-    const action = sliceLogin.actions.usrPatch(data);
-    dispatch(action);
-  }, [dispatch, data]);
+    updateUsr(data);
+  }, [updateUsr, data]);
 
   // Log out if authentication fails
   useEffect(() => {
     if (!isError) return;
 
-    const action = sliceLogin.actions.usr(null);
-    dispatch(action);
+    signOut();
 
     message.error(error.message);
-  }, [dispatch, isError]);
+  }, [signOut, isError]);
 }

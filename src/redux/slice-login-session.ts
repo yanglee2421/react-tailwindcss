@@ -7,6 +7,7 @@ export const sliceLoginSession = createSlice({
   reducers: {
     usr(state, { payload }: PayloadAction<Usr | null>) {
       state.usr = payload;
+      console.log(state.usr);
     },
     usrPatch(s, { payload }: PayloadAction<Partial<Usr>>) {
       if (!s.usr) return;
