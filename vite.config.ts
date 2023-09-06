@@ -14,12 +14,14 @@ export default defineConfig((configEnv) => {
   return {
     plugins: [react()],
 
+    // Path Alias
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
       },
     },
 
+    // ** CSS
     css: {
       preprocessorOptions: {
         scss: {
@@ -31,9 +33,15 @@ export default defineConfig((configEnv) => {
       },
     },
 
-    base: "/vite-react",
-    // envDir: resolve(__dirname, "./config"),
+    base: "/react-antd",
+
+    // ENV File
+    envDir: resolve(__dirname, "./"),
+
+    // ** Build
     build: build(configEnv),
+
+    // DEV Server
     server: server(configEnv),
   };
 });

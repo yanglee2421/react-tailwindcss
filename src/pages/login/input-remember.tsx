@@ -1,5 +1,5 @@
 // Antd Imports
-import { Form, Checkbox, Typography } from "antd";
+import { Form, Checkbox } from "antd";
 
 export function InputRemember() {
   return (
