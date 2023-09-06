@@ -70,7 +70,7 @@ function server({ mode }: ConfigEnv): UserConfig["server"] {
   return {
     https: false,
     fs: { allow: [".."] },
-    port: 3003,
+    port: 3005,
     proxy: {
       "/dev": {
         ws: true,
