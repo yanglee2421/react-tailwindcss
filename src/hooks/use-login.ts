@@ -25,7 +25,6 @@ export function useLogin() {
   const signIn = (usr: Usr, rememberMe?: boolean) => {
     // Save To Local
     if (rememberMe) {
-      debugger;
       const action = sliceLoginLocal.actions.usr(usr);
       dispatch(action);
       return;

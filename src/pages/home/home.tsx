@@ -31,9 +31,12 @@ export function Home() {
       <Typography.Title className="bg-left-bottom bg-no-repeat bg-gradient-to-r from-sky-500 to-indigo-500 bg-[length:0_2px] hover:bg-[length:100%_2px] transition-all">
         home
       </Typography.Title>
+      <p>{usr?.email}</p>
+      <p>{usr?.role}</p>
+      <p>{usr?.loginAt}</p>
       <Typography.Text>{usr?.role}</Typography.Text>
       {acl.can("create", "Article") && (
-        <Typography.Text>You have persisi</Typography.Text>
+        <Typography.Text>You are admin</Typography.Text>
       )}
     </Layout>
   );
