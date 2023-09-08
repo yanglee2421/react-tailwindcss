@@ -16,7 +16,7 @@ export function useLoginMe() {
   // Redux Hooks
   const { usr, updateUsr, signOut } = useLogin();
   // API Hooks
-  const { isError, error, data } = useQuery<Res, Error>({
+  const { error, data } = useQuery<Res, Error>({
     enabled: Boolean(usr),
     queryKey: ["usr_get"],
     queryFn({ signal }) {
@@ -34,7 +34,7 @@ export function useLoginMe() {
     refetchInterval: import.meta.env.DEV ? 1000 * 10 : 1000 * 60 * 30,
 
     retry: 2,
-    retryDelay: 1000 * 3,
+    retryDelay: 1000 * 2,
   });
 
   // Update user information when authentication is successful
@@ -46,10 +46,10 @@ export function useLoginMe() {
 
   // Log out if authentication fails
   useEffect(() => {
-    if (!isError) return;
+    if (!error) return;
 
     signOut();
 
     message.error(error.message);
-  }, [signOut, isError]);
+  }, [signOut, error]);
 }

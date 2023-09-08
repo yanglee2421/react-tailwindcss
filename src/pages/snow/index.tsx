@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { Layout, Switch } from "antd";
 
 // Hooks Imports
-import { useResize } from "@/hooks";
+import { useObserverResize } from "@/hooks";
 
 // React Imports
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -22,7 +22,7 @@ export function Component() {
   const cvsRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
 
-  const size = useResize(resizeRef);
+  const size = useObserverResize(resizeRef);
 
   useEffect(() => {
     if (!size) return;

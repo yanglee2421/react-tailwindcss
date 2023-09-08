@@ -2,7 +2,7 @@
 import style from "./particle.module.scss";
 
 // Hooks Imports
-import { useResize } from "@/hooks";
+import { useObserverResize } from "@/hooks";
 
 // Utils Imports
 import { Particles } from "@/utils";
@@ -13,7 +13,7 @@ import { useEffect, useRef } from "react";
 export function Component() {
   const ctxRef = useRef<HTMLCanvasElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
-  const size = useResize(resizeRef);
+  const size = useObserverResize(resizeRef);
 
   useEffect(() => {
     if (!size) return;

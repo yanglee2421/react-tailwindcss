@@ -1,30 +1,32 @@
 // React Imports
 import React, { useEffect, useState } from "react";
 
-export function useResize<T extends Element>(elRef: React.RefObject<T>) {
+export function useObserverResize<TRef extends Element>(
+  elRef: React.RefObject<TRef>
+) {
   // Prepare State
-  const [size, setSize] = useState<ResizeObserverEntry | null>(null);
+  const [entry, setEntry] = useState<ResizeObserverEntry | null>(null);
 
   // Bind Change
   useEffect(() => {
     const dom = elRef.current;
     const isElement = dom instanceof Element;
     if (!isElement) {
-      console.error("ref.current must be an Element");
+      console.error("Excepted an element, got falsy!");
       return;
     }
 
     const obverser = new ResizeObserver(([entry]) => {
-      setSize(entry);
+      setEntry(entry);
     });
     obverser.observe(dom);
 
     // Clear Previos Effect
     return () => {
       obverser.disconnect();
-      setSize(null);
+      setEntry(null);
     };
-  }, [elRef, setSize]);
+  }, [elRef, setEntry]);
 
-  return size;
+  return entry;
 }

@@ -19,7 +19,7 @@ export function defineAbilityFor(role: string) {
       can("read", "all");
       break;
     default:
-      cannot("manage", "all");
+      cannot("read", "all");
   }
 
   return build();
