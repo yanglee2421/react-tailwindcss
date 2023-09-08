@@ -44,7 +44,7 @@ export function Component() {
       <main className="flex h-full ">
         <section
           ref={elRef}
-          className="flex-1 bg-fixed bg-cover relative"
+          className="flex-1 bg-fixed bg-cover relative overflow-hidden"
           style={{ backgroundImage: `url(${justHer})` }}
         >
           <div className="absolute top-6 left-9 flex items-center gap-3">
