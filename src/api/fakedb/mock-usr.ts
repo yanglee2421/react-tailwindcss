@@ -65,7 +65,7 @@ mock.onGet(BASE_URI).reply((config) => {
   const { loginAt } = config.params;
 
   const time = Date.now() - Number(loginAt);
-  const expiredTime = import.meta.env.DEV ? 1000 * 20 : 1000 * 60 * 60;
+  const expiredTime = import.meta.env.DEV ? 1000 * 60 : 1000 * 60 * 60;
   if (time > expiredTime) throw new Error("Token Has Expired!");
 
   return [200, { loginAt: Date.now() }];

@@ -31,7 +31,7 @@ export function useLoginMe() {
       return usr?.loginAt;
     },
 
-    refetchInterval: import.meta.env.DEV ? 1000 * 10 : 1000 * 60 * 30,
+    refetchInterval: import.meta.env.DEV ? 1000 * 60 : 1000 * 60 * 30,
 
     retry: 2,
     retryDelay: 1000 * 2,
