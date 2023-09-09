@@ -5,20 +5,29 @@ export const sliceDemo = createSlice({
   name: "demo",
   initialState,
   reducers: {
-    list(state, { payload }: PayloadAction<string[]>) {
-      state.list = payload;
+    data(s, { payload }: PayloadAction<Data>) {
+      s.data = payload;
     },
-    listAdd(state, { payload }: PayloadAction<string>) {
-      const isExisted = state.list.includes(payload);
-      if (isExisted) return;
-
-      state.list.push(payload);
+    ageAdd(s) {
+      s.data.age += 1;
     },
   },
 });
 
-function initialState() {
+function initialState(): State {
   return {
-    list: [] as string[],
+    data: {
+      name: "",
+      age: 0,
+    },
   };
+}
+
+interface State {
+  data: Data;
+}
+
+interface Data {
+  name: string;
+  age: number;
 }

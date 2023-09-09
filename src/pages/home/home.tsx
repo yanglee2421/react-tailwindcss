@@ -1,5 +1,5 @@
 // Antd Imports
-import { Typography, Layout, Button } from "antd";
+import { Typography, Layout, Button, Divider } from "antd";
 
 // Theme Imports
 import { ThemeToggle } from "@/themes";
@@ -10,6 +10,16 @@ import { useAcl } from "@/configs/acl";
 // Login Imports
 import { useLogin } from "@/hooks";
 
+// Components Imports
+import { HomeCounter } from "./home-counter";
+import { HomeCounter2 } from "./home-counter-2";
+
+// React Imports
+import { useMemo } from "react";
+
+// Redux Imports
+import { sliceDemo, useAppDispatch } from "@/redux";
+
 export function Home() {
   // Redux Hooks
   const { usr } = useLogin();
@@ -19,6 +29,23 @@ export function Home() {
 
   // Login Hooks
   const { signOut } = useLogin();
+
+  const homeEl = useMemo(() => {
+    return (
+      <>
+        <HomeCounter />
+        <br />
+        <HomeCounter2 />
+      </>
+    );
+  }, []);
+
+  const dispatch = useAppDispatch();
+
+  const handleAgeAdd = () => {
+    const action = sliceDemo.actions.ageAdd();
+    dispatch(action);
+  };
 
   return (
     <Layout className="h-full">
@@ -31,6 +58,10 @@ export function Home() {
       <Typography.Title className="bg-left-bottom bg-no-repeat bg-gradient-to-r from-sky-500 to-indigo-500 bg-[length:0_2px] hover:bg-[length:100%_2px] transition-all">
         home
       </Typography.Title>
+      <Button onClick={handleAgeAdd}>+1</Button>
+      <Divider>or</Divider>
+      {homeEl}
+      <Divider>or</Divider>
       <p>{usr?.email}</p>
       <p>{usr?.role}</p>
       <p>{usr?.loginAt}</p>
