@@ -1,16 +1,16 @@
-import { useCallback, useState } from "react";
+// React Imports
+import React, { useCallback, useState } from "react";
 
 export function useToggle() {
   const [bool, setBool] = useState(false);
   const setToggle = useCallback(
-    (params?: boolean) => {
+    (params?: React.SetStateAction<boolean>) => {
       switch (params) {
-        case true:
-        case false:
-          setBool(params);
+        case void 0:
+          setBool((p) => !p);
           break;
         default:
-          setBool((p) => !p);
+          setBool(params);
       }
     },
     [setBool]
