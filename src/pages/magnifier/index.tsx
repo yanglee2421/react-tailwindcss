@@ -1,5 +1,5 @@
 // Hooks Imports
-import { useStructure, useResize } from "@/hooks";
+import { useStructure, useObserverResize } from "@/hooks";
 
 // React Imports
 import React, { useEffect, useRef } from "react";
@@ -16,7 +16,7 @@ export function Component() {
     y: 0,
   });
   const resizeRef = useRef<HTMLDivElement>(null);
-  const size = useResize<HTMLDivElement>(resizeRef);
+  const size = useObserverResize(resizeRef);
   useEffect(() => {
     if (!size) return;
 
