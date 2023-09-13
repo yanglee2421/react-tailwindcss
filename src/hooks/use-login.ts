@@ -10,6 +10,9 @@ import { Usr } from "@/redux/slice-login-local";
 // API Imports
 import { useQueryClient } from "@tanstack/react-query";
 
+// React Imports
+import { useCallback } from "react";
+
 export function useLogin() {
   // Redux Hooks
   const dispatch = useAppDispatch();
@@ -22,21 +25,24 @@ export function useLogin() {
   const queryClient = useQueryClient();
 
   // Sign In
-  const signIn = (usr: Usr, rememberMe?: boolean) => {
-    // Save To Local
-    if (rememberMe) {
-      const action = sliceLoginLocal.actions.usr(usr);
-      dispatch(action);
-      return;
-    }
+  const signIn = useCallback(
+    (usr: Usr, rememberMe?: boolean) => {
+      // Save To Local
+      if (rememberMe) {
+        const action = sliceLoginLocal.actions.usr(usr);
+        dispatch(action);
+        return;
+      }
 
-    // Save To Session
-    const action = sliceLoginSession.actions.usr(usr);
-    dispatch(action);
-  };
+      // Save To Session
+      const action = sliceLoginSession.actions.usr(usr);
+      dispatch(action);
+    },
+    [dispatch]
+  );
 
   // Sign Out
-  const signOut = () => {
+  const signOut = useCallback(() => {
     // Clear Local
     const action = sliceLoginLocal.actions.usr(null);
     dispatch(action);
@@ -47,18 +53,21 @@ export function useLogin() {
 
     // Clear Query
     queryClient.clear();
-  };
+  }, [dispatch, queryClient]);
 
   // Update User
-  const updateUsr = (usr: Partial<Usr>) => {
-    // Update Local
-    const actionLocal = sliceLoginLocal.actions.usrPatch(usr);
-    dispatch(actionLocal);
+  const updateUsr = useCallback(
+    (usr: Partial<Usr>) => {
+      // Update Local
+      const actionLocal = sliceLoginLocal.actions.usrPatch(usr);
+      dispatch(actionLocal);
 
-    // Update Session
-    const actionSession = sliceLoginSession.actions.usrPatch(usr);
-    dispatch(actionSession);
-  };
+      // Update Session
+      const actionSession = sliceLoginSession.actions.usrPatch(usr);
+      dispatch(actionSession);
+    },
+    [dispatch]
+  );
 
   return { signIn, signOut, updateUsr, usr };
 }
