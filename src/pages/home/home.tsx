@@ -15,10 +15,13 @@ import { HomeCounter } from "./home-counter";
 import { HomeCounter2 } from "./home-counter-2";
 
 // React Imports
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 // Redux Imports
 import { sliceDemo, useAppDispatch } from "@/redux";
+
+// WebSockets Imports
+import { io } from "socket.io-client";
 
 export function Home() {
   // Redux Hooks
@@ -50,6 +53,14 @@ export function Home() {
   const handlePost = () => {
     globalThis.postMessage("hello", "http://127.0.0.1:5500");
   };
+
+  useEffect(() => {
+    const socket = io("ws://localhost:3001");
+    socket.emit("msg", "hello word");
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   return (
     <Layout className="h-full">
