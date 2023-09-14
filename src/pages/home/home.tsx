@@ -47,12 +47,21 @@ export function Home() {
     dispatch(action);
   };
 
+  const handlePost = () => {
+    globalThis.postMessage("hello", "http://127.0.0.1:5500");
+  };
+
   return (
     <Layout className="h-full">
       <div>
         <ThemeToggle />
+        <br />
         <Button onClick={signOut} type="primary" danger>
           Sign Out
+        </Button>
+        <br />
+        <Button onClick={handlePost} type="primary">
+          post
         </Button>
       </div>
       <Typography.Title className="bg-left-bottom bg-no-repeat bg-gradient-to-r from-sky-500 to-indigo-500 bg-[length:0_2px] hover:bg-[length:100%_2px] transition-all">
