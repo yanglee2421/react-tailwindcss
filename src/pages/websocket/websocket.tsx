@@ -1,78 +1,85 @@
 // React Imports
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 
 // Antd Imports
 import { Button } from "antd";
 
+// WebSocket
+import { NeoWs } from "./neo-ws";
+
+// Hooks Imports
+import { useLogin } from "@/hooks";
+
 export function WebSocketPage() {
-  const wsRef = useRef<WebSocket>();
-  const controllerRef = useRef(new AbortController());
+  const wsRef = useRef(
+    new NeoWs({
+      url: "ws://localhost:3001",
+      refetchInterval: 1000 * 10,
+    })
+  );
 
-  const [msg, setMsg] = React.useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleConnect = useCallback(() => {}, [
-    wsRef,
-    controllerRef,
-    setIsLoading,
-    setMsg,
-  ]);
-
-  useEffect(() => {
-    handleConnect();
-
-    return () => {
-      controllerRef.current.abort();
-
-      const socket = wsRef.current;
-      if (!socket) return;
-      if (socket.readyState === socket.OPEN) {
-        socket.close(1000);
-      }
-    };
-  }, [wsRef, setMsg, setIsLoading, controllerRef]);
+  const [msg, setMsg] = React.useState<string[]>([]);
+  const listEl = useMemo(() => {
+    return msg.map((item) => {
+      return (
+        <li key={item} className="mb-3 last:mb-0">
+          {item}
+        </li>
+      );
+    });
+  }, [msg]);
 
   const handleMsg = () => {
-    const socket = wsRef.current;
-    if (!socket) return;
-    socket.send(crypto.randomUUID());
+    const ws = wsRef.current;
+    ws.send(crypto.randomUUID());
   };
   const handleClose = () => {
-    const socket = wsRef.current;
-    if (!socket) return;
-    socket.close(1000);
+    const ws = wsRef.current;
+    ws.close();
+  };
+
+  useEffect(() => {
+    const ws = wsRef.current;
+    ws.connect();
+    ws.onMessage((evt) => {
+      console.log("message");
+      setMsg((prev) => [...prev, evt.data]);
+    });
+    ws.onMessage(() => {
+      console.log("message2");
+    });
+    ws.onClose((evt) => {
+      console.log(evt);
+    });
+
+    return () => {
+      ws.close();
+    };
+  }, [wsRef]);
+
+  const { signOut } = useLogin();
+  const handleLogout = () => {
+    signOut();
+    console.log(wsRef.current);
   };
 
   return (
     <>
-      {isLoading && <p>loading...</p>}
-      {!isLoading && (
-        <>
-          <Button onClick={handleMsg}>message</Button>
-          <Button onClick={handleClose} danger>
-            close
-          </Button>
-          <p>{msg}</p>
-        </>
-      )}
+      <div className="p-2 flex gap-2">
+        <Button onClick={handleMsg}>message</Button>
+        <Button onClick={handleClose} danger>
+          close
+        </Button>
+        <Button
+          onClick={() => {
+            console.log(wsRef.current);
+          }}
+        >
+          log
+        </Button>
+        <Button onClick={handleLogout}>logout</Button>
+      </div>
+      <ul>{listEl}</ul>
     </>
   );
-}
-
-function toSocket(params: ToSocketParams) {
-  // ** Params
-  const { url, signal, onOpen, onMessage, onClose } = params;
-
-  const socket = new WebSocket(url);
-  socket.addEventListener("open", onOpen, { signal });
-  socket.addEventListener("message", onMessage, { signal });
-  socket.addEventListener("close", onClose, { signal });
-}
-
-interface ToSocketParams {
-  url: string;
-  signal: AbortSignal;
-  onOpen(evt: Event): void;
-  onMessage(evt: MessageEvent): void;
-  onClose(evt: CloseEvent): void;
 }
