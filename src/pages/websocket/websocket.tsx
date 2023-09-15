@@ -11,43 +11,12 @@ export function WebSocketPage() {
   const [msg, setMsg] = React.useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleConnect = useCallback(() => {
-    wsRef.current = new WebSocket("ws://localhost:3001");
-
-    const { signal } = controllerRef.current;
-    const socket = wsRef.current;
-
-    socket.addEventListener(
-      "open",
-      (evt) => {
-        console.log("ws stand by", evt);
-        setIsLoading(false);
-      },
-      { signal }
-    );
-
-    socket.addEventListener(
-      "message",
-      (evt) => {
-        console.log(evt);
-        setMsg(evt.data);
-      },
-      { signal }
-    );
-
-    socket.addEventListener(
-      "close",
-      (evt) => {
-        console.log(evt.code);
-        if (evt.code === 1000) return;
-
-        setIsLoading(true);
-
-        setTimeout(handleConnect, 1000 * 2);
-      },
-      { signal }
-    );
-  }, [wsRef, controllerRef, setIsLoading, setMsg]);
+  const handleConnect = useCallback(() => {}, [
+    wsRef,
+    controllerRef,
+    setIsLoading,
+    setMsg,
+  ]);
 
   useEffect(() => {
     handleConnect();
@@ -88,4 +57,22 @@ export function WebSocketPage() {
       )}
     </>
   );
+}
+
+function toSocket(params: ToSocketParams) {
+  // ** Params
+  const { url, signal, onOpen, onMessage, onClose } = params;
+
+  const socket = new WebSocket(url);
+  socket.addEventListener("open", onOpen, { signal });
+  socket.addEventListener("message", onMessage, { signal });
+  socket.addEventListener("close", onClose, { signal });
+}
+
+interface ToSocketParams {
+  url: string;
+  signal: AbortSignal;
+  onOpen(evt: Event): void;
+  onMessage(evt: MessageEvent): void;
+  onClose(evt: CloseEvent): void;
 }
