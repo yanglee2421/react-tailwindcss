@@ -7,9 +7,6 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 
-// React Imports
-import { useEffect, useRef } from "react";
-
 // Components Imports
 import { FormLogin } from "./form-login";
 import { IconReact } from "@/components";
@@ -18,32 +15,10 @@ import { IconReact } from "@/components";
 import justHer from "@/assets/image/bg/justHer.jpg";
 
 export function Component() {
-  // IntersectionObserver Hooks
-  const elRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = elRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([{ isIntersecting, intersectionRatio }], observer) => {
-        if (isIntersecting) {
-          console.log("entry", intersectionRatio);
-          observer.unobserve(el);
-        }
-      }
-    );
-    observer.observe(el);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <>
       <main className="flex h-full ">
         <section
-          ref={elRef}
           className="flex-1 bg-fixed bg-cover relative overflow-hidden"
           style={{ backgroundImage: `url(${justHer})` }}
         >

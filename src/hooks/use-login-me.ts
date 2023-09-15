@@ -20,6 +20,8 @@ export function useLoginMe() {
     enabled: Boolean(usr),
     queryKey: ["usr_get"],
     queryFn({ signal }) {
+      console.log("user_get", new Date().toLocaleString());
+
       return usr_get({ signal, params: usr });
     },
 
@@ -31,7 +33,7 @@ export function useLoginMe() {
       return usr?.loginAt;
     },
 
-    refetchInterval: import.meta.env.DEV ? 1000 * 60 : 1000 * 60 * 30,
+    refetchInterval: import.meta.env.DEV ? 1000 * 30 : 1000 * 60 * 30,
 
     retry: 2,
     retryDelay: 1000 * 2,

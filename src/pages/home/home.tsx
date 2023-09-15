@@ -55,7 +55,11 @@ export function Home() {
   };
 
   useEffect(() => {
-    const socket = io("ws://localhost:3001");
+    const socket = io("ws://localhost:3003");
+
+    socket.on("msg", (evt) => {
+      console.log(evt);
+    });
     socket.emit("msg", "hello word");
     return () => {
       socket.close();
