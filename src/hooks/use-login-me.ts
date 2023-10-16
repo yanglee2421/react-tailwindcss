@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Res } from "@/api/mock/usr_get";
 
 // React Imports
-import { useEffect } from "react";
+import React from "react";
 
 // Login Imports
 import { useLogin } from "./use-login";
@@ -40,14 +40,14 @@ export function useLoginMe() {
   });
 
   // Update user information when authentication is successful
-  useEffect(() => {
+  React.useEffect(() => {
     if (!data) return;
 
     updateUsr(data);
   }, [updateUsr, data]);
 
   // Log out if authentication fails
-  useEffect(() => {
+  React.useEffect(() => {
     if (!error) return;
 
     signOut();
