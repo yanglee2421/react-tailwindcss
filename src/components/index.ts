@@ -12,3 +12,6 @@ export * from "./icon-svelte";
 export * from "./icon-vite";
 export * from "./icon-vue";
 export * from "./icon-materio";
+
+// ** UI
+export * from "./scrollbar";
