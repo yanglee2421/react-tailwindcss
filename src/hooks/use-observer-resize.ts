@@ -1,14 +1,14 @@
 // React Imports
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export function useObserverResize<TRef extends Element>(
   elRef: React.RefObject<TRef>
 ) {
   // Prepare State
-  const [entry, setEntry] = useState<ResizeObserverEntry | null>(null);
+  const [entry, setEntry] = React.useState<ResizeObserverEntry | null>(null);
 
   // Bind Change
-  useEffect(() => {
+  React.useEffect(() => {
     const dom = elRef.current;
     const isElement = dom instanceof Element;
     if (!isElement) {

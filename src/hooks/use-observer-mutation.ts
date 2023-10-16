@@ -1,14 +1,14 @@
 // React Imports
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export function useObserverMutation<TRef extends Element>(
   ref: React.RefObject<TRef>
 ) {
   // Prepare State
-  const [record, setRecord] = useState<MutationRecord | null>(null);
+  const [record, setRecord] = React.useState<MutationRecord | null>(null);
 
   // Observer Element Effect
-  useEffect(() => {
+  React.useEffect(() => {
     const el = ref.current;
     const isElement = el instanceof Element;
     if (!isElement) {

@@ -1,14 +1,16 @@
 // React Imports
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 export function useObserverIntersection<TEl extends Element>(
   ref: React.RefObject<TEl>
 ) {
   // Prepare State
-  const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
+  const [entry, setEntry] = React.useState<IntersectionObserverEntry | null>(
+    null
+  );
 
   // Observer Element Effect
-  useEffect(() => {
+  React.useEffect(() => {
     const el = ref.current;
     const isElement = el instanceof Element;
     if (!isElement) {

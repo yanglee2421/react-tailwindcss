@@ -1,15 +1,15 @@
 // React Imports
-import { useEffect, useState } from "react";
+import React from "react";
 
 export function useIsDark() {
   // Prepare State
-  const [isDark, setIsDark] = useState(() => {
+  const [isDark, setIsDark] = React.useState(() => {
     const { matches } = matchMedia("(prefers-color-scheme: dark)");
     return matches;
   });
 
-  // Bind Change
-  useEffect(() => {
+  // Set state after mediaQuery change
+  React.useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
 

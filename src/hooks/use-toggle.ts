@@ -1,9 +1,9 @@
 // React Imports
-import React, { useCallback, useState } from "react";
+import React from "react";
 
 export function useToggle() {
-  const [bool, setBool] = useState(false);
-  const setToggle = useCallback(
+  const [bool, setBool] = React.useState(false);
+  const setToggle = React.useCallback(
     (params?: React.SetStateAction<boolean>) => {
       switch (params) {
         case void 0:
@@ -15,5 +15,5 @@ export function useToggle() {
     },
     [setBool]
   );
-  return [bool, setToggle];
+  return [bool, setToggle] as [typeof bool, typeof setToggle];
 }
