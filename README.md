@@ -3,3 +3,9 @@
 [Live Preview](https://yanglee2421.github.io/react-antd)
 
 ## Get Stated
+
+## Installation
+
+```bash
+pnpm create @yanglee2421/app
+```
