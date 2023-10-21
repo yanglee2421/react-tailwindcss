@@ -2,23 +2,21 @@
 import React from "react";
 
 // Antd Imports
-import { Button, Form, Input } from "antd";
+import { Button, Divider, Form, Input, List, Skeleton } from "antd";
+
+// Components Imports
 import { Scrollbar } from "@/components";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export function Home() {
   const [count, setCount] = React.useState(0);
-  const listEl = React.useMemo(() => {
+  const scrollId = React.useId();
+  const listData = React.useMemo(() => {
     const list = [];
     for (let i = 0; i < count; i++) {
       list.push(i);
     }
-    return list.map((item) => {
-      return (
-        <li key={item} className="border border-solid p-3">
-          {item}
-        </li>
-      );
-    });
+    return list;
   }, [count]);
 
   // Form Hooks
@@ -43,8 +41,23 @@ export function Home() {
           </Form.Item>
         </Form>
         <div className="flex-1 overflow-hidden">
-          <Scrollbar>
-            <ul className="space-y-3">{listEl}</ul>
+          <Scrollbar id={scrollId}>
+            <InfiniteScroll
+              scrollableTarget={scrollId}
+              dataLength={listData.length}
+              hasMore={listData.length < 50}
+              endMessage={<Divider>It is all, nothing more</Divider>}
+              loader={<Skeleton active avatar paragraph={{ rows: 1 }} />}
+              next={() => setCount((p) => p + 1)}
+            >
+              <List
+                size="large"
+                dataSource={listData}
+                renderItem={(item) => {
+                  return <List.Item key={item}>{item}</List.Item>;
+                }}
+              />
+            </InfiniteScroll>
           </Scrollbar>
         </div>
       </div>
