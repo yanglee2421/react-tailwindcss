@@ -1,6 +1,6 @@
 // Router Imports
 import { RouterProvider } from "react-router-dom";
-import { router } from "@/routers";
+import { router } from "@/router";
 
 // Provider Imports
 import { ThemeProvider } from "@/theme";
