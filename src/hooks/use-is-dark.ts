@@ -2,33 +2,18 @@
 import React from "react";
 
 export function useIsDark() {
-  // Prepare State
-  const [isDark, setIsDark] = React.useState(() => {
-    const { matches } = matchMedia("(prefers-color-scheme: dark)");
-    return matches;
-  });
+  const mediaQuery = matchMedia("(prefers-color-scheme: dark)");
 
-  // Set state after mediaQuery change
-  React.useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
+  return React.useSyncExternalStore(
+    (trigger) => {
+      mediaQuery.addEventListener("change", trigger);
 
-    const mediaQuery = matchMedia("(prefers-color-scheme: dark)");
-    setIsDark(mediaQuery.matches);
-
-    mediaQuery.addEventListener(
-      "change",
-      (evt) => {
-        setIsDark(evt.matches);
-      },
-      { signal }
-    );
-
-    // Clear Effect
-    return () => {
-      controller.abort();
-    };
-  }, [setIsDark]);
-
-  return isDark;
+      return () => {
+        mediaQuery.removeEventListener("change", trigger);
+      };
+    },
+    () => {
+      return mediaQuery.matches;
+    }
+  );
 }
