@@ -60,7 +60,7 @@ export function Component() {
     const to = { pathname: "/login", search };
 
     return <Navigate to={to} replace />;
-  }, [outlet, matches, searchParams, usr]);
+  }, [matches, searchParams, outlet, usr]);
 
   return <>{routeNode}</>;
 }
