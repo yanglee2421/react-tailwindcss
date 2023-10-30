@@ -11,8 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
-  const { mode } = configEnv;
-  void mode;
+  void configEnv;
 
   return {
     plugins: [react()],
