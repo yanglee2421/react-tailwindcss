@@ -26,15 +26,20 @@ queryClient.setMutationDefaults(["post-demo"], {
 });
 
 // ** Persist
-const storage = globalThis.sessionStorage;
-const persister = createSyncStoragePersister({ storage });
+const persister = createSyncStoragePersister({
+  storage: sessionStorage,
+  key: import.meta.env.VITE_QUERY_PERSISTER_KEY,
+});
 persistQueryClient({ queryClient, persister });
 
 // ** Config
 function queries(): DefaultOptions["queries"] {
   return {
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60 * 2,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
     retryDelay(attemptIndex) {
       return Math.min(1000 * 2 ** attemptIndex, 30000);
     },
