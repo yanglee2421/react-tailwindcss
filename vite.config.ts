@@ -7,11 +7,10 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 // import { readFileSync } from "node:fs";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
-  void configEnv;
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const isBuild = configEnv.command === "build";
 
   return {
     plugins: [react()],
@@ -35,7 +34,7 @@ export default defineConfig((configEnv) => {
       },
     },
 
-    base: "/react-antd",
+    base: isBuild ? "./" : "/react-antd",
 
     // ENV File
     envDir: resolve(__dirname, "./"),
@@ -50,17 +49,25 @@ export default defineConfig((configEnv) => {
 
 function build({ mode }: ConfigEnv): UserConfig["build"] {
   void mode;
+  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   return {
     outDir: "docs",
+    emptyOutDir: true,
     manifest: false,
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, "./index.html"),
+      },
       output: {
         manualChunks(id) {
           const isAntd = id.includes("node_modules/antd");
           if (isAntd) return "antd";
         },
+        // entryFileNames: "assets/wp-vite-main.js",
+        // assetFileNames: "assets/[name][extname]",
+        // chunkFileNames: "assets/[name]-[hash].js",
       },
     },
   };
@@ -68,6 +75,7 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
   void mode;
+  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   return {
     https: false,
