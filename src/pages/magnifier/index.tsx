@@ -2,7 +2,7 @@
 import { useStructure, useObserverResize } from "@/hooks";
 
 // React Imports
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 // Style Imports
 import style from "./style.module.scss";
@@ -15,9 +15,9 @@ export function Component() {
     x: 0,
     y: 0,
   });
-  const resizeRef = useRef<HTMLDivElement>(null);
+  const resizeRef = React.useRef<HTMLDivElement>(null);
   const size = useObserverResize(resizeRef);
-  useEffect(() => {
+  React.useEffect(() => {
     if (!size) return;
 
     const [box] = size.contentBoxSize;

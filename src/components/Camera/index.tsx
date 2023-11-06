@@ -1,12 +1,14 @@
-import { useRef, useEffect } from "react";
+// React Imports
+import React from "react";
 
 export function Camera() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  React.useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
     handleCamera(video);
-  }, []);
+  }, [videoRef]);
 
   return (
     <div>
