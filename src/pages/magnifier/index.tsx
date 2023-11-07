@@ -10,26 +10,15 @@ import style from "./style.module.scss";
 export function Component() {
   const [outer, setOuter] = useStructure({ x: 0, y: 0 });
   const [inner, setInner] = useStructure({
-    width: 0,
-    height: 0,
     x: 0,
     y: 0,
   });
   const resizeRef = React.useRef<HTMLDivElement>(null);
   const size = useObserverResize(resizeRef);
-  React.useEffect(() => {
-    if (!size) return;
-
-    const [box] = size.contentBoxSize;
-    setInner((prev) => ({
-      ...prev,
-      width: box.inlineSize,
-      height: box.blockSize,
-    }));
-  }, [setInner, size]);
 
   const boxHandler = (e: React.MouseEvent) => {
     const { offsetX, offsetY } = e.nativeEvent;
+
     setOuter((prev) => {
       prev.x = offsetX - 150;
       prev.y = offsetY - 150;
@@ -49,8 +38,8 @@ export function Component() {
         <div
           className={style.inner}
           style={{
-            width: inner.width,
-            height: inner.height,
+            width: size?.contentBoxSize?.[0].inlineSize,
+            height: size?.contentBoxSize?.[0].blockSize,
             transform: `translate(${inner.x}px, ${inner.y}px)`,
           }}
         ></div>

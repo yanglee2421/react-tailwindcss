@@ -1,5 +1,5 @@
 // React Imports
-import React, { useEffect, useMemo, useRef } from "react";
+import React from "react";
 
 // Antd Imports
 import { Button } from "antd";
@@ -11,7 +11,7 @@ import { NeoWs } from "./neo-ws";
 import { useLogin } from "@/hooks";
 
 export function WebSocketPage() {
-  const wsRef = useRef(
+  const wsRef = React.useRef(
     new NeoWs({
       url: "ws://localhost:3001",
       refetchInterval: 1000 * 10,
@@ -19,7 +19,7 @@ export function WebSocketPage() {
   );
 
   const [msg, setMsg] = React.useState<string[]>([]);
-  const listEl = useMemo(() => {
+  const listEl = React.useMemo(() => {
     return msg.map((item) => {
       return (
         <li key={item} className="mb-3 last:mb-0">
@@ -38,7 +38,7 @@ export function WebSocketPage() {
     ws.close();
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const ws = wsRef.current;
     ws.connect();
     ws.onMessage((evt) => {

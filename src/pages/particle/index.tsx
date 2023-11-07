@@ -8,25 +8,20 @@ import { useObserverResize } from "@/hooks";
 import { Particles } from "@/utils";
 
 // React Imports
-import { useEffect, useRef } from "react";
+import React from "react";
 
 export function Component() {
-  const ctxRef = useRef<HTMLCanvasElement>(null);
-  const resizeRef = useRef<HTMLDivElement>(null);
+  const ctxRef = React.useRef<HTMLCanvasElement>(null);
+  const resizeRef = React.useRef<HTMLDivElement>(null);
   const size = useObserverResize(resizeRef);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!size) return;
 
     const [box] = size.contentBoxSize;
 
     const canvas = ctxRef.current;
     if (!canvas) return;
-
-    Object.assign(canvas, {
-      width: box.inlineSize,
-      height: box.blockSize,
-    });
 
     let p: null | Particles = null;
     const timer = setTimeout(() => {
@@ -44,7 +39,12 @@ export function Component() {
 
   return (
     <div ref={resizeRef} className={style.partcle}>
-      <canvas ref={ctxRef} className={style.particleCanvas}></canvas>
+      <canvas
+        ref={ctxRef}
+        className={style.particleCanvas}
+        width={size?.contentBoxSize?.[0].inlineSize}
+        height={size?.contentBoxSize?.[0].blockSize}
+      ></canvas>
     </div>
   );
 }

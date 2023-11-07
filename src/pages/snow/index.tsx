@@ -9,7 +9,7 @@ import { Layout, Switch } from "antd";
 import { useObserverResize } from "@/hooks";
 
 // React Imports
-import { useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
 
 // Assets Imports
 import snowBg from "@/assets/image/bg/snow.jpg";
@@ -19,20 +19,18 @@ import villageBg from "@/assets/image/bg/snow-village.jpg";
 import { Snow } from "@/utils";
 
 export function Component() {
-  const cvsRef = useRef<HTMLCanvasElement>(null);
-  const resizeRef = useRef<HTMLDivElement>(null);
+  const cvsRef = React.useRef<HTMLCanvasElement>(null);
+  const resizeRef = React.useRef<HTMLDivElement>(null);
 
   const size = useObserverResize(resizeRef);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!size) return;
 
     const [box] = size.contentBoxSize;
 
     const canvas = cvsRef.current;
     if (!canvas) return;
-
-    Object.assign(canvas, { width: box.inlineSize, height: box.blockSize });
 
     let snow: null | Snow = null;
     const timer = setTimeout(() => {
@@ -46,12 +44,11 @@ export function Component() {
     };
   }, [size]);
 
-  // 开关
-  const [bg, setBg] = useState(false);
-  const bgSwitch = useMemo(
-    () => <Switch onChange={() => setBg((prev) => !prev)} checked={bg} />,
-    [bg]
-  );
+  // Background switch
+  const [bg, setBg] = React.useState(false);
+  const bgSwitch = React.useMemo(() => {
+    return <Switch onChange={() => setBg((prev) => !prev)} checked={bg} />;
+  }, [bg, setBg]);
 
   return (
     <Layout
@@ -59,7 +56,12 @@ export function Component() {
       className={clsx(["h-full", style.box])}
       style={{ backgroundImage: `url(${bg ? snowBg : villageBg})` }}
     >
-      <canvas ref={cvsRef} className={style.ctx}></canvas>
+      <canvas
+        ref={cvsRef}
+        className={style.ctx}
+        width={size?.contentBoxSize?.[0].inlineSize}
+        height={size?.contentBoxSize[0].blockSize}
+      ></canvas>
       <div>{bgSwitch}</div>
     </Layout>
   );

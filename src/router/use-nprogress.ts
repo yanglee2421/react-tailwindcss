@@ -1,5 +1,5 @@
 // React Imports
-import { useEffect } from "react";
+import React from "react";
 
 // NProgress Imports
 import NProgress from "nprogress";
@@ -12,7 +12,7 @@ export function useNprogress() {
   // Router Hooks
   const matches = useMatches();
 
-  return useEffect(() => {
+  return React.useEffect(() => {
     NProgress.done();
     return () => {
       NProgress.start();
