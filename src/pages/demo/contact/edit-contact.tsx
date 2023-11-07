@@ -5,11 +5,6 @@ export function EditContact({ savedContact, onSave }: EditContactProps) {
   const [name, setName] = React.useState(savedContact.name);
   const [email, setEmail] = React.useState(savedContact.email);
 
-  React.useEffect(() => {
-    setName(savedContact.name);
-    setEmail(savedContact.email);
-  }, [savedContact]);
-
   return (
     <section>
       <label>
@@ -20,6 +15,7 @@ export function EditContact({ savedContact, onSave }: EditContactProps) {
           onChange={(e) => setName(e.target.value)}
         />
       </label>
+      <br />
       <label>
         邮箱：{" "}
         <input
@@ -28,6 +24,7 @@ export function EditContact({ savedContact, onSave }: EditContactProps) {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
+      <br />
       <button
         onClick={() => {
           const updatedData = {
@@ -57,7 +54,7 @@ export interface EditContactProps {
   savedContact: SavedContact;
 }
 
-interface SavedContact {
+export interface SavedContact {
   id: number;
   name: string;
   email: string;
