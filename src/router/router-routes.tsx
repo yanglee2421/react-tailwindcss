@@ -89,6 +89,14 @@ export const routes: RouteObject[] = [
           return import("@/pages/websocket");
         },
       },
+      {
+        id: "demo",
+        path: "demo",
+        handle: { title: "Demo" },
+        lazy() {
+          return import("@/pages/demo");
+        },
+      },
     ],
   },
 ];
