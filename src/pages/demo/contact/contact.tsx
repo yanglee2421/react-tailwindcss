@@ -28,6 +28,7 @@ export function Contact() {
 
       return (
         <button
+          key={item.id}
           onClick={handleClick}
           className={clsx(item.id === selectedId && "font-bold")}
         >
