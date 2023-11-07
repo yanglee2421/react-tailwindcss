@@ -75,7 +75,6 @@ function build({ mode }: ConfigEnv): UserConfig["build"] {
 
 function server({ mode }: ConfigEnv): UserConfig["server"] {
   void mode;
-  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   return {
     https: false,
