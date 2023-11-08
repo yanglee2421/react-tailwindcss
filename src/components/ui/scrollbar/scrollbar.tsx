@@ -24,7 +24,9 @@ export const Scrollbar = React.forwardRef<HTMLDivElement, ScrollbarProps>(
       ref,
       () => {
         const el = containerRef.current;
-        if (!el) throw new Error("Excepted a HTMLDivElement, got a falsy!");
+        if (!el) {
+          throw new Error("Excepted a HTMLDivElement, got a falsy!");
+        }
 
         return el;
       },
@@ -46,8 +48,8 @@ export const Scrollbar = React.forwardRef<HTMLDivElement, ScrollbarProps>(
 
     // Update perfect scrollbar instance after container or content resize
     React.useEffect(() => {
-      void containerEntry;
-      void contentEntry;
+      void { containerEntry, contentEntry };
+
       psRef.current?.update();
     }, [containerEntry, contentEntry, psRef]);
 
@@ -99,7 +101,19 @@ export const Scrollbar = React.forwardRef<HTMLDivElement, ScrollbarProps>(
       return () => {
         controller.abort();
       };
-    }, [containerRef, props]);
+    }, [
+      containerRef,
+      props.onPsScrollY,
+      props.onPsScrollX,
+      props.onPsScrollUp,
+      props.onPsScrollDown,
+      props.onPsScrollLeft,
+      props.onPsScrollRight,
+      props.onPsYReachStart,
+      props.onPsYReachEnd,
+      props.onPsXReachStart,
+      props.onPsXReachEnd,
+    ]);
 
     return (
       <div
