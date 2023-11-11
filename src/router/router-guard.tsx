@@ -15,7 +15,7 @@ import {
   Navigate,
   useOutlet,
 } from "react-router-dom";
-import { toIsInWl } from "./router-whitelist";
+import { toIsInWhitelist } from "./to-is-in-whitelist";
 
 export function Component() {
   useLoginMe();
@@ -45,7 +45,7 @@ export function Component() {
     }
 
     // To Whitelist
-    const isInWhitelist = toIsInWl(nextRoute.id);
+    const isInWhitelist = toIsInWhitelist(nextRoute.id);
     if (isInWhitelist) return outlet;
 
     // Has Logged

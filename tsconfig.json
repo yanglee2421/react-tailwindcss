@@ -5,9 +5,10 @@
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] },
 
-    // Initialized by Vite
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    // Initialized by vite
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
