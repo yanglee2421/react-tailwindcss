@@ -17,6 +17,7 @@ export function defineAbilityFor(role: string) {
       break;
     case "client":
       can("read", "all");
+      cannot("read", "Page");
       break;
     default:
       cannot("read", "all");
@@ -25,8 +26,6 @@ export function defineAbilityFor(role: string) {
   return build();
 }
 
-export type AppAbility = MongoAbility<Abilities>;
-type CRUD = "create" | "read" | "update" | "delete";
-type Abilities =
-  | ["read" | "manage", "User" | "all"]
-  | [CRUD | "manage", "Article" | "all"];
+export type AppAbility = MongoAbility<[Actions, Subjects]>;
+type Actions = "manage" | "create" | "read" | "update" | "delete";
+type Subjects = "all" | "User" | "Article" | "Page";
