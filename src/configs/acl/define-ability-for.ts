@@ -2,14 +2,13 @@
 import {
   MongoAbility,
   createMongoAbility,
-  CreateAbility,
   AbilityBuilder,
 } from "@casl/ability";
 
-const createAppAbility = createMongoAbility as CreateAbility<AppAbility>;
-
 export function defineAbilityFor(role: string) {
-  const { can, cannot, build } = new AbilityBuilder(createAppAbility);
+  const { can, cannot, build } = new AbilityBuilder<AppAbility>(
+    createMongoAbility
+  );
 
   switch (role) {
     case "admin":
@@ -17,15 +16,14 @@ export function defineAbilityFor(role: string) {
       break;
     case "client":
       can("read", "all");
-      cannot("read", "Page");
       break;
     default:
-      cannot("read", "all");
+      cannot("manage", "all");
   }
 
   return build();
 }
 
 export type AppAbility = MongoAbility<[Actions, Subjects]>;
-type Actions = "manage" | "create" | "read" | "update" | "delete";
-type Subjects = "all" | "User" | "Article" | "Page";
+type Actions = "create" | "read" | "update" | "delete" | "manage";
+type Subjects = "all" | "User" | "Article";
