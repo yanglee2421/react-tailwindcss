@@ -9,6 +9,9 @@ import { InputRemember } from "./input-remember";
 // API Imports
 import { useUsrPost, useLogin } from "@/hooks";
 
+// React Imports
+import React from "react";
+
 export function FormLogin(props: FormLoginProps) {
   // ** Props
   // const {} = props;
@@ -21,38 +24,82 @@ export function FormLogin(props: FormLoginProps) {
   const [form] = Form.useForm();
 
   // API Hooks
-  const { mutateAsync, isLoading } = useUsrPost();
+  const loginMutation = useUsrPost();
+
+  const iframeReactMuiRef = React.useRef<HTMLIFrameElement>(null);
+  const iframeVueEleRef = React.useRef<HTMLIFrameElement>(null);
 
   // Form Submit
   const handleSubmit = async (data: FormValues) => {
-    const usr = await mutateAsync({ data });
+    loginMutation.mutate(
+      { data },
+      {
+        onSuccess(usr) {
+          iframeReactMuiRef.current?.contentWindow?.postMessage(
+            JSON.stringify({
+              type: "sso-login",
+              rememberMe: data.remember,
+              ...usr,
+            }),
+            import.meta.env.VITE_REACT_ANTD_URL,
+            []
+          );
 
-    signIn(usr, data.remember);
+          iframeVueEleRef.current?.contentWindow?.postMessage(
+            JSON.stringify({
+              type: "sso-login",
+              rememberMe: data.remember,
+              ...usr,
+            }),
+            import.meta.env.VITE_VUE_ELE_URL,
+            []
+          );
+
+          setTimeout(() => {
+            React.startTransition(() => {
+              signIn(usr, data.remember);
+            });
+          }, 0);
+        },
+      }
+    );
   };
 
   return (
-    <Form
-      form={form}
-      onFinish={handleSubmit}
-      requiredMark={false}
-      layout="vertical"
-      size="large"
-    >
-      <InputEmail />
-      <InputPasswd />
-      <InputRemember />
-      <Form.Item>
-        <Button
-          loading={isLoading}
-          htmlType="submit"
-          type="primary"
-          block
-          className="uppercase font-medium"
-        >
-          Sign In As Admin
-        </Button>
-      </Form.Item>
-    </Form>
+    <>
+      <iframe
+        ref={iframeReactMuiRef}
+        src={import.meta.env.VITE_REACT_MUI_URL}
+        style={{ display: "none" }}
+      ></iframe>
+      <iframe
+        ref={iframeVueEleRef}
+        src={import.meta.env.VITE_VUE_ELE_URL}
+        style={{ display: "none" }}
+      ></iframe>
+      <Form
+        form={form}
+        onFinish={handleSubmit}
+        requiredMark={false}
+        layout="vertical"
+        size="large"
+      >
+        <InputEmail />
+        <InputPasswd />
+        <InputRemember />
+        <Form.Item>
+          <Button
+            loading={loginMutation.isPending}
+            htmlType="submit"
+            type="primary"
+            block
+            className="uppercase font-medium"
+          >
+            Sign In As Admin
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
 

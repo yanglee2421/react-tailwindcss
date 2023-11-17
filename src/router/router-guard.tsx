@@ -28,7 +28,7 @@ export function Component() {
   const [searchParams] = useSearchParams();
 
   // Redux Hooks
-  const { usr } = useLogin();
+  const { usr, signIn } = useLogin();
 
   const routeNode = React.useMemo(() => {
     const nextRoute = matches[matches.length - 1];
@@ -62,5 +62,51 @@ export function Component() {
     return <Navigate to={to} replace />;
   }, [matches, searchParams, outlet, usr]);
 
-  return <>{routeNode}</>;
+  React.useEffect(() => {
+    const controller = new AbortController();
+    window.addEventListener(
+      "message",
+      (evt) => {
+        if (allowOrigins.has(evt.origin)) {
+          return;
+        }
+
+        const data = JSON.parse(evt.data);
+        if (data.type !== "sso-login") {
+          return;
+        }
+
+        signIn(
+          {
+            email: data.email,
+            role: data.role,
+            loginAt: data.loginAt,
+          },
+          data.rememberMe
+        );
+      },
+      {
+        signal: controller.signal,
+      }
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [signIn]);
+
+  return (
+    <>
+      {routeNode}
+      <iframe
+        src={import.meta.env.VITE_REACT_MUI_URL}
+        style={{ display: "none" }}
+      ></iframe>
+    </>
+  );
 }
+
+const allowOrigins = new Set<string>();
+allowOrigins.add(import.meta.env.VITE_REACT_ANTD_URL);
+allowOrigins.add(import.meta.env.VITE_REACT_MUI_URL);
+allowOrigins.add(import.meta.env.VITE_VUE_ELE_URL);

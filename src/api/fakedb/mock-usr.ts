@@ -5,12 +5,12 @@ const BASE_URI = "/usr";
 const usrList = [
   {
     email: "admin@demo.com",
-    passwd: "admin123456",
+    passwd: "test123456",
     role: "admin",
   },
   {
     email: "client@demo.com",
-    passwd: "client123456",
+    passwd: "test123456",
     role: "client",
   },
 ];
@@ -65,11 +65,8 @@ mock.onGet(BASE_URI).reply((config) => {
   const { loginAt } = config.params;
 
   const time = Date.now() - Number(loginAt);
-  const expiredTime = import.meta.env.DEV ? 1000 * 60 * 30 : 1000 * 60 * 60;
-  if (time > expiredTime)
-    throw new Error(
-      `Token Has Expired!：${new Date(loginAt).toLocaleString()}`
-    );
+  const expiredTime = import.meta.env.DEV ? 1000 * 60 * 15 : 1000 * 60 * 60;
+  if (time > expiredTime) throw new Error("Token Has Expired!");
 
   return [200, { loginAt: Date.now() }];
 });
