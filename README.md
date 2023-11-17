@@ -14,10 +14,10 @@ pnpm create @yanglee2421/app
 
 ### 应当使用的情况
 
-1. 输出 react state 控制外部系统
-2. 需要直接操作 dom 的情况
-3. 调用 setTimeout 和 setInterval
-4. 调用网络 API
+1. 输出 react state 用以控制外部系统
+2. 常见的外部系统：
+   - 网络 API
+   - DOM、BOM
 
 ### 不应使用的情况
 
