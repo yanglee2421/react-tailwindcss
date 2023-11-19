@@ -12,11 +12,7 @@ import { useUsrPost, useLogin } from "@/hooks";
 // React Imports
 import React from "react";
 
-export function FormLogin(props: FormLoginProps) {
-  // ** Props
-  // const {} = props;
-  void props;
-
+export function FormLogin() {
   // Login Hooks
   const { signIn } = useLogin();
 
@@ -26,40 +22,15 @@ export function FormLogin(props: FormLoginProps) {
   // API Hooks
   const loginMutation = useUsrPost();
 
-  const iframeReactMuiRef = React.useRef<HTMLIFrameElement>(null);
-  const iframeVueEleRef = React.useRef<HTMLIFrameElement>(null);
-
   // Form Submit
   const handleSubmit = async (data: FormValues) => {
     loginMutation.mutate(
       { data },
       {
         onSuccess(usr) {
-          iframeReactMuiRef.current?.contentWindow?.postMessage(
-            JSON.stringify({
-              type: "sso-login",
-              rememberMe: data.remember,
-              ...usr,
-            }),
-            import.meta.env.VITE_REACT_ANTD_URL,
-            []
-          );
-
-          iframeVueEleRef.current?.contentWindow?.postMessage(
-            JSON.stringify({
-              type: "sso-login",
-              rememberMe: data.remember,
-              ...usr,
-            }),
-            import.meta.env.VITE_VUE_ELE_URL,
-            []
-          );
-
-          setTimeout(() => {
-            React.startTransition(() => {
-              signIn(usr, data.remember);
-            });
-          }, 0);
+          React.startTransition(() => {
+            signIn(usr, data.remember);
+          });
         },
       }
     );
@@ -67,16 +38,6 @@ export function FormLogin(props: FormLoginProps) {
 
   return (
     <>
-      <iframe
-        ref={iframeReactMuiRef}
-        src={import.meta.env.VITE_REACT_MUI_URL}
-        style={{ display: "none" }}
-      ></iframe>
-      <iframe
-        ref={iframeVueEleRef}
-        src={import.meta.env.VITE_VUE_ELE_URL}
-        style={{ display: "none" }}
-      ></iframe>
       <Form
         form={form}
         onFinish={handleSubmit}
@@ -102,8 +63,6 @@ export function FormLogin(props: FormLoginProps) {
     </>
   );
 }
-
-export interface FormLoginProps {}
 
 export interface FormValues {
   email: string;
