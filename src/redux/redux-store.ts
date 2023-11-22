@@ -1,5 +1,5 @@
 // Redux Toolkit Imports
-import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 // Persist Imports
 import {
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
 // Create Persisted Reducer
 const reducer = persistReducer(
   {
-    key: "root",
+    key: import.meta.env.VITE_REDUX_PERSISTER_KEY,
     storage: local,
     blacklist: [sliceLoginSession.name, sliceDemo.name],
   },
@@ -62,6 +62,5 @@ export const store = configureStore({
 export const persistor = persistStore(store);
 
 // ** Types
-type RootReducer = typeof rootReducer;
-export type RootState = RootReducer extends Reducer<infer R> ? R : unknown;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
