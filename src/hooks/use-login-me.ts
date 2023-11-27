@@ -21,14 +21,11 @@ export function useLoginMe() {
     enabled: Boolean(usr),
     queryKey: ["usr_get"],
     queryFn({ signal }) {
-      console.log("user_get", new Date().toLocaleString());
-
       return usr_get({ signal, params: usr });
     },
 
     initialData() {
-      if (!usr) return;
-      return usr;
+      if (usr) return usr;
     },
     initialDataUpdatedAt() {
       return usr?.loginAt;
