@@ -13,6 +13,7 @@ export function useNprogress() {
   const matches = useMatches();
 
   return React.useEffect(() => {
+    void matches;
     NProgress.done();
     return () => {
       NProgress.start();

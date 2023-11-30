@@ -12,10 +12,9 @@ export function useDocTitle() {
 
     const title = Reflect.get(Object(match?.handle), "title");
 
-    if (!title) return;
-    if (typeof title === "string") {
+    const isHasTitle = [title, typeof title === "string"].every(Boolean);
+    if (isHasTitle) {
       document.title = title;
-      return;
     }
   }, [matches]);
 }
