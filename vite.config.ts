@@ -58,8 +58,8 @@ export default defineConfig((configEnv) => {
             }
           },
           entryFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
           chunkFileNames: "assets/[name]-[hash].js",
+          assetFileNames: "assets/[name]-[hash][extname]",
         },
       },
     },
@@ -67,6 +67,10 @@ export default defineConfig((configEnv) => {
     // DEV Server
     server: {
       port: 3004,
+      strictPort: true,
+      hmr: {
+        port: 3004,
+      },
       proxy: {
         "/dev": {
           target: "http://127.0.0.1",
