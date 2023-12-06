@@ -1,5 +1,5 @@
 // Vite Imports
-import { ConfigEnv, defineConfig, UserConfig } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
 // NodeJs Imports
@@ -40,55 +40,44 @@ export default defineConfig((configEnv) => {
     envDir: resolve(__dirname, "./"),
 
     // ** Build
-    build: build(configEnv),
+    build: {
+      outDir: "docs",
+      emptyOutDir: true,
+
+      manifest: false,
+      chunkSizeWarningLimit: 1024,
+
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "./index.html"),
+        },
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules/antd")) {
+              return "antd";
+            }
+          },
+          entryFileNames: "assets/[name]-[hash].js",
+          assetFileNames: "assets/[name]-[hash][extname]",
+          chunkFileNames: "assets/[name]-[hash].js",
+        },
+      },
+    },
 
     // DEV Server
-    server: server(configEnv),
+    server: {
+      port: 3004,
+      proxy: {
+        "/dev": {
+          target: "http://127.0.0.1",
+          rewrite(path) {
+            return path.replace(/^\/dev/, "");
+          },
+          changeOrigin: true,
+          ws: true,
+        },
+      },
+      fs: { allow: [resolve(__dirname, "./")] },
+    },
   };
 });
-
-function build({ mode }: ConfigEnv): UserConfig["build"] {
-  void mode;
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-
-  return {
-    outDir: "docs",
-    emptyOutDir: true,
-    manifest: false,
-    chunkSizeWarningLimit: 1024,
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "./index.html"),
-      },
-      output: {
-        manualChunks(id) {
-          const isAntd = id.includes("node_modules/antd");
-          if (isAntd) return "antd";
-        },
-        // entryFileNames: "assets/wp-vite-main.js",
-        // assetFileNames: "assets/[name][extname]",
-        // chunkFileNames: "assets/[name]-[hash].js",
-      },
-    },
-  };
-}
-
-function server({ mode }: ConfigEnv): UserConfig["server"] {
-  void mode;
-
-  return {
-    https: false,
-    fs: { allow: [".."] },
-    port: 3004,
-    proxy: {
-      "/dev": {
-        ws: true,
-        changeOrigin: true,
-        target: "http://127.0.0.1",
-        rewrite(path) {
-          return path.replace(/^\/dev/, "");
-        },
-      },
-    },
-  };
-}
