@@ -5,7 +5,6 @@ import react from "@vitejs/plugin-react-swc";
 // NodeJs Imports
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
-// import { readFileSync } from "node:fs";
 
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
@@ -36,10 +35,10 @@ export default defineConfig((configEnv) => {
 
     base: isBuild ? "./" : "/react-antd",
 
-    // ENV File
+    // ENV File Directory
     envDir: resolve(__dirname, "./"),
 
-    // ** Build
+    // Build Configuration
     build: {
       outDir: "docs",
       emptyOutDir: true,
@@ -71,7 +70,7 @@ export default defineConfig((configEnv) => {
       minify: "esbuild",
     },
 
-    // DEV Server
+    // Dev Server
     server: {
       port: 3004,
       strictPort: true,
@@ -88,7 +87,9 @@ export default defineConfig((configEnv) => {
           ws: true,
         },
       },
-      fs: { allow: [resolve(__dirname, "./")] },
+      fs: {
+        allow: [resolve(__dirname, "./")],
+      },
     },
   };
 });
