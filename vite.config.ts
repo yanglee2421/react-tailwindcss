@@ -62,6 +62,13 @@ export default defineConfig((configEnv) => {
           assetFileNames: "assets/[name]-[hash][extname]",
         },
       },
+
+      cssTarget: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+      cssMinify: true,
+      cssCodeSplit: true,
+
+      target: "modules",
+      minify: "esbuild",
     },
 
     // DEV Server
