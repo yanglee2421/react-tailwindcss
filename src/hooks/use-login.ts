@@ -16,10 +16,9 @@ import React from "react";
 export function useLogin() {
   // Redux Hooks
   const dispatch = useAppDispatch();
-  const usrLocal = useAppSelector((s) => s.loginLocal.usr);
-  const usrSession = useAppSelector((s) => s.loginSession.usr);
-
-  const usr = usrLocal || usrSession;
+  const usr = useAppSelector((s) => {
+    return s.loginLocal.usr || s.loginSession.usr;
+  });
 
   // API Hooks
   const queryClient = useQueryClient();
@@ -27,44 +26,29 @@ export function useLogin() {
   // Sign In
   const signIn = React.useCallback(
     (usr: Usr, rememberMe?: boolean) => {
-      // Save To Local
-      if (rememberMe) {
-        const action = sliceLoginLocal.actions.usr(usr);
-        dispatch(action);
-        return;
-      }
-
-      // Save To Session
-      const action = sliceLoginSession.actions.usr(usr);
-      dispatch(action);
+      rememberMe
+        ? dispatch(sliceLoginLocal.actions.usr(usr))
+        : dispatch(sliceLoginSession.actions.usr(usr));
     },
     [dispatch]
   );
 
   // Sign Out
   const signOut = React.useCallback(() => {
-    // Clear Local
-    const action = sliceLoginLocal.actions.usr(null);
-    dispatch(action);
+    // Clear Storage
+    dispatch(sliceLoginLocal.actions.usr(null));
+    dispatch(sliceLoginSession.actions.usr(null));
 
-    // Clear Session
-    const actionSession = sliceLoginSession.actions.usr(null);
-    dispatch(actionSession);
-
-    // Clear Query
+    // Clear Query Client
     queryClient.clear();
   }, [dispatch, queryClient]);
 
   // Update User
   const updateUsr = React.useCallback(
     (usr: Partial<Usr>) => {
-      // Update Local
-      const actionLocal = sliceLoginLocal.actions.usrPatch(usr);
-      dispatch(actionLocal);
-
-      // Update Session
-      const actionSession = sliceLoginSession.actions.usrPatch(usr);
-      dispatch(actionSession);
+      // Update User
+      dispatch(sliceLoginLocal.actions.usrPatch(usr));
+      dispatch(sliceLoginSession.actions.usrPatch(usr));
     },
     [dispatch]
   );
