@@ -1,28 +1,35 @@
-// Redux Toolkit Imports
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+// RTK Imports
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const sliceTheme = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    isDark(state, { payload }: PayloadAction<boolean>) {
-      state.isDark = payload;
+    reset(s) {
+      Object.assign(s, initialState());
     },
-    isDarkToggle(state, { payload }: PayloadAction<boolean | void>) {
-      switch (payload) {
-        case true:
-        case false:
-          state.isDark = payload;
-          break;
-        default:
-          state.isDark = !state.isDark;
-      }
+    mode(s, { payload }: PayloadAction<Theme["mode"]>) {
+      s.mode = payload;
+    },
+    bgAlpha(s, { payload }: PayloadAction<number>) {
+      s.bgAlpha = payload;
+    },
+    bgBlur(s, { payload }: PayloadAction<number>) {
+      s.bgBlur = payload;
     },
   },
 });
 
-function initialState() {
+function initialState(): Theme {
   return {
-    isDark: false,
+    mode: "auto",
+    bgAlpha: 0,
+    bgBlur: 0,
   };
+}
+
+interface Theme {
+  mode: "dark" | "light" | "auto";
+  bgAlpha: number;
+  bgBlur: number;
 }

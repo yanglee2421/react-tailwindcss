@@ -25,7 +25,7 @@ interface State {
   usr: Usr | null;
 }
 
-export interface Usr {
+interface Usr {
   role: string;
   email: string;
   loginAt: number;
