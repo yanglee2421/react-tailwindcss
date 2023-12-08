@@ -12,7 +12,12 @@ export function useDocTitle() {
 
     const title = Reflect.get(Object(match?.handle), "title");
 
+    /**
+     * Title is truth
+     * Title is a string
+     */
     const isHasTitle = [title, typeof title === "string"].every(Boolean);
+
     if (isHasTitle) {
       document.title = title;
     }
