@@ -5,7 +5,7 @@ export const routes: RouteObject[] = [
   {
     path: "",
     lazy() {
-      return import("./router-guard");
+      return import("./RootRoute");
     },
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
