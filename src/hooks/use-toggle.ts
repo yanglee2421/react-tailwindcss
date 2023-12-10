@@ -4,14 +4,8 @@ import React from "react";
 export function useToggle() {
   const [bool, setBool] = React.useState(false);
   const setToggle = React.useCallback(
-    (params?: React.SetStateAction<boolean>) => {
-      switch (params) {
-        case void 0:
-          setBool((p) => !p);
-          break;
-        default:
-          setBool(params);
-      }
+    (params: React.SetStateAction<boolean> = (p) => !p) => {
+      setBool(params);
     },
     [setBool]
   );
