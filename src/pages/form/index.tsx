@@ -1,8 +1,8 @@
 // React Imports
 import React from "react";
 
-// Style Imports
-import style from "./style.module.scss";
+// Clsx Imports
+import clsx from "clsx";
 
 // Assets Imports
 import img from "@/assets/image/bg/lake.jpg";
@@ -12,7 +12,7 @@ import { message } from "antd";
 
 export function Component() {
   return (
-    <div className={style.box}>
+    <div className={clsx(["space-y-3 columns-2"])}>
       <h2>Form & Input</h2>
       <form
         onSubmit={(e) => {
@@ -51,7 +51,7 @@ export function Component() {
           <input type="submit" value="submitBtn" />
           <input type="reset" value="resetBtn" />
         </Label>
-        <ol className={style.ol}>
+        <ol>
           <li>
             <label>
               radio2：
@@ -102,5 +102,5 @@ function Label(props: LabelProps) {
       </li>
     );
   });
-  return <ol className={style.formUl}>{arr}</ol>;
+  return <ol>{arr}</ol>;
 }
