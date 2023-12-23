@@ -13,22 +13,22 @@ import "@/assets/css/style.css";
 // I18n Imports
 import "@/i18n";
 
-// Fake Database Imports
-import "@/api/fakedb";
+const container = (() => {
+  const containerId = "root";
 
-init();
-
-function init() {
-  const container = document.getElementById("root");
-
-  if (!container) {
-    console.error("Can not find element #root");
-    return;
+  const existedEl = document.getElementById(containerId);
+  if (existedEl) {
+    return existedEl;
   }
 
-  ReactDOM.createRoot(container).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}
+  const newEl = document.createElement("div");
+  newEl.id = containerId;
+  document.body.append(newEl);
+  return newEl;
+})();
+
+ReactDOM.createRoot(container).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
