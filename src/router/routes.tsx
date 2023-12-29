@@ -4,15 +4,22 @@ import { Navigate, RouteObject } from "react-router-dom";
 export const routes: RouteObject[] = [
   {
     path: "",
-    lazy() {
-      return import("./RootRoute");
+    async lazy() {
+      const { RootRoute } = await import("./RootRoute");
+
+      return {
+        Component: RootRoute,
+      };
     },
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
       {
         id: "404",
         path: "404",
-        handle: { title: "404, NotFound" },
+        handle: {
+          title: "404, NotFound",
+          auth: "none",
+        },
         lazy() {
           return import("@/pages/404");
         },
@@ -20,7 +27,10 @@ export const routes: RouteObject[] = [
       {
         id: "login",
         path: "login",
-        handle: { title: "登录" },
+        handle: {
+          title: "Login",
+          auth: "guest",
+        },
         lazy() {
           return import("@/pages/login");
         },
@@ -28,7 +38,9 @@ export const routes: RouteObject[] = [
       {
         id: "index",
         index: true,
-        handle: { title: "首页" },
+        handle: {
+          title: "Home",
+        },
         lazy() {
           return import("@/pages/home");
         },
@@ -36,7 +48,7 @@ export const routes: RouteObject[] = [
       {
         id: "particle",
         path: "particle",
-        handle: { title: "粒子" },
+        handle: { title: "Particle" },
         lazy() {
           return import("@/pages/particle");
         },
@@ -44,7 +56,7 @@ export const routes: RouteObject[] = [
       {
         id: "snow",
         path: "snow",
-        handle: { title: "雪飘" },
+        handle: { title: "Snow" },
         lazy() {
           return import("@/pages/snow");
         },
@@ -52,7 +64,7 @@ export const routes: RouteObject[] = [
       {
         id: "form",
         path: "form",
-        handle: { title: "表单" },
+        handle: { title: "Form Component" },
         lazy() {
           return import("@/pages/form");
         },

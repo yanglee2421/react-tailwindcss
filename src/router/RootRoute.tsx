@@ -1,14 +1,8 @@
 // NProgress Imports
 import NProgress from "nprogress";
-// import "nprogress/nprogress.css";
 
 // Router Imports
-import {
-  useMatches,
-  useSearchParams,
-  Navigate,
-  useOutlet,
-} from "react-router-dom";
+import { useMatches, Navigate, useOutlet } from "react-router-dom";
 
 // React Imports
 import React from "react";
@@ -26,14 +20,13 @@ import { LoginRoute } from "./LoginRoute";
 export function RootRoute() {
   const outlet = useOutlet();
   const matches = useMatches();
-  const [searchParams] = useSearchParams();
   const [auth] = useAuth();
   const acl = React.useMemo(() => {
     return defineAbilityFor("");
   }, [auth.currentUser]);
 
   const routeNode = React.useMemo(() => {
-    const currentRoute = matches.at(-1);
+    const currentRoute = matches[matches.length - 1];
 
     if (!currentRoute) return null;
 
@@ -65,7 +58,7 @@ export function RootRoute() {
         return <Navigate to="/401" />;
       }
     }
-  }, [matches, searchParams, outlet, auth.currentUser, acl]);
+  }, [matches, auth.currentUser, outlet, acl]);
 
   React.useEffect(() => {
     void matches;
@@ -76,7 +69,7 @@ export function RootRoute() {
   }, [matches]);
 
   React.useEffect(() => {
-    const currentRoute = matches.at(-1);
+    const currentRoute = matches[matches.length - 1];
 
     if (!currentRoute) return;
 
