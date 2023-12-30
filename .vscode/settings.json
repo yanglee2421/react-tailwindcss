@@ -1,9 +1,9 @@
 {
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    "vite.config.ts": "index.html",
-    "README.md": "LICENSE, .gitignore, .prettierrc, .prettierignore",
-    ".env.development": ".env.*"
-  },
+  // "explorer.fileNesting.enabled": true,
+  // "explorer.fileNesting.patterns": {
+  //   "vite.config.ts": "index.html",
+  //   "README.md": "LICENSE, .gitignore, .prettierrc, .prettierignore",
+  //   ".env.development": ".env.*"
+  // },
   "css.lint.unknownAtRules": "ignore"
 }

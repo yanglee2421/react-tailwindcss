@@ -4,17 +4,14 @@ import { router } from "@/router";
 
 // Provider Imports
 import { ThemeProvider } from "@/theme";
-import { QueryProvider } from "@/api/provider";
-import { AclProvider } from "@/configs/acl";
+import { QueryProvider } from "@/plugins";
 
 export function App() {
   return (
     <QueryProvider>
-      <AclProvider>
-        <ThemeProvider>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </AclProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </QueryProvider>
   );
 }
