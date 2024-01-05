@@ -54,22 +54,6 @@ export const routes: RouteObject[] = [
         },
       },
       {
-        id: "snow",
-        path: "snow",
-        handle: { title: "Snow" },
-        lazy() {
-          return import("@/pages/snow");
-        },
-      },
-      {
-        id: "form",
-        path: "form",
-        handle: { title: "Form Component" },
-        lazy() {
-          return import("@/pages/form");
-        },
-      },
-      {
         id: "bottle",
         path: "bottle",
         handle: { title: "水罐" },
@@ -83,30 +67,6 @@ export const routes: RouteObject[] = [
         handle: { title: "放大镜" },
         lazy() {
           return import("@/pages/magnifier");
-        },
-      },
-      {
-        id: "preformance",
-        path: "preformance",
-        handle: { title: "性能测试" },
-        lazy() {
-          return import("@/pages/preformance");
-        },
-      },
-      {
-        id: "websocket",
-        path: "websocket",
-        handle: { title: "WebSocket" },
-        lazy() {
-          return import("@/pages/websocket");
-        },
-      },
-      {
-        id: "demo",
-        path: "demo",
-        handle: { title: "Demo" },
-        lazy() {
-          return import("@/pages/demo");
         },
       },
     ],
