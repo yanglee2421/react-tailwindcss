@@ -10,7 +10,7 @@ export function App() {
   return (
     <QueryProvider>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}></RouterProvider>
       </ThemeProvider>
     </QueryProvider>
   );

@@ -8,12 +8,15 @@ import { InputPasswd } from "./input-passwd";
 // Query Imports
 import { useLoginMutation } from "@/hooks/api-firebase";
 
+// MUI Imports
+import { styled } from "@mui/system";
+
 export function FormLogin() {
   const [form] = Form.useForm<FormValues>();
 
   const mutation = useLoginMutation();
 
-  const [toast] = message.useMessage();
+  const [toast, contextHolder] = message.useMessage();
 
   const handleSubmit = (data: FormValues) => {
     mutation.mutate(data, {
@@ -28,6 +31,7 @@ export function FormLogin() {
 
   return (
     <>
+      {contextHolder}
       <Form
         form={form}
         onFinish={handleSubmit}
@@ -38,14 +42,9 @@ export function FormLogin() {
         <InputEmail></InputEmail>
         <InputPasswd></InputPasswd>
         <Form.Item>
-          <Button
-            htmlType="submit"
-            type="primary"
-            block
-            className="uppercase font-medium"
-          >
-            Sign In As Admin
-          </Button>
+          <StyledButton htmlType="submit" type="primary" block>
+            Sign In
+          </StyledButton>
         </Form.Item>
       </Form>
     </>
@@ -56,3 +55,7 @@ export interface FormValues {
   email: string;
   password: string;
 }
+
+const StyledButton = styled(Button)({
+  textTransform: "uppercase",
+});
