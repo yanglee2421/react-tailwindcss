@@ -5,16 +5,16 @@ import { LockOutlined } from "@ant-design/icons";
 export function InputPasswd() {
   return (
     <Form.Item
-      name={"passwd"}
+      name={"password"}
       rules={[
         { required: true, message: "Password is required!" },
         { type: "string", min: 5, max: 16, message: "8-16" },
       ]}
     >
       <Input.Password
-        prefix={<LockOutlined className="text-gray-400" />}
+        prefix={<LockOutlined></LockOutlined>}
         placeholder="Password"
-      />
+      ></Input.Password>
     </Form.Item>
   );
 }

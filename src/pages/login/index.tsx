@@ -1,5 +1,5 @@
 // Antd Imports
-import { Button, Divider, Typography, Alert } from "antd";
+import { Button, Divider, Typography } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
@@ -14,65 +14,106 @@ import { IconReact } from "@/components";
 // Assets Imports
 import justHer from "@/assets/image/bg/justHer.jpg";
 
+// MUI Imports
+import { styled } from "@mui/system";
+
 export function Component() {
   return (
     <>
-      <main className="flex h-full ">
-        <section
-          className="flex-1 bg-fixed bg-cover relative overflow-hidden"
-          style={{ backgroundImage: `url(${justHer})` }}
+      <StyledMain
+        sx={{
+          display: "flex",
+          height: "100%",
+        }}
+      >
+        <StyledSection
+          sx={{
+            position: "relative",
+            flex: 1,
+            overflow: "hidden",
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundImage: `url(${justHer})`,
+          }}
         >
-          <div className="absolute top-6 left-9 flex items-center gap-3">
-            <IconReact />
-            <Typography.Title level={2} className="!mb-0 !text-slate-200">
-              Yang_Lee
-            </Typography.Title>
-          </div>
-        </section>
-        <section className="w-full md:max-w-md flex flex-col justify-center px-6 shadow-lg">
+          <StyledDiv
+            sx={{
+              position: "absolute",
+              top: 6,
+              left: 9,
+              display: "flex",
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
+            <IconReact></IconReact>
+            <Typography.Title level={2}>Yang_Lee</Typography.Title>
+          </StyledDiv>
+        </StyledSection>
+        <StyledSection
+          sx={(theme) => {
+            return {
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              paddingInline: 6,
+              width: "100%",
+              maxWidth: {
+                md: theme.spacing(28 * 4),
+              },
+            };
+          }}
+        >
           <Typography.Title level={2}>Wellcome to here!</Typography.Title>
-          <Typography.Paragraph className="text-gray-400 text-base">
+          <Typography.Paragraph>
             Please sign-in to your account and start the adventure.
           </Typography.Paragraph>
-          <Alert
-            message={
-              <div className="flex flex-col gap-1">
-                <Typography.Text className="text-blue-500">
-                  admin：<span className="font-semibold">admin@demo.com</span>
-                  <span> / </span>
-                  Pass：<span className="font-semibold">admin123456</span>
-                </Typography.Text>
-                <Typography.Text className="text-blue-500">
-                  client：<span className="font-semibold">client@demo.com</span>
-                  <span> / </span>
-                  Pass：<span className="font-semibold">client123456</span>
-                </Typography.Text>
-              </div>
-            }
-            className="mb-5"
-          />
-          <FormLogin />
-          <div className="flex gap-3 justify-center">
+          <FormLogin></FormLogin>
+          <StyledDiv
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 3,
+            }}
+          >
             <Typography.Text>New on our platform?</Typography.Text>
             <Typography.Link underline>Create an account</Typography.Link>
-          </div>
+          </StyledDiv>
           <Divider>Or</Divider>
-          <div className="flex justify-center gap-3">
-            <Button shape="circle" size="large" icon={<FacebookOutlined />} />
+          <StyledDiv
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 3,
+            }}
+          >
+            <Button
+              shape="circle"
+              size="large"
+              icon={<FacebookOutlined></FacebookOutlined>}
+            />
             <Button
               shape="circle"
               size="large"
               icon={<TwitterOutlined className="text-blue-500" />}
             />
-            <Button shape="circle" size="large" icon={<GithubOutlined />} />
             <Button
               shape="circle"
               size="large"
-              icon={<GoogleOutlined className="text-red-500" />}
+              icon={<GithubOutlined></GithubOutlined>}
             />
-          </div>
-        </section>
-      </main>
+            <Button
+              shape="circle"
+              size="large"
+              icon={<GoogleOutlined></GoogleOutlined>}
+            />
+          </StyledDiv>
+        </StyledSection>
+      </StyledMain>
     </>
   );
 }
+
+const StyledMain = styled("main")({});
+const StyledSection = styled("section")({});
+const StyledDiv = styled("div")({});

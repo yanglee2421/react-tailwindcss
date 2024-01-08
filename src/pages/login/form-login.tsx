@@ -1,29 +1,42 @@
 // Antd Imports
-import { Form, Button } from "antd";
+import { Form, Button, message } from "antd";
 
 // Form Imports
 import { InputEmail } from "./input-email";
 import { InputPasswd } from "./input-passwd";
 
+// Query Imports
+import { useLoginMutation } from "@/hooks/api-firebase";
+
 export function FormLogin() {
-  // Form Hooks
-  const [form] = Form.useForm<{
-    email: string;
-  }>();
+  const [form] = Form.useForm<FormValues>();
+
+  const mutation = useLoginMutation();
+
+  const [toast] = message.useMessage();
+
+  const handleSubmit = (data: FormValues) => {
+    mutation.mutate(data, {
+      onError(error) {
+        toast.error(error.message);
+      },
+      onSuccess() {
+        toast.success("Sign in successlly!");
+      },
+    });
+  };
 
   return (
     <>
       <Form
         form={form}
-        onFinish={(data) => {
-          console.log(data);
-        }}
+        onFinish={handleSubmit}
         requiredMark={false}
         layout="vertical"
         size="large"
       >
-        <InputEmail />
-        <InputPasswd />
+        <InputEmail></InputEmail>
+        <InputPasswd></InputPasswd>
         <Form.Item>
           <Button
             htmlType="submit"
@@ -41,6 +54,5 @@ export function FormLogin() {
 
 export interface FormValues {
   email: string;
-  passwd: string;
-  remember: boolean;
+  password: string;
 }

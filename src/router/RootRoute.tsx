@@ -18,21 +18,19 @@ import { HomeRoute } from "./HomeRoute";
 import { LoginRoute } from "./LoginRoute";
 
 export function RootRoute() {
-  const outlet = useOutlet();
   const matches = useMatches();
+  const outlet = useOutlet();
   const [auth] = useAuth();
-  const acl = React.useMemo(() => {
-    return defineAbilityFor("");
-  }, [auth.currentUser]);
+  const acl = defineAbilityFor(auth.currentUser ? "admin" : "");
 
-  const routeNode = React.useMemo(() => {
+  const routeNode = (() => {
     const currentRoute = matches[matches.length - 1];
 
     if (!currentRoute) return null;
 
     switch (Reflect.get(Object(currentRoute.handle), "auth")) {
       case "guest": {
-        return auth.currentUser ? <HomeRoute /> : outlet;
+        return auth.currentUser ? <HomeRoute></HomeRoute> : outlet;
       }
 
       case "none":
@@ -42,23 +40,29 @@ export function RootRoute() {
       default: {
         // Not logged in
         if (!auth.currentUser) {
-          return <LoginRoute />;
+          return <LoginRoute></LoginRoute>;
         }
 
-        // No access control
+        // Authorized pass
         if (
           acl.can(
-            Reflect.get(Object(currentRoute.handle), "aclAction") || "read",
-            Reflect.get(Object(currentRoute.handle), "aclSubject") || "fallback"
+            String(
+              Reflect.get(Object(currentRoute.handle), "aclAction") || "read"
+            ),
+            String(
+              Reflect.get(Object(currentRoute.handle), "aclSubject") ||
+                "fallback"
+            )
           )
         ) {
           return outlet;
         }
 
-        return <Navigate to="/401" />;
+        // Not authorized
+        return <Navigate to="/403"></Navigate>;
       }
     }
-  }, [matches, auth.currentUser, outlet, acl]);
+  })();
 
   React.useEffect(() => {
     void matches;

@@ -25,8 +25,7 @@ export function defineAbilityFor(role: string) {
   return aclBuilder.build();
 }
 
-export type AppAbility = MongoAbility<[Actions, string]>;
-type Actions = "create" | "read" | "update" | "delete" | "manage";
+export type AppAbility = MongoAbility<[string, string]>;
 
 function ruleForOwner(aclBuilder: AbilityBuilder<AppAbility>) {
   aclBuilder.can("manage", "all");
