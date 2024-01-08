@@ -42,7 +42,12 @@ export function FormLogin() {
         <InputEmail></InputEmail>
         <InputPasswd></InputPasswd>
         <Form.Item>
-          <StyledButton htmlType="submit" type="primary" block>
+          <StyledButton
+            htmlType="submit"
+            loading={mutation.isPending}
+            type="primary"
+            block
+          >
             Sign In
           </StyledButton>
         </Form.Item>

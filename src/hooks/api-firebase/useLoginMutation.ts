@@ -12,7 +12,7 @@ import { app } from "@/api/firebase";
 export function useLoginMutation() {
   return useMutation<UserCredential, Error, Req>({
     mutationFn(req) {
-      return signInWithEmailAndPassword(getAuth(app), req.email, req.email);
+      return signInWithEmailAndPassword(getAuth(app), req.email, req.password);
     },
   });
 }
