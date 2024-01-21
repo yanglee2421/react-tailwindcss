@@ -1,1 +1,0 @@
-import{r as s}from"./antd-57ea9798.js";function l(r){const[o,e]=s.useState(null);return s.useEffect(()=>{const t=r.current;if(!(t instanceof Element)){console.error("ref.current must be an Element");return}const n=new ResizeObserver(([c])=>{e(c)});return n.observe(t),()=>{n.disconnect(),e(null)}},[r,e]),o}export{l as u};
