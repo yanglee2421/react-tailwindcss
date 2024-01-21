@@ -5,7 +5,7 @@ export function HomeRoute() {
   const matches = useMatches();
   const [searchParams] = useSearchParams();
 
-  const currentRoute = matches.at(-1);
+  const currentRoute = matches[matches.length - 1];
 
   if (!currentRoute) {
     return null;
