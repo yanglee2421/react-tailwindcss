@@ -2,7 +2,7 @@
 import React from "react";
 
 // Hooks Imports
-import { useObserverResize } from "@/hooks";
+import { useObserverResize } from "@/hooks/dom";
 
 // Transition Imports
 import { Transition } from "react-transition-group";

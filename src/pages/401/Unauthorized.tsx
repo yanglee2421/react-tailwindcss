@@ -15,18 +15,20 @@ import { IconReact } from "@/components";
 import justHer from "@/assets/image/bg/justHer.jpg";
 
 // MUI Imports
-import { styled } from "@mui/system";
+import { Box } from "@mui/system";
 
-export function Component() {
+export function Unauthorized() {
   return (
     <>
-      <StyledMain
+      <Box
+        component={"main"}
         sx={{
           display: "flex",
           height: "100%",
         }}
       >
-        <StyledSection
+        <Box
+          component={"section"}
           sx={{
             position: "relative",
             flex: 1,
@@ -36,7 +38,7 @@ export function Component() {
             backgroundImage: `url(${justHer})`,
           }}
         >
-          <StyledDiv
+          <Box
             sx={{
               position: "absolute",
               top: 6,
@@ -48,9 +50,10 @@ export function Component() {
           >
             <IconReact></IconReact>
             <Typography.Title level={2}>Yang_Lee</Typography.Title>
-          </StyledDiv>
-        </StyledSection>
-        <StyledSection
+          </Box>
+        </Box>
+        <Box
+          component={"section"}
           sx={(theme) => {
             return {
               display: "flex",
@@ -69,7 +72,7 @@ export function Component() {
             Please sign-in to your account and start the adventure.
           </Typography.Paragraph>
           <FormLogin></FormLogin>
-          <StyledDiv
+          <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -78,9 +81,9 @@ export function Component() {
           >
             <Typography.Text>New on our platform?</Typography.Text>
             <Typography.Link underline>Create an account</Typography.Link>
-          </StyledDiv>
+          </Box>
           <Divider>Or</Divider>
-          <StyledDiv
+          <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -107,13 +110,9 @@ export function Component() {
               size="large"
               icon={<GoogleOutlined></GoogleOutlined>}
             />
-          </StyledDiv>
-        </StyledSection>
-      </StyledMain>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 }
-
-const StyledMain = styled("main")({});
-const StyledSection = styled("section")({});
-const StyledDiv = styled("div")({});

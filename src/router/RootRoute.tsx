@@ -8,10 +8,15 @@ import { useMatches, Navigate, useOutlet } from "react-router-dom";
 import React from "react";
 
 // Store Imports
-import { useAuth } from "@/hooks/store";
+import { useAuthStore } from "@/hooks/store";
+import { useShallow } from "zustand/react/shallow";
 
 // Acl Imports
 import { defineAbilityFor, AclContext } from "@/configs/acl";
+
+// Firebase Imports
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "@/api/firebase";
 
 // Components Imports
 import { HomeRoute } from "./HomeRoute";
@@ -20,73 +25,92 @@ import { LoginRoute } from "./LoginRoute";
 export function RootRoute() {
   const matches = useMatches();
   const outlet = useOutlet();
-  const [auth] = useAuth();
-  const acl = defineAbilityFor(auth.currentUser ? "admin" : "");
+  const { authValue, updateAuth } = useAuthStore(
+    useShallow((store) => {
+      return {
+        authValue: store.value,
+        updateAuth: store.update,
+      };
+    })
+  );
 
-  const routeNode = (() => {
-    const currentRoute = matches[matches.length - 1];
-
-    if (!currentRoute) return null;
-
-    switch (Reflect.get(Object(currentRoute.handle), "auth")) {
-      case "guest": {
-        return auth.currentUser ? <HomeRoute></HomeRoute> : outlet;
-      }
-
-      case "none":
-        return outlet;
-
-      case "auth":
-      default: {
-        // Not logged in
-        if (!auth.currentUser) {
-          return <LoginRoute></LoginRoute>;
-        }
-
-        // Authorized pass
-        if (
-          acl.can(
-            String(
-              Reflect.get(Object(currentRoute.handle), "aclAction") || "read"
-            ),
-            String(
-              Reflect.get(Object(currentRoute.handle), "aclSubject") ||
-                "fallback"
-            )
-          )
-        ) {
-          return outlet;
-        }
-
-        // Not authorized
-        return <Navigate to="/403"></Navigate>;
-      }
-    }
-  })();
+  const acl = defineAbilityFor(authValue.auth.currentUser ? "admin" : "");
 
   React.useEffect(() => {
-    void matches;
+    return onAuthStateChanged(getAuth(app), () => {
+      updateAuth();
+    });
+  }, [updateAuth]);
+
+  React.useEffect(() => {
     NProgress.done();
-    return () => {
+
+    const destructor = () => {
       NProgress.start();
     };
-  }, [matches]);
 
-  React.useEffect(() => {
     const currentRoute = matches[matches.length - 1];
 
-    if (!currentRoute) return;
+    if (!currentRoute) {
+      return destructor;
+    }
 
     const title = Reflect.get(Object(currentRoute.handle), "title");
 
-    if (!title) return;
+    if (!title) {
+      return destructor;
+    }
 
     if (typeof title === "string") {
       document.title = title;
     }
+
+    return destructor;
   }, [matches]);
 
-  return <AclContext.Provider value={acl}>{routeNode}</AclContext.Provider>;
+  return (
+    <AclContext.Provider value={acl}>
+      {(() => {
+        const currentRoute = matches[matches.length - 1];
+
+        if (!currentRoute) {
+          return null;
+        }
+
+        switch (Reflect.get(Object(currentRoute.handle), "auth")) {
+          case "none":
+            return outlet;
+
+          case "guest":
+            return authValue.auth.currentUser ? <HomeRoute /> : outlet;
+
+          case "auth":
+          default:
+            // Not logged in
+            if (!authValue.auth.currentUser) {
+              return <LoginRoute />;
+            }
+
+            // Authorized pass
+            if (
+              acl.can(
+                String(
+                  Reflect.get(Object(currentRoute.handle), "aclAction") ||
+                    "read"
+                ),
+                String(
+                  Reflect.get(Object(currentRoute.handle), "aclSubject") ||
+                    "fallback"
+                )
+              )
+            ) {
+              return outlet;
+            }
+
+            // Not authorized
+            return <Navigate to="/403" />;
+        }
+      })()}
+    </AclContext.Provider>
+  );
 }
-// ck_bc5124569889f94574e6fb878677c85db8300749
-// cs_40da90a7ae05b183a5cdd59148254ecdbc817c01

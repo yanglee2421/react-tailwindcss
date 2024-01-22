@@ -1,3 +1,4 @@
+// Router Imports
 import { Navigate, useMatches, useSearchParams } from "react-router-dom";
 
 export function LoginRoute() {
@@ -15,7 +16,7 @@ export function LoginRoute() {
   return (
     <Navigate
       to={{
-        pathname: "/login",
+        pathname: "/401",
         search: searchParams.toString(),
         hash: void 0,
       }}

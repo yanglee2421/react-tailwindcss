@@ -14,25 +14,63 @@ export const routes: RouteObject[] = [
     children: [
       { path: "*", element: <Navigate to="/404" replace /> },
       {
-        id: "404",
-        path: "404",
+        id: "401",
+        path: "401",
         handle: {
-          title: "404, NotFound",
-          auth: "none",
+          title: "401 Unauthorized",
+          auth: "guest",
         },
-        lazy() {
-          return import("@/pages/404");
+        async lazy() {
+          const { Unauthorized } = await import("@/pages/401");
+
+          return {
+            Component: Unauthorized,
+          };
         },
       },
       {
-        id: "login",
-        path: "login",
+        id: "403",
+        path: "403",
         handle: {
-          title: "Login",
-          auth: "guest",
+          title: "403 Forbidden",
+          auth: "auth",
         },
-        lazy() {
-          return import("@/pages/login");
+        async lazy() {
+          const { Forbidden } = await import("@/pages/403");
+
+          return {
+            Component: Forbidden,
+          };
+        },
+      },
+      {
+        id: "404",
+        path: "404",
+        handle: {
+          title: "404 Not Found",
+          auth: "none",
+        },
+        async lazy() {
+          const { NotFound } = await import("@/pages/404");
+
+          return {
+            Component: NotFound,
+          };
+        },
+      },
+      {
+        id: "500",
+        path: "500",
+        handle: {
+          title: "Internal Server Error",
+          auth: "none",
+        },
+        async lazy() {
+          const { NotFound } = await import("@/pages/404");
+
+          return {
+            Component: NotFound,
+          };
         },
       },
       {

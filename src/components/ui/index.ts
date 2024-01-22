@@ -1,4 +1,4 @@
 // ** UI
 export * from "./scrollbar";
 
-export * from "./menu-group";
+export * from "./MenuGroup";
