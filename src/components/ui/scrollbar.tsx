@@ -3,7 +3,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 // Hooks Imports
-import { useObserverResize } from "@/hooks";
+import { useObserverResize } from "@/hooks/dom";
 
 // React Imports
 import React from "react";

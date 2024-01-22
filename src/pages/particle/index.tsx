@@ -2,7 +2,7 @@
 import style from "./particle.module.scss";
 
 // Hooks Imports
-import { useObserverResize } from "@/hooks";
+import { useObserverResize } from "@/hooks/dom";
 
 // Utils Imports
 import { Particles } from "@/utils";

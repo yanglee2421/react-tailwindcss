@@ -1,5 +1,6 @@
 // Hooks Imports
-import { useStructure, useObserverResize } from "@/hooks";
+import { useObserverResize } from "@/hooks/dom";
+import { useImmer } from "use-immer";
 
 // React Imports
 import React from "react";
@@ -8,8 +9,8 @@ import React from "react";
 import style from "./style.module.scss";
 
 export function Component() {
-  const [outer, setOuter] = useStructure({ x: 0, y: 0 });
-  const [inner, setInner] = useStructure({
+  const [outer, setOuter] = useImmer({ x: 0, y: 0 });
+  const [inner, setInner] = useImmer({
     x: 0,
     y: 0,
   });
