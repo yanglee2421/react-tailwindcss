@@ -4,12 +4,12 @@ import { Button, Result } from "antd";
 // Router Imports
 import { Link } from "react-router-dom";
 
-export function Forbidden() {
+export function InternalServerError() {
   return (
     <Result
-      status="403"
-      title="403"
-      subTitle="Sorry, you are not authorized to access this page."
+      status="500"
+      title="500"
+      subTitle="Sorry, something went wrong."
       extra={
         <Link to="/">
           <Button type="primary" size="large">

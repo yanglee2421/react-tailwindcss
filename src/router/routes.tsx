@@ -9,6 +9,7 @@ export const routes: RouteObject[] = [
 
       return {
         Component: RootRoute,
+        errorElement: <Navigate to="/500" replace />,
       };
     },
     children: [
@@ -62,14 +63,14 @@ export const routes: RouteObject[] = [
         id: "500",
         path: "500",
         handle: {
-          title: "Internal Server Error",
+          title: "500 Internal Server Error",
           auth: "none",
         },
         async lazy() {
-          const { NotFound } = await import("@/pages/404");
+          const { InternalServerError } = await import("@/pages/500");
 
           return {
-            Component: NotFound,
+            Component: InternalServerError,
           };
         },
       },
