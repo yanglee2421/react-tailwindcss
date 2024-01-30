@@ -18,7 +18,6 @@ export function LoginRoute() {
       to={{
         pathname: "/401",
         search: searchParams.toString(),
-        hash: void 0,
       }}
     ></Navigate>
   );

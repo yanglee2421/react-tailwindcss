@@ -9,10 +9,14 @@ export function HomeRoute() {
     return null;
   }
 
+  const pathname = searchParams.get("returnURL") || "/";
+  searchParams.delete("returnURL");
+
   return (
     <Navigate
       to={{
-        pathname: searchParams.get("returnURL") || "/",
+        pathname,
+        search: searchParams.toString(),
       }}
     ></Navigate>
   );
