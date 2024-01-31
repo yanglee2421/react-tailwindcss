@@ -25,10 +25,14 @@ jobs:
     if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: false
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-      - run: corepack enable
+          node-version: 20
+          cache: pnpm
       - run: pnpm i
       - run: pnpm build
       - uses: actions/configure-pages@v4
