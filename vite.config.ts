@@ -1,6 +1,7 @@
 // Vite Imports
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 
 // NodeJs Imports
 import { dirname, resolve } from "node:path";
@@ -12,7 +13,7 @@ export default defineConfig((configEnv) => {
   const isBuild = configEnv.command === "build";
 
   return {
-    plugins: [react()],
+    plugins: [react(), TanStackRouterVite()],
 
     // Path Alias
     resolve: {

@@ -8,9 +8,6 @@ import { App } from "./App";
 // Styles Imports
 import "antd/dist/reset.css";
 
-// I18n Imports
-import "@/i18n";
-
 const container = (() => {
   const containerId = "root";
 
@@ -28,5 +25,5 @@ const container = (() => {
 ReactDOM.createRoot(container).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
