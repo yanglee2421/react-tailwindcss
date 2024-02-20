@@ -34,6 +34,7 @@ export function ThemeProvider(props: React.PropsWithChildren) {
           spacing(factor: number) {
             return `${0.25 * factor}rem`;
           },
+          palette: {},
         })}
       >
         {children}
