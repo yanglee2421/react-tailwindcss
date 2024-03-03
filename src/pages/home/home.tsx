@@ -1,25 +1,20 @@
-// Antd Imports
 import { Button } from "antd";
-
-// MUI Imports
-import { styled } from "@mui/system";
+import { Box } from "@mui/system";
 import { getAuth, signOut } from "firebase/auth";
-import { app } from "@/api/firebase";
+import { app } from "@/api/firebase/firebase";
 
 export function Home() {
-  const handleSignOut = () => {
-    signOut(getAuth(app));
-  };
-
   return (
-    <>
-      <StyledDiv sx={{ height: "100%" }}>
-        <Button onClick={handleSignOut} type="primary" danger>
-          Sign Out
-        </Button>
-      </StyledDiv>
-    </>
+    <Box sx={{ height: "100%" }}>
+      <Button
+        onClick={() => {
+          signOut(getAuth(app));
+        }}
+        type="primary"
+        danger
+      >
+        Sign Out
+      </Button>
+    </Box>
   );
 }
-
-const StyledDiv = styled("div")({});

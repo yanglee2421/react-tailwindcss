@@ -1,23 +1,9 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { NotFound } from "@/pages/404/NotFound";
+import { InternalServerError } from "@/pages/500/InternalServerError";
 
 export const Route = createRootRoute({
-  component() {
-    return (
-      <>
-        <div className="p-2 flex gap-2">
-          <Link to="/" className="[&.active]:font-bold">
-            Home
-          </Link>{" "}
-          <Link to="/about" className="[&.active]:font-bold">
-            About
-          </Link>
-        </div>
-        <hr />
-        <Outlet />
-      </>
-    );
-  },
-  notFoundComponent() {
-    return <>4040404</>;
-  },
+  component: Outlet,
+  notFoundComponent: NotFound,
+  errorComponent: InternalServerError,
 });

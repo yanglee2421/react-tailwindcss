@@ -1,4 +1,3 @@
-// Antd Imports
 import { Button, Divider, Typography } from "antd";
 import {
   GithubOutlined,
@@ -6,15 +5,8 @@ import {
   FacebookOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
-
-// Components Imports
 import { FormLogin } from "./form-login";
-import { IconReact } from "@/components";
-
-// Assets Imports
 import justHer from "@/assets/image/bg/justHer.jpg";
-
-// MUI Imports
 import { Box } from "@mui/system";
 
 export function Unauthorized() {
@@ -48,7 +40,6 @@ export function Unauthorized() {
               gap: 3,
             }}
           >
-            <IconReact></IconReact>
             <Typography.Title level={2}>Yang_Lee</Typography.Title>
           </Box>
         </Box>

@@ -1,9 +1,6 @@
-// Vite Imports
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
-
-// NodeJs Imports
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 
@@ -14,15 +11,11 @@ export default defineConfig((configEnv) => {
 
   return {
     plugins: [react(), TanStackRouterVite()],
-
-    // Path Alias
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-
-    // ** CSS
     css: {
       preprocessorOptions: {
         scss: {
@@ -35,18 +28,11 @@ export default defineConfig((configEnv) => {
     },
 
     base: isBuild ? "./" : "/react-antd",
-
-    // ENV File Directory
     envDir: resolve(__dirname, "./"),
 
-    // Build Configuration
     build: {
       outDir: "docs",
       emptyOutDir: true,
-
-      manifest: false,
-      sourcemap: false,
-      chunkSizeWarningLimit: 1024,
 
       rollupOptions: {
         input: {
@@ -70,9 +56,12 @@ export default defineConfig((configEnv) => {
       cssTarget: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
       cssMinify: "esbuild",
       cssCodeSplit: true,
+
+      manifest: false,
+      sourcemap: false,
+      chunkSizeWarningLimit: 1024,
     },
 
-    // Dev Server
     server: {
       port: 3004,
       strictPort: true,

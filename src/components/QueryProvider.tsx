@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
 // Persist client
 const persister = createAsyncStoragePersister({
   storage: globalThis.sessionStorage,
-  key: "import.meta.env.VITE_QUERY_PERSISTER_KEY",
+  key: import.meta.env.VITE_QUERY_PERSISTER_KEY,
 });
 
 // Client configuration

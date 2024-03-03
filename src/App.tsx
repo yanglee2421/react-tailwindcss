@@ -1,4 +1,3 @@
-// Router Imports
 import {
   RouterProvider,
   createBrowserHistory,
@@ -6,10 +5,8 @@ import {
   createRouter,
 } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
-
-// Provider Imports
-import { ThemeProvider } from "@/theme";
-import { QueryProvider } from "@/plugins";
+import { ThemeProvider } from "@/theme/ThemeProvider";
+import { QueryProvider } from "@/components/QueryProvider";
 
 export function App() {
   return (
@@ -24,5 +21,5 @@ export function App() {
 const router = createRouter({
   routeTree,
   history: import.meta.env.PROD ? createHashHistory() : createBrowserHistory(),
-  basepath: "/react-antd",
+  basepath: import.meta.env.PROD ? void 0 : "/react-antd",
 });

@@ -1,14 +1,7 @@
-// React Imports
 import React from "react";
-
-// Antd Imports
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
-
-// Utils Imports
-import { useIsDark } from "@/hooks/dom";
-
-// MUI Imports
+import { useIsDark } from "@/hooks/dom/useIsDark";
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
@@ -16,10 +9,8 @@ import {
 } from "@mui/system";
 
 export function ThemeProvider(props: React.PropsWithChildren) {
-  // ** Props
   const { children } = props;
 
-  // ** Theme
   const isDark = useIsDark();
 
   return (
