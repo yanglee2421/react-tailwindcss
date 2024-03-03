@@ -21,7 +21,12 @@ export function AuthGuard(props: React.PropsWithChildren) {
         redirect_url: routerState.location.pathname,
       },
     });
-  }, [currentUser]);
+  }, [
+    currentUser,
+    navigate,
+    routerState.location.pathname,
+    routerState.location.search,
+  ]);
 
   if (currentUser) {
     return props.children;
