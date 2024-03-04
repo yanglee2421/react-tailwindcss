@@ -4,9 +4,11 @@ import {
   createHashHistory,
   createRouter,
 } from "@tanstack/react-router";
-import { routeTree } from "./routeTree.gen";
-import { ThemeProvider } from "@/theme/ThemeProvider";
+
 import { QueryProvider } from "@/components/QueryProvider";
+import { ThemeProvider } from "@/theme/ThemeProvider";
+
+import { routeTree } from "./routeTree.gen";
 
 export function App() {
   return (

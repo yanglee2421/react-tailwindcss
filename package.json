@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:fix": "eslint . --fix --ext ts,tsx && prettier ./**/*.{ts,tsx} --write"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",
@@ -41,8 +42,12 @@
     "@typescript-eslint/parser": "^7.1.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.2.5",
     "sass": "^1.71.1",
     "typescript": "^5.3.3",
     "vite": "^5.1.4"

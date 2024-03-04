@@ -1,6 +1,7 @@
-import { Button } from "antd";
 import { Box } from "@mui/system";
+import { Button } from "antd";
 import { getAuth, signOut } from "firebase/auth";
+
 import { app } from "@/api/firebase/firebase";
 
 export function Home() {

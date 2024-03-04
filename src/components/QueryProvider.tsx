@@ -1,7 +1,9 @@
 // Query Imports
-import { QueryClient, DefaultOptions } from "@tanstack/react-query";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+
+import type { DefaultOptions } from "@tanstack/react-query";
 
 export function QueryProvider(props: React.PropsWithChildren) {
   // ** Props

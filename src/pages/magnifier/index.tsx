@@ -1,9 +1,10 @@
 // Hooks Imports
-import { useObserverResize } from "@/hooks/dom";
+import React from "react";
 import { useImmer } from "use-immer";
 
+import { useObserverResize } from "@/hooks/dom";
+
 // React Imports
-import React from "react";
 
 // Style Imports
 import style from "./style.module.scss";

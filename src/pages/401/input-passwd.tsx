@@ -1,6 +1,6 @@
 // Antd Imports
-import { Form, Input } from "antd";
 import { LockOutlined } from "@ant-design/icons";
+import { Form, Input } from "antd";
 
 export function InputPasswd() {
   return (

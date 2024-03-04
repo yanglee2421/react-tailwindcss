@@ -1,6 +1,7 @@
-import { useAuthStore } from "@/hooks/store/useAuthStore";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import React from "react";
+
+import { useAuthStore } from "@/hooks/store/useAuthStore";
 
 export function AuthGuard(props: React.PropsWithChildren) {
   const navigate = useNavigate();

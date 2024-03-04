@@ -1,6 +1,6 @@
 // Antd Imports
-import { Form, Input } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { Form, Input } from "antd";
 
 export function InputEmail() {
   return (

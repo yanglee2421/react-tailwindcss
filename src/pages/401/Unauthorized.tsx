@@ -1,13 +1,17 @@
-import { Button, Divider, Typography } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
   FacebookOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
-import { FormLogin } from "./form-login";
-import justHer from "@/assets/image/bg/justHer.jpg";
 import { Box } from "@mui/system";
+import { Button, Divider, Typography } from "antd";
+
+import justHer from "@/assets/image/bg/justHer.jpg";
+
+import { FormLogin } from "./form-login";
+
+
 
 export function Unauthorized() {
   return (
