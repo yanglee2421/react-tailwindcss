@@ -1,11 +1,6 @@
 // Acl Imports
-import {
-  createMongoAbility,
-  AbilityBuilder,
-} from "@casl/ability";
-
-import type {
-  MongoAbility} from "@casl/ability";
+import { createMongoAbility, AbilityBuilder } from "@casl/ability";
+import type { MongoAbility } from "@casl/ability";
 
 export function defineAbilityFor(role: string) {
   const aclBuilder = new AbilityBuilder<AppAbility>(createMongoAbility);

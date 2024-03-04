@@ -6,9 +6,7 @@ import {
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 import React from "react";
-
 import { useIsDark } from "@/hooks/dom/useIsDark";
-
 
 export function ThemeProvider(props: React.PropsWithChildren) {
   const { children } = props;

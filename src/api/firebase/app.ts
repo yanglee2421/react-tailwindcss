@@ -1,4 +1,3 @@
-// Firebase Imports
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 

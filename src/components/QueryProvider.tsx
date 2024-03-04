@@ -1,65 +1,37 @@
-// Query Imports
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
-import type { DefaultOptions } from "@tanstack/react-query";
-
 export function QueryProvider(props: React.PropsWithChildren) {
-  // ** Props
-  const { children } = props;
-
   return (
     <PersistQueryClientProvider
       client={queryClient}
       persistOptions={{ persister }}
     >
-      {children}
+      {props.children}
     </PersistQueryClientProvider>
   );
 }
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: queries(),
-    mutations: mutations(),
+    queries: {
+      staleTime: 1000 * 60,
+      gcTime: 1000 * 60 * 2,
+
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+
+      retry: 1,
+      retryDelay(attemptIndex) {
+        return Math.min(1000 * 2 ** attemptIndex, 1000 * 8);
+      },
+    },
   },
 });
 
-// Persist client
 const persister = createAsyncStoragePersister({
   storage: globalThis.sessionStorage,
   key: import.meta.env.VITE_QUERY_PERSISTER_KEY,
-});
-
-// Client configuration
-function queries(): DefaultOptions["queries"] {
-  return {
-    staleTime: 1000 * 60,
-    gcTime: 1000 * 60 * 2,
-
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: true,
-
-    retryDelay(attemptIndex) {
-      return Math.min(1000 * 2 ** attemptIndex, 1000 * 8);
-    },
-  };
-}
-
-function mutations(): DefaultOptions["mutations"] {
-  return {};
-}
-
-// ** Defaults
-queryClient.setQueryDefaults(["unique"], {
-  async queryFn() {
-    return { msg: "hello world" };
-  },
-});
-queryClient.setMutationDefaults(["post-demo"], {
-  async mutationFn() {
-    return { msg: "successly" };
-  },
 });

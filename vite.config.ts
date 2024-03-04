@@ -1,6 +1,5 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
-
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";

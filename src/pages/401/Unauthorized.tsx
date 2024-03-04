@@ -6,12 +6,8 @@ import {
 } from "@ant-design/icons";
 import { Box } from "@mui/system";
 import { Button, Divider, Typography } from "antd";
-
 import justHer from "@/assets/image/bg/justHer.jpg";
-
 import { FormLogin } from "./form-login";
-
-
 
 export function Unauthorized() {
   return (

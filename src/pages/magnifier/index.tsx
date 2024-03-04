@@ -1,48 +1,68 @@
-// Hooks Imports
 import React from "react";
 import { useImmer } from "use-immer";
-
-import { useObserverResize } from "@/hooks/dom";
-
-// React Imports
-
-// Style Imports
 import style from "./style.module.scss";
 
 export function Component() {
-  const [outer, setOuter] = useImmer({ x: 0, y: 0 });
-  const [inner, setInner] = useImmer({
-    x: 0,
-    y: 0,
+  const [state, updateState] = useImmer({
+    outerX: 0,
+    outerY: 0,
+    innerX: 0,
+    innerY: 0,
+    width: 0,
+    height: 0,
   });
+
   const resizeRef = React.useRef<HTMLDivElement>(null);
-  const size = useObserverResize(resizeRef);
 
-  const boxHandler = (e: React.MouseEvent) => {
-    const { offsetX, offsetY } = e.nativeEvent;
+  React.useEffect(() => {
+    const resizeEl = resizeRef.current;
 
-    setOuter((prev) => {
-      prev.x = offsetX - 150;
-      prev.y = offsetY - 150;
+    if (!(resizeEl instanceof HTMLElement)) {
+      return;
+    }
+
+    const observer = new ResizeObserver(([{ contentBoxSize }]) => {
+      React.startTransition(() => {
+        updateState((draft) => {
+          const [size] = contentBoxSize;
+          draft.width = size.inlineSize;
+          draft.height = size.inlineSize;
+        });
+      });
     });
-    setInner((prev) => {
-      prev.x = -offsetX + 150;
-      prev.y = -offsetY + 150;
-    });
-  };
+
+    observer.observe(resizeEl);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [updateState]);
 
   return (
-    <div ref={resizeRef} onMouseMove={boxHandler} className={style.box}>
+    <div
+      ref={resizeRef}
+      onMouseMove={(e) => {
+        const { offsetX, offsetY } = e.nativeEvent;
+
+        updateState((draft) => {
+          draft.outerX = offsetX - 150;
+          draft.outerY = offsetY - 150;
+          draft.innerX = 150 - offsetX;
+          draft.innerY = 150 - offsetY;
+        });
+      }}
+      className={style.box}
+    >
       <div
         className={style.outer}
-        style={{ transform: `translate(${outer.x}px, ${outer.y}px)` }}
+        style={{ transform: `translate(${state.outerX}px, ${state.outerY}px)` }}
       >
         <div
           className={style.inner}
           style={{
-            width: size?.contentBoxSize?.[0].inlineSize,
-            height: size?.contentBoxSize?.[0].blockSize,
-            transform: `translate(${inner.x}px, ${inner.y}px)`,
+            width: state.width,
+            height: state.height,
+            transform: `translate(${state.innerX}px, ${state.innerY}px)`,
           }}
         ></div>
       </div>

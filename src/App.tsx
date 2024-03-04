@@ -4,10 +4,8 @@ import {
   createHashHistory,
   createRouter,
 } from "@tanstack/react-router";
-
 import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/theme/ThemeProvider";
-
 import { routeTree } from "./routeTree.gen";
 
 export function App() {
