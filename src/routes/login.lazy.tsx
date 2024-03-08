@@ -1,6 +1,13 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Unauthorized } from "@/pages/401/Unauthorized";
+import { Login } from "@/pages/login/Login";
+import { GuestGuard } from "@/components/guard/GuestGuard";
 
-export const route = createLazyFileRoute("/login")({
-  component: Unauthorized,
+export const Route = createLazyFileRoute("/login")({
+  component() {
+    return (
+      <GuestGuard>
+        <Login />
+      </GuestGuard>
+    );
+  },
 });

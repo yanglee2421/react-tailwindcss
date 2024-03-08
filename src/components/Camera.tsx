@@ -1,4 +1,3 @@
-// React Imports
 import React from "react";
 
 export function Camera() {
@@ -10,11 +9,7 @@ export function Camera() {
     handleCamera(video);
   }, [videoRef]);
 
-  return (
-    <div>
-      <video ref={videoRef} width={300} height={200}></video>
-    </div>
-  );
+  return <video ref={videoRef} width={300} height={200}></video>;
 }
 
 async function handleCamera(video: HTMLVideoElement) {

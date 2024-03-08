@@ -11,7 +11,7 @@ export function useLoginMutation() {
   });
 }
 
-export interface Req {
+interface Req {
   email: string;
   password: string;
 }

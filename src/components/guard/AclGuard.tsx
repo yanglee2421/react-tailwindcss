@@ -8,11 +8,12 @@ export function AclGuard(props: Props) {
     return props.children;
   }
 
-  return null;
+  return props.fallback;
 }
 
 type Props = {
   action: string;
   subject: string;
   children: React.ReactNode;
+  fallback?: React.ReactNode;
 };

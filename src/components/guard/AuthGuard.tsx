@@ -4,7 +4,7 @@ import React from "react";
 import { app } from "@/api/firebase/app";
 import { useAuthStore } from "@/hooks/store/useAuthStore";
 
-export function AuthGuard(props: React.PropsWithChildren) {
+export function AuthGuard(props: Props) {
   const navigate = useNavigate();
   const routerState = useRouterState();
   const authValue = useAuthStore((store) => store.value);
@@ -45,5 +45,10 @@ export function AuthGuard(props: React.PropsWithChildren) {
     return props.children;
   }
 
-  return <>fallback</>;
+  return props.fallback;
 }
+
+type Props = {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+};

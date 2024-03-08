@@ -1,4 +1,3 @@
-// React Imports
 import React from "react";
 
 export function useIsDark() {
@@ -10,9 +9,7 @@ export function useIsDark() {
         mediaQuery.removeEventListener("change", trigger);
       };
     },
-    () => {
-      return mediaQuery.matches;
-    },
+    () => mediaQuery.matches,
   );
 }
 

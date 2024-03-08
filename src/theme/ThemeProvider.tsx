@@ -42,10 +42,6 @@ export function ThemeProvider(props: React.PropsWithChildren) {
 
               backgroundColor: "blue",
             },
-
-            "#root": {
-              height: "100%",
-            },
           }}
         ></GlobalStyles>
       </MuiThemeProvider>

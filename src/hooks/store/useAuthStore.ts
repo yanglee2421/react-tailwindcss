@@ -20,7 +20,7 @@ export const useAuthStore = create<AuthStore>((set, get) => {
   };
 });
 
-export interface AuthStore {
+interface AuthStore {
   value: {
     auth: Auth;
     updateCount: number;
