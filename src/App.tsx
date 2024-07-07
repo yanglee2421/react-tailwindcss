@@ -1,22 +1,26 @@
-import {
-  RouterProvider,
-  createBrowserHistory,
-  createHashHistory,
-  createRouter,
-} from "@tanstack/react-router";
 import { QueryProvider } from "@/components/QueryProvider";
-import { routeTree } from "./routeTree.gen";
+import React from "react";
 
 export function App() {
-  return (
-    <QueryProvider>
-      <RouterProvider router={router} />
-    </QueryProvider>
-  );
-}
+  const page = React.useSyncExternalStore(
+    (onStateChange) => {
+      const observer = new MutationObserver(onStateChange);
+      observer.observe(document.documentElement, {
+        attributeFilter: ["data-page"],
+        attributeOldValue: true,
+        attributes: true,
+        characterData: false,
+        characterDataOldValue: false,
+        childList: false,
+        subtree: false,
+      });
 
-const router = createRouter({
-  routeTree,
-  history: import.meta.env.PROD ? createHashHistory() : createBrowserHistory(),
-  basepath: import.meta.env.PROD ? void 0 : "/react-tailwindcss",
-});
+      return () => {
+        return observer.disconnect();
+      };
+    },
+    () => document.documentElement.dataset.page,
+  );
+
+  return <QueryProvider></QueryProvider>;
+}

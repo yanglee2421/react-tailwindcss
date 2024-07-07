@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client"],
+    "types": ["vite/client", "chrome"],
     "rootDir": "src",
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] },

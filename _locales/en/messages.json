@@ -1,0 +1,10 @@
+{
+  "contextMenus": {
+    "message": "WarpDriven Crawler",
+    "description": "The title of the extension page"
+  },
+  "content": {
+    "message": "Hello world!",
+    "description": "The content of the extension page"
+  }
+}

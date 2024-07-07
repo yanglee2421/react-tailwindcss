@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "chrome"],
 
     // Initialized by vite
     "composite": true,

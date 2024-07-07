@@ -1,0 +1,10 @@
+{
+  "contextMenus": {
+    "message": "WarpDriven 采集",
+    "description": "The title of the extension page"
+  },
+  "content": {
+    "message": "你好 世界!",
+    "description": "The content of the extension page"
+  }
+}
