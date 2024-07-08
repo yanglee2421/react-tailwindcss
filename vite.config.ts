@@ -20,15 +20,15 @@ export default defineConfig(() => {
           name: "Yang Tab",
           version: "0.0.1",
 
-          icons: {
-            "16": "enabled-16.png",
-            "128": "enabled-128.png",
-          },
+          // icons: {
+          //   "16": "enabled-16.png",
+          //   "128": "enabled-128.png",
+          // },
 
           // ** Scripts
           content_scripts: [
             {
-              js: ["src/main.tsx"],
+              js: ["src/app/content_scripts.tsx"],
               matches: ["*://*/*"],
             },
           ],

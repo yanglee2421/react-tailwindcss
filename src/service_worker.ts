@@ -1,11 +1,35 @@
 chrome.storage.sync.onChanged.addListener((data) => {
-  if (!data.settings) return;
+  const newValue = JSON.parse(data.useSettingStore.newValue);
 
-  const { newValue } = data.settings;
-  if (!newValue) return;
+  toggleContextMenus(newValue.state.showContextMenus);
+});
 
-  const showContextMenus = Boolean(newValue.showContextMenus);
-  toggleContextMenus(showContextMenus);
+chrome.runtime.onStartup.addListener(async () => {
+  const data = await chrome.storage.sync.get("useSettingStore");
+
+  console.log("onStartup", data);
+
+  if (!data.useSettingStore) {
+    return;
+  }
+
+  const newValue = JSON.parse(data.useSettingStore);
+
+  toggleContextMenus(newValue.state.showContextMenus);
+});
+
+chrome.runtime.onInstalled.addListener(async () => {
+  const data = await chrome.storage.sync.get("useSettingStore");
+
+  console.log("onInstalled", data);
+
+  if (!data.useSettingStore) {
+    return;
+  }
+
+  const newValue = JSON.parse(data.useSettingStore);
+
+  toggleContextMenus(newValue.state.showContextMenus);
 });
 
 function toggleContextMenus(showContextMenus: boolean) {
@@ -27,5 +51,4 @@ function contextMenusListener(
   tab?: chrome.tabs.Tab,
 ) {
   console.log(btn, tab);
-  chrome.tabs.sendMessage(tab?.id || 0, "msg");
 }

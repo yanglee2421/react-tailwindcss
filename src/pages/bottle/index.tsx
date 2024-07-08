@@ -1,4 +1,3 @@
-// Styles Imports
 import style from "./style.module.scss";
 
 export function Component() {
