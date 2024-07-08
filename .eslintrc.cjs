@@ -1,5 +1,7 @@
 module.exports = {
   root: true,
+  ignorePatterns: ["dist", "docs", ".eslintrc.cjs", "public"],
+
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -8,7 +10,9 @@ module.exports = {
     "plugin:import/typescript",
     "prettier",
   ],
+
   parser: "@typescript-eslint/parser",
+
   plugins: ["react-refresh"],
   rules: {
     "@typescript-eslint/consistent-type-imports": "error",
@@ -38,7 +42,7 @@ module.exports = {
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
   },
-  ignorePatterns: ["dist", "docs", ".eslintrc.cjs"],
+
   settings: {
     "import/resolver": {
       typescript: {
