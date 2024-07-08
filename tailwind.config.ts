@@ -6,4 +6,8 @@ export default {
     extend: {},
   },
   plugins: [],
+  darkMode: ["selector", ".dark"],
+  corePlugins: {
+    preflight: true,
+  },
 } satisfies Config;

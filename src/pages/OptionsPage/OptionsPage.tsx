@@ -15,12 +15,21 @@ export function OptionsPage() {
   }
 
   return (
-    <div className="flex">
-      <aside className="w-96">aside</aside>
-      <div>
-        <header>header</header>
-        <main>
-          main
+    <div className="flex text-base">
+      <aside className="absolute inset-x-0 inset-y-0 -start-full z-10 flex h-dvh w-72 flex-col border-e bg-white transition-all sm:sticky">
+        <h2 className="border-b px-5 py-2 text-xl font-normal uppercase">
+          aside
+        </h2>
+        <div className="flex-1 overflow-auto">
+          <ul className="h-[1000px]"></ul>
+        </div>
+      </aside>
+      <div className="flex-grow">
+        <header className="sticky top-0 border-b bg-white px-5 py-2 text-xl uppercase">
+          header
+        </header>
+        <main className="p-5">
+          {/* <div className="h-[3000px]"></div> */}
           <label>
             <input
               type="checkbox"
@@ -31,8 +40,12 @@ export function OptionsPage() {
             />
             show Menus
           </label>
+          <div className="h-96"></div>
+          <div className="h-96"></div>
+          <div className="h-96"></div>
+          <div className="h-96"></div>
         </main>
-        <footer>footer</footer>
+        <footer className="border-t px-5 py-2">footer</footer>
       </div>
     </div>
   );
