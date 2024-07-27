@@ -33,5 +33,5 @@ const queryClient = new QueryClient({
 
 const persister = createAsyncStoragePersister({
   storage: globalThis.sessionStorage,
-  key: import.meta.env.VITE_QUERY_PERSISTER_KEY,
+  key: "query-persister",
 });
