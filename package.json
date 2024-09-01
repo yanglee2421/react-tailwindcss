@@ -1,5 +1,6 @@
 {
-  "name": "react-tailwindcss",
+  "name": "firebase-crxjs",
+  "description": "A Google Firebase GUI with crxjs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
