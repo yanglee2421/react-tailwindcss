@@ -7,8 +7,6 @@ chrome.storage.sync.onChanged.addListener((data) => {
 chrome.runtime.onStartup.addListener(async () => {
   const data = await chrome.storage.sync.get("useSettingStore");
 
-  console.log("onStartup", data);
-
   if (!data.useSettingStore) {
     return;
   }
@@ -20,8 +18,6 @@ chrome.runtime.onStartup.addListener(async () => {
 
 chrome.runtime.onInstalled.addListener(async () => {
   const data = await chrome.storage.sync.get("useSettingStore");
-
-  console.log("onInstalled", data);
 
   if (!data.useSettingStore) {
     return;

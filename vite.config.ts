@@ -11,7 +11,9 @@ export default defineConfig(() => {
   return {
     plugins: [
       react({
-        include: [".scss"],
+        babel: {
+          plugins: ["babel-plugin-react-compiler"],
+        },
       }),
       crx({
         manifest: defineManifest({
@@ -28,11 +30,11 @@ export default defineConfig(() => {
           // ** Scripts
           content_scripts: [
             {
-              js: ["src/app/content_scripts.tsx"],
-              matches: ["*://*/*"],
+              js: ["src/main.tsx"],
+              matches: ["<all_urls>"],
             },
           ],
-          permissions: ["contextMenus", "tabs", "storage"],
+          permissions: ["contextMenus", "tabs", "storage", "offscreen"],
           background: {
             service_worker: "src/service_worker.ts",
             type: "module",
@@ -40,14 +42,14 @@ export default defineConfig(() => {
 
           // ** Views
           action: {
-            default_popup: "default_popup.html",
+            default_popup: "index.html",
             default_title: "Yang Tab",
             default_icon: {},
           },
-          options_page: "options_page.html",
+          options_page: "index.html",
           default_locale: "en",
           chrome_url_overrides: {
-            newtab: "blank.html",
+            newtab: "index.html",
           },
         }),
       }),

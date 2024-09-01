@@ -1,11 +1,23 @@
-import { useCurrentUser } from "@/hooks/store/useCurrentUser";
+import React from "react";
+import { authReady } from "@/api/firebase/app";
+import { useCurrentUser } from "@/hooks/firebase/useCurrentUser";
+import { Loading } from "./Loading";
 
 export function GuestGuard(props: React.PropsWithChildren) {
+  return (
+    <React.Suspense fallback={<Loading />}>
+      <Content>{props.children}</Content>
+    </React.Suspense>
+  );
+}
+
+function Content(props: React.PropsWithChildren) {
+  React.use(authReady);
   const currentUser = useCurrentUser();
 
-  if (currentUser) {
-    return null;
+  if (!currentUser) {
+    return props.children;
   }
 
-  return props.children;
+  return null;
 }
