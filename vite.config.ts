@@ -46,7 +46,7 @@ export default defineConfig(() => {
             default_title: "Yang Tab",
             default_icon: {},
           },
-          options_page: "index.html",
+          // options_page: "index.html",
           default_locale: "en",
           chrome_url_overrides: {
             newtab: "index.html",
