@@ -19,7 +19,25 @@ export function NewTab() {
         </p>
       </header>
       <main className="flex-auto px-5 py-2">
-        <div className="space-x-2">
+        <form action="" className="space-y-3">
+          <fieldset>
+            <input className="block w-full focus:border-blue-500 focus:ring-blue-500" />
+          </fieldset>
+          <fieldset>
+            <input
+              type="datetime-local"
+              className="block w-full focus:border-blue-500 focus:ring-blue-500"
+            />
+          </fieldset>
+          <fieldset>
+            <input className="block w-full focus:border-blue-500 focus:ring-blue-500" />
+          </fieldset>
+          <div className="space-x-2">
+            <button className="btn-blue">submit</button>
+            <button className="btn-border">reset</button>
+          </div>
+        </form>
+        <div className="mt-3 space-x-2">
           <SignInWithGoogle />
           <SignInWithGithub />
         </div>
