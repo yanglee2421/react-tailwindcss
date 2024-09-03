@@ -84,7 +84,7 @@ export function NewTab() {
         )}
       >
         <div className="h-full p-3">
-          <div className="paper h-full divide-y">
+          <div className="paper h-full">
             <div className="flex justify-end px-5 py-2">
               <button
                 onClick={() => {
@@ -92,14 +92,14 @@ export function NewTab() {
                     draft.isDark = !draft.isDark;
                   });
                 }}
-                className="m-3 flex items-center justify-center rounded-full text-2xl"
+                className="flex items-center justify-center text-2xl hover:text-blue-500"
               >
                 <i
                   className={classNames(
                     "iconify",
                     settings.isDark
-                      ? "line-md--moon-alt-to-sunny-outline-loop-transition"
-                      : "line-md--sunny-outline-to-moon-alt-loop-transition",
+                      ? "fluent--weather-sunny-48-regular"
+                      : "fluent--weather-moon-48-regular",
                   )}
                 ></i>
               </button>
@@ -109,9 +109,9 @@ export function NewTab() {
                     draft.showDrawer = !draft.showDrawer;
                   });
                 }}
-                className="m-3 flex items-center justify-center rounded-full text-2xl transition-transform hover:rotate-180"
+                className="flex items-center justify-center text-2xl hover:text-blue-500"
               >
-                <i className="iconify line-md--close"></i>
+                <i className="fluent--dismiss-48-regular iconify"></i>
               </button>
             </div>
             <div className="px-5 py-2">
@@ -121,15 +121,21 @@ export function NewTab() {
                 consequuntur soluta rerum maiores qui a, harum ex aut. Omnis
                 inventore quidem reiciendis totam.
               </p>
-              <input
-                type="range"
-                value={settings.opacity}
-                onChange={(evt) => {
-                  updateSettings((draft) => {
-                    draft.opacity = evt.target.valueAsNumber;
-                  });
-                }}
-              />
+              <form action="">
+                <input
+                  type="range"
+                  value={settings.opacity}
+                  onChange={(evt) => {
+                    updateSettings((draft) => {
+                      draft.opacity = evt.target.valueAsNumber;
+                    });
+                  }}
+                  className="block w-full"
+                />
+                <div>
+                  <button className="btn-blue capitalize">confrim</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

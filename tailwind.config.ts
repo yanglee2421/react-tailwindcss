@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [form(), addIconSelectors(["line-md"])],
+  plugins: [form(), addIconSelectors(["fluent"])],
   darkMode: ["selector", ".dark"],
   corePlugins: {
     preflight: true,
