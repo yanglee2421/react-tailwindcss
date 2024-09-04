@@ -106,11 +106,15 @@ export function NewTab() {
           <div className="paper h-full">
             {/* Header */}
             <div className="flex items-center gap-1.5 px-5 py-2">
-              <div className="me-auto flex flex-col">
-                <time className="text-xl">{date.toLocaleTimeString()}</time>
-                <time className="text-sm text-slate-600 dark:text-slate-300">
-                  {date.toLocaleDateString()}
-                </time>
+              <div className="me-auto">
+                <p>
+                  <time className="text-xl">{date.toLocaleTimeString()}</time>
+                </p>
+                <p>
+                  <time className="text-sm text-slate-600 dark:text-slate-300">
+                    {date.toLocaleDateString()}
+                  </time>
+                </p>
               </div>
               <button
                 onClick={() => {
@@ -160,7 +164,7 @@ export function NewTab() {
                       }
                     }}
                     accept="image/*"
-                    className="text-slate-600 file:rounded file:border-transparent file:bg-blue-500 file:text-white dark:text-slate-500"
+                    className="text-slate-500 file:rounded file:border-transparent file:bg-blue-500 file:text-white dark:text-slate-400"
                   />
                 </fieldset>
                 <fieldset className="space-y-1.5">
@@ -199,13 +203,6 @@ export function NewTab() {
             {/* Footer */}
             <div className="px-5 py-2">
               <div className="flex items-center gap-2">
-                {/* <img
-                  src={bgImgHref}
-                  width={32}
-                  height={32}
-                  alt=""
-                  className="object-cover"
-                /> */}
                 <div className="relative flex size-8 items-center justify-center rounded-full bg-gray-400">
                   <span className="tracking-wider text-white">YL</span>
                   {avator && (
