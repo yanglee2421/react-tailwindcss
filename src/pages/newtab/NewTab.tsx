@@ -15,6 +15,7 @@ export function NewTab() {
   });
   const deferredSettings = React.useDeferredValue(settings);
   const [date, setDate] = React.useState(new Date());
+  const [avator, setAvator] = React.useState("");
 
   const bgRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -145,16 +146,25 @@ export function NewTab() {
               <table></table>
               <div className="space-y-3">
                 <fieldset className="space-y-1.5">
-                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <label className="text-xs font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Background image
                   </label>
                   <input
                     type="file"
+                    value={""}
+                    onChange={(evt) => {
+                      const file = evt.target.files?.item(0);
+
+                      if (file) {
+                        setAvator(URL.createObjectURL(file));
+                      }
+                    }}
+                    accept="image/*"
                     className="text-slate-600 file:rounded file:border-transparent file:bg-blue-500 file:text-white dark:text-slate-500"
                   />
                 </fieldset>
                 <fieldset className="space-y-1.5">
-                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <label className="text-xs font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Background Blur
                   </label>
                   <input
@@ -169,7 +179,7 @@ export function NewTab() {
                   />
                 </fieldset>
                 <fieldset className="space-y-1.5">
-                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <label className="text-xs font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Background Alpha
                   </label>
                   <input
@@ -197,12 +207,17 @@ export function NewTab() {
                   className="object-cover"
                 /> */}
                 <div className="relative flex size-8 items-center justify-center rounded-full bg-gray-400">
-                  <span className="tracking-wider">YL</span>
-                  <img
-                    src={bgImgHref}
-                    alt=""
-                    className="absolute inset-0 size-8 rounded-full object-cover"
-                  />
+                  <span className="tracking-wider text-white">YL</span>
+                  {avator && (
+                    <img
+                      src={avator}
+                      alt=""
+                      onLoad={(evt) => {
+                        URL.revokeObjectURL(evt.currentTarget.src);
+                      }}
+                      className="absolute inset-0 size-8 rounded-full object-cover invalid:hidden"
+                    />
+                  )}
                 </div>
                 <div>
                   <p className="text-sm">Yotu_Lee</p>
