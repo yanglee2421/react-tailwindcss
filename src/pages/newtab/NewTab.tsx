@@ -8,10 +8,13 @@ export function NewTab() {
   const [settings, updateSettings] = useImmer({
     width: 0,
     height: 0,
-    opacity: 12,
+    blur: 0,
+    alpha: 15,
     showDrawer: true,
     isDark: false,
   });
+  const deferredSettings = React.useDeferredValue(settings);
+  const [date, setDate] = React.useState(new Date());
 
   const bgRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -75,24 +78,46 @@ export function NewTab() {
     document.documentElement.classList.remove("dark");
   }, [settings.isDark]);
 
+  React.useEffect(() => {
+    let timer = 0;
+
+    const play = () => {
+      timer = requestAnimationFrame(play);
+      setDate(new Date());
+    };
+
+    timer = requestAnimationFrame(play);
+
+    return () => {
+      cancelAnimationFrame(timer);
+    };
+  }, []);
+
   return (
-    <div className="relative h-dvh overflow-hidden">
+    <div className="fixed inset-0 overflow-hidden">
       <div
         className={classNames(
           "absolute inset-y-0 w-96 transition-all",
           settings.showDrawer ? "end-0" : "-end-96",
         )}
       >
-        <div className="h-full p-3">
+        <div className="h-full py-3 pe-3">
           <div className="paper h-full">
-            <div className="flex justify-end px-5 py-2">
+            {/* Header */}
+            <div className="flex items-center gap-1.5 px-5 py-2">
+              <div className="me-auto flex flex-col">
+                <time className="text-xl">{date.toLocaleTimeString()}</time>
+                <time className="text-sm text-slate-600 dark:text-slate-300">
+                  {date.toLocaleDateString()}
+                </time>
+              </div>
               <button
                 onClick={() => {
                   updateSettings((draft) => {
                     draft.isDark = !draft.isDark;
                   });
                 }}
-                className="flex items-center justify-center text-2xl hover:text-blue-500"
+                className="flex items-center justify-center p-1 text-xl hover:text-blue-500"
               >
                 <i
                   className={classNames(
@@ -109,34 +134,95 @@ export function NewTab() {
                     draft.showDrawer = !draft.showDrawer;
                   });
                 }}
-                className="flex items-center justify-center text-2xl hover:text-blue-500"
+                className="flex items-center justify-center p-1 text-xl hover:text-red-500"
               >
-                <i className="fluent--dismiss-48-regular iconify"></i>
+                <i className="iconify fluent--dismiss-48-regular"></i>
               </button>
             </div>
+
+            {/* Main */}
             <div className="px-5 py-2">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                expedita voluptatem tenetur, sed deleniti praesentium nihil
-                consequuntur soluta rerum maiores qui a, harum ex aut. Omnis
-                inventore quidem reiciendis totam.
-              </p>
-              <form action="">
-                <input
-                  type="range"
-                  value={settings.opacity}
-                  onChange={(evt) => {
-                    updateSettings((draft) => {
-                      draft.opacity = evt.target.valueAsNumber;
-                    });
-                  }}
-                  className="block w-full"
-                />
-                <div>
-                  <button className="btn-blue capitalize">confrim</button>
-                </div>
-              </form>
+              <table></table>
+              <div className="space-y-3">
+                <fieldset className="space-y-1.5">
+                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Background image
+                  </label>
+                  <input
+                    type="file"
+                    className="text-slate-600 file:rounded file:border-transparent file:bg-blue-500 file:text-white dark:text-slate-500"
+                  />
+                </fieldset>
+                <fieldset className="space-y-1.5">
+                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Background Blur
+                  </label>
+                  <input
+                    type="range"
+                    value={settings.blur}
+                    onChange={(evt) => {
+                      updateSettings((draft) => {
+                        draft.blur = evt.target.valueAsNumber;
+                      });
+                    }}
+                    className="block w-full border-0 accent-blue-500"
+                  />
+                </fieldset>
+                <fieldset className="space-y-1.5">
+                  <label className="text-sm font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Background Alpha
+                  </label>
+                  <input
+                    type="range"
+                    value={settings.alpha}
+                    onChange={(evt) => {
+                      updateSettings((draft) => {
+                        draft.alpha = evt.target.valueAsNumber;
+                      });
+                    }}
+                    className="block w-full border-0 accent-blue-500"
+                  />
+                </fieldset>
+              </div>
             </div>
+
+            {/* Footer */}
+            <div className="px-5 py-2">
+              <div className="flex items-center gap-2">
+                {/* <img
+                  src={bgImgHref}
+                  width={32}
+                  height={32}
+                  alt=""
+                  className="object-cover"
+                /> */}
+                <div className="relative flex size-8 items-center justify-center rounded-full bg-gray-400">
+                  <span className="tracking-wider">YL</span>
+                  <img
+                    src={bgImgHref}
+                    alt=""
+                    className="absolute inset-0 size-8 rounded-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm">Yotu_Lee</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    hello world
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Login */}
+            <form action="" className="space-y-4 px-5 py-2">
+              <input type="email" className="block w-full" />
+              <input type="password" className="block w-full" />
+              <div>
+                <button type="submit" className="btn-blue">
+                  login
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -145,18 +231,21 @@ export function NewTab() {
         ref={bgRef}
         className="absolute -z-10"
         style={{
-          filter: `blur(${(20 * settings.opacity) / 100}px)`,
-          inset: `calc(${settings.opacity} * -2px)`,
+          filter: `blur(${(20 * deferredSettings.blur) / 100}px)`,
+          inset: `calc(${deferredSettings.blur} * -2px)`,
         }}
       >
         <img
           src={bgImgHref}
-          width={settings.width}
-          height={settings.height}
+          width={deferredSettings.width}
+          height={deferredSettings.height}
           alt=""
           className="absolute inset-0 z-10 size-full object-cover"
         />
-        <div className="absolute inset-0 z-20 bg-black/25"></div>
+        <div
+          className={`absolute inset-0 z-20`}
+          style={{ backgroundColor: `rgb(0,0,0,${settings.alpha / 100})` }}
+        ></div>
       </div>
     </div>
   );

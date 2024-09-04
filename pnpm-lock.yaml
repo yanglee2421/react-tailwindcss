@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@tanstack/react-query':
         specifier: ^5.53.1
-        version: 5.53.1(react@19.0.0-rc-e56f4ae3-20240830)
+        version: 5.53.1(react@19.0.0-rc-4f604941-20240830)
       '@tanstack/react-query-devtools':
         specifier: ^5.53.1
-        version: 5.53.1(@tanstack/react-query@5.53.1(react@19.0.0-rc-e56f4ae3-20240830))(react@19.0.0-rc-e56f4ae3-20240830)
+        version: 5.53.1(@tanstack/react-query@5.53.1(react@19.0.0-rc-4f604941-20240830))(react@19.0.0-rc-4f604941-20240830)
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -27,20 +27,20 @@ importers:
         specifier: ^1.5.5
         version: 1.5.5
       react:
-        specifier: 19.0.0-rc-e56f4ae3-20240830
-        version: 19.0.0-rc-e56f4ae3-20240830
+        specifier: 19.0.0-rc-4f604941-20240830
+        version: 19.0.0-rc-4f604941-20240830
       react-dom:
-        specifier: 19.0.0-rc-e56f4ae3-20240830
-        version: 19.0.0-rc-e56f4ae3-20240830(react@19.0.0-rc-e56f4ae3-20240830)
+        specifier: 19.0.0-rc-4f604941-20240830
+        version: 19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830)
       react-transition-group:
         specifier: ^4.4.5
-        version: 4.4.5(react-dom@19.0.0-rc-e56f4ae3-20240830(react@19.0.0-rc-e56f4ae3-20240830))(react@19.0.0-rc-e56f4ae3-20240830)
+        version: 4.4.5(react-dom@19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830))(react@19.0.0-rc-4f604941-20240830)
       use-immer:
         specifier: ^0.9.0
-        version: 0.9.0(immer@10.0.3)(react@19.0.0-rc-e56f4ae3-20240830)
+        version: 0.9.0(immer@10.0.3)(react@19.0.0-rc-4f604941-20240830)
       zustand:
         specifier: ^4.5.5
-        version: 4.5.5(immer@10.0.3)(react@19.0.0-rc-e56f4ae3-20240830)(types-react@19.0.0-rc.1)
+        version: 4.5.5(immer@10.0.3)(react@19.0.0-rc-4f604941-20240830)(types-react@19.0.0-rc.1)
     devDependencies:
       '@crxjs/vite-plugin':
         specifier: 2.0.0-beta.23
@@ -64,10 +64,10 @@ importers:
         specifier: ^20.16.3
         version: 20.16.3
       '@types/react':
-        specifier: npm:types-react@rc
+        specifier: npm:types-react@19.0.0-rc.1
         version: types-react@19.0.0-rc.1
       '@types/react-dom':
-        specifier: npm:types-react-dom@rc
+        specifier: npm:types-react-dom@19.0.0-rc.1
         version: types-react-dom@19.0.0-rc.1
       '@types/react-transition-group':
         specifier: ^4.4.11
@@ -85,8 +85,8 @@ importers:
         specifier: 0.0.0-experimental-b8a7b48-20240830
         version: 0.0.0-experimental-b8a7b48-20240830(eslint@8.57.0)
       eslint-plugin-react-hooks:
-        specifier: 5.1.0-rc-e56f4ae3-20240830
-        version: 5.1.0-rc-e56f4ae3-20240830(eslint@8.57.0)
+        specifier: 5.1.0-rc-4f604941-20240830
+        version: 5.1.0-rc-4f604941-20240830(eslint@8.57.0)
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@8.57.0)
@@ -1218,8 +1218,8 @@ packages:
     peerDependencies:
       eslint: '>=7'
 
-  eslint-plugin-react-hooks@5.1.0-rc-e56f4ae3-20240830:
-    resolution: {integrity: sha512-w+VTy81b3KCQYWhe2Ux/kVqhiyqieaWbHfPlSwU8sKLeHOPl2LPlCn1wWRJE7KMb5/bkrOtAyWrwhlasqUsePA==}
+  eslint-plugin-react-hooks@5.1.0-rc-4f604941-20240830:
+    resolution: {integrity: sha512-7IHBSzlQL498kfaPzQWV1t8dR/v3QTbXtG2x2bVjl5YOLpmf+I045NU78HMX7wAOaepWjsOwF591Q/O+nr3CJQ==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -1835,10 +1835,10 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-dom@19.0.0-rc-e56f4ae3-20240830:
-    resolution: {integrity: sha512-y3BHFYpAin8WvXKyyWyTIVU1GW4mL9+D5aQnGEEvNEK81NHayxNzKhGzcGISh6sa/T3+6ja/Rpqwv/raHuIx+w==}
+  react-dom@19.0.0-rc-4f604941-20240830:
+    resolution: {integrity: sha512-dFNDFiwOyx0qjJwlcxeFi0Vj7jdKOahca5L0xd/ZBdN3xvsv2ZXy8k/PKabJ1ZhHnaMX0g9ovrWjZxKOP+2ybw==}
     peerDependencies:
-      react: 19.0.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -1857,8 +1857,8 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
 
-  react@19.0.0-rc-e56f4ae3-20240830:
-    resolution: {integrity: sha512-lK74zKlBQ59tbf0Yy2HaOn9OC8lFIOknI/bZ3gIdEyrIVcMlsKZf4hSfM4JpaCkNopxsZJbw0T6pKh7sxgTS0A==}
+  react@19.0.0-rc-4f604941-20240830:
+    resolution: {integrity: sha512-ajjx5aGye+DCwLFyOi7zH+sTX0BEf939FBTFtCSwvSyE73Im+CwY+hgh+Jys4T6tXgxCwj/QF6CmrJz04uw0sA==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -1919,8 +1919,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  scheduler@0.25.0-rc-e56f4ae3-20240830:
-    resolution: {integrity: sha512-oulyb0UMHXa1ZItcjYIbwHNfGD9+BvUvuWGTswSJ7fvj/2fDNDPa88lb/kwb9KABCdE1ozHVR65h/s7af904vA==}
+  scheduler@0.25.0-rc-4f604941-20240830:
+    resolution: {integrity: sha512-PrK50bsJWH/whOy2t1PX303p1w+9lxKOYlR34IM/CrTK0/p4W+fyN564jdR1m3ecWjDgVAbf4SR7Iwmkyyw5bw==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3016,16 +3016,16 @@ snapshots:
 
   '@tanstack/query-devtools@5.52.3': {}
 
-  '@tanstack/react-query-devtools@5.53.1(@tanstack/react-query@5.53.1(react@19.0.0-rc-e56f4ae3-20240830))(react@19.0.0-rc-e56f4ae3-20240830)':
+  '@tanstack/react-query-devtools@5.53.1(@tanstack/react-query@5.53.1(react@19.0.0-rc-4f604941-20240830))(react@19.0.0-rc-4f604941-20240830)':
     dependencies:
       '@tanstack/query-devtools': 5.52.3
-      '@tanstack/react-query': 5.53.1(react@19.0.0-rc-e56f4ae3-20240830)
-      react: 19.0.0-rc-e56f4ae3-20240830
+      '@tanstack/react-query': 5.53.1(react@19.0.0-rc-4f604941-20240830)
+      react: 19.0.0-rc-4f604941-20240830
 
-  '@tanstack/react-query@5.53.1(react@19.0.0-rc-e56f4ae3-20240830)':
+  '@tanstack/react-query@5.53.1(react@19.0.0-rc-4f604941-20240830)':
     dependencies:
       '@tanstack/query-core': 5.53.1
-      react: 19.0.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -3508,7 +3508,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-react-hooks@5.1.0-rc-e56f4ae3-20240830(eslint@8.57.0):
+  eslint-plugin-react-hooks@5.1.0-rc-4f604941-20240830(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
 
@@ -4077,10 +4077,10 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.0.0-rc-e56f4ae3-20240830(react@19.0.0-rc-e56f4ae3-20240830):
+  react-dom@19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830):
     dependencies:
-      react: 19.0.0-rc-e56f4ae3-20240830
-      scheduler: 0.25.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
+      scheduler: 0.25.0-rc-4f604941-20240830
 
   react-is@16.13.1: {}
 
@@ -4088,16 +4088,16 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react-transition-group@4.4.5(react-dom@19.0.0-rc-e56f4ae3-20240830(react@19.0.0-rc-e56f4ae3-20240830))(react@19.0.0-rc-e56f4ae3-20240830):
+  react-transition-group@4.4.5(react-dom@19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830))(react@19.0.0-rc-4f604941-20240830):
     dependencies:
       '@babel/runtime': 7.25.6
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 19.0.0-rc-e56f4ae3-20240830
-      react-dom: 19.0.0-rc-e56f4ae3-20240830(react@19.0.0-rc-e56f4ae3-20240830)
+      react: 19.0.0-rc-4f604941-20240830
+      react-dom: 19.0.0-rc-4f604941-20240830(react@19.0.0-rc-4f604941-20240830)
 
-  react@19.0.0-rc-e56f4ae3-20240830: {}
+  react@19.0.0-rc-4f604941-20240830: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -4170,7 +4170,7 @@ snapshots:
       source-map-js: 1.2.0
     optional: true
 
-  scheduler@0.25.0-rc-e56f4ae3-20240830: {}
+  scheduler@0.25.0-rc-4f604941-20240830: {}
 
   semver@6.3.1: {}
 
@@ -4334,14 +4334,14 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-immer@0.9.0(immer@10.0.3)(react@19.0.0-rc-e56f4ae3-20240830):
+  use-immer@0.9.0(immer@10.0.3)(react@19.0.0-rc-4f604941-20240830):
     dependencies:
       immer: 10.0.3
-      react: 19.0.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
 
-  use-sync-external-store@1.2.2(react@19.0.0-rc-e56f4ae3-20240830):
+  use-sync-external-store@1.2.2(react@19.0.0-rc-4f604941-20240830):
     dependencies:
-      react: 19.0.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
 
   util-deprecate@1.0.2: {}
 
@@ -4419,10 +4419,10 @@ snapshots:
 
   zod@3.23.8: {}
 
-  zustand@4.5.5(immer@10.0.3)(react@19.0.0-rc-e56f4ae3-20240830)(types-react@19.0.0-rc.1):
+  zustand@4.5.5(immer@10.0.3)(react@19.0.0-rc-4f604941-20240830)(types-react@19.0.0-rc.1):
     dependencies:
-      use-sync-external-store: 1.2.2(react@19.0.0-rc-e56f4ae3-20240830)
+      use-sync-external-store: 1.2.2(react@19.0.0-rc-4f604941-20240830)
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
       immer: 10.0.3
-      react: 19.0.0-rc-e56f4ae3-20240830
+      react: 19.0.0-rc-4f604941-20240830
