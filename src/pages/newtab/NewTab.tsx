@@ -15,7 +15,6 @@ export function NewTab() {
   });
   const deferredSettings = React.useDeferredValue(settings);
   const [date, setDate] = React.useState(new Date());
-  const [avator, setAvator] = React.useState("");
 
   const bgRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -158,10 +157,7 @@ export function NewTab() {
                     value={""}
                     onChange={(evt) => {
                       const file = evt.target.files?.item(0);
-
-                      if (file) {
-                        setAvator(URL.createObjectURL(file));
-                      }
+                      console.log(file);
                     }}
                     accept="image/*"
                     className="text-slate-500 file:rounded file:border-transparent file:bg-blue-500 file:text-white dark:text-slate-400"
@@ -199,42 +195,6 @@ export function NewTab() {
                 </fieldset>
               </div>
             </div>
-
-            {/* Footer */}
-            <div className="px-5 py-2">
-              <div className="flex items-center gap-2">
-                <div className="relative flex size-8 items-center justify-center rounded-full bg-gray-400">
-                  <span className="tracking-wider text-white">YL</span>
-                  {avator && (
-                    <img
-                      src={avator}
-                      alt=""
-                      onLoad={(evt) => {
-                        URL.revokeObjectURL(evt.currentTarget.src);
-                      }}
-                      className="absolute inset-0 size-8 rounded-full object-cover invalid:hidden"
-                    />
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm">Yotu_Lee</p>
-                  <p className="text-xs text-slate-600 dark:text-slate-300">
-                    hello world
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Login */}
-            <form action="" className="space-y-4 px-5 py-2">
-              <input type="email" className="block w-full" />
-              <input type="password" className="block w-full" />
-              <div>
-                <button type="submit" className="btn-blue">
-                  login
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>

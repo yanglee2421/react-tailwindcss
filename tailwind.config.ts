@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import form from "@tailwindcss/forms";
 import { addIconSelectors } from "@iconify/tailwind";
 
 export default {
@@ -7,7 +6,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [form(), addIconSelectors(["fluent"])],
+  plugins: [addIconSelectors(["fluent"])],
   darkMode: ["selector", ".dark"],
   corePlugins: {
     preflight: true,
