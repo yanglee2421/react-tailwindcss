@@ -1,4 +1,0 @@
-{
-  "singleAttributePerLine": false,
-  "plugins": ["prettier-plugin-tailwindcss"]
-}

@@ -2,7 +2,8 @@ import bgImg from "@/assets/image/bg/justHer.jpg";
 import React from "react";
 import { useImmer } from "use-immer";
 import classNames from "classnames";
-import { useIsDark } from "@/hooks/dom/useIsDark";
+import { IconButton, Slider, styled } from "@mui/material";
+import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
 
 export function NewTab() {
   const [settings, updateSettings] = useImmer({
@@ -67,17 +68,6 @@ export function NewTab() {
     };
   }, [updateSettings]);
 
-  useIsDark();
-  React.useEffect(() => {
-    if (settings.isDark) {
-      document.documentElement.classList.add("dark");
-
-      return;
-    }
-
-    document.documentElement.classList.remove("dark");
-  }, [settings.isDark]);
-
   React.useEffect(() => {
     let timer = 0;
 
@@ -94,7 +84,7 @@ export function NewTab() {
   }, []);
 
   return (
-    <div className="fixed inset-0 overflow-hidden">
+    <NewTabWrapper>
       <div
         className={classNames(
           "absolute inset-y-0 w-96 transition-all",
@@ -115,7 +105,7 @@ export function NewTab() {
                   </time>
                 </p>
               </div>
-              <button
+              <IconButton
                 onClick={() => {
                   updateSettings((draft) => {
                     draft.isDark = !draft.isDark;
@@ -123,16 +113,9 @@ export function NewTab() {
                 }}
                 className="flex items-center justify-center p-1 text-xl hover:text-blue-500"
               >
-                <i
-                  className={classNames(
-                    "iconify",
-                    settings.isDark
-                      ? "fluent--weather-sunny-48-regular"
-                      : "fluent--weather-moon-48-regular",
-                  )}
-                ></i>
-              </button>
-              <button
+                <LightModeOutlined />
+              </IconButton>
+              <IconButton
                 onClick={() => {
                   updateSettings((draft) => {
                     draft.showDrawer = !draft.showDrawer;
@@ -140,8 +123,8 @@ export function NewTab() {
                 }}
                 className="flex items-center justify-center p-1 text-xl hover:text-red-500"
               >
-                <i className="iconify fluent--dismiss-48-regular"></i>
-              </button>
+                <DarkModeOutlined />
+              </IconButton>
             </div>
 
             {/* Main */}
@@ -167,30 +150,40 @@ export function NewTab() {
                   <label className="text-xs font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Background Blur
                   </label>
-                  <input
-                    type="range"
+                  <Slider
                     value={settings.blur}
-                    onChange={(evt) => {
+                    onChange={(e, value) => {
+                      void e;
+
+                      if (typeof value !== "number") {
+                        return;
+                      }
+
                       updateSettings((draft) => {
-                        draft.blur = evt.target.valueAsNumber;
+                        draft.blur = value;
                       });
                     }}
-                    className="block w-full border-0 accent-blue-500"
+                    valueLabelDisplay="auto"
                   />
                 </fieldset>
                 <fieldset className="space-y-1.5">
                   <label className="text-xs font-light uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Background Alpha
                   </label>
-                  <input
-                    type="range"
+                  <Slider
                     value={settings.alpha}
-                    onChange={(evt) => {
+                    onChange={(e, value) => {
+                      void e;
+
+                      if (typeof value !== "number") {
+                        return;
+                      }
+
                       updateSettings((draft) => {
-                        draft.alpha = evt.target.valueAsNumber;
+                        draft.alpha = value;
                       });
                     }}
-                    className="block w-full border-0 accent-blue-500"
+                    valueLabelDisplay="auto"
                   />
                 </fieldset>
               </div>
@@ -199,28 +192,47 @@ export function NewTab() {
         </div>
       </div>
 
-      <div
+      <ImgWrapper
         ref={bgRef}
-        className="absolute -z-10"
         style={{
           filter: `blur(${(20 * deferredSettings.blur) / 100}px)`,
           inset: `calc(${deferredSettings.blur} * -2px)`,
         }}
       >
-        <img
+        <BackgroundImage
           src={bgImgHref}
           width={deferredSettings.width}
           height={deferredSettings.height}
           alt=""
-          className="absolute inset-0 z-10 size-full object-cover"
         />
-        <div
-          className={`absolute inset-0 z-20`}
+        <Backdrop
           style={{ backgroundColor: `rgb(0,0,0,${settings.alpha / 100})` }}
-        ></div>
-      </div>
-    </div>
+        />
+      </ImgWrapper>
+    </NewTabWrapper>
   );
 }
 
+const NewTabWrapper = styled("div")({
+  position: "fixed",
+  inset: 0,
+  overflow: "hidden",
+});
 const bgImgHref = new URL(bgImg, import.meta.url).href;
+const ImgWrapper = styled("div")({
+  position: "absolute",
+  zIndex: -10,
+});
+const BackgroundImage = styled("img")({
+  position: "absolute",
+  zIndex: 10,
+  inset: 0,
+  inlineSize: "100%",
+  blockSize: "100%",
+  objectFit: "cover",
+});
+const Backdrop = styled("div")({
+  position: "absolute",
+  zIndex: 20,
+  inset: 0,
+});
