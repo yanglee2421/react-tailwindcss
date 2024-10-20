@@ -17,7 +17,7 @@ export function NewTab() {
     isDark: false,
   });
   const deferredSettings = React.useDeferredValue(settings);
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(() => new Date());
 
   const bgRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
