@@ -7,10 +7,3 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>,
 );
-/**
- * Update state
- * Generate new JSX object
- * Compare JSX type
- * if same ? update fiber : replace fiber
- * render to HTML
- */

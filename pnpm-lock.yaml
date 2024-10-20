@@ -29,6 +29,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.59.0
         version: 5.59.15(@tanstack/react-query@5.59.15(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)
+      '@yotulee/run':
+        specifier: npm:@jsr/yotulee__run@^0.0.5
+        version: '@jsr/yotulee__run@0.0.5'
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -504,6 +507,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@jsr/yotulee__run@0.0.5':
+    resolution: {integrity: sha512-6bbI6GmM9jufMaVMEMsSr2RCip8d93cawe7zdXYHi+TG2YOfBVEZd7WPAi5QS6zSBzhuRmvrtaWvq9j/3expAg==, tarball: https://npm.jsr.io/~/11/@jsr/yotulee__run/0.0.5.tgz}
 
   '@mui/core-downloads-tracker@6.1.4':
     resolution: {integrity: sha512-jCRsB9NDJJatVCHvwWSTfYUzuTQ7E0Km6tAQWz2Md1SLHIbVj5visC9yHbf/Cv2IDcG6XdHRv3e7Bt1rIburNw==}
@@ -2317,6 +2323,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@jsr/yotulee__run@0.0.5': {}
 
   '@mui/core-downloads-tracker@6.1.4': {}
 
