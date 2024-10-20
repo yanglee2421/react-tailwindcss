@@ -5,6 +5,8 @@ import classNames from "classnames";
 import { IconButton, Slider, styled } from "@mui/material";
 import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
 
+const bgImgHref = new URL(bgImg, import.meta.url).href;
+
 export function NewTab() {
   const [settings, updateSettings] = useImmer({
     width: 0,
@@ -218,7 +220,6 @@ const NewTabWrapper = styled("div")({
   inset: 0,
   overflow: "hidden",
 });
-const bgImgHref = new URL(bgImg, import.meta.url).href;
 const ImgWrapper = styled("div")({
   position: "absolute",
   zIndex: -10,
