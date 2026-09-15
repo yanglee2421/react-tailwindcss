@@ -7,6 +7,7 @@ import {
   concat,
   concatMap,
   defer,
+  distinctUntilChanged,
   EMPTY,
   filter,
   from,
@@ -144,6 +145,7 @@ export const app$ = combineLatest([m111$, m112$])
       }
 
       return merge(scanner$, m122$).pipe(
+        distinctUntilChanged(),
         concatMap((value) => {
           console.log(value);
 
