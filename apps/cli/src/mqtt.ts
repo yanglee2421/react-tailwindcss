@@ -85,6 +85,9 @@ export class MqttDemo {
             }),
           );
         }),
+        tap((value) => {
+          console.log(value);
+        }),
         retry({
           count: Infinity,
           resetOnSuccess: true,
