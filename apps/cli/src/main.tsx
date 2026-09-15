@@ -2,6 +2,7 @@ import { Box, render, Static, Text, useCursor, useInput } from "ink";
 import React from "react";
 import { handleMain } from "./cpp";
 import { MqttDemo } from "./mqtt";
+import { confrim$ as confirm$, inputWindow$ } from "./scanner";
 
 const handleMqtt = () => {
   const demo = new MqttDemo();
@@ -39,6 +40,18 @@ const Counter = () => {
           break;
         case "mqtte":
           ref.current?.dispose();
+          break;
+        case "openform":
+          inputWindow$.next(true);
+          break;
+        case "closeform":
+          inputWindow$.next(false);
+          break;
+        case "confirmtrue":
+          confirm$.next(true);
+          break;
+        case "confirmfalse":
+          confirm$.next(false);
           break;
         case "exit":
           process.exit();

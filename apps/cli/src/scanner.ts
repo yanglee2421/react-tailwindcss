@@ -1,15 +1,23 @@
+import { FXPLCClientMock, TransportSerial } from "node-fxplc";
 import net from "node:net";
 import {
+  BehaviorSubject,
   catchError,
+  combineLatest,
+  concat,
   concatMap,
+  defer,
+  EMPTY,
+  filter,
   from,
-  map,
+  interval,
+  merge,
   Observable,
-  of,
   Subject,
   switchMap,
   take,
   tap,
+  throwError,
 } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { InterByteTimeoutParser, SerialPort } from "serialport";
@@ -104,26 +112,91 @@ export const scanAsTCPServer = () => {
   return { server$, socket$ };
 };
 
-const windowReady$ = new Subject();
-const inputReady = (data: unknown) => {
-  return windowReady$.pipe(
-    map(() => data),
-    take(1),
-  );
-};
-export const app$ = scanBySerialPort().pipe(
-  concatMap((code) => {
-    const url = new URL("http://localhost:5003");
-
-    url.searchParams.set("param", code);
-
-    return fromFetch(url.href).pipe(
-      switchMap((r) => from(r.json())),
-      catchError(() => of(null)),
-      switchMap((data) => inputReady(data)),
-      tap((data) => {
-        console.log(data);
-      }),
-    );
-  }),
+const port = new TransportSerial({ path: "COM1", timeout: 1000 * 2 });
+const plc = new FXPLCClientMock(port);
+// 可以扫码
+const m111$ = interval(1000).pipe(switchMap(() => plc.readBit("M111")));
+// 扫码推轮
+const m112$ = interval(1000).pipe(switchMap(() => plc.readBit("M112")));
+// 扫码不成功
+const m122$ = interval(1000).pipe(
+  switchMap(() => plc.readBit("M122")),
+  filter((v) => v),
 );
+// 扫码器
+const scanner$ = scanBySerialPort();
+export const inputWindow$ = new BehaviorSubject(true);
+const formOpen$ = inputWindow$.pipe(
+  filter((open) => open),
+  take(1),
+);
+export const confrim$ = new Subject<boolean>();
+
+export const app$ = combineLatest([m111$, m112$])
+  .pipe(
+    concatMap(([m111, m112]) => {
+      if (m111 !== true) {
+        return EMPTY;
+      }
+
+      if (m112 !== false) {
+        return EMPTY;
+      }
+
+      return merge(scanner$, m122$).pipe(
+        concatMap((value) => {
+          console.log(value);
+
+          return defer(() => {
+            if (typeof value !== "string") {
+              return throwError(() => new Error("Scanner failed by plc"));
+            }
+
+            return fromFetch("").pipe(
+              switchMap((r) => from(r.json())),
+              switchMap((data) => {
+                // 探伤
+                if (data == 1) {
+                  return concat(
+                    defer(() => from(plc.writeBit("M130", true))),
+                    defer(() => from(plc.writeBit("M121", true))),
+                    formOpen$.pipe(
+                      tap(() => {
+                        console.log("自动写入表单");
+                      }),
+                    ),
+                  );
+                }
+
+                // 不探伤
+                return concat(
+                  defer(() => from(plc.writeBit("M130", false))),
+                  defer(() => from(plc.writeBit("M121", true))),
+                );
+              }),
+            );
+          }).pipe(
+            catchError((error) => {
+              console.error(error);
+
+              return formOpen$.pipe(
+                switchMap(() => confrim$),
+                switchMap((confirm) => {
+                  return concat(
+                    defer(() => from(plc.writeBit("M130", confirm))),
+                    defer(() => from(plc.writeBit("M121", true))),
+                  );
+                }),
+              );
+            }),
+          );
+        }),
+      );
+    }),
+    catchError((error) => {
+      console.error(error);
+
+      return EMPTY;
+    }),
+  )
+  .subscribe();
